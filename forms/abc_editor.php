@@ -107,13 +107,16 @@
 <!--span id="abc_code"></span-->        
 </div>
 <br />
-
+<div id="save_or_login">
 <?php
-    if($_SESSION['Authenticated']){                
+    if(array_key_exists('Authenticated', $_SESSION)){                
        echo '<input type="button" value="save" id="save"/>';                
+    }else{
+        //Log in to save button
+        include('login_from_tune_editor.php');
     }
 ?>    
-
+</div>
 </form>
 </div> 
 
