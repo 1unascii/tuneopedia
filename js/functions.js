@@ -1,6 +1,7 @@
 $(document).ready(function(){
 //octave is a boolean
-    $.accidentalNotes = function(accidentals, modifierString, keyPress, octave){
+    //$.accidentalNotes = function(accidentals, modifierString, keyPress, octave){
+    function accidentalNotes(accidentals, modifierString, keyPress, octave){
         var accidental = false;
         for(var i=0; i<accidentals.length; i++){
             if(accidentals[i] == keyPress){//keyPress

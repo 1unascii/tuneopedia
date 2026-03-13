@@ -3,10 +3,13 @@
     include_once('../connect.php');
     //include_once('../functions.php');
     //include_once('../links.php');
+    ;
 ?>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script type="text/javascript" src="js/abc_editor.js"></script>
-<script src="js/functions.js" type="text/javascript"></script> 
+<!--script type="text/javascript" src="js/keyPress.js"></script-->
+<!--script type="text/javascript" src="abcjs-plugin-min.js"-></script-->
+<!--script src="js/functions.js" type="text/javascript"></script--> 
 <script src="js/jquery-turtle.min.js" type="text/javascript"></script> 
 <script type="text/javascript" src="abcjs_basic_1.10-min.js"></script>
 
