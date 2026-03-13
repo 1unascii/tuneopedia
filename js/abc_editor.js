@@ -41,6 +41,16 @@ $(document).ready(function(){
                     ["Ab", "Bb dorian", "Eb Mixolydian", "F minor"], ["Db", "Eb dorian", "Ab Mixolydian", "Bb minor"],
                     ["Gb", "Ab dorian", "Db Mixolydian", "Eb minor"], ["Cb", "Db dorian", "Gb Mixolydian", "Ab minor"]];
 
+    var sharpKeysArray = [ ["C","D dorian","G Mixolydian", "A minor"], ["G", "A dorian", "D Mixolydian", "E minor"],
+                    ["D", "E dorian", "A Mixolydian", "B minor"], ["A", "B dorian", "E Mixolydian", "F# minor"],
+                    ["E", "F# dorian", "B Mixolydian", "C# minor"], ["B", "C# dorian", "F# Mixolydian", "G# minor"],
+                    ["F#", "G# dorian", "C# Mixolydian", "D# minor"], ["C#", "D# dorian", "G# Mixolydian", "A# minor"]];
+
+    var flatKeysArray = [ ["C","D dorian", "G Mixolydian", "A minor"], ["F", "G dorian", "C Mixolydian", "D minor"],
+                    ["Bb", "C dorian", "F Mixolydian", "G minor"], ["Eb", "F dorian", "Bb Mixolydian", "C minor"],
+                    ["Ab", "Bb dorian", "Eb Mixolydian", "F minor"], ["Db", "Eb dorian", "Ab Mixolydian", "Bb minor"],
+                    ["Gb", "Ab dorian", "Db Mixolydian", "Eb minor"], ["Cb", "Db dorian", "Gb Mixolydian", "Ab minor"]];                
+
     //currently the first elements ["B", "b"] and ["F", "f"] are not used in these arrays, the playKeys() function that uses these arrays starts looping at 1 instead of 0 index
     //it's important that ["E", "e"] and ["C", "c"] are at the second position of the array
     var flatsToPush = [["B", "b"], ["E", "e"], ["A", "a"], ["D", "d"], ["G", "g"], ["C", "c"], ["F", "f"]];
@@ -455,9 +465,9 @@ s
                 var abc_split = selection.split('');
                 
                 if(keySpecificPlayBack(key, sharpsArray, abc_split, '^', sharpsToPush)){
-                    $('#abc').play(keySpecificPlayBack(key, sharpsArray, abc_split, '^', sharpsToPush));//jQuery Turtle plugin
+                    $('#abc').play(keySpecificPlayBack(key, sharpKeysArray, abc_split, '^', sharpsToPush));//jQuery Turtle plugin
                 }else {
-                    $('#abc').play(keySpecificPlayBack(key, flatsArray, abc_split, '_', flatsToPush));
+                    $('#abc').play(keySpecificPlayBack(key, flatKeysArray, abc_split, '_', flatsToPush));
                 }
                                    
             }else{
@@ -567,8 +577,7 @@ s
     function keyPress(){
         
         //$('#abc').on('keypress', function(event){
-        sharps = [];
-        flats = [];    
+            
         findSurroundingChars();
         key = $('#key').val();        
         var c = event.which;//character code        
@@ -603,10 +612,10 @@ s
             }
         }else        
         if(keyPress == ',' || keyPress =='\''){  
-            //sharps = [];
-            //sharps.push("F", "f");
-            //flats = [];
-            //flats.push("B", "b");
+            sharps = [];
+            sharps.push("F", "f");
+            flats = [];
+            flats.push("B", "b");
             if(charBeforeLast == '^' || charBeforeLast == '_' || charBeforeLast == '='){//if the user modified the note
                 
                 if(threeCharsAgo == charBeforeLast){//just how modified is this note anyway?
@@ -710,14 +719,18 @@ s
                 }
             }
         }else{//if keypress was not a modifier AND last key press also was not a modifier
-            
+            //then just play the keyed note value, modified by key, of course
+
+            //sharps = [];
+            //flats = [];
+
             /*
             Searches the sharpKeysArray for an inner array such as ["C","D dorian","G Mixolydian", "A minor"], 
             or ["G", "A dorian", "D Mixolydian", "E minor"]
             */
             var innerArrayIndex = sharpKeysArray.findIndex(innerArr => {
                 return  innerArr.includes(key);
-            })
+            });
             alert(innerArrayIndex);
 
             if(innerArrayIndex > 0){
