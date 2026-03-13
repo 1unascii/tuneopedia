@@ -54,7 +54,7 @@ $(document).ready(function(){
     //currently the first elements ["B", "b"] and ["F", "f"] are not used in these arrays, the playKeys() function that uses these arrays starts looping at 1 instead of 0 index
     //it's important that ["E", "e"] and ["C", "c"] are at the second position of the array
     var flatsToPush = [["B", "b"], ["E", "e"], ["A", "a"], ["D", "d"], ["G", "g"], ["C", "c"], ["F", "f"]];
-    var sharpsToPush = [["F", "f"], ["C", "c"], ["G", "g"], ["D", "d"], ["A", "a"], ["E", "e"], ["B", "b"]];
+    var sharpsToPush = [["Ff"], ["Cc"], ["Gg"], ["Dd"], ["Aa"], ["Ee"], ["Bb"]];
     
     /*BUILDS THE HEADER CONTENT THAT abc.js PLUGIN NEEDS IN ORDER TO RECOGNIZE ABC CODE AND RENDER SHEET MUSIC ON THE PAGE*/
     function build_abc_hdr(headers){
@@ -108,29 +108,7 @@ $(document).ready(function(){
         sixCharsAhead = returnChar(selector.value, caretPos +5, caretPos +6);//six chars ahead
     }
     
-    //takes a list of notes that should be modified (depending on the key)
-    //octave is a boolean //arg 1 => sharps, arg 2 => '^', arg 3 => keyPress, arg 4 => boolean
-    function accidentalNotes(accidentals, modifierString, keyPress, octave){
-        var accidental = false;
-        for(var i=0; i<accidentals.length; i++){
-            if(accidentals[i] == keyPress){//keyPress
-                accidental = true;
-            }
-        }
-        if(accidental){
-            if(octave){
-                return (modifierString + lastChar + keyPress);
-            }else{
-                return (modifierString + keyPress);
-            }
-        }else{
-            if(octave){
-                return (lastChar + keyPress);
-            }else{
-                return (keyPress);
-            }
-        }
-    }
+    
 
     //called when a letter was found behind a modifier character such as a comma or apostrophe 
     //e.g. "FFF,,,," should return "F,,,," where "__F,,,," should return "__F,,,,"
@@ -204,135 +182,7 @@ $(document).ready(function(){
         findSurroundingChars();
     })
     
-    function interpretSurroundingChars(event){
-        findSurroundingChars();
-        var key = $('#key').val();
-        var c = event.which;//character code
-        var keyPress = String.fromCharCode(c);//convert it to a string
-
-        if(keyPress == '^' || keyPress == '_' || keyPress == '='){
-            //Double Accidental with octave modifier
-            //TO DO!!! //will have to do some more recursive calculations here to test for multiple octave modifiers
-            if(nextChar == keyPress && threeCharsAhead == ',' || threeCharsAhead == '\''){
-                $(this).play(keyPress + nextChar + charAfterNext + threeCharsAhead);
-            //Double Accidental without octave modifier
-            }else if(nextChar == keyPress){
-                $(this).play(keyPress + nextChar + charAfterNext);
-            //An accidental sandwiched between and accidental and a note with octave modifier
-            }else if (lastChar == '^' || lastChar == '_' && nextChar.match(letters) && charAfterNext == ',' || charAfterNext == '\''){
-                $(this).play(lastChar + keyPress + nextChar + charAfterNext)
-            //accidental was sandwiched between accidental and a note
-            }else if(lastChar == '^' || lastChar == '_' && nextChar.match(letters)){
-                $(this).play(lastChar + keyPress + nextChar)
-            //Accidental added before a letter with octave modifier
-            }else if(nextChar.match(letters) && charAfterNext == ',' || charAfterNext =='\''){
-                //TO DO Test for multiple modifiers
-                $(this).play(keyPress + nextChar + charAfterNext);
-            // "" "" without octave modifier
-            }else if(nextChar.match(letters)){
-                $(this).play(keyPress + nextChar);
-            }
-        }else
-        if(lastChar == '^' || lastChar == '_'){
-            if(charBeforeLast == lastChar){
-                $(this).play(charBeforeLast + lastChar + keyPress);//double accidental
-            }else{
-                $(this).play(lastChar + keyPress);//accidental note
-            }
-        }else
-        if(keyPress == ',' || keyPress =='\''){
-
-            if(charBeforeLast == '^' || charBeforeLast == '_' || charBeforeLast == '='){//if the user modified the note
-                
-                if(threeCharsAgo == charBeforeLast){//just how modified is this note anyway?
-                    //octave modifiers in front of keyPress //rare case that should be handled
-                    if(nextChar == ',' || nextChar == '\''){
-                        $(this).play(threeCharsAgo + charBeforeLast + lastChar + keyPress + nextChar);
-                    } else {
-                        $(this).play(threeCharsAgo + charBeforeLast + lastChar + keyPress);
-                    }
-                }else{//ok it's only a single accidental
-                    $(this).play(charBeforeLast + lastChar + keyPress);
-                }
-            //multiple octave modifiers are used
-            }else if(lastChar == ',' || lastChar == '\'') {
-                var chars = [ fourCharsAgo, threeCharsAgo, charBeforeLast, lastChar, keyPress ];
-                
-                if(charBeforeLast.match(letters)){
-                    $(this).play(letterCharsAgo(chars));
-                }else
-                if(threeCharsAgo.match(letters)){
-                    chars.unshift(fiveCharsAgo);
-                    $(this).play(letterCharsAgo(chars));
-                }else
-                if(fourCharsAgo.match(letters)){
-                    chars.unshift(sixCharsAgo, fiveCharsAgo);
-                    $(this).play(letterCharsAgo(chars));
-                }else
-                if(fiveCharsAgo.match(letters)){
-                    chars.unshift(sevenCharsAgo, sixCharsAgo, fiveCharsAgo);
-                    $(this).play(letterCharsAgo(chars));
-                }else
-                if(sixCharsAgo.match(letters)){
-                    chars.unshift(eightCharsAgo, sevenCharsAgo, sixCharsAgo, fiveCharsAgo);
-                    $(this).play(letterCharsAgo(chars));
-                }
-                                  
-            }else {
-
-                if(key == "C" || key == "D dorian" || key == "G Mixolydian" || key == "A minor"){
-                    $(this).play(lastChar + keyPress);
-                }else{
-
-                    key = $('#key').val();
-                    abc = lastChar + keyPress;
-                    //the selection is split into an array that is parsed by the keySpecificPlayback() function
-                    var abc_split = abc.split('');
-                    
-                    /*The boolean at the end tells the keySpecificPlayback function that the keyPress was an octave modifier*/
-                    if(keySpecificPlayBack(key, sharpsArray, abc_split, '^', sharpsToPush)){
-                        $('#abc').play(keySpecificPlayBack(key, sharpsArray, abc_split, '^', sharpsToPush));//jQuery Turtle plugin
-                    }else {
-                        $('#abc').play(keySpecificPlayBack(key, flatsArray, abc_split, '_', flatsToPush));
-                    }
-
-                }
-                
-                
-            }
-        }else{
-
-            /*JUST PLAY LETTERS!!! NO OCTAVE OR ACCIDENTALS*/
-            if(key == "C" || key == "D dorian" || key == "G Mixolydian" || key == "A minor"){
-                $(this).play(keyPress);
-            }else{
-                key = $('#key').val();
-                //the selection is split into an array that is parsed by the keySpecificPlayback() function
-                var abc_split = keyPress.split('');
-
-                /*TESTING*/
-                /*if(key == "Bb" || key == "F" || key == "C Mixolydian" || key == "Eb Mixolydian" || key == "D"){
-                    alert(
-
-                        "key: " + key + "\n" +
-                        "sharpsArray: " + sharpsArray + "\n" +
-                        "keyPress: " + keyPress + "\n" +
-                        "sharpsToPush: " + sharpsToPush + "\n" +
-                        "flatsToPush: " + flatsToPush + "\n"
-
-                        );
-                }*/
-
-                if(keySpecificPlayBack(key, sharpsArray, abc_split, '^', sharpsToPush)){
-                    $('#abc').play(keySpecificPlayBack(key, sharpsArray, abc_split, '^', sharpsToPush));//jQuery Turtle plugin
-                }else {
-                    $('#abc').play(keySpecificPlayBack(key, flatsArray, abc_split, '_', flatsToPush));
-                }  
-            }
-            
-        }
     
-    }
 
 
 
@@ -574,10 +424,13 @@ s
         );
     })
 
+
+
     function keyPress(){
         
         //$('#abc').on('keypress', function(event){
-            
+        sharps = [];
+        flats = [];    
         findSurroundingChars();
         key = $('#key').val();        
         var c = event.which;//character code        
@@ -646,105 +499,89 @@ s
                     }            
                 }
                 
-            }else { 
+            }else { //first octave or special character after a letter note
                 
-                if(key == "C" || key == "D dorian" || key == "G Mixolydian" || key == "A minor"){    
-                    $(this).play(lastChar + keyPress); 
-                }else
-                //Sharp keys
-                if(key == "G" || key == "A dorian" || key == "D Mixolydian" || key == "E minor"){
-                    $(this).play(accidentalNotes(sharps, '^', keyPress, true));
-                }else{
-                    sharps.push("C", "c"); 
-                } 
-                if(key == "D" || key == "E dorian" || key == "A Mixolydian" || key == "B minor"){                               
-                }else{
-                    sharps.push("G", "g");    
-                } 
-                if(key == "A" || key == "B dorian" || key == "E Mixolydian" || key == "F# minor"){                            
-                    $(this).play(accidentalNotes(sharps, '^', keyPress, true));                
-                }else{
-                    sharps.push("D", "d"); 
-                } 
-                if(key == "E" || key == "F# dorian" || key == "B Mixolydian" || key == "C# minor"){                               
-                    $(this).play(accidentalNotes(sharps, '^', keyPress, true));                
-                }else{
-                    sharps.push("A", "a");  
-                } 
-                if(key == "B" || key == "C# dorian" || key == "F# Mixolydian" || key == "G# minor"){                                
-                    $(this).play(accidentalNotes(sharps, '^', keyPress, true));                
-                }else{
-                    sharps.push("E", "e");
+                var innerArrayIndex = sharpKeysArray.findIndex(innerArr => {
+                return  innerArr.includes(key);
+                });
+                //alert(innerArrayIndex);
+
+                if(innerArrayIndex > 0){
+                    for(var j=0; j<innerArrayIndex; j++){
+                        sharps.push(sharpsToPush[j]);
+                    }
                 }
-                if(key == "F#" || key == "G# dorian" || key == "C# Mixolydian" || key == "D# minor"){                                
-                    $(this).play(accidentalNotes(sharps, '^', keyPress, true));                
-                }else{
-                    sharps.push("B", "b"); 
-                } 
-                if(key == "C#" || key == "D# dorian" || key == "G# Mixolydian" || key == "A# minor"){                               
-                    $(this).play(accidentalNotes(sharps, '^', keyPress, true));
-                //Flat keys                
-                }else if(key == "F" || key == "G dorian" || key == "C Mixolydian" || key == "D minor"){
-                    $(this).play(accidentalNotes(flats, '_', keyPress, true));
-                }else{
-                    flats.push("E", "e");
-                }
-                if(key == "Bb" || key == "C dorian" || key == "F Mixolydian" || key == "G minor"){
-                    $(this).play(accidentalNotes(flats, '_', keyPress, true));
-                }else{
-                    flats.push("A", "a");
-                }
-                if(key == "Eb" || key == "F dorian" || key == "Bb Mixolydian" || key == "C minor"){
-                    $(this).play(accidentalNotes(flats, '_', keyPress, true));
-                }else{
-                    flats.push("D", "d");
-                }
-                if(key == "Ab" || key == "Bb dorian" || key == "Eb Mixolydian" || key == "F minor"){
-                    $(this).play(accidentalNotes(flats, '_', keyPress, true));
-                }else{
-                    flats.push("G", "g");
-                }
-                if(key == "Db" || key == "Eb dorian" || key == "Ab Mixolydian" || key == "Bb minor"){
-                    $(this).play(accidentalNotes(flats, '_', keyPress, true));
-                }else{
-                    flats.push("C", "c");
-                }
-                if(key == "Gb" || key == "Ab dorian" || key == "Db Mixolydian" || key == "Eb minor"){
-                    $(this).play(accidentalNotes(flats, '_', keyPress, true));
-                }else{
-                    flats.push("F", "f");
-                }
-                if(key == "Cb" || key == "Db dorian" || key == "Gb Mixolydian" || key == "Ab minor"){
-                    $(this).play(accidentalNotes(flats, '_', keyPress, true));
-                }
+               
+                $(this).play(accidentalNotes(sharps, '^', lastChar + keyPress)); 
             }
         }else{//if keypress was not a modifier AND last key press also was not a modifier
             //then just play the keyed note value, modified by key, of course
-
-            //sharps = [];
-            //flats = [];
 
             /*
             Searches the sharpKeysArray for an inner array such as ["C","D dorian","G Mixolydian", "A minor"], 
             or ["G", "A dorian", "D Mixolydian", "E minor"]
             */
-            var innerArrayIndex = sharpKeysArray.findIndex(innerArr => {
+            //var accidentals = [];
+
+            var innerSharpKeysArrayIndex = sharpKeysArray.findIndex(innerArr => {
                 return  innerArr.includes(key);
             });
-            alert(innerArrayIndex);
 
-            if(innerArrayIndex > 0){
-                for(j=0; j<innerArrayIndex; j++){
-                    sharps.push(sharpsToPush[j]);
+            var innerFlatKeysArrayIndex = flatKeysArray.findIndex(innerArr => {
+                return  innerArr.includes(key);
+            });
+
+            //alert(innerSharpKeysArrayIndex);
+
+            if(innerSharpKeysArrayIndex > 0){
+                for(var i=0; i<innerSharpKeysArrayIndex; i++){
+                    sharps.push(sharpsToPush[i]);
+                }
+            }else 
+            if(innerFlatKeysArrayIndex > 0){
+                for(var i=0; i<innerFlatKeysArrayIndex; i++){
+                    flats.push(flatsToPush[i]);
                 }
             }
-           
-            $(this).play(accidentalNotes(sharps, '^', keyPress));            
+            
+            if(sharps.join('').indexOf(keyPress) > -1){
+               $(this).play('^' + keyPress); 
+               //$(this).play(accidentalNotes(accidentals, '^', keyPress));   
+            } else 
+            if(flats.join('').indexOf(keyPress) > -1){
+                $(this).play('_' + keyPress);
+            }else{
+                $(this).play(keyPress);
+            }
+            //alert("Sharps: " + sharps + "\n" + "Flats: " + flats);
+            //$(this).play(accidentalNotes(accidentals, '^', keyPress));            
         }
        
     }
 
-
+    //takes a list of notes that should be modified (depending on the key)
+    //octave is a boolean //arg 1 => sharps, arg 2 => '^', arg 3 => keyPress, arg 4 => boolean
+    function accidentalNotes(accidentals, modifierString, keyPress, octave){
+        var accidental = false;
+        for(var i=0; i<accidentals.length; i++){
+            if(accidentals[i] == keyPress){//keyPress
+                accidental = true;
+            }
+        }
+        if(accidental){
+            if(octave){
+                return (modifierString + lastChar + keyPress);
+            }else{
+                return (modifierString + keyPress);
+            }
+        }else{
+            if(octave){
+                return (lastChar + keyPress);
+            }else{
+                return (keyPress);
+            }
+        }
+    }
     
     /*********END**********/    
 })
