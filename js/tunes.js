@@ -18,13 +18,13 @@ $(document).ready(function(){
                 },
                 function(data){
                     if(data == "You don't have permission to delete this"){//If this happens something is wrong
-                        alert(data);                      
+                        //alert(data);                      
                     }else{
                         //$("#content").load("tunes.php");
                         setTimeout(function() {
                             location.reload("index.php");
                         }, 2000); // Reloads after 2 seconds
-                        alert(data);
+                        //alert(data);
                     }
                 }
             );         
