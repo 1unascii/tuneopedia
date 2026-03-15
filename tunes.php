@@ -115,7 +115,7 @@
                     if(array_key_exists('Authenticated', $_SESSION)){
                         echo "<td>";
                         if($_SESSION['author_id'] == $t['author_id']){       //Delete action
-                            echo "<span class='ui-icon ui-icon-trash' style='display: inline-block;'></span>";
+                            echo "<span class='ui-icon ui-icon-trash' id=$t_id style='display: inline-block;'></span>";
                         }
                         echo "</td>";
                     }

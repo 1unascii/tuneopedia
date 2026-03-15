@@ -8,10 +8,13 @@ $(document).ready(function(){
         
         var result = confirm("Are you sure you want to delete this tune?");    
         if(result){
+            alert($(this).attr("id"));
             $.post(
                 "remove_tune.php",
                 {
-                    "tune_id":$(this).parent().prev().prev().prev().prev().prev().find("span").attr("id")
+                    
+                    "tune_id":$(this).attr("id")
+
                 },
                 function(data){
                     if(data == "You don't have permission to delete this"){//If this happens something is wrong
