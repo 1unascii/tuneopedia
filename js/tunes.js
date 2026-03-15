@@ -22,7 +22,7 @@ $(document).ready(function(){
                     }else{
                         //$("#content").load("tunes.php");
                         setTimeout(function() {
-                            location.reload("index.php");
+                            location.reload();
                         }, 2000); // Reloads after 2 seconds
                         //alert(data);
                     }
