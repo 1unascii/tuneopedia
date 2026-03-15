@@ -35,9 +35,7 @@
         $count++;
     }
 ?>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
-<script type="text/javascript" language="javascript" src="js/tunes.js"></script>
+
 <script>
     $(function() {
          $( "#tabs" ).tabs();
@@ -111,7 +109,9 @@
                     //Key
                     echo "<td>";
                         echo $t['key']; 
-                    echo "</td>";        
+                    echo "</td>";  
+
+                    //Delete option spawns a trash can icon      
                     if(array_key_exists('Authenticated', $_SESSION)){
                         echo "<td>";
                         if($_SESSION['author_id'] == $t['author_id']){       //Delete action

@@ -67,7 +67,7 @@ function simpleQuery($query){
     }
 }
 
-function deleteQuery($query){
+/*function deleteQuery($query){
     try{
         $db = connect();
         $query = $db->prepare($query);
@@ -81,6 +81,22 @@ function deleteQuery($query){
     catch ( PDOException $err){
         echo $err->getCode();
         echo $err->getMessage(); 
+    }
+}*/
+
+function deleteTune($tune_id, $author_id) {
+    try {
+        $db = connect();
+        $sql = "DELETE FROM tunes WHERE tune_id = ? AND author_id = ?";
+        $stmt = $db->prepare($sql);
+        
+        // Pass the variables here in the same order as the "?" in your SQL
+        return $stmt->execute([$tune_id, $author_id]);
+
+    } catch (PDOException $err) {
+        // Keeping your error reporting for debugging
+        echo $err->getCode() . " " . $err->getMessage(); 
+        return false; 
     }
 }
 

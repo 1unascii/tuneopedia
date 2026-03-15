@@ -1,6 +1,8 @@
 $(document).ready(function(){
+    
     $('#tunes').dataTable();
     $('td').css("font: Times New Roman");
+
     //delete a tune from database
     $(".ui-icon-trash").on("click", function(){
         
@@ -12,10 +14,11 @@ $(document).ready(function(){
                     "tune_id":$(this).parent().prev().prev().prev().prev().prev().find("span").attr("id")
                 },
                 function(data){
-                    if(data == "You don't have permission to delete this"){//should hopefully never happen
+                    if(data == "You don't have permission to delete this"){//If this happens something is wrong
                         alert(data);                      
                     }else{
                         $("#content").load("tunes.php");
+                        alert(data);
                     }
                 }
             );         
