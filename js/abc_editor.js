@@ -414,7 +414,7 @@ s
               function(data){
                   if(data == "Thank you. Your tune was submitted"){
                       alert(data);
-                      $('#content').load('tunes.php');
+                      location.reload();
                   }else{
                       alert(data);
                   }
