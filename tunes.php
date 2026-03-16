@@ -67,16 +67,17 @@
                         <?php endif; ?>
                     </tr>
                 </thead>
-                
+                <?php $count = 0; ?>
                 <tbody class="ui-state-default">
                     <?php if (is_array($tunes)): ?>
                         <?php foreach ($tunes as $row_index => $t): ?>
+                            
                             <?php 
                                 $t_id = $t['tune_id'];
                                 $author_id = $t['author_id'];
                             ?>
                             
-                            <tr class="tune_data_row" style="--i: <?php echo $t_id *9999; ?>;">
+                            <tr class="tune_data_row" style="--i: <?php echo $count; ?>;">
                                 <!-- Title -->
                                 <td>
                                     <span class="tune_title" id="<?php echo $t_id; ?>">
@@ -116,11 +117,13 @@
                                     </td>
                                 <?php endif; ?>
                             </tr>
+                            <?php $count ++; ?> 
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </tbody>
             </table>
         </div>
+       
     <?php endforeach; ?>
 </div>      
 
