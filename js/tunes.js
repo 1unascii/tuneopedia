@@ -8,7 +8,7 @@ $(document).ready(function(){
         
         var result = confirm("Are you sure you want to delete this tune?");    
         if(result){
-            alert($(this).attr("id"));
+            //alert($(this).attr("id"));
             $.post(
                 "remove_tune.php",
                 {
@@ -23,7 +23,7 @@ $(document).ready(function(){
                         //$("#content").load("tunes.php");
                         setTimeout(function() {
                             location.reload();
-                        }, 2000); // Reloads after 2 seconds
+                        }, 200); // Reloads after 2 seconds
                         //alert(data);
                     }
                 }

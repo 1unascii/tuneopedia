@@ -13,3 +13,11 @@ a, img                      {
 label                       {
                             width: 200px;
                             }
+.tune_data_row              {
+                            background: hsl(calc(var(--i) / 1000), 45%, 77%) !important;
+                            }
+
+.tune_data_row td           {
+                            /* Make the cells transparent so the row color shows through */
+                            background: transparent !important;
+                            }

@@ -45,91 +45,84 @@
 <!--START A TABLE-->
 
 <div id="tabs">
-    
-<?php
-    echo "<ul>";
+    <ul>
+        <?php foreach ($tune_type_names as $index => $name): ?>
+            <li><a href="#tabs-<?= $index ?>"><?= htmlspecialchars($name) ?>s</a></li>
+        <?php endforeach; ?>
+    </ul>
 
-    $count = 0;
-    foreach($tune_type_names as $value){
+    <?php foreach ($results_array as $tab_index => $tunes): ?>
+        <?php $lowerCaseTuneType = mb_strtolower($tune_type_names[$tab_index]); ?>
         
-        echo   "<li><a href='#tabs-$count'>$tune_type_names[$count]s</a></li>";
-        
-        $count++;
-    }
-    echo "</ul>";
+        <div id="tabs-<?= $tab_index ?>">
+            <table id="<?= $lowerCaseTuneType ?>">
+                <thead class="ui-state-default">
+                    <tr>
+                        <th>Title</th>
+                        <th>Transcriber</th>
+                        <th>Composer</th>
+                        <th>Key</th>
+                        <?php if (isset($_SESSION['Authenticated'])): ?>
+                            <th style="display:none;"></th>
+                        <?php endif; ?>
+                    </tr>
+                </thead>
+                
+                <tbody class="ui-state-default">
+                    <?php if (is_array($tunes)): ?>
+                        <?php foreach ($tunes as $row_index => $t): ?>
+                            <?php 
+                                $t_id = $t['tune_id'];
+                                $author_id = $t['author_id'];
+                            ?>
+                            
+                            <tr class="tune_data_row" style="--i: <?php echo $t_id *9999; ?>;">
+                                <!-- Title -->
+                                <td>
+                                    <span class="tune_title" id="<?php echo $t_id; ?>">
+                                        <img class="music_note_icon" src="images/notes.gif" alt="music" style="padding-top: 5px"/>
+                                        <?= htmlspecialchars($t['tune_title']) ?>
+                                    </span>
+                                </td>
 
-    $count = 0;
-    foreach($results_array as $value){
-        //i
-        
-       echo "<div id='tabs-$count'>";//the tab number
+                                <!-- Author/Transcriber -->
+                                <td>
+                                    <?php 
+                                        $author = simpleQuery("SELECT user_name FROM users WHERE user_id = $author_id");
+                                        echo htmlspecialchars($author[0]['user_name']); 
+                                    ?>
+                                </td>
 
-        $lowerCaseTuneType = mb_strtolower($tune_type_names[$count]);//lower case tune name
-        echo "<table id=$lowerCaseTuneType>";//a table with an id of the tune name (lower case)
-        echo "<thead class='ui-state-default'><th>Title</th><th>Transcriber</th><th>Composer</th><th>Key</th></thead>";//table headings
-        //An extra header for the trash can icon to delete that user's tunes
-        if(array_key_exists('Authenticated', $_SESSION)){
-            echo "<th style='display:none;'></th>";
-        } 
-        echo "<tbody class='ui-state-default'>";
-        
-        //Hide error message if there are no tunes of a particular type
-        if(is_array($value)){
+                                <!-- Composer -->
+                                <td>
+                                    <?php if (isset($t['composer_id'])): ?>
+                                        <?php 
+                                            $composer_id = $t['composer_id'];
+                                            $composer = simpleQuery("SELECT composer_name FROM composers WHERE composer_id = $composer_id");
+                                            echo htmlspecialchars($composer[0]['composer_name']); 
+                                        ?>
+                                    <?php endif; ?>
+                                </td>
 
-            //There are tunes in this array so we can display them in the list
-            foreach($value as $t){ //t for tune
-        
-                //Row
-                echo "<tr class='tune_data'>";
-                    //Title
-                    $t_id = $t['tune_id'];
-                    $t_title = $t['tune_title'];
-                    echo "<td><span class='tune_title' id=$t_id >";
-                        //Display Sheet Music button
-                        echo "<img class='music_note_icon' src='images/notes.gif' alt='display sheet music' style='padding-top: 5px'/>";
-                        echo "$t_title";
-                    echo "</span></td>";
-                    //Author
-                    echo "<td>";                
-                        $author_id = $t['author_id'];                               
-                        $author = simpleQuery("SELECT user_name FROM users WHERE user_id = $author_id");
-                        echo $author[0]['user_name'];
-                    echo "</td>";
-                    //Composer
-                    
-                    echo "<td>";
+                                <!-- Key -->
+                                <td><?= htmlspecialchars($t['key']) ?></td>
 
-                    if(isset($t['composer_id'])){
-                        $composer_id = $t['composer_id'];
-                        $composer = simpleQuery("SELECT composer_name FROM composers WHERE composer_id = $composer_id");
-                        echo $composer[0]['composer'];
-                        echo "</td>";    
-                    }
-                    
-                    //Key
-                    echo "<td>";
-                        echo $t['key']; 
-                    echo "</td>";  
-
-                    //Delete option spawns a trash can icon      
-                    if(array_key_exists('Authenticated', $_SESSION)){
-                        echo "<td>";
-                        if($_SESSION['author_id'] == $t['author_id']){       //Delete action
-                            echo "<span class='ui-icon ui-icon-trash' id=$t_id style='display: inline-block;'></span>";
-                        }
-                        echo "</td>";
-                    }
-                //End row
-                echo "</tr>";  
-            }          
-        }    
-        echo "</tbody></table></div>";
-        $count++;
-    }
-?>
-
-
-</div><!--Tabs div-->       
+                                <!-- Delete Icon -->
+                                <?php if (isset($_SESSION['Authenticated'])): ?>
+                                    <td>
+                                        <?php if ($_SESSION['author_id'] == $author_id): ?>
+                                            <span class="ui-icon ui-icon-trash" id=<?php echo $t_id;?> style="display: inline-block;"></span>
+                                        <?php endif; ?>
+                                    </td>
+                                <?php endif; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php endforeach; ?>
+</div>      
 
     
             
