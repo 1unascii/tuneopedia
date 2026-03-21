@@ -1,0 +1,15 @@
+-- Artists
+INSERT INTO artist (first_name, last_name) VALUES 
+('Matt', 'Molloy'), ('Kevin', 'Burke'), ('Micheál', 'Ó Súilleabháin'), ('The', 'Bothy Band');
+
+-- Albums
+INSERT INTO album (name, cover_art) VALUES 
+('Heathery Breeze', 'heathery.jpg'), 
+('If the Cap Fits', 'cap_fits.jpg'), 
+('1975', 'bothy_1975.jpg');
+
+-- Linking Artists to Albums (Many-to-Many)
+INSERT INTO artist_album (artist_id, album_id) VALUES 
+(4, 1), -- Matt Molloy (as part of a group) on Heathery Breeze
+(5, 2), -- Kevin Burke on If the Cap Fits
+(7, 3); -- The Bothy Band on 1975

@@ -13,7 +13,7 @@ a, img                      {
 label                       {
                             width: 200px;
                             }
-.tune_data_row              {
+.tune_data_row,th           {
                             background: hsl(calc(var(--i) *8), 45%, 77%) !important;
 
                             }

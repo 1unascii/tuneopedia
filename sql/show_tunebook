@@ -1,0 +1,15 @@
+SELECT 
+    u.user_name,
+    t.tune_id,
+    tt.name AS tune_type,
+    t.composer,
+    COUNT(s.setting_id) AS available_settings,
+    tb.date_added
+FROM tunebook tb
+JOIN user u ON tb.user_id = u.user_id
+JOIN tune t ON tb.tune_id = t.tune_id
+JOIN tune_type tt ON t.tune_type_id = tt.tune_type_id
+LEFT JOIN setting s ON t.tune_id = s.tune_id
+WHERE u.user_id = 1  -- Filter for a specific user
+GROUP BY t.tune_id
+ORDER BY tb.date_added DESC;

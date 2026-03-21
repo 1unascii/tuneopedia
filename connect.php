@@ -1,15 +1,47 @@
 <?php
 
 /*CONNECT TO THE DATABASE, return connection object*/
-function connect(){
+/*function connect(){
     try{
-        $db = new PDO('mysql:dbname=tunebook;host=localhost', 'student', 'student');        
+        $host = getenv('DB_HOST');
+        $db   = getenv('DB_NAME');
+        $user = getenv('DB_USER');
+        $pass = getenv('DB_PASS');
+        $db = new PDO("mysql:dbname=$db;host=$host', '$user', '$pass'");        
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $db;
     }
     catch ( PDOException $err){
         echo $err->getCode();
         echo $err->getMessage(); 
+    }
+}*/
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__);
+$dotenv->load();
+
+function connect(){
+    try {
+
+        $host = getenv('DB_HOST');
+        $db_name = getenv('DB_NAME'); // Renamed variable to avoid overwriting the PDO object
+        $user = getenv('DB_USER');
+        $pass = getenv('DB_PASS');
+
+        // The DSN should only contain host and dbname; user and pass are separate arguments
+        $dsn = "mysql:host=$host;dbname=$db_name;charset=utf8mb4";
+        
+        $db = new PDO($dsn, $user, $pass);        
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        return $db;
+    }
+    catch (PDOException $err) {
+        // In production, log errors instead of echoing them to avoid leaking server info
+        error_log($err->getMessage());
+        return null;
     }
 }
 
