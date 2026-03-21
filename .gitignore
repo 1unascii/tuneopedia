@@ -1,0 +1,11 @@
+# Ignore environment variables
+.env
+.env.local
+.env.*.local
+
+# Ignore Composer dependencies (XAMPP/PHP projects)
+vendor/
+
+# Ignore OS-specific files
+Thumbs.db
+.DS_Store
