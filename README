@@ -1,10 +1,31 @@
-To build the database:
+MySQL DATABASE CREATION:
+create a database in MySQL. I suggest you name it tuneopedia but you can name it whatever you want. In phpmyadmin run the following SQL file:
 
-1. Navigate to this folder in windows terminal. 
-2. Log into mysql -- 
-			mysql -u root -p 'type your password here, don't include single quotes'
-3. If you were able to log into mysql with no errors then we know our credentials were valid
-4. Go ahead and exit mysql by typing 'exit' without the quotes
-5. Now use the command mysql -u root -p 'your password' < testdatabase.sql
+sql/tuneopedia.sql 
 
-This should build the most recent version of the test database saved in the sql file
+Alternatively you can import the file into mysql on the command line with,
+
+Windows: 
+mysql -u root -p tuneopedia < "C:\path\to\your\sql\tuneopedia.sql"
+On an XAMPP server you would use: "C:\xampp\htdocs\sql\tuneopedia.sql"
+
+Linux:
+mysql -u root -p tuneopedia < "/var/www/tuneopedia.sql"
+
+The sql directory also contains most of the sql queries for the project. Other db functions are in connect.php. Queries should be run from the sql folder into the function simpleQuery($query){} or another query in connect.php. It will return either the results, false if no results are found, or a PDO exception.
+
+DATABASE CONNECTION:
+You must install composer on the root directory of the project.
+
+You will need to create a .env file in your root directory that containst the following text:
+
+DB_HOST=either localhost or your public ip
+DB_NAME=tuneopedia (you can name the database whatever you want)
+DB_USER="database username"
+DB_PASS="your database password"
+
+don't include the quotes...
+
+This tells php how to connect to your database without 
+showing your database connection credentials in your source code.
+
