@@ -19,25 +19,27 @@
 <!--script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script-->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-<link href="css/overcast/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
+<link href="css/ui-darkness/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
 <link href="css/style.css" rel="stylesheet" type="text/css"/>
 <script src='node_modules/abcjs/dist/abcjs-basic.js' type='text/javascript'></script>
 
 <script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
 <script type="text/javascript" language="javascript" src="js/tunes.js"></script>
+<link href="https://fonts.googleapis.com" rel="stylesheet">
+
     <!--script src='js/abcjs-plugin-min.js' type='text/javascript'></script-->
 <!--SCRIPTS-->
 
 <!--PAGE TITLE-->
-<title>My Tunebook</title>
+<title class='site-title'>Tuneopedia</title>
 <!--PAGE TITLE-->
 
 <!--HEADING-->
 <div align = "center">
-    <h2><a href='index.php'>My Tunebook</a></h2>
-    <!--PUT LOGO HERE
-        <img id="logo" align = "center" src=''/>
-    LOGO-->
+    <h2></h2>
+    <!--PUT LOGO HERE-->
+        <img id="logo" class='banner-image'  src='images/jam_session.png'/>
+    <!--LOGO-->
 </div>
 <!--HEADING-->
 

@@ -8,7 +8,7 @@ include_once('connect.php');
       if(!array_key_exists('Authenticated', $_SESSION)){
           if(authenticateUser($_POST['user_name'], sha1($_POST['password']))){
               $user = authenticateUser($_POST['user_name'], sha1($_POST['password']));              
-              $_SESSION['author_id'] = $user['user_id'];
+              $_SESSION['user_id'] = $user['user_id'];
               $_SESSION['Authenticated'] = true; 
               $response = "Welcome back " . $user['user_name'];
               echo $response;

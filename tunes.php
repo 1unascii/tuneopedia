@@ -55,7 +55,7 @@
 </script>
 <link href="css/tunes.css" rel="stylesheet" type="text/css"/>
 <!--START A TABLE-->
-
+<!--div class='main-content'-->
 <div id="tabs">
     <ul>
         <?php foreach ($groupedTunes as $id => $items): ?>
@@ -64,7 +64,7 @@
     </ul>
 
     <?php foreach ($groupedTunes as $id => $categoryItems): ?>
-        <div id="tabs-<?= $id ?>">
+        <div id="tabs-<?= $id ?>" class="tabs">
             <table id="<?= mb_strtolower($tune_type_names[$id]) ?>">
                 <thead class="ui-state-default">
                     <tr>
@@ -109,6 +109,6 @@
         </div>
     <?php endforeach; ?>
 </div>
-
+<!--/div-->
     
             

@@ -25,6 +25,7 @@ td, th, body                {
                             padding-right: 10px;
                             }
 
+
 #content                    {
                             padding: 10px;
                             }
@@ -45,16 +46,8 @@ footer                          {
                             width: 425px;
                             float:left;
 }
-#add_tune_link, 
-#login_link, 
-#register_link, 
-#logout_link, 
-#home_link                              {
-                                        display: inline-block;
-                                        margin-right: 10px;
-                                        margin-bottom: 5px;
-                                        cursor: pointer;
-                                        }
+
+
 #home_link                              {
                                         padding-left: 1px;
                                         }   
@@ -67,4 +60,94 @@ td                                      {
                                         }
 img                                     {
                                         padding-top: 10px;
+}
+
+
+/* Update your .nav-item */
+/* 3. Style the Navigation Links */
+.nav {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.nav:hover {
+    color: #00fff2; /* Neon teal from banner */
+    text-shadow: 0 0 10px #00fff2;
+}
+
+
+.tabs {
+    background-color: #444;
+    color: #00fff2; /* Neon teal from the banner */
+    border: none;
+    font-family: 'Special Elite', cursive;
+}
+.banner-image {
+    display: block;
+    width: 100%;
+    margin-bottom: 0;
+}
+/* The Content Area (where your table is) needs space below the nav */
+.main-content {
+    display: flex;
+    flex-direction: column; /* Stacks items vertically */
+    align-items: left;    /* Centers them horizontally */
+    gap: 40px;              /* Adds a nice gap between table and bar */
+    
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.site-title {
+    font-family: 'Special Elite', cursive;
+    color: #fff; /* White text */
+    text-decoration: none;
+    font-size: 3rem;
+    display: block;
+    text-align: center;
+    padding: 20px 0;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    margin-bottom: 20px;
+    letter-spacing: 4px;
+}
+
+.site-title:hover {
+    color: #ff8c00; /* Campfire orange on hover */
+    transition: 0.3s;
+}
+table {
+    background: rgba(255, 255, 255, 0.9); /* Soften the white */
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+th {
+    background-color: #222; /* Darker headers */
+    /*color: #00fff2;*/ /* Neon teal text for headers */
+    font-family: 'Special Elite', cursive;
+}
+body {
+    background-color: #1a1a1a; /* Deep charcoal/black */
+    color: #f0f0f0; /* Off-white for readability */
+    
+    font-family: 'Special Elite', system-ui;
+}
+.nav-container {
+    display: flex;
+    position: relative;
+    justify-content: left; /* Change from 'left' to 'center' to match your title */
+    gap: 40px;
+    padding: 1rem;
+    margin-top: -60px; 
+    margin-bottom: 40px;    /* REDUCE THIS from 200px to 40px */
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    width: 100%;
+    box-sizing: border-box; /* Ensures the 100% width doesn't cause horizontal scrolling */
+    clear: both;
 }

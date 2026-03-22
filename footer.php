@@ -12,7 +12,7 @@
         <div align = "left"></div>
     </td>
     <td width="33%">
-        <div align = "center">My Tunebook</div>
+        <div align = "center">Tuneopedia</div>
     </td>
     <td width="33%">
         <div align = "right"></div>

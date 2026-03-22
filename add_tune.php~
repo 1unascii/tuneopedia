@@ -5,7 +5,7 @@ include_once('connect.php');
   
       $params = array(
             'tune_title' => $_POST['tune_title'],
-            'author_id' => $_SESSION['author_id'],
+            'user_id' => $_SESSION['user_id'],
             'composer_id' => $_POST['composer_id'],
             'metre' => $_POST['metre'],
             'default_note_length' => $_POST['default_note_length'],

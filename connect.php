@@ -60,7 +60,7 @@ function authenticateUser($user_name, $password){
     
     try {
         $db = connect();//get the connection object
-        $query = $db->prepare("SELECT * FROM users WHERE user_name = :user_name AND password = UNHEX(:password)");
+        $query = $db->prepare("SELECT * FROM user WHERE user_name = :user_name AND password = UNHEX(:password)");
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $query->bindValue(':user_name', $user_name);
         $query->bindValue(':password', $password);

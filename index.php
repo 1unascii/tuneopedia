@@ -4,8 +4,9 @@
     include_once('functions.php');
     include_once('links.php');
 ?>
-<br />
-<div id='content'>
+
+<div id='content' class='main-content'>
+    
 <?php
     
     include_once('tunes.php');

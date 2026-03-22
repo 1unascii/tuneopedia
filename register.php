@@ -24,10 +24,10 @@
         if(insertQuery($query,  $params)){
             echo 'Thank you for signing up';
         }else{
-            if(queryWithParams("SELECT * FROM users WHERE email = :param", $params['email'])){
+            if(queryWithParams("SELECT * FROM user WHERE email = :param", $params['email'])){
                 echo 'The email you entered is already in use';
             } 
-            if(queryWithParams("SELECT * FROM users WHERE user_name = :param", $params['user_name'])){
+            if(queryWithParams("SELECT * FROM user WHERE user_name = :param", $params['user_name'])){
                 echo 'The username you entered is already in use';
             }            
         }
