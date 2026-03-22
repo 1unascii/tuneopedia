@@ -59,12 +59,12 @@
 <div id="tabs">
     <ul>
         <?php foreach ($groupedTunes as $id => $items): ?>
-            <li><a href="#tabs-<?= $id ?>"><?= htmlspecialchars($tune_type_names[$id]) ?>s</a></li>
+            <li><a class="tabs" href="#tabs-<?= $id ?>"><?= htmlspecialchars($tune_type_names[$id]) ?>s</a></li>
         <?php endforeach; ?>
     </ul>
 
     <?php foreach ($groupedTunes as $id => $categoryItems): ?>
-        <div id="tabs-<?= $id ?>" class="tabs">
+        <div id="tabs-<?= $id ?>">
             <table id="<?= mb_strtolower($tune_type_names[$id]) ?>">
                 <thead class="ui-state-default">
                     <tr>

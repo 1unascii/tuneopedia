@@ -6,13 +6,14 @@
         $params = array(
             'first_name' => $_POST['first_name'],
             'last_name' => $_POST['last_name'],
-            'email' => $_POST['email'],
             'user_name' => $_POST['user_name'],
+            'email' => $_POST['email'],
+            
             'password' => sha1($_POST['password'])
             );   
         
         //insert NULL for auto increment ID, first name, last name, email, username, unhex(sha1(password))
-        $query = "INSERT INTO users VALUES(
+        $query = "INSERT INTO user VALUES(
                 NULL,
                 :param0,
                 :param1,

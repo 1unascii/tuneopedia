@@ -16,16 +16,20 @@ $(document).ready(function(){
         })
     }
     if($('#my_tunes_link').length){
-        $('#add_tune_link').click(function(){
-            $('#content').load('forms/abc_editor.php');
+        $('#my_tunes_link').click(function(){
+            $('#content').load('my_tunes.php');
         })
     }
     if($('#discussion_link').length){
-        $('#add_tune_link').click(function(){
-            $('#content').load('forms/abc_editor.php');
+        $('#discussion_link').click(function(){
+            $('#content').load('forum.php');
         })
     }
-    
+    if($('#tunes_link').length){
+        $('#tunes_link').click(function(){
+            $('#content').load('tunes.php');
+        })
+    }
 
 
 

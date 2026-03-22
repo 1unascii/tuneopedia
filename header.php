@@ -26,7 +26,9 @@
 <script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
 <script type="text/javascript" language="javascript" src="js/tunes.js"></script>
 <link href="https://fonts.googleapis.com" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+<link href="https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Rye&display=swap" rel="stylesheet">
     <!--script src='js/abcjs-plugin-min.js' type='text/javascript'></script-->
 <!--SCRIPTS-->
 
@@ -38,7 +40,7 @@
 <div align = "center">
     <h2></h2>
     <!--PUT LOGO HERE-->
-        <img id="logo" class='banner-image'  src='images/jam_session.png'/>
+        <img id="logo" class='banner-image'  src='images/music_scroll_4.png'/>
     <!--LOGO-->
 </div>
 <!--HEADING-->

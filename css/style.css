@@ -56,15 +56,12 @@ td                                      {
                                         }
 #abc_code                               {
                                         display: inline-block;
-                                        color: white;
+                                        color: beige;
                                         }
-img                                     {
-                                        padding-top: 10px;
-}
 
 
-/* Update your .nav-item */
-/* 3. Style the Navigation Links */
+
+/* Style the Navigation Links */
 .nav {
     color: #fff;
     text-decoration: none;
@@ -82,7 +79,7 @@ img                                     {
     background-color: #444;
     color: #00fff2; /* Neon teal from the banner */
     border: none;
-    font-family: 'Special Elite', cursive;
+    font-family: 'Fondamento', cursive;
 }
 .banner-image {
     display: block;
@@ -101,7 +98,7 @@ img                                     {
 }
 
 .site-title {
-    font-family: 'Special Elite', cursive;
+    font-family: 'Rye', serif;
     color: #fff; /* White text */
     text-decoration: none;
     font-size: 3rem;
@@ -128,13 +125,13 @@ table {
 th {
     background-color: #222; /* Darker headers */
     /*color: #00fff2;*/ /* Neon teal text for headers */
-    font-family: 'Special Elite', cursive;
+    font-family: 'Fondamento', cursive;
 }
 body {
     background-color: #1a1a1a; /* Deep charcoal/black */
     color: #f0f0f0; /* Off-white for readability */
     
-    font-family: 'Special Elite', system-ui;
+    font-family: 'Fondamento', system-ui;
 }
 .nav-container {
     display: flex;
@@ -150,4 +147,49 @@ body {
     width: 100%;
     box-sizing: border-box; /* Ensures the 100% width doesn't cause horizontal scrolling */
     clear: both;
+}
+footer {
+    background: rgba(10, 10, 10, 0.95); /* Deep dark background */
+    backdrop-filter: blur(15px); /* Glassmorphism effect */
+    border-top: 2px solid #00fff2; /* Neon teal glow top border */
+    padding: 60px 20px 30px;
+    margin-top: 80px;
+    color: #f0f0f0;
+    font-family: 'Fondamento', cursive; /* Keeping your old-timey font */
+}
+
+.footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+}
+
+.footer-section h3 {
+    color: #ff8c00; /* Campfire orange for headings */
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.footer-section p, .footer-section a {
+    font-size: 0.9rem;
+    color: #ccc;
+    text-decoration: none;
+    line-height: 1.8;
+}
+
+.footer-section a:hover {
+    color: #00fff2;
+    text-shadow: 0 0 8px #00fff2;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.8rem;
+    opacity: 0.6;
 }
