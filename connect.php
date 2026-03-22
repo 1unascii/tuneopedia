@@ -1,34 +1,16 @@
 <?php
 
-/*CONNECT TO THE DATABASE, return connection object*/
-/*function connect(){
-    try{
-        $host = getenv('DB_HOST');
-        $db   = getenv('DB_NAME');
-        $user = getenv('DB_USER');
-        $pass = getenv('DB_PASS');
-        $db = new PDO("mysql:dbname=$db;host=$host', '$user', '$pass'");        
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $db;
-    }
-    catch ( PDOException $err){
-        echo $err->getCode();
-        echo $err->getMessage(); 
-    }
-}*/
-
 require_once __DIR__ . '/vendor/autoload.php';
-
 $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__);
 $dotenv->load();
 
 function connect(){
     try {
 
-        $host = getenv('DB_HOST');
-        $db_name = getenv('DB_NAME'); // Renamed variable to avoid overwriting the PDO object
-        $user = getenv('DB_USER');
-        $pass = getenv('DB_PASS');
+        $host       = getenv('DB_HOST');
+        $db_name    = getenv('DB_NAME'); 
+        $user       = getenv('DB_USER');
+        $pass       = getenv('DB_PASS');
 
         // The DSN should only contain host and dbname; user and pass are separate arguments
         $dsn = "mysql:host=$host;dbname=$db_name;charset=utf8mb4";
@@ -56,32 +38,8 @@ function createParamArray($params){
 }
 
 /*AUTHENTICATE USER, needs a special function for security purposes*/
-/*function authenticateUser($user_name, $password){
-    
-    try {
-        $db = connect();//get the connection object
-        $query = $db->prepare("SELECT * FROM user WHERE user_name = :user_name AND password = UNHEX(:password)");
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query->bindValue(':user_name', $user_name);
-        $query->bindValue(':password', $password);
-        
-        if($query->execute()){
-            while ($row = $query->fetch(PDO::FETCH_ASSOC)){
-                return $row;
-            }
-            //return $row;
-        }else{
-            return false;
-        }
-    }
-    catch (PDOException $err){
-        echo $err->getCode();
-        echo $err->getMessage(); 
-    }  
-}*/
-
-function authenticateUser($user_name, $password, $db) {
-    //global $db;
+function authenticateUser($user_name, $password) {
+    $db = connect();
     $stmt = $db->prepare("SELECT * FROM user WHERE user_name = ?");
     $stmt->execute([$user_name]);
     $user = $stmt->fetch();
@@ -111,23 +69,6 @@ function simpleQuery($query){
         echo $err->getMessage(); 
     }
 }
-
-/*function deleteQuery($query){
-    try{
-        $db = connect();
-        $query = $db->prepare($query);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        if($query->execute()){
-            return true;
-        }else{
-            return false;
-        }       
-    }    
-    catch ( PDOException $err){
-        echo $err->getCode();
-        echo $err->getMessage(); 
-    }
-}*/
 
 function deleteTune($tune_id, $author_id) {
     try {
