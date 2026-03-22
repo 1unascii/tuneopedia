@@ -1,11 +1,27 @@
 <?php
-session_start();
+//session_start();
+//require_once 'connect.php';
+//require_once 'auth.php';
+
+//$db = connect(); 
+
 ?>
-<form action="auth.php" method="post">
+<!---form action="auth.php" method="post">
     <label>username:</label>
         <input type="text" name="user_name"/><br />
     <label>password:</label>
         <input type="password" name="password"/><br />
         <input type="submit" value="log in" name="login"/>
         <input type="hidden" name="secret"/>
+</form-->
+
+<script type="text/javascript" src="login.js"></script>
+
+<form method="post" id="login_form">
+    <label>username:</label>
+        <input type="text" name="user_name" id="user_name"/><br />
+    <label>password:</label>
+        <input type="password" name="password" id="password"/><br />
+        <input type="button" value="Log in" name="login" id="login_btn"/>
+        <input type="hidden" id="l"/>
 </form>

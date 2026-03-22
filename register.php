@@ -2,13 +2,13 @@
     session_start(); 
     include_once('connect.php');
     include_once('functions.php');//Only because the form is loaded with AJAX
+    include_once('auth.php');
     if ($_POST['register']){        
         $params = array(
             'first_name' => $_POST['first_name'],
             'last_name' => $_POST['last_name'],
             'user_name' => $_POST['user_name'],
             'email' => $_POST['email'],
-            
             'password' => sha1($_POST['password'])
             );   
         

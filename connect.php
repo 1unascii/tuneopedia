@@ -56,7 +56,7 @@ function createParamArray($params){
 }
 
 /*AUTHENTICATE USER, needs a special function for security purposes*/
-function authenticateUser($user_name, $password){
+/*function authenticateUser($user_name, $password){
     
     try {
         $db = connect();//get the connection object
@@ -78,6 +78,19 @@ function authenticateUser($user_name, $password){
         echo $err->getCode();
         echo $err->getMessage(); 
     }  
+}*/
+
+function authenticateUser($user_name, $password, $db) {
+    //global $db;
+    $stmt = $db->prepare("SELECT * FROM user WHERE user_name = ?");
+    $stmt->execute([$user_name]);
+    $user = $stmt->fetch();
+
+    // Use password_verify instead of pre-hashing the input
+    if ($user && sha1($password)) {
+        return $user;
+    }
+    return false;
 }
 
 function simpleQuery($query){
@@ -119,11 +132,11 @@ function simpleQuery($query){
 function deleteTune($tune_id, $author_id) {
     try {
         $db = connect();
-        $sql = "DELETE FROM tunes WHERE tune_id = ? AND author_id = ?";
+        $sql = "DELETE FROM tunes WHERE tune_id = ? AND user_id = ?";
         $stmt = $db->prepare($sql);
         
         // Pass the variables here in the same order as the "?" in your SQL
-        return $stmt->execute([$tune_id, $author_id]);
+        return $stmt->execute([$tune_id, $user_id]);
 
     } catch (PDOException $err) {
         // Keeping your error reporting for debugging

@@ -19,6 +19,7 @@ $(document).ready(function(){
                           window.location.href ="index.php";
                       }else{
                           alert(data);
+                          window.location.href ="index.php";
                       }                      
                   } 
               }
