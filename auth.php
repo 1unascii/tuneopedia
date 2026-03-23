@@ -1,8 +1,6 @@
 <?php
 session_start();
 include_once('connect.php');
-//$db = connect(); 
-
   
 if (isset($_POST['login'])) {
   $user = authenticateUser($_POST['user_name'], $_POST['password']);
@@ -33,10 +31,7 @@ if (isset($_POST['login'])) {
 //Just landing on the page, right now it logs out and redirects to index.php
 //You could make this code echo some 404 Not found error to make a dummy and hide your file name from hackers...  
 } else{  
-      //$_SESSION['Authenticated'] = false;  
       header("Location: index.php");
-      //session_write_close();
-      //header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found"); 
 }
      
 

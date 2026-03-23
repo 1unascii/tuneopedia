@@ -73,16 +73,18 @@
                         <th>Uploader</th>
                         <th>Composer</th>
                         <th>Key</th>
+                        <th>Add Favorite</th>
+
                     </tr>
                 </thead>
                 <tbody class="ui-state-default">
                     <?php foreach ($categoryItems as $t): ?>
-                        <tr class="tune_data_row">
+                        <tr class="tune_data_row" id="<?= $t['tune_id'] ?>">
                             <td>
                                 <?php echo $t['tune_id'];?>
                             </td>
                             <td>
-                                <span class="tune_title" id="<?= $t['tune_id'] ?>">
+                                <span class="tune_title">
                                     <img class="music_note_icon" src="images/notes.gif" alt="music" />
                                     <?= htmlspecialchars($t['tune_name']) ?>
                                 </span>
@@ -102,6 +104,11 @@
                             <td>
                                 <?= htmlspecialchars($t['key_signature'] ?? 'N/A') ?>
                             </td>
+                           
+                            <td class="tune-favorite-col">
+                                <span class="ui-icon ui-icon-star tune-favorite-icon" id="user-info" data-user-id="<?php echo $_SESSION['user_id']; ?>"></span>
+                            </td>
+
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

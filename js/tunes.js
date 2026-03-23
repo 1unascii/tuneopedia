@@ -1,10 +1,36 @@
 $(document).ready(function(){
-    
-    $('#tunes').dataTable();
-    $('td').css("font: Times New Roman");
 
-    //delete a tune from database
-    $(".ui-icon-trash").on("click", function(){
+    $(".tune-favorite-icon").on("click", function () {
+        var result = confirm("Are you sure you want to add this tune to your favorites?");    
+        var userId = $('#user-info').data('user-id');
+        alert($(this).parent().parent().attr("id"));
+        alert(userId);
+        if(result){
+            $.post(
+                "favorite_tune.php",
+                {
+                    "tune_id":$(this).parent().parent().attr("id"),
+                    "user_id":userId
+                },
+                
+                function(data){
+                    //if(data == "You don't have permission to delete this"){//If this happens something is wrong
+                        //alert(data);                      
+                    //}else{
+                        $("#content").load("tunes.php");
+                        alert(data);
+                    //}
+                }
+            );         
+        }
+
+        //alert("hello world");
+    });
+
+    
+
+    //delete a tune from database (delegated so it works inside jQuery UI tabs)
+    $(document).on("click", ".ui-icon-trash.tune-delete-icon", function(){
         
         var result = confirm("Are you sure you want to delete this tune?");    
         if(result){

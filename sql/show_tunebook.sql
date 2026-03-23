@@ -28,6 +28,7 @@ SELECT
     rs.file_type,
     rs.file_url,
     -- Added the username join here
+    rs.user_id AS user_id,
     u.user_name AS user_name,
     COALESCE(rs.net_score, 0) AS setting_popularity
 FROM tune t

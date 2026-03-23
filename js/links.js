@@ -42,8 +42,16 @@ $(document).ready(function(){
                 "logout":true
               },
               function(data){
-                alert(data);
-                window.location.href ="index.php";
+
+                $('<div class="alert-box">' + data + '</div>')
+                .appendTo('#pop_up')
+                .delay(500) // Stay visible for 3 seconds
+                .fadeOut(150, function() {
+                    $(this).remove(); // Clean up the HTML after it's invisible
+                    window.location.href = "index.php"; // Redirect AFTER the fade
+                });
+                //alert(data);
+                //window.location.href ="index.php";
               }
           );
         //$(document).load('index.php');

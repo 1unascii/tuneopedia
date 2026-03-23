@@ -23,3 +23,29 @@ label                       {
                             background: transparent !important;
 
                             }
+
+.tune-actions-col            {
+                            width: 2.5em;
+                            text-align: center;
+                            vertical-align: middle;
+                            }
+.tune-delete-icon           {
+                            display: inline-block;
+                            cursor: pointer;
+                            }
+
+.tune-favorite-col           {
+                            width: 2.5em;
+                            min-width: 2rem;
+                            min-height: 1.5rem;
+                            text-align: center;
+                            vertical-align: middle;
+                            cursor: pointer;
+                            }
+.tune-favorite-icon          {
+                            display: inline-block;
+                            width: 16px;
+                            height: 16px;
+                            cursor: pointer;
+                            vertical-align: middle;
+                            }

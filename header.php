@@ -1,7 +1,9 @@
+<!DOCTYPE html>
+
+<html lang="en">
 <?php
     session_start();  
-?>
-<html>
+?>              
 <div id="page_loader">Please wait while we query the database</div>
 <head>
 <!--SUPPOSED TO HELP WITH IE compatability, doesn't seem to do anything on IE 9 at least-->
@@ -22,12 +24,10 @@
 <link href="css/ui-darkness/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
 <link href="css/style.css" rel="stylesheet" type="text/css"/>
 <script src='node_modules/abcjs/dist/abcjs-basic.js' type='text/javascript'></script>
-
 <script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
 <script type="text/javascript" language="javascript" src="js/tunes.js"></script>
-<link href="https://fonts.googleapis.com" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Rye&display=swap" rel="stylesheet">
     <!--script src='js/abcjs-plugin-min.js' type='text/javascript'></script-->
 <!--SCRIPTS-->
@@ -38,9 +38,10 @@
 
 <!--HEADING-->
 <div align = "center">
-    <h2></h2>
+    <div id="pop_up">
     <!--PUT LOGO HERE-->
         <img id="logo" class='banner-image'  src='images/music_scroll_4.png'/>
+    </div>
     <!--LOGO-->
 </div>
 <!--HEADING-->
