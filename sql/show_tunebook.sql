@@ -18,7 +18,7 @@ WITH RankedSettings AS (
 )
 SELECT 
     t.tune_id,
-    rs.setting_id, -- <--- Now available in the final result
+    rs.setting_id AS setting_id, -- <--- Now available in the final result
     t.name AS tune_name,
     t.composer,
     tt.tune_type_id,
