@@ -84,11 +84,12 @@
                                 <?php echo $t['tune_id'];?>
                             </td>
                             <td>
-                                <span class="show_abc" id="<?php echo ($t['setting_id']) ?>">
-                                    <img class="music_note_icon" src="images/notes.gif" alt="shows_abc_for_most_popular_setting" /> 
-                                </span>
+                                
                                 <span class="tune_title" id="<?php echo ($t['tune_id']) ?>">
                                     <?= htmlspecialchars($t['tune_name']) ?>
+                                </span>
+                                <span class="show_abc" id="<?php echo ($t['setting_id']) ?>">
+                                    <img class="music_note_icon" src="images/notes.gif" alt="shows_abc_for_most_popular_setting" /> 
                                 </span>
                             </td>
 

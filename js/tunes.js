@@ -12,7 +12,8 @@ $(document).ready(function(){
             if(data){
                 //var tune_body = tune.tune_body.string.replace('/\n/', "!");                    
                 var tune = jQuery.parseJSON(data);
-                if($(".abc_transcription").length){
+                
+                if(!$(".tune_body").length){
                     
                     //display this tune body
                     $(tune_id_selector).html(
@@ -21,14 +22,14 @@ $(document).ready(function(){
                         "X:" + tune.tune_id + "<br />" +
                         "T:" + tune.name + "<br />" +
                         "M:" + tune.time_signature + "<br />" +
-                        "L:1/8" +
+                        "L:1/8" + "<br />" + 
                         "K:" + tune.key_signature + "<br />" +
-                        tune.abc_transcription + "<br /><br />" +
+                        tune.abc_transcription + "<br />" +
                         "</span>"                            
                     );
                     
                     //Close this tune body
-                    $(tune_id_selector).before("<span class='ui-icon ui-icon-circle-close' style='display: inline-block;'>");
+                    $(tune_id_selector).after("<span class='ui-icon ui-icon-circle-close' style='display: inline-block;'>");
                     $(".ui-icon-circle-close").on("click", function(){
                         //var prev_id = $(this).prev().attr('id');
                        
