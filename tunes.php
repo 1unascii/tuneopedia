@@ -1,53 +1,5 @@
 <script src='node_modules/abcjs/dist/abcjs-basic.js' type='text/javascript'></script>
 <div onload="load()">
-<!--script type = 'text/javascript'>
-    var abc = "X:1\n" +
-			"T: Cooley's\n" +
-			"M: 4/4\n" +
-			"L: 1/8\n" +
-			"R: reel\n" +
-			"K: Emin\n" +
-			"|:D2|EB{c}BA B2 EB|~B2 AB dBAG|FDAD BDAD|FDAD dAFD|\n" +
-			"EBBA B2 EB|B2 AB defg|afe^c dBAF|DEFD E2:|\n" +
-			"|:gf|eB B2 efge|eB B2 gedB|A2 FA DAFA|A2 FA defg|\n" +
-			"eB B2 eBgB|eB B2 defg|afe^c dBAF|DEFD E2:|\n\n" +
-			"X:2\n" +
-			"T: Greensleeves\n" +
-			"M: 6/8\n" +
-			"L: 1/8\n" +
-			"K: Ador\n" +
-			"A|c2d e>fe|d2B G>AB|c2A A>GA|B2GE2|\n" +
-			"A|c2d e>fe|d2B G>AB|c>BA ^G>FG|A3A2:|\n" +
-			"z|g2g gfe|d2B G>AB|c2A A>GA|B6|\n" +
-			"g2g gfe|d2B G>AB|c>BA ^G>FG|A3A2:|\n" +
-			"A/B/|c2c cde|dBG GAB|cBA ABc|BGE E2 A/B/|\n" +
-			"c2c cde|dBG GAB|cBA GE^G|A3A2:|\n" +
-			"e/f/|gag gfe|dBG GBd|aba aba|gee e2e/f/|\n" +
-			"gag gfe|dBG GAB|cBA GE^G|A3A2:|\n"
-
-    function load() {
-        var tuneBook = new ABCJS.TuneBook(abc)
-        var select = document.getElementById("tune-selector")
-        var option = document.createElement("option");
-        var optionContent = document.createTextNode("-- select tune --");
-        option.appendChild(optionContent);
-        select.appendChild(option)
-        for (var i = 0; i < tuneBook.tunes.length; i++) {
-            option = document.createElement("option");
-            optionContent = document.createTextNode(tuneBook.tunes[i].title);
-            option.appendChild(optionContent);
-            option.setAttribute('value', i)
-            select.appendChild(option)
-        }
-        select.addEventListener("change", setTune)
-    }
-
-    function setTune() {
-        var index = this.value
-        ABCJS.renderAbc("paper", abc, { startingTune: index});
-    }
-
-</script-->
 
 <?php
     
@@ -119,7 +71,7 @@
             <table id="<?= mb_strtolower($tune_type_names[$id]) ?>">
                 <thead class="ui-state-default">
                     <tr>
-                        <th>Tune ID</th>
+                        
                         <th>Title</th>
                         <th>Uploader</th>
                         <th>Composer</th>
@@ -131,17 +83,15 @@
                 <tbody class="ui-state-default">
                     <?php foreach ($categoryItems as $t): ?>
                         <tr class="tune_data_row" id="<?= $t['tune_id'] ?>">
+                            
                             <td>
-                                <?php echo $t['tune_id'];?>
-                            </td>
-                            <td>
-                                
-                                <span class="tune_title" id="<?php echo ($t['tune_id']) ?>">
-                                    <?= htmlspecialchars($t['tune_name']) ?>
-                                </span>
                                 <span class="show_abc" id="<?php echo ($t['setting_id']) ?>">
                                     <img class="music_note_icon" src="images/notes.gif" alt="shows_abc_for_most_popular_setting" /> 
                                 </span>
+                                <span class="tune_title" id="<?php echo ($t['tune_id']) ?>">
+                                    <?= htmlspecialchars($t['tune_name']) ?>
+                                </span>
+                                
                             </td>
 
                             <!-- Transcriber/Uploader Name -->

@@ -25,7 +25,8 @@
 <link href="css/style.css" rel="stylesheet" type="text/css"/>
 <script src='node_modules/abcjs/dist/abcjs-basic.js' type='text/javascript'></script>
 <script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
-<script type="text/javascript" language="javascript" src="js/tunes.js"></script>
+<script type="text/javascript" language="javascript" src="js/tunes.js?v=2"></script><!--This forces cloudflared tunnel to reload this JS file after changes have been made-->
+<!--script type="text/javascript" language="javascript" src="js/tunes.js"></script-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Rye&display=swap" rel="stylesheet">
@@ -50,5 +51,5 @@
     <link rel="shortcut icon" href="images/notes.gif" />
 <!--FAVICON-->
 </head>
-<body >
+<body sd>
 
