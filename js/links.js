@@ -27,7 +27,7 @@ $(document).ready(function(){
     }
     if($('#tunes_link').length){
         $('#tunes_link').click(function(){
-            $('#content').load('tunes.php');
+            location.reload();
         })
     }
 

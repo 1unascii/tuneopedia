@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
-   $('.show_abc').click(function() {
+   //$('.show_abc').click(function() {
+    $(document).on('click', '.show_abc', function() { 
         var setting_id = $(this).attr('id');
         var $thisSpan = $(this); // ← must be here, BEFORE $.post
         //git rid of any old close icons
@@ -35,7 +36,8 @@ $(document).ready(function(){
     
     
     
-    $(".tune-favorite-icon").on("click", function () {
+    //$(".tune-favorite-icon").on("click", function () {
+    $(document).on('click', '.tune-favorite-icon', function() {
         var result = confirm("Are you sure you want to add this tune to your favorites?");    
         var userId = $('#user-info').data('user-id');
         if(result){
