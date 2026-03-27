@@ -1,0 +1,23 @@
+-- Additional Users
+INSERT INTO user (user_name, email, password) VALUES
+('ReelKing', 'reel@example.com', 'pass7'),
+('JigQueen', 'jig@example.com', 'pass8'),
+('SlipJigSam', 'slip@example.com', 'pass9');
+
+-- Additional Tunes
+INSERT INTO tune (name, tune_type_id, composer) VALUES
+('The Morning Dew', 1, 'Traditional'),           -- Reel
+('The Silver Spear', 1, 'Traditional'),           -- Reel
+('The Flogging Reel', 1, 'Traditional'),          -- Reel
+('The Tarbolton', 1, 'Traditional'),              -- Reel
+('The Sally Gardens', 1, 'Traditional'),          -- Reel
+('The Connaughtman''s Rambles', 2, 'Traditional'),-- Jig
+('The Lilting Banshee', 2, 'Traditional'),        -- Jig
+('Paddy Clancy''s Jig', 2, 'Traditional'),        -- Jig
+('The Rocky Road to Dublin', 2, 'Traditional'),   -- Jig
+('The Foxhunter''s Reel', 1, 'Traditional'),      -- Reel
+('The Gold Ring', 5, 'Traditional'),              -- Slip Jig
+('The Drops of Brandy', 5, 'Traditional'),        -- Slip Jig
+('The Stack of Barley', 3, 'Traditional'),        -- Polka
+('The Galway Rambler', 3, 'Traditional'),         -- Polka
+('The Londonderry Hornpipe', 4, 'Traditional');   -- Hornpipe

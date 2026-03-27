@@ -50,5 +50,5 @@
     <link rel="shortcut icon" href="images/notes.gif" />
 <!--FAVICON-->
 </head>
-<body>
+<body >
 
