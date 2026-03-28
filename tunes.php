@@ -1,9 +1,18 @@
-<script src='node_modules/abcjs/dist/abcjs-basic.js' type='text/javascript'></script>
 <div onload="load()">
+<div class="pagination-top">
+    <label>Tunes per page: </label>
+    <select class="per-page-select" data-table="<?= mb_strtolower($tune_type_names[$id]) ?>">
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+    </select>
+</div>
+<div class="pagination-controls" id="pagination-<?= mb_strtolower($tune_type_names[$id]) ?>"></div>
 
 <?php
     
-    //Start a session if one has not been started yet
+    /*//Start a session if one has not been started yet
     if (session_status() === PHP_SESSION_NONE){
         session_start();
     }
@@ -26,8 +35,7 @@
         $count++;
     }    
 
-    //construct an array to get all the tunes for each type, based on ID
-    $count = 0;
+    
 
     $sql = file_get_contents('sql/show_tunebook.sql');
     $tunes = simpleQuery($sql);
@@ -46,6 +54,24 @@
             $tune_type_names[$typeId] = $row['tune_type_name'];
         }
         
+        $groupedTunes[$typeId][] = $row;
+    }*/
+
+    if (session_status() === PHP_SESSION_NONE) session_start();
+
+    include_once('connect.php');
+
+    $tunes = simpleQuery(file_get_contents('sql/show_tunebook.sql'));
+
+    $groupedTunes = [];
+    $tune_type_names = [];
+
+    foreach ($tunes as $row) {
+        $typeId = $row['tune_type_id'];
+        if (!isset($groupedTunes[$typeId])) {
+            $groupedTunes[$typeId] = [];
+            $tune_type_names[$typeId] = $row['tune_type_name'];
+        }
         $groupedTunes[$typeId][] = $row;
     }
         
@@ -68,13 +94,14 @@
 
     <?php foreach ($groupedTunes as $id => $categoryItems): ?>
         <div id="tabs-<?= $id ?>">
+        
             <table id="<?= mb_strtolower($tune_type_names[$id]) ?>">
                 <thead class="ui-state-default">
                     <tr>
                         
                         <th>Title</th>
-                        <th>Uploader</th>
-                        <th>Composer</th>
+                        
+                        
                         <th>Key</th>
                         <th>Add Favorite</th>
 
@@ -92,16 +119,6 @@
                                     <?= htmlspecialchars($t['tune_name']) ?>
                                 </span>
                                 
-                            </td>
-
-                            <!-- Transcriber/Uploader Name -->
-                            <td>
-                                <?= htmlspecialchars($t['user_name'] ?? 'System') ?>
-                            </td>
-
-                            <!-- Composer -->
-                            <td>
-                                <?= htmlspecialchars($t['composer'] ?? 'Traditional') ?>
                             </td>
 
                             <!-- Key -->

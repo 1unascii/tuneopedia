@@ -207,3 +207,28 @@ footer {
   padding: 20px;
   border-radius: 5px;
 }
+.pagination-top {
+    margin: 5px 0 10px 0;
+    padding: 0;
+}
+.pagination-controls {
+    margin-top: 10px;
+    padding: 5px 0;
+}
+
+.page-link {
+    display: inline-block;
+    margin: 0 3px;
+    padding: 3px 8px;
+    cursor: pointer;
+    color: white;
+}
+
+.page-link.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+#content.main-content {
+    padding-top: 0;
+    margin-top: 0;
+}
