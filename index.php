@@ -5,13 +5,12 @@
     include_once('links.php');
 ?>
 
-<div id='content' class='main-content'>
-    
+<div id='content' class='main-content'>   
 <?php
-    
     include_once('tunes.php');
 ?>
 </div>
+
 <?php
     include_once('footer.php');
 ?>

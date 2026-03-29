@@ -5,13 +5,13 @@ a, img                      {
 
                             }
 #tunes_info, #tunes_filter  {
-                            padding-top: 10px;
-                            padding-bottom: 10px;
-                            padding-right: 10px;
-                            padding-left: 1px;
+                            padding-top: 5px;
+                            padding-bottom: 5px;
+                            padding-right: 5px;
+                            padding-left: 5px;
                             }
 label                       {
-                            width: 200px;
+                            width: 50px;
                             }
 .tune_data_row,th           {
                             background: hsl(calc(var(--i) *8), 45%, 77%) !important;

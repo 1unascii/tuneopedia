@@ -18,7 +18,8 @@ div#page_loader             {
 
 label                       {
                             display: inline-block;
-                            width: 150px;
+                            width: 300px;
+                            white-space: nowrap;
                             }
 td, th, body                {
                             padding-left: 10px;
@@ -27,7 +28,7 @@ td, th, body                {
 
 
 #content                    {
-                            padding: 10px;
+                            padding: 2px;
                             }
 
 #warning_canvas_wrapper     {
@@ -105,9 +106,9 @@ td                                      {
     font-size: 3rem;
     display: block;
     text-align: center;
-    padding: 20px 0;
+    padding: 15px 0;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     letter-spacing: 4px;
 }
 
@@ -231,4 +232,33 @@ footer {
 #content.main-content {
     padding-top: 0;
     margin-top: 0;
+}
+th {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+.pagination-top {
+    margin: 0;
+    padding: 0px 0;
+}
+#tabs {
+    margin-top: 0;
+    padding-top: 0;
+}
+.main-content {
+    padding-top: 0;
+    margin-top: 0;
+}
+.nav-container {
+    margin-bottom: 10px;
+}
+.ui-tabs {
+    padding-top: 0;
+    margin-top: 0;
+}
+#content {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
 }
