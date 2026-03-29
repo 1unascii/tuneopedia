@@ -30,6 +30,16 @@ $(document).ready(function(){
             location.reload();
         })
     }
+    if($('#collections_link').length){
+        $('#collections_link').click(function(){
+            $('#content').load('collections.php');
+        })
+    }
+    if($('#add_collection_link').length){
+        $('#add_collection_link').click(function(){
+            $('#content').load('forms/add_collection.php');
+        })
+    }
 
 
 

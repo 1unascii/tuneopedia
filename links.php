@@ -11,6 +11,7 @@
         <div class='nav' id='logout_link'>Log Out</div>
         <div class='nav' id='add_tune_link'>Add Tune</div>
         <div class='nav' id='my_tunes_link'>My Tunebook</div>
+        <div class='nav' id='add_collection_link'>Add Collection</div>
 <?php        
     //IF NOT LOGGED IN      
     }else{    
@@ -21,5 +22,7 @@
 <?php        
     }
 ?>
+    <div class='nav' id='collections_link'>Collections</div>
+    
     </div>
 

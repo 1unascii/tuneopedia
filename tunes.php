@@ -31,15 +31,15 @@
 <div id="pagination-and-search">
 <!--SEARCH BAR-->
     <span class="filter-bar">
-        <label>Search: </label>
+        <label for="tune-filter">Search: </label>
         <input type="text" id="tune-filter" placeholder="Filter tunes by title..." />
     </span >
 
     <!--PAGINATION-->
     <span class="pagination-top">
-        <label>Tunes per page: </label>
-        <span></span>
-        <select id="per-page-select" ?>">
+        <label for="per-page-select">Tunes per page: </label>
+        
+        <select id="per-page-select">
             <option value="5">5</option>
             <option value="10" selected>10</option>
             <option value="25">25</option>
@@ -122,7 +122,7 @@
 	<p>Select the tune you want to display. </p> 
 	<div id="paper"></div>
 </div>
-                    </div>
+                   
 
     
             

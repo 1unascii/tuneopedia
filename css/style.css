@@ -17,7 +17,6 @@ div#page_loader             {
                             }
 
 label                       {
-                            
                             white-space: nowrap;
                             margin-left: 20px;
                             margin-right: 5px;
@@ -49,7 +48,6 @@ footer                          {
                             float:left;
 }
 
-
 #home_link                              {
                                         padding-left: 1px;
                                         }   
@@ -60,8 +58,6 @@ td                                      {
                                         display: inline-block;
                                         color: beige;
                                         }
-
-
 
 /* Style the Navigation Links */
 .nav {
@@ -230,11 +226,11 @@ footer {
 th {
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
-    
+    text-overflow: ellipsis;   
 }
-
 .nav-container {
     margin-bottom: 15px;
 }
-
+#tune-filter {
+    width: 200px;
+}
