@@ -52,7 +52,6 @@ $(document).ready(function(){
                 }
             );         
         }
-
     });
 
     var rowsPerPage = 10;
@@ -131,18 +130,6 @@ $(document).ready(function(){
         }
     });
 
-    /*$(document).on('click', '.page-link', function() {
-        var page = parseInt($(this).data('page'));
-        var tableId = $(this).data('table');
-        var filter = $('#tune-filter').val().toLowerCase();
-    
-        if (filter === '') {
-            paginateTable(tableId, page);
-        } else {
-            filterAndPaginate(tableId, filter, page);
-        }
-    });*/
-
     $(document).on('click', '.page-link', function() {
         var page = parseInt($(this).data('page'));
         var tableId = $(this).data('table');
@@ -157,17 +144,6 @@ $(document).ready(function(){
         }
     });
 
-    /*$('#tune-filter').on('input', function() {
-        var filter = $(this).val().toLowerCase();
-        var tableId = $("#tabs .ui-tabs-panel:visible table").attr('id');
-    
-        if (filter === '') {
-            paginateTable(tableId, 1);
-        } else {
-            filterAndPaginate(tableId, filter, 1);
-        }
-    });*/
-
     $('#tune-filter').on('input', function() {
         var filter = $(this).val().toLowerCase();
         var tableId = $("#tabs .ui-tabs-panel:visible table").attr('id');
@@ -180,16 +156,6 @@ $(document).ready(function(){
         }
     });
 
-    /*$("#tabs").on("tabsactivate", function(event, ui) {
-        var tableId = ui.newPanel.find('table').attr('id');
-        var filter = $('#tune-filter').val().toLowerCase();
-    
-        if (filter === '') {
-            paginateTable(tableId, 1);
-        } else {
-            filterAndPaginate(tableId, filter, 1);
-        }
-    });*/
     $("#tabs").on("tabsactivate", function(event, ui) {
         var tableId = ui.newPanel.find('table').attr('id');
         var filter = $('#tune-filter').val().toLowerCase();
