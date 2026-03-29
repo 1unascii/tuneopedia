@@ -87,63 +87,18 @@ $(document).ready(function(){
         });
     }
 
-    // Initialize
-    paginateAll(1);
-
-    // One select controls all tables
-    $(document).on('change', '#per-page-select', function() {
-        rowsPerPage = parseInt($(this).val());
-        paginateAll(1);
-    });
-
-    
-
-    $(document).on('click', '.page-link', function() {
-        var page = parseInt($(this).data('page'));
-        var tableId = $(this).data('table');
-        var filter = $('#tune-filter').val().toLowerCase();
+    function filterAndPaginate(tableId, filter, page) {
         var $allRows = $('#' + tableId + ' tbody tr');
     
-        if (filter === '') {
-            paginateTable(tableId, page);
-        } else {
-            // Re-apply filter first
-            $allRows.each(function() {
-                var title = $(this).find('.tune_title').text().toLowerCase();
-                $(this).toggle(title.indexOf(filter) !== -1);
-            });
-    
-            // Then paginate visible rows for the requested page
-            var $visibleRows = $('#' + tableId + ' tbody tr:visible');
-            var start = (page - 1) * rowsPerPage;
-            $visibleRows.hide().slice(start, start + rowsPerPage).show();
-    
-            // Update page link active state
-            $(this).siblings().removeClass('active');
-            $(this).addClass('active');
-        }
-    });
-
-
-    $('#tune-filter').on('input', function() {
-        var filter = $(this).val().toLowerCase();
-        var tableId = $("#tabs .ui-tabs-panel:visible table").attr('id');
-        var $allRows = $('#' + tableId + ' tbody tr');
-    
-        // Show/hide rows based on filter
         $allRows.each(function() {
             var title = $(this).find('.tune_title').text().toLowerCase();
-            if (filter === '' || title.indexOf(filter) !== -1) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
+            $(this).toggle(filter === '' || title.indexOf(filter) !== -1);
         });
     
-        // Now paginate only the visible rows
         var $visibleRows = $('#' + tableId + ' tbody tr:visible');
         var totalPages = Math.ceil($visibleRows.length / rowsPerPage);
-        $visibleRows.hide().slice(0, rowsPerPage).show();
+        var start = (page - 1) * rowsPerPage;
+        $visibleRows.hide().slice(start, start + rowsPerPage).show();
     
         var $controls = $('#pagination-' + tableId);
         $controls.empty();
@@ -152,11 +107,49 @@ $(document).ready(function(){
                 $controls.append(
                     $('<a>')
                         .text(i)
-                        .addClass('page-link' + (i === 1 ? ' active' : ''))
+                        .addClass('page-link' + (i === page ? ' active' : ''))
                         .attr('data-page', i)
                         .attr('data-table', tableId)
                 );
             }
+        }
+    }
+
+    // Initialize
+    paginateAll(1);
+
+    $(document).on('change', '#per-page-select', function() {
+        rowsPerPage = parseInt($(this).val());
+        var filter = $('#tune-filter').val().toLowerCase();
+        var tableId = $("#tabs .ui-tabs-panel:visible table").attr('id');
+    
+        if (filter === '') {
+            paginateAll(1);
+        } else {
+            filterAndPaginate(tableId, filter, 1);
+        }
+    });
+
+    $(document).on('click', '.page-link', function() {
+        var page = parseInt($(this).data('page'));
+        var tableId = $(this).data('table');
+        var filter = $('#tune-filter').val().toLowerCase();
+    
+        if (filter === '') {
+            paginateTable(tableId, page);
+        } else {
+            filterAndPaginate(tableId, filter, page);
+        }
+    });
+
+    $('#tune-filter').on('input', function() {
+        var filter = $(this).val().toLowerCase();
+        var tableId = $("#tabs .ui-tabs-panel:visible table").attr('id');
+    
+        if (filter === '') {
+            paginateTable(tableId, 1);
+        } else {
+            filterAndPaginate(tableId, filter, 1);
         }
     });
 
@@ -167,32 +160,7 @@ $(document).ready(function(){
         if (filter === '') {
             paginateTable(tableId, 1);
         } else {
-            var $allRows = $('#' + tableId + ' tbody tr');
-    
-            // Apply filter
-            $allRows.each(function() {
-                var title = $(this).find('.tune_title').text().toLowerCase();
-                $(this).toggle(title.indexOf(filter) !== -1);
-            });
-    
-            // Paginate visible rows
-            var $visibleRows = $('#' + tableId + ' tbody tr:visible');
-            var totalPages = Math.ceil($visibleRows.length / rowsPerPage);
-            $visibleRows.hide().slice(0, rowsPerPage).show();
-    
-            var $controls = $('#pagination-' + tableId);
-            $controls.empty();
-            if (totalPages > 1) {
-                for (var i = 1; i <= totalPages; i++) {
-                    $controls.append(
-                        $('<a>')
-                            .text(i)
-                            .addClass('page-link' + (i === 1 ? ' active' : ''))
-                            .attr('data-page', i)
-                            .attr('data-table', tableId)
-                    );
-                }
-            }
+            filterAndPaginate(tableId, filter, 1);
         }
     });
     
