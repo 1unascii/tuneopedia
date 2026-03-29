@@ -93,7 +93,7 @@ td                                      {
     display: flex;
     flex-direction: column; /* Stacks items vertically */
     align-items: left;    /* Centers them horizontally */
-    gap: 40px;              /* Adds a nice gap between table and bar */
+    gap: 10px;              /* Adds a nice gap between table and bar */
     
     width: 100%;
     box-sizing: border-box;
@@ -212,10 +212,6 @@ footer {
     margin: 5px 0 10px 0;
     padding: 0;
 }
-.pagination-controls {
-    margin-top: 10px;
-    padding: 5px 0;
-}
 
 .page-link {
     display: inline-block;
@@ -229,36 +225,15 @@ footer {
     font-weight: bold;
     text-decoration: underline;
 }
-#content.main-content {
-    padding-top: 0;
-    margin-top: 0;
-}
+
 th {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 150px;
+    
 }
-.pagination-top {
-    margin: 0;
-    padding: 0px 0;
-}
-#tabs {
-    margin-top: 0;
-    padding-top: 0;
-}
-.main-content {
-    padding-top: 0;
-    margin-top: 0;
-}
+
 .nav-container {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
-.ui-tabs {
-    padding-top: 0;
-    margin-top: 0;
-}
-#content {
-    padding-top: 0 !important;
-    margin-top: 0 !important;
-}
+

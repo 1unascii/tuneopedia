@@ -28,25 +28,26 @@
          $( "#tabs" ).tabs();
      }); 
 </script>
-
+<div id="pagination-and-search">
 <!--SEARCH BAR-->
-<div class="filter-bar">
-    <label>Search: </label>
-    <input type="text" id="tune-filter" placeholder="Filter tunes by title..." />
-</div>
+    <span class="filter-bar">
+        <label>Search: </label>
+        <input type="text" id="tune-filter" placeholder="Filter tunes by title..." />
+    </span >
 
-<!--PAGINATION-->
-<div class="pagination-top">
-    <label>Tunes per page: </label>
-    <select id="per-page-select" ?>">
-        <option value="5">5</option>
-        <option value="10" selected>10</option>
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-    </select>
+    <!--PAGINATION-->
+    <span class="pagination-top">
+        <label>Tunes per page: </label>
+        <span></span>
+        <select id="per-page-select" ?>">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+    </span>
 </div>
-
 
 <!--CREATE TABS HTML/OUTER TABS DIV-->
 <div id="tabs">
