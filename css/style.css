@@ -17,9 +17,10 @@ div#page_loader             {
                             }
 
 label                       {
-                            display: inline-block;
-                            width: 300px;
+                            
                             white-space: nowrap;
+                            margin-left: 20px;
+                            margin-right: 5px;
                             }
 td, th, body                {
                             padding-left: 10px;
