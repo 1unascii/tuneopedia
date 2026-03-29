@@ -56,6 +56,7 @@ $(document).ready(function(){
     });
 
     var rowsPerPage = 10;
+    var currentPages = {};
     
     function paginateTable(tableId, page) {
         var $rows = $('#' + tableId + ' tbody tr');
@@ -130,7 +131,7 @@ $(document).ready(function(){
         }
     });
 
-    $(document).on('click', '.page-link', function() {
+    /*$(document).on('click', '.page-link', function() {
         var page = parseInt($(this).data('page'));
         var tableId = $(this).data('table');
         var filter = $('#tune-filter').val().toLowerCase();
@@ -140,9 +141,23 @@ $(document).ready(function(){
         } else {
             filterAndPaginate(tableId, filter, page);
         }
+    });*/
+
+    $(document).on('click', '.page-link', function() {
+        var page = parseInt($(this).data('page'));
+        var tableId = $(this).data('table');
+        var filter = $('#tune-filter').val().toLowerCase();
+    
+        currentPages[tableId] = page; // ADD THIS
+    
+        if (filter === '') {
+            paginateTable(tableId, page);
+        } else {
+            filterAndPaginate(tableId, filter, page);
+        }
     });
 
-    $('#tune-filter').on('input', function() {
+    /*$('#tune-filter').on('input', function() {
         var filter = $(this).val().toLowerCase();
         var tableId = $("#tabs .ui-tabs-panel:visible table").attr('id');
     
@@ -151,9 +166,21 @@ $(document).ready(function(){
         } else {
             filterAndPaginate(tableId, filter, 1);
         }
+    });*/
+
+    $('#tune-filter').on('input', function() {
+        var filter = $(this).val().toLowerCase();
+        var tableId = $("#tabs .ui-tabs-panel:visible table").attr('id');
+        currentPages = {}; // ADD THIS - reset all saved pages on new search
+    
+        if (filter === '') {
+            paginateTable(tableId, 1);
+        } else {
+            filterAndPaginate(tableId, filter, 1);
+        }
     });
 
-    $("#tabs").on("tabsactivate", function(event, ui) {
+    /*$("#tabs").on("tabsactivate", function(event, ui) {
         var tableId = ui.newPanel.find('table').attr('id');
         var filter = $('#tune-filter').val().toLowerCase();
     
@@ -161,6 +188,17 @@ $(document).ready(function(){
             paginateTable(tableId, 1);
         } else {
             filterAndPaginate(tableId, filter, 1);
+        }
+    });*/
+    $("#tabs").on("tabsactivate", function(event, ui) {
+        var tableId = ui.newPanel.find('table').attr('id');
+        var filter = $('#tune-filter').val().toLowerCase();
+        var page = currentPages[tableId] || 1; // ADD THIS
+    
+        if (filter === '') {
+            paginateTable(tableId, page);
+        } else {
+            filterAndPaginate(tableId, filter, page); // USE page INSTEAD OF 1
         }
     });
     
