@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2026 at 06:31 AM
+-- Generation Time: Mar 30, 2026 at 01:20 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,16 +33,6 @@ CREATE TABLE `album` (
   `cover_art` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `album`
---
-
-INSERT INTO `album` (`album_id`, `name`, `cover_art`) VALUES
-(1, 'The Vertical Records', 'cover_01.jpg'),
-(2, 'Heathery Breeze', 'heathery.jpg'),
-(3, 'If the Cap Fits', 'cap_fits.jpg'),
-(4, '1975', 'bothy_1975.jpg');
-
 -- --------------------------------------------------------
 
 --
@@ -56,19 +46,6 @@ CREATE TABLE `artist` (
   `last_name` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `artist`
---
-
-INSERT INTO `artist` (`artist_id`, `first_name`, `middle_name`, `last_name`) VALUES
-(1, 'Seán', NULL, 'Ó Riada'),
-(2, 'Mary', NULL, 'Bergin'),
-(3, 'Matt', NULL, 'Molloy'),
-(4, 'Matt', NULL, 'Molloy'),
-(5, 'Kevin', NULL, 'Burke'),
-(6, 'Micheál', NULL, 'Ó Súilleabháin'),
-(7, 'The', NULL, 'Bothy Band');
-
 -- --------------------------------------------------------
 
 --
@@ -81,15 +58,35 @@ CREATE TABLE `artist_album` (
   `album_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `artist_album`
+-- Table structure for table `collection`
 --
 
-INSERT INTO `artist_album` (`artist_album_id`, `artist_id`, `album_id`) VALUES
-(1, 1, 1),
-(2, 4, 1),
-(3, 5, 2),
-(4, 7, 3);
+CREATE TABLE `collection` (
+  `collection_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `author` varchar(255) DEFAULT NULL,
+  `publisher` varchar(255) DEFAULT NULL,
+  `published_date` date DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `cover_image` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `collection_tune`
+--
+
+CREATE TABLE `collection_tune` (
+  `collection_tune_id` int(11) NOT NULL,
+  `collection_id` int(11) NOT NULL,
+  `tune_id` int(11) NOT NULL,
+  `position` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -102,13 +99,6 @@ CREATE TABLE `discussion_thread` (
   `tune_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `discussion_thread`
---
-
-INSERT INTO `discussion_thread` (`discussion_thread_id`, `tune_id`, `user_id`) VALUES
-(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -124,13 +114,6 @@ CREATE TABLE `post` (
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `post`
---
-
-INSERT INTO `post` (`post_id`, `thread_id`, `user_id`, `body`, `created_at`) VALUES
-(1, 1, 2, 'Does anyone have the sheet music for the B-part of this tune?', '2026-03-19 19:19:44');
-
 -- --------------------------------------------------------
 
 --
@@ -142,13 +125,6 @@ CREATE TABLE `relationship` (
   `tune_id_1` int(11) DEFAULT NULL,
   `tune_id_2` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `relationship`
---
-
-INSERT INTO `relationship` (`relationship_id`, `tune_id_1`, `tune_id_2`) VALUES
-(1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -164,13 +140,6 @@ CREATE TABLE `reply` (
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `reply`
---
-
-INSERT INTO `reply` (`reply_id`, `post_id`, `user_id`, `body`, `created_at`) VALUES
-(1, 1, 1, 'Check the settings table above! I just uploaded the ABC notation.', '2026-03-19 19:19:44');
-
 -- --------------------------------------------------------
 
 --
@@ -182,34 +151,12 @@ CREATE TABLE `setting` (
   `tune_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `time_signature` varchar(7) NOT NULL DEFAULT '4/4',
   `key_signature` varchar(50) DEFAULT NULL,
   `abc_transcription` text DEFAULT NULL,
   `file_type` varchar(50) DEFAULT NULL,
   `file_url` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `setting`
---
-
-INSERT INTO `setting` (`setting_id`, `tune_id`, `user_id`, `name`, `key_signature`, `abc_transcription`, `file_type`, `file_url`) VALUES
-(1, 1, 1, 'Standard Setting', 'EDor', 'E2BE dEBE|E2BE AFDF|...', NULL, NULL),
-(2, 2, 1, 'Standard Reel', 'D', 'B2 BA B2 BA | dBBA B2 BA | d2 fd e2 fe | dBAF E2 D2 |', NULL, NULL),
-(3, 2, 2, 'Sligo Variation', 'D', 'f~d3 B2BA | G2BG FAA2 | feed e2fe | dBAF E2D2 |', NULL, NULL),
-(4, 2, 1, 'Ornamented', 'D', 'A2AB AF~F2 | ABde fded | Beed e2de | f2af edBd |', NULL, NULL),
-(5, 3, 1, 'Basic Jig', 'G', 'G3 GAB | A3 ABd | edB gdB | BAG ABA |', NULL, NULL),
-(6, 3, 2, 'Session Version', 'G', '~G3 GAB | ~A3 ABd | edB gdB | AGF G2A |', NULL, NULL),
-(7, 3, 1, 'Double Jig Style', 'G', 'G2G GAB | A2A ABd | ege dBA | BGG G2D |', NULL, NULL),
-(8, 4, 2, 'Traditional', 'EDor', 'E2BE cEBE | E2BE AFDF | E2BE cEBE | BABd AFD2 |', NULL, NULL),
-(9, 4, 1, 'High Octave', 'EDor', 'bee bee | afe d2f | gfe dBA | BAG FGA |', NULL, NULL),
-(10, 4, 2, 'Fast Session', 'EDor', '~E3 ~B3 | ~E3 AFD | GBG FAF | GFE FED |', NULL, NULL),
-(11, 5, 3, 'Standard Reel', 'G', 'G2 GD GABd | edBd edBA | G2 GD GABd | edBA GEDE |', NULL, NULL),
-(12, 5, 6, 'Ornamented', 'G', '~G3 GD GABd | edBd edBA | ~G3 GD GABd | edBA GEDE |', NULL, NULL),
-(13, 7, 5, 'Basic Slip Jig', 'Em', 'B2E G2E F3 | B2E G2E FED | B2E G2E F2A | B2c d2B AFD |', NULL, NULL),
-(14, 7, 1, 'Extended Variation', 'Em', 'B2E G2E F3 | B2E G2E FED | G2B d2B BAB | d2B G2B AFD |', NULL, NULL),
-(15, 7, 4, 'Session Version', 'Em', 'B2E G2E FGA | B2E G2E FED | B2E G2E F2A | B2c d2B AFD |', NULL, NULL),
-(16, 9, 2, 'Hornpipe Style', 'D', 'A2FA DAFA | defe dcBA | e2ce A2ce | f2df A2df |', NULL, NULL),
-(17, 9, 6, 'Sligo Style', 'D', 'A2FA DAFA | defe dcBA | e2ce A2ce | afge d2 :|', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -225,148 +172,6 @@ CREATE TABLE `setting_vote` (
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `setting_vote`
---
-
-INSERT INTO `setting_vote` (`vote_id`, `user_id`, `setting_id`, `vote_value`, `created_at`) VALUES
-(1, 1, 2, -1, '2026-03-19 20:34:00'),
-(2, 2, 9, 1, '2026-03-19 20:34:00'),
-(3, 1, 10, 1, '2026-03-19 20:38:35'),
-(4, 2, 10, -1, '2026-03-19 20:38:35'),
-(5, 4, 10, 1, '2026-03-19 20:38:35'),
-(6, 5, 10, 1, '2026-03-19 20:38:35'),
-(7, 2, 12, -1, '2026-03-19 20:38:35'),
-(8, 3, 12, -1, '2026-03-19 20:38:35'),
-(9, 6, 12, -1, '2026-03-19 20:38:35'),
-(10, 1, 15, 1, '2026-03-19 20:38:35'),
-(11, 4, 15, 1, '2026-03-19 20:38:35'),
-(12, 5, 15, -1, '2026-03-19 20:38:35'),
-(13, 3, 15, -1, '2026-03-19 20:38:35'),
-(14, 5, 1, -1, '2026-03-19 20:41:55'),
-(15, 1, 1, -1, '2026-03-19 20:41:55'),
-(16, 3, 1, 1, '2026-03-19 20:41:55'),
-(17, 6, 1, -1, '2026-03-19 20:41:55'),
-(18, 7, 1, 1, '2026-03-19 20:41:55'),
-(19, 8, 1, 1, '2026-03-19 20:41:55'),
-(20, 2, 1, -1, '2026-03-19 20:41:55'),
-(21, 4, 1, 1, '2026-03-19 20:41:55'),
-(22, 5, 2, -1, '2026-03-19 20:41:55'),
-(23, 3, 2, 1, '2026-03-19 20:41:55'),
-(24, 6, 2, -1, '2026-03-19 20:41:55'),
-(25, 7, 2, 1, '2026-03-19 20:41:55'),
-(26, 8, 2, -1, '2026-03-19 20:41:55'),
-(27, 2, 2, -1, '2026-03-19 20:41:55'),
-(28, 4, 2, 1, '2026-03-19 20:41:55'),
-(29, 5, 3, 1, '2026-03-19 20:41:55'),
-(30, 1, 3, -1, '2026-03-19 20:41:55'),
-(31, 3, 3, -1, '2026-03-19 20:41:55'),
-(32, 6, 3, 1, '2026-03-19 20:41:55'),
-(33, 7, 3, 1, '2026-03-19 20:41:55'),
-(34, 8, 3, 1, '2026-03-19 20:41:55'),
-(35, 2, 3, -1, '2026-03-19 20:41:55'),
-(36, 4, 3, -1, '2026-03-19 20:41:55'),
-(37, 5, 4, 1, '2026-03-19 20:41:55'),
-(38, 1, 4, -1, '2026-03-19 20:41:55'),
-(39, 3, 4, 1, '2026-03-19 20:41:55'),
-(40, 6, 4, -1, '2026-03-19 20:41:55'),
-(41, 7, 4, 1, '2026-03-19 20:41:55'),
-(42, 8, 4, 1, '2026-03-19 20:41:55'),
-(43, 2, 4, -1, '2026-03-19 20:41:55'),
-(44, 4, 4, 1, '2026-03-19 20:41:55'),
-(45, 5, 5, -1, '2026-03-19 20:41:55'),
-(46, 1, 5, -1, '2026-03-19 20:41:55'),
-(47, 3, 5, 1, '2026-03-19 20:41:55'),
-(48, 6, 5, -1, '2026-03-19 20:41:55'),
-(49, 7, 5, 1, '2026-03-19 20:41:55'),
-(50, 8, 5, -1, '2026-03-19 20:41:55'),
-(51, 2, 5, -1, '2026-03-19 20:41:55'),
-(52, 4, 5, 1, '2026-03-19 20:41:55'),
-(53, 5, 6, -1, '2026-03-19 20:41:55'),
-(54, 1, 6, -1, '2026-03-19 20:41:55'),
-(55, 3, 6, -1, '2026-03-19 20:41:55'),
-(56, 6, 6, 1, '2026-03-19 20:41:55'),
-(57, 7, 6, -1, '2026-03-19 20:41:55'),
-(58, 8, 6, -1, '2026-03-19 20:41:55'),
-(59, 2, 6, -1, '2026-03-19 20:41:55'),
-(60, 4, 6, 1, '2026-03-19 20:41:55'),
-(61, 5, 7, -1, '2026-03-19 20:41:55'),
-(62, 1, 7, 1, '2026-03-19 20:41:55'),
-(63, 3, 7, 1, '2026-03-19 20:41:55'),
-(64, 6, 7, -1, '2026-03-19 20:41:55'),
-(65, 7, 7, 1, '2026-03-19 20:41:55'),
-(66, 8, 7, 1, '2026-03-19 20:41:55'),
-(67, 2, 7, 1, '2026-03-19 20:41:55'),
-(68, 4, 7, -1, '2026-03-19 20:41:55'),
-(69, 5, 8, -1, '2026-03-19 20:41:55'),
-(70, 1, 8, -1, '2026-03-19 20:41:55'),
-(71, 3, 8, 1, '2026-03-19 20:41:55'),
-(72, 6, 8, 1, '2026-03-19 20:41:55'),
-(73, 7, 8, 1, '2026-03-19 20:41:55'),
-(74, 8, 8, 1, '2026-03-19 20:41:55'),
-(75, 2, 8, -1, '2026-03-19 20:41:55'),
-(76, 4, 8, -1, '2026-03-19 20:41:55'),
-(77, 5, 9, -1, '2026-03-19 20:41:55'),
-(78, 1, 9, 1, '2026-03-19 20:41:55'),
-(79, 3, 9, -1, '2026-03-19 20:41:55'),
-(80, 6, 9, -1, '2026-03-19 20:41:55'),
-(81, 7, 9, 1, '2026-03-19 20:41:55'),
-(82, 8, 9, 1, '2026-03-19 20:41:55'),
-(83, 4, 9, -1, '2026-03-19 20:41:55'),
-(84, 3, 10, 1, '2026-03-19 20:41:55'),
-(85, 6, 10, -1, '2026-03-19 20:41:55'),
-(86, 7, 10, 1, '2026-03-19 20:41:55'),
-(87, 8, 10, 1, '2026-03-19 20:41:55'),
-(88, 5, 11, -1, '2026-03-19 20:41:55'),
-(89, 1, 11, 1, '2026-03-19 20:41:55'),
-(90, 3, 11, -1, '2026-03-19 20:41:55'),
-(91, 6, 11, 1, '2026-03-19 20:41:55'),
-(92, 7, 11, 1, '2026-03-19 20:41:55'),
-(93, 8, 11, 1, '2026-03-19 20:41:55'),
-(94, 2, 11, -1, '2026-03-19 20:41:55'),
-(95, 4, 11, 1, '2026-03-19 20:41:55'),
-(96, 5, 12, 1, '2026-03-19 20:41:55'),
-(97, 1, 12, 1, '2026-03-19 20:41:55'),
-(98, 7, 12, 1, '2026-03-19 20:41:55'),
-(99, 8, 12, -1, '2026-03-19 20:41:55'),
-(100, 4, 12, 1, '2026-03-19 20:41:55'),
-(101, 5, 13, 1, '2026-03-19 20:41:55'),
-(102, 1, 13, 1, '2026-03-19 20:41:55'),
-(103, 3, 13, -1, '2026-03-19 20:41:55'),
-(104, 6, 13, -1, '2026-03-19 20:41:55'),
-(105, 7, 13, 1, '2026-03-19 20:41:55'),
-(106, 8, 13, 1, '2026-03-19 20:41:55'),
-(107, 2, 13, -1, '2026-03-19 20:41:55'),
-(108, 4, 13, -1, '2026-03-19 20:41:55'),
-(109, 5, 14, -1, '2026-03-19 20:41:55'),
-(110, 1, 14, 1, '2026-03-19 20:41:55'),
-(111, 3, 14, -1, '2026-03-19 20:41:55'),
-(112, 6, 14, -1, '2026-03-19 20:41:55'),
-(113, 7, 14, 1, '2026-03-19 20:41:55'),
-(114, 8, 14, -1, '2026-03-19 20:41:55'),
-(115, 2, 14, -1, '2026-03-19 20:41:55'),
-(116, 4, 14, 1, '2026-03-19 20:41:55'),
-(117, 6, 15, -1, '2026-03-19 20:41:55'),
-(118, 7, 15, 1, '2026-03-19 20:41:55'),
-(119, 8, 15, -1, '2026-03-19 20:41:55'),
-(120, 2, 15, -1, '2026-03-19 20:41:55'),
-(121, 5, 16, 1, '2026-03-19 20:41:55'),
-(122, 1, 16, 1, '2026-03-19 20:41:55'),
-(123, 3, 16, 1, '2026-03-19 20:41:55'),
-(124, 6, 16, 1, '2026-03-19 20:41:55'),
-(125, 7, 16, 1, '2026-03-19 20:41:55'),
-(126, 8, 16, -1, '2026-03-19 20:41:55'),
-(127, 2, 16, 1, '2026-03-19 20:41:55'),
-(128, 4, 16, -1, '2026-03-19 20:41:55'),
-(129, 5, 17, -1, '2026-03-19 20:41:55'),
-(130, 1, 17, -1, '2026-03-19 20:41:55'),
-(131, 3, 17, -1, '2026-03-19 20:41:55'),
-(132, 6, 17, 1, '2026-03-19 20:41:55'),
-(133, 7, 17, 1, '2026-03-19 20:41:55'),
-(134, 8, 17, 1, '2026-03-19 20:41:55'),
-(135, 2, 17, 1, '2026-03-19 20:41:55'),
-(136, 4, 17, -1, '2026-03-19 20:41:55');
-
 -- --------------------------------------------------------
 
 --
@@ -381,16 +186,6 @@ CREATE TABLE `track` (
   `tune_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `track`
---
-
-INSERT INTO `track` (`track_id`, `album_id`, `name`, `track_number`, `tune_id`) VALUES
-(1, 1, 'Drowsy Maggie', 1, 1),
-(2, 2, 'Wind That Shakes the Barley', 4, 2),
-(3, 4, 'The Kesh Jig', 1, 3),
-(4, 3, 'Morrisons', 8, 4);
-
 -- --------------------------------------------------------
 
 --
@@ -403,19 +198,6 @@ CREATE TABLE `tune` (
   `tune_type_id` int(11) DEFAULT NULL,
   `composer` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tune`
---
-
-INSERT INTO `tune` (`tune_id`, `name`, `tune_type_id`, `composer`) VALUES
-(1, 'The Drowsy Maggie', 1, 'Traditional'),
-(2, 'The Wind That Shakes the Barley', 1, 'Traditional'),
-(3, 'The Kesh Jig', 2, 'Traditional'),
-(4, 'Morrison\'s Jig', 2, 'Traditional'),
-(5, 'The Banshee', 1, 'James Morrison'),
-(7, 'The Butterfly', 1, 'Traditional'),
-(9, 'Harvest Home', 4, 'Traditional');
 
 -- --------------------------------------------------------
 
@@ -430,13 +212,17 @@ CREATE TABLE `tunebook` (
   `date_added` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `tunebook`
+-- Table structure for table `tune_alias`
 --
 
-INSERT INTO `tunebook` (`tunebook_id`, `user_id`, `tune_id`, `date_added`) VALUES
-(1, 1, 3, '2026-03-19 19:45:58'),
-(2, 1, 4, '2026-03-19 19:45:58');
+CREATE TABLE `tune_alias` (
+  `alias_id` int(11) NOT NULL,
+  `tune_id` int(11) NOT NULL,
+  `alias_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -449,13 +235,6 @@ CREATE TABLE `tune_track` (
   `tune_id` int(11) DEFAULT NULL,
   `track_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tune_track`
---
-
-INSERT INTO `tune_track` (`tune_track_id`, `tune_id`, `track_id`) VALUES
-(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -477,7 +256,56 @@ INSERT INTO `tune_type` (`tune_type_id`, `name`) VALUES
 (2, 'Jig'),
 (3, 'Polka'),
 (4, 'Hornpipe'),
-(5, 'Slip Jig');
+(5, 'Slip Jig'),
+(6, 'Other'),
+(7, 'Waltz'),
+(8, 'Strathspey'),
+(9, 'Reel'),
+(10, 'Jig'),
+(11, 'Polka'),
+(12, 'Hornpipe'),
+(13, 'Slip Jig'),
+(14, 'Other'),
+(15, 'Waltz'),
+(16, 'Strathspey'),
+(17, 'Reel'),
+(18, 'Jig'),
+(19, 'Polka'),
+(20, 'Hornpipe'),
+(21, 'Slip Jig'),
+(22, 'Other'),
+(23, 'Waltz'),
+(24, 'Strathspey'),
+(25, 'Reel'),
+(26, 'Jig'),
+(27, 'Polka'),
+(28, 'Hornpipe'),
+(29, 'Slip Jig'),
+(30, 'Other'),
+(31, 'Waltz'),
+(32, 'Strathspey'),
+(33, 'Reel'),
+(34, 'Jig'),
+(35, 'Polka'),
+(36, 'Hornpipe'),
+(37, 'Slip Jig'),
+(38, 'Other'),
+(39, 'Waltz'),
+(40, 'Strathspey');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tune_video`
+--
+
+CREATE TABLE `tune_video` (
+  `video_id` int(11) NOT NULL,
+  `tune_id` int(11) NOT NULL,
+  `youtube_id` varchar(20) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `submitted_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -493,22 +321,6 @@ CREATE TABLE `user` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `user_name`, `email`, `password`) VALUES
-(1, NULL, NULL, 'TradFan99', 'fan@example.com', 'hashed_pass_1'),
-(2, NULL, NULL, 'MusicScholar', 'scholar@example.com', 'hashed_pass_2'),
-(3, NULL, NULL, 'FiddleMaster', 'fiddle@example.com', 'pass1'),
-(4, NULL, NULL, 'TinWhistleGuy', 'whistle@example.com', 'pass2'),
-(5, NULL, NULL, 'BodhranBeats', 'drum@example.com', 'pass3'),
-(6, NULL, NULL, 'FluteFan', 'flute@example.com', 'pass4'),
-(7, NULL, NULL, 'Harpist92', 'harp@example.com', 'pass5'),
-(8, NULL, NULL, 'PiperPro', 'pipes@example.com', 'pass6'),
-(9, 'Joseph', 'Weiner', 'josepheaorle@gmail.com', '1unascii', '?h?OT\Zh???C???'),
-(10, 'Joseph', 'Weiner', '1unascii', 'josepheaorle@gmail.com', '?h?OT\Zh???C???');
 
 --
 -- Indexes for dumped tables
@@ -533,6 +345,20 @@ ALTER TABLE `artist_album`
   ADD PRIMARY KEY (`artist_album_id`),
   ADD KEY `artist_id` (`artist_id`),
   ADD KEY `album_id` (`album_id`);
+
+--
+-- Indexes for table `collection`
+--
+ALTER TABLE `collection`
+  ADD PRIMARY KEY (`collection_id`);
+
+--
+-- Indexes for table `collection_tune`
+--
+ALTER TABLE `collection_tune`
+  ADD PRIMARY KEY (`collection_tune_id`),
+  ADD KEY `collection_id` (`collection_id`),
+  ADD KEY `tune_id` (`tune_id`);
 
 --
 -- Indexes for table `discussion_thread`
@@ -606,6 +432,13 @@ ALTER TABLE `tunebook`
   ADD KEY `tune_id` (`tune_id`);
 
 --
+-- Indexes for table `tune_alias`
+--
+ALTER TABLE `tune_alias`
+  ADD PRIMARY KEY (`alias_id`),
+  ADD KEY `tune_id` (`tune_id`);
+
+--
 -- Indexes for table `tune_track`
 --
 ALTER TABLE `tune_track`
@@ -618,6 +451,13 @@ ALTER TABLE `tune_track`
 --
 ALTER TABLE `tune_type`
   ADD PRIMARY KEY (`tune_type_id`);
+
+--
+-- Indexes for table `tune_video`
+--
+ALTER TABLE `tune_video`
+  ADD PRIMARY KEY (`video_id`),
+  ADD KEY `tune_id` (`tune_id`);
 
 --
 -- Indexes for table `user`
@@ -634,91 +474,115 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `album`
 --
 ALTER TABLE `album`
-  MODIFY `album_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `album_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `artist`
 --
 ALTER TABLE `artist`
-  MODIFY `artist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `artist_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `artist_album`
 --
 ALTER TABLE `artist_album`
-  MODIFY `artist_album_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `artist_album_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `collection`
+--
+ALTER TABLE `collection`
+  MODIFY `collection_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `collection_tune`
+--
+ALTER TABLE `collection_tune`
+  MODIFY `collection_tune_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `discussion_thread`
 --
 ALTER TABLE `discussion_thread`
-  MODIFY `discussion_thread_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `discussion_thread_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `relationship`
 --
 ALTER TABLE `relationship`
-  MODIFY `relationship_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `relationship_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `reply`
 --
 ALTER TABLE `reply`
-  MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `setting`
 --
 ALTER TABLE `setting`
-  MODIFY `setting_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `setting_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `setting_vote`
 --
 ALTER TABLE `setting_vote`
-  MODIFY `vote_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+  MODIFY `vote_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `track`
 --
 ALTER TABLE `track`
-  MODIFY `track_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `track_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tune`
 --
 ALTER TABLE `tune`
-  MODIFY `tune_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `tune_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tunebook`
 --
 ALTER TABLE `tunebook`
-  MODIFY `tunebook_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `tunebook_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tune_alias`
+--
+ALTER TABLE `tune_alias`
+  MODIFY `alias_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tune_track`
 --
 ALTER TABLE `tune_track`
-  MODIFY `tune_track_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `tune_track_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tune_type`
 --
 ALTER TABLE `tune_type`
-  MODIFY `tune_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `tune_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
+-- AUTO_INCREMENT for table `tune_video`
+--
+ALTER TABLE `tune_video`
+  MODIFY `video_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -730,6 +594,13 @@ ALTER TABLE `user`
 ALTER TABLE `artist_album`
   ADD CONSTRAINT `artist_album_ibfk_1` FOREIGN KEY (`artist_id`) REFERENCES `artist` (`artist_id`),
   ADD CONSTRAINT `artist_album_ibfk_2` FOREIGN KEY (`album_id`) REFERENCES `album` (`album_id`);
+
+--
+-- Constraints for table `collection_tune`
+--
+ALTER TABLE `collection_tune`
+  ADD CONSTRAINT `collection_tune_ibfk_1` FOREIGN KEY (`collection_id`) REFERENCES `collection` (`collection_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `collection_tune_ibfk_2` FOREIGN KEY (`tune_id`) REFERENCES `tune` (`tune_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `discussion_thread`
@@ -794,11 +665,23 @@ ALTER TABLE `tunebook`
   ADD CONSTRAINT `tunebook_ibfk_2` FOREIGN KEY (`tune_id`) REFERENCES `tune` (`tune_id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `tune_alias`
+--
+ALTER TABLE `tune_alias`
+  ADD CONSTRAINT `tune_alias_ibfk_1` FOREIGN KEY (`tune_id`) REFERENCES `tune` (`tune_id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `tune_track`
 --
 ALTER TABLE `tune_track`
   ADD CONSTRAINT `tune_track_ibfk_1` FOREIGN KEY (`tune_id`) REFERENCES `tune` (`tune_id`),
   ADD CONSTRAINT `tune_track_ibfk_2` FOREIGN KEY (`track_id`) REFERENCES `track` (`track_id`);
+
+--
+-- Constraints for table `tune_video`
+--
+ALTER TABLE `tune_video`
+  ADD CONSTRAINT `tune_video_ibfk_1` FOREIGN KEY (`tune_id`) REFERENCES `tune` (`tune_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
