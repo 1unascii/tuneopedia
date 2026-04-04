@@ -5,8 +5,7 @@ WITH RankedSettings AS (
         s.user_id,
         s.key_signature,
         s.abc_transcription,
-        s.file_type,
-        s.file_url,
+        
         COALESCE(SUM(v.vote_value), 0) AS net_score,
         ROW_NUMBER() OVER (
             PARTITION BY s.tune_id 
@@ -25,8 +24,7 @@ SELECT
     tt.name AS tune_type_name,
     rs.key_signature,
     rs.abc_transcription,
-    rs.file_type,
-    rs.file_url,
+    
     -- Added the username join here
     rs.user_id AS user_id,
     u.user_name AS user_name,

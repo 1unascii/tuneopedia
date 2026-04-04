@@ -25,18 +25,26 @@ function countBeats($content) {
 
 function formatAbcBody($abcBody, $timeSignature) {
     // PARSE BEATS PER MEASURE FROM TIME SIGNATURE
-    // Using eighth notes as the unit (L:1/8 is assumed)
-    $beatsPerMeasure = 8; // default to 4/4 = 8 eighth notes
+    // Using eighth notes as the unit (L:1/8 is assumed)\
+    // CLEAN UP BEFORE PROCESSING
+    // Remove blank lines and normalize
+    $abcBody = preg_replace('/\n\s*\n/', "\n", $abcBody);
+    $abcBody = preg_replace('/\|\\\\\n/', "|", $abcBody); // strip |\ continuations
+    $abcBody = preg_replace('/\\\\\n/', " ", $abcBody);   // strip remaining \ continuations
+    $abcBody = trim($abcBody);
+
+    $beatsPerMeasure = 8;
     if (preg_match('/^(\d+)\/(\d+)$/', $timeSignature, $m)) {
-        $numerator   = (int)$m[1];
-        $denominator = (int)$m[2];
-        // Convert to eighth note units
+        $numerator       = (int)$m[1];
+        $denominator     = (int)$m[2];
         $beatsPerMeasure = $numerator * (8 / $denominator);
     }
 
     // SPLIT BODY INTO MEASURES ON | BUT KEEP THE DELIMITERS
     // Handles |, ||, |:, :|, :||:, [|, |] etc.
-    $measures = preg_split('/(\|[\|:\]]?|:\|[\|:]?)/', $abcBody, -1, PREG_SPLIT_DELIM_CAPTURE);
+    //$measures = preg_split('/(\|[\|:\]]?|:\|[\|:]?)/', $abcBody, -1, PREG_SPLIT_DELIM_CAPTURE);
+    // SPLIT ON BARLINES — but not repeat colons that are part of |: or :|
+    $measures = preg_split('/(\|\||\|:|:\||\[|\]|\|)/', $abcBody, -1, PREG_SPLIT_DELIM_CAPTURE);
 
     // PAIR EACH MEASURE CONTENT WITH ITS FOLLOWING BARLINE
     // preg_split with DELIM_CAPTURE gives: [content, barline, content, barline, ...]
@@ -44,19 +52,21 @@ function formatAbcBody($abcBody, $timeSignature) {
     for ($i = 0; $i < count($measures); $i += 2) {
         $content = $measures[$i];
         $barline = isset($measures[$i + 1]) ? $measures[$i + 1] : '';
-        $bars[]  = ['content' => $content, 'barline' => $barline];
+        if (trim($content) !== '') {
+            $bars[] = ['content' => $content, 'barline' => $barline];
+        }
     }
 
     
 
+    if (empty($bars)) return $abcBody;
+
     $firstBarBeats = countBeats($bars[0]['content']);
     $isAnacrusis   = ($firstBarBeats < $beatsPerMeasure);
 
-    // BUILD OUTPUT — insert \ + newline every 4 measures
-    // If anacrusis: break after bar 5, then every 4
-    $output      = '';
-    $barCount    = 0;
-    $breakAfter  = $isAnacrusis ? 5 : 4;
+    $output     = '';
+    $barCount   = 0;
+    $breakAfter = $isAnacrusis ? 5 : 4;
 
     foreach ($bars as $bar) {
         $output .= $bar['content'];
@@ -84,6 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $collectionName = trim($_POST['collection_name']);
     $description    = trim($_POST['description'] ?? '');
     $abcText        = trim($_POST['abc_text']);
+    $abcText = str_replace("\r\n", "\n", $abcText);
+    $abcText = str_replace("\r", "\n", $abcText);
     $userId         = $_SESSION['user_id'];
 
     //--------------------------------------------------------------------------
@@ -137,22 +149,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 foreach ($lines as $line) {
                     $line = trim($line);
-
+                
                     if (preg_match('/^T:\s*(.+)/', $line, $m)) {
                         if (empty($tuneName)) $tuneName = trim($m[1]);
                     } elseif (preg_match('/^M:\s*(.+)/', $line, $m)) {
                         $timeSignature = trim($m[1]);
                     } elseif (preg_match('/^K:\s*(.+)/', $line, $m)) {
                         $keySignature = trim($m[1]);
-                        $inBody = true; // K: is always the last header, body follows
+                        $inBody = true;
                     } elseif ($inBody && !empty($line)) {
                         $bodyLines[] = $line;
                     }
                 }
 
                 $abcBody = implode("\n", $bodyLines);
-                $abcBody = str_replace("\\\n", "", $abcBody); // remove ABC line continuations
+                //$abcBody = str_replace("\\\n", "", $abcBody); // remove ABC line continuations
                 $abcBody = formatAbcBody($abcBody, $timeSignature);
+                // TEMPORARY DEBUG - remove after testing
+                file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc.txt', $abcBody);
 
                 // EXTRACT R: FIELD IF PRESENT
                 $tuneTypeId = 6; // default to Other

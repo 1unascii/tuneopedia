@@ -16,41 +16,29 @@
 <br />
 <!--pre>
 <?php
-    $query = "SELECT * FROM tune_types";
-    $tune_types = simpleQuery($query);
+    $tune_types = simpleQuery("SELECT * FROM tune_type");
+    $composers  = simpleQuery("SELECT * FROM composer");
 ?>
 </pre-->
 <label>Tune Type: </label>
+<!-- TUNE TYPE SELECT -->
 <select id="tune_type" name="tune_type">
-    <!--option value="0">None</option-->
-    <?php
-        $count = 0;
-        foreach($tune_types as $value){
-            echo "<option>" . $tune_types[$count]['tune_type'] . "</option>";
-            $count++;
-        }
-    ?>
-    <!--option id="composer_not_listed">Add another</option-->
+    <?php foreach ($tune_types as $row): ?>
+        <option value="<?= htmlspecialchars($row['name']) ?>">
+            <?= htmlspecialchars($row['name']) ?>
+        </option>
+    <?php endforeach; ?>
 </select>
 <br />
-<!--pre>
-<?php
-    $query = "SELECT * FROM composers";
-    $composers = simpleQuery($query);
-?>
-</pre-->
+
 <label>Composer: </label>
 <select id="composer" name="composer">
-    <!--option value="0">None</option-->
-    <?php
-        $count = 0;
-        echo "<option></option>";
-        foreach($composers as $value){
-            echo "<option>" . $composers[$count]['composer_name'] . "</option>";
-            $count++;
-        }
-    ?>
-    <!--option id="composer_not_listed">Add another</option-->
+    <option value=""></option>
+    <?php foreach ($composers as $row): ?>
+        <option value="<?= htmlspecialchars($row['name']) ?>">
+            <?= htmlspecialchars($row['name']) ?>
+        </option>
+    <?php endforeach; ?>
 </select>
 <br />
 
