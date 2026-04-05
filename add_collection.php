@@ -3,11 +3,25 @@
 
 <?php
 
+//$debug_tune_name = '';
+
 // DETECT ANACRUSIS — count note units in first bar
-function countBeats($content) {
-    $beats = 0;
-    // Match notes: optional accidental, note letter, optional octave, optional length
+function countBeats($content, $unitLength = '1/8') {
+    // How many eighth notes is one L: unit worth?
+    $multiplier = 1; // default L:1/8 = 1 eighth note
+    if (preg_match('/(\d+)\/(\d+)/', $unitLength, $m)) {
+        $multiplier = ((int)$m[1] / (int)$m[2]) / (1/8);
+        // L:1/4 -> (1/4) / (1/8) = 2  (one quarter note = 2 eighth notes)
+        // L:1/8 -> (1/8) / (1/8) = 1
+    }
+
+    $content = preg_replace('/\(\d+/', '', $content);   // strip tuplet markers
+    $content = preg_replace('/\{[^}]*\}/', '', $content); // grace notes
+    $content = preg_replace('/\[[^\]]*\]/', '', $content); // chords
+    $content = preg_replace('/[!+~HLMOPSTuv]/', '', $content); // decorations
+
     preg_match_all('/[a-gA-GzZ][,\']*(\d*)(\/?(\d*))/', $content, $matches, PREG_SET_ORDER);
+    $beats = 0;
     foreach ($matches as $note) {
         $num   = $note[1] !== '' ? (int)$note[1] : 1;
         $slash = $note[2];
@@ -18,69 +32,102 @@ function countBeats($content) {
         } else {
             $denom = 1;
         }
-        $beats += $num / $denom;
+        $beats += ($num / $denom) * $multiplier;
     }
     return $beats;
 }
 
-function formatAbcBody($abcBody, $timeSignature) {
-    // PARSE BEATS PER MEASURE FROM TIME SIGNATURE
-    // Using eighth notes as the unit (L:1/8 is assumed)\
-    // CLEAN UP BEFORE PROCESSING
-    // Remove blank lines and normalize
-    $abcBody = preg_replace('/\n\s*\n/', "\n", $abcBody);
-    $abcBody = preg_replace('/\|\\\\\n/', "|", $abcBody); // strip |\ continuations
-    $abcBody = preg_replace('/\\\\\n/', " ", $abcBody);   // strip remaining \ continuations
+function formatAbcBody($abcBody, $timeSignature, $unitLength = '1/8', $debug_tune_name) {
+    // Clean up input
+    $abcBody = preg_replace('/\|\\\\\n/', '|', $abcBody);  // strip |\ continuations
+    $abcBody = preg_replace('/\\\\\n/', ' ', $abcBody);     // strip \ continuations
+    $abcBody = preg_replace('/\n\s*\n/', "\n", $abcBody);  // remove blank lines
     $abcBody = trim($abcBody);
 
+    // Beats per measure (in eighth notes)
+    // beatsPerMeasure in eighth notes — do NOT scale by unit length
     $beatsPerMeasure = 8;
     if (preg_match('/^(\d+)\/(\d+)$/', $timeSignature, $m)) {
-        $numerator       = (int)$m[1];
-        $denominator     = (int)$m[2];
-        $beatsPerMeasure = $numerator * (8 / $denominator);
+        $beatsPerMeasure = (int)$m[1] * (8 / (int)$m[2]);
+        // 3/4 = 3 * (8/4) = 6 eighth notes
+        // 4/4 = 4 * (8/4) = 8 eighth notes
+        // 6/8 = 6 * (8/8) = 6 eighth notes
+    }
+    // Scale beatsPerMeasure by unit length
+    if (preg_match('/(\d+)\/(\d+)/', $unitLength, $m)) {
+        $beatsPerMeasure = $beatsPerMeasure / ((int)$m[1] / (int)$m[2] / (1/8));
     }
 
-    // SPLIT BODY INTO MEASURES ON | BUT KEEP THE DELIMITERS
-    // Handles |, ||, |:, :|, :||:, [|, |] etc.
-    //$measures = preg_split('/(\|[\|:\]]?|:\|[\|:]?)/', $abcBody, -1, PREG_SPLIT_DELIM_CAPTURE);
-    // SPLIT ON BARLINES — but not repeat colons that are part of |: or :|
-    $measures = preg_split('/(\|\||\|:|:\||\[|\]|\|)/', $abcBody, -1, PREG_SPLIT_DELIM_CAPTURE);
+    // Split on barlines, keeping the delimiters
+    $parts = preg_split('/(\|\||:\||\|:|\|]|:\|:|\|)/', $abcBody, -1, PREG_SPLIT_DELIM_CAPTURE);
 
-    // PAIR EACH MEASURE CONTENT WITH ITS FOLLOWING BARLINE
-    // preg_split with DELIM_CAPTURE gives: [content, barline, content, barline, ...]
+    // Pair content with its following barline
     $bars = [];
-    for ($i = 0; $i < count($measures); $i += 2) {
-        $content = $measures[$i];
-        $barline = isset($measures[$i + 1]) ? $measures[$i + 1] : '';
-        if (trim($content) !== '') {
+    for ($i = 0; $i < count($parts); $i += 2) {
+        $content = trim($parts[$i]);
+        $barline = isset($parts[$i + 1]) ? $parts[$i + 1] : '';
+        if ($content !== '') {
             $bars[] = ['content' => $content, 'barline' => $barline];
         }
     }
 
-    
-
+    file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc.txt', 
+        "Tune: " . $debug_tune_name . "\n" .
+        "First bar content: [" . ($bars[0]['content'] ?? 'EMPTY') . "]\n" .
+        "First bar beats: " . countBeats($bars[0]['content'] ?? '', $unitLength) . "\n" .
+        "Beats per measure: " . $beatsPerMeasure . "\n" .
+        "Unit length: " . $unitLength . "\n\n",
+        FILE_APPEND
+    );
     if (empty($bars)) return $abcBody;
 
-    $firstBarBeats = countBeats($bars[0]['content']);
-    $isAnacrusis   = ($firstBarBeats < $beatsPerMeasure);
+    // Detect anacrusis
+    $firstBarBeats = countBeats($bars[0]['content'], $unitLength);
+    $isAnacrusis   = ($firstBarBeats < $beatsPerMeasure * 0.75);
 
-    $output     = '';
-    $barCount   = 0;
-    $breakAfter = $isAnacrusis ? 5 : 4;
+    $lines       = [];
+    $currentLine = '';
+    $barCount    = 0;
 
-    foreach ($bars as $bar) {
-        $output .= $bar['content'];
-        $barCount++;
+
+    foreach ($bars as $index => $bar) {
+        $nextBar = isset($bars[$index + 1]) ? $bars[$index + 1] : null;
+
+        // A bar is an anacrusis if it's short AND the next bar is a full bar
+        $thisBeats = countBeats($bar['content'], $unitLength);
+        $nextBeats = $nextBar ? countBeats($nextBar['content'], $unitLength) : 0;
+        $isAnacrusisBar = ($thisBeats < $beatsPerMeasure * 0.75) && ($nextBeats >= $beatsPerMeasure * 0.75);
+
+        // If we're about to start an anacrusis and we already have content on
+        // the current line, flush the current line first
+        if ($isAnacrusisBar && trim($currentLine) !== '') {
+            $lines[] = trim($currentLine);
+            $currentLine = '';
+            $barCount = 0;
+        }
+
+        $currentLine .= $bar['content'];
 
         if (!empty($bar['barline'])) {
-            $output .= $bar['barline'];
-            if ($barCount === $breakAfter || ($barCount > $breakAfter && ($barCount - $breakAfter) % 4 === 0)) {
-                $output .= "\\\n";
+            $currentLine .= $bar['barline'];
+
+            if (!$isAnacrusisBar) {
+                $barCount++;
+            }
+
+            if ($barCount === 4) {
+                $lines[] = trim($currentLine);
+                $currentLine = '';
+                $barCount = 0;
             }
         }
     }
 
-    return trim($output);
+    if (trim($currentLine) !== '') {
+        $lines[] = trim($currentLine);
+    }
+
+    return implode("\n", $lines);
 }
 
 
@@ -94,8 +141,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $collectionName = trim($_POST['collection_name']);
     $description    = trim($_POST['description'] ?? '');
     $abcText        = trim($_POST['abc_text']);
-    $abcText = str_replace("\r\n", "\n", $abcText);
-    $abcText = str_replace("\r", "\n", $abcText);
+    $abcText        = str_replace("\r\n", "\n", $abcText);
+    $abcText        = str_replace("\r", "\n", $abcText);
     $userId         = $_SESSION['user_id'];
 
     //--------------------------------------------------------------------------
@@ -146,14 +193,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $lines     = explode("\n", $rawTune);
                 $bodyLines = [];
                 $inBody    = false;
-
+                $unitLength    = '1/8'; // add this
+                
                 foreach ($lines as $line) {
                     $line = trim($line);
                 
                     if (preg_match('/^T:\s*(.+)/', $line, $m)) {
-                        if (empty($tuneName)) $tuneName = trim($m[1]);
+                        if (empty($tuneName)) {
+                            $tuneName = trim($m[1]);
+                        }
                     } elseif (preg_match('/^M:\s*(.+)/', $line, $m)) {
                         $timeSignature = trim($m[1]);
+                    } elseif (preg_match('/^L:\s*(.+)/', $line, $m)) {
+                        $unitLength = trim($m[1]);
+                    
                     } elseif (preg_match('/^K:\s*(.+)/', $line, $m)) {
                         $keySignature = trim($m[1]);
                         $inBody = true;
@@ -164,39 +217,76 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $abcBody = implode("\n", $bodyLines);
                 //$abcBody = str_replace("\\\n", "", $abcBody); // remove ABC line continuations
-                $abcBody = formatAbcBody($abcBody, $timeSignature);
+                $abcBody = formatAbcBody($abcBody, $timeSignature, $unitLength, $tuneName);
                 // TEMPORARY DEBUG - remove after testing
-                file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc.txt', $abcBody);
+                //file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc.txt', $abcBody);
 
-                // EXTRACT R: FIELD IF PRESENT
-                $tuneTypeId = 6; // default to Other
-                foreach ($lines as $line) {
-                    $line = trim($line);
-                    if (preg_match('/^R:\s*(.+)/i', $line, $m)) {
-                        $r = strtolower(trim($m[1]));
-                        if (str_contains($r, 'strathspey'))                            $tuneTypeId = 8;
-                        elseif (str_contains($r, 'slip') && str_contains($r, 'jig'))  $tuneTypeId = 5;
-                        elseif (str_contains($r, 'reel'))                              $tuneTypeId = 1;
-                        elseif (str_contains($r, 'jig'))                               $tuneTypeId = 2;
-                        elseif (str_contains($r, 'polka'))                             $tuneTypeId = 3;
-                        elseif (str_contains($r, 'hornpipe'))                          $tuneTypeId = 4;
-                        elseif (str_contains($r, 'waltz'))                             $tuneTypeId = 7;
-                        break;
+
+                // Load all tune types from DB [lowercase name => id]
+                $stmt = $pdo->query("SELECT tune_type_id, name FROM tune_type");
+                $tuneTypes = [];
+                foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
+                    $tuneTypes[strtolower($row['name'])] = (int)$row['tune_type_id'];
+
+                     // ── Step 1: Check R: field ────────────────────────────────────────────
+                    $tuneTypeName = '';
+                    foreach ($lines as $line) {
+                        if (preg_match('/^R:\s*(.+)/i', trim($line), $m)) {
+                            $tuneTypeName = strtolower(trim($m[1]));
+                            break;
+                        }
                     }
+
+                    // ── Step 2: If no R: field, scan all headers for keywords ─────────────
+                    if (empty($tuneTypeName)) {
+                        $keywords = ['strathspey', 'slip jig', 'hornpipe', 'march', 'reel', 'jig', 'polka', 'waltz'];
+                        foreach ($lines as $line) {
+                            $lower = strtolower($line);
+                            foreach ($keywords as $keyword) {
+                                if (str_contains($lower, $keyword)) {
+                                    $tuneTypeName = $keyword;
+                                    break 2;
+                                }
+                            }
+                        }
+                    }
+
+                    // ── Step 3: Fall back to time signature ───────────────────────────────
+                    if (empty($tuneTypeName)) {
+                        $timeSigMap = [
+                            '4/4'  => 'reel',
+                            '6/8'  => 'jig',
+                            '9/8'  => 'slip jig',
+                            '12/8' => 'hornpipe',
+                            '3/4'  => 'waltz',
+                            '2/4'  => 'other',
+                        ];
+                        $tuneTypeName = $timeSigMap[$timeSignature] ?? 'other';
+                    }
+
+                    if (!isset($tuneTypes[$tuneTypeName])) {
+                        $stmt = $pdo->prepare("INSERT IGNORE INTO tune_type (name) VALUES (:name)");
+                        $stmt->execute([':name' => ucfirst($tuneTypeName)]);
+                        
+                        // Whether we inserted or it already existed, fetch the ID
+                        $stmt = $pdo->prepare("SELECT tune_type_id FROM tune_type WHERE LOWER(name) = :name LIMIT 1");
+                        $stmt->execute([':name' => $tuneTypeName]);
+                        $tuneTypeId = (int)$stmt->fetchColumn();
+                        $tuneTypes[$tuneTypeName] = $tuneTypeId;
+                    } else {
+                        $tuneTypeId = $tuneTypes[$tuneTypeName];
+                    }
+
+
                 }
 
-                // IF NO R: FIELD, GUESS FROM TIME SIGNATURE
-                if ($tuneTypeId === 6) {
-                    switch ($timeSignature) {
-                        case '4/4':  $tuneTypeId = 1; break; // Reel
-                        case '6/8':  $tuneTypeId = 2; break; // Jig
-                        case '3/4':  $tuneTypeId = 7; break; // Waltz
-                        case '12/8': $tuneTypeId = 4; break; // Hornpipe
-                        case '9/8':  $tuneTypeId = 5; break; // Slip Jig
-                        case '2/4':  $tuneTypeId = 3; break; // Polka
-                        default:     $tuneTypeId = 6; break; // Other
-                    }
+                if (empty($tuneTypeId)) {
+                    $tuneTypeId = $tuneTypes['other'] ?? 1; // fallback so the tune always gets inserted
                 }
+
+                //error_log("Tune: $tuneName | Type name: $tuneTypeName | Type ID: $tuneTypeId");
+
+                /*------TUNE NAME------*/
 
                 if (empty($tuneName)) {
                     $results[] = ['status' => 'skipped', 'reason' => 'No T: field found', 'tune' => $rawTune];

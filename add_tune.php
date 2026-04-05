@@ -17,17 +17,19 @@ $tuneBody = str_replace('<br />', "\n", $tuneBody);
 $tuneBody = str_replace('<br>', "\n", $tuneBody);
 
 //------------------------------------------------------------------------------
-// GET TUNE TYPE ID
+// GET OR CREATE TUNE TYPE
 //------------------------------------------------------------------------------
 $stmt = $pdo->prepare("SELECT tune_type_id FROM tune_type WHERE name = :name LIMIT 1");
 $stmt->execute([':name' => $tuneTypeName]);
 $tuneType = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$tuneType) {
-    echo "Error: Tune type not found.";
-    exit;
+if ($tuneType) {
+    $tuneTypeId = $tuneType['tune_type_id'];
+} else {
+    $stmt = $pdo->prepare("INSERT INTO tune_type (name) VALUES (:name)");
+    $stmt->execute([':name' => $tuneTypeName]);
+    $tuneTypeId = $pdo->lastInsertId();
 }
-$tuneTypeId = $tuneType['tune_type_id'];
 
 //------------------------------------------------------------------------------
 // GET OR CREATE COMPOSER

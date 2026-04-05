@@ -1,5 +1,4 @@
 SET FOREIGN_KEY_CHECKS = 0;
-
 DELETE FROM artist_album;
 DELETE FROM collection_tune;
 DELETE FROM setting_vote;
@@ -17,7 +16,12 @@ DELETE FROM artist;
 DELETE FROM setting;
 DELETE FROM collection;
 DELETE FROM tune;
-DELETE FROM `user`;
+
+-- Remove duplicate tune types (keep the lowest ID for each name)
+DELETE t1 FROM tune_type t1
+INNER JOIN tune_type t2 
+WHERE t1.tune_type_id > t2.tune_type_id 
+AND LOWER(t1.name) = LOWER(t2.name);
 
 ALTER TABLE artist_album AUTO_INCREMENT = 1;
 ALTER TABLE collection_tune AUTO_INCREMENT = 1;
@@ -36,6 +40,4 @@ ALTER TABLE artist AUTO_INCREMENT = 1;
 ALTER TABLE setting AUTO_INCREMENT = 1;
 ALTER TABLE collection AUTO_INCREMENT = 1;
 ALTER TABLE tune AUTO_INCREMENT = 1;
-ALTER TABLE `user` AUTO_INCREMENT = 1;
-
 SET FOREIGN_KEY_CHECKS = 1;
