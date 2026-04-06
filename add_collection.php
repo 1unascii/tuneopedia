@@ -44,6 +44,10 @@ function formatAbcBody($abcBody, $timeSignature, $unitLength = '1/8', $debug_tun
     $abcBody = preg_replace('/\n\s*\n/', "\n", $abcBody);  // remove blank lines
     $abcBody = trim($abcBody);
 
+    // Normalise all ending markers to [1 and [2
+    $abcBody = str_replace('|1', '|[1', $abcBody);
+    $abcBody = str_replace('|2', '|[2', $abcBody);
+
     // Beats per measure (in eighth notes)
     // beatsPerMeasure in eighth notes — do NOT scale by unit length
     $beatsPerMeasure = 8;
@@ -53,32 +57,46 @@ function formatAbcBody($abcBody, $timeSignature, $unitLength = '1/8', $debug_tun
         // 4/4 = 4 * (8/4) = 8 eighth notes
         // 6/8 = 6 * (8/8) = 6 eighth notes
     }
-    // Scale beatsPerMeasure by unit length
-    if (preg_match('/(\d+)\/(\d+)/', $unitLength, $m)) {
-        $beatsPerMeasure = $beatsPerMeasure / ((int)$m[1] / (int)$m[2] / (1/8));
-    }
+
+    // Protect [1 and [2 so they don't get eaten by the splitter
+    $abcBody = str_replace('[2', 'SECONDENDING', $abcBody);
+    $abcBody = str_replace('[1', 'FIRSTENDING', $abcBody);
 
     // Split on barlines, keeping the delimiters
-    $parts = preg_split('/(\|\||:\||\|:|\|]|:\|:|\|)/', $abcBody, -1, PREG_SPLIT_DELIM_CAPTURE);
+    $parts = preg_split('/(\|\||:\|:|\|2|\|1|::|:\||\|\]|\|:|\|)/', $abcBody, -1, PREG_SPLIT_DELIM_CAPTURE);
 
-    // Pair content with its following barline
+    // Pair content with its following barline, restoring ending markers
     $bars = [];
     for ($i = 0; $i < count($parts); $i += 2) {
         $content = trim($parts[$i]);
         $barline = isset($parts[$i + 1]) ? $parts[$i + 1] : '';
+        $content = str_replace('SECONDENDING', '[2', $content);
+        $content = str_replace('FIRSTENDING', '[1', $content);
         if ($content !== '') {
             $bars[] = ['content' => $content, 'barline' => $barline];
         }
     }
 
-    file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc.txt', 
+
+
+    /*if ($debug_tune_name === 'Dudley Street') {
+        foreach ($bars as $i => $bar) {
+            file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc_2.txt',
+                "Bar $i: content=[" . $bar['content'] . "] barline=[" . $bar['barline'] . "]\n",
+                FILE_APPEND
+            );
+        }
+    }*/
+
+    /*file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc.txt', 
         "Tune: " . $debug_tune_name . "\n" .
         "First bar content: [" . ($bars[0]['content'] ?? 'EMPTY') . "]\n" .
         "First bar beats: " . countBeats($bars[0]['content'] ?? '', $unitLength) . "\n" .
         "Beats per measure: " . $beatsPerMeasure . "\n" .
         "Unit length: " . $unitLength . "\n\n",
         FILE_APPEND
-    );
+    );*/
+
     if (empty($bars)) return $abcBody;
 
     // Detect anacrusis
@@ -89,44 +107,113 @@ function formatAbcBody($abcBody, $timeSignature, $unitLength = '1/8', $debug_tun
     $currentLine = '';
     $barCount    = 0;
 
+    $repeatBarlines = [':|:', '::', ':|', '|:'];
+    $firstEndingBarlines = ['|1', '[1'];
+    $secondEndingBarlines = ['[2', '|2'];
+    
+    $lines        = [];
+    $currentLine  = '';
+    $barCount     = 0;
+    $inFirstEnding = false;
+    $secondEndingLength = 0;
+    
+    // Pre-calculate second ending lengths
+    // Find each [2 or |2 and count bars until the next || or |] or :|
+    $secondEndingSizes = [];
+    for ($i = 0; $i < count($bars); $i++) {
+        if (in_array(trim($bars[$i]['barline']), $firstEndingBarlines) || str_starts_with($bars[$i]['content'], '[1')) {
+            // Look ahead to find the second ending
+            $size = 0;
+            for ($j = $i + 1; $j < count($bars); $j++) {
+                //if (in_array(trim($bars[$j]['barline']), $secondEndingBarlines) || str_starts_with($bars[$j]['content'], '[2')) {
+                if (in_array(trim($bars[$j]['barline']), $secondEndingBarlines) || str_starts_with($bars[$j]['content'], '[2')) {    
+                    // Now count bars in second ending — start from j (the second ending bar itself)
+                    for ($k = $j; $k < count($bars); $k++) {
+                        $size++;
+                        $bl = trim($bars[$k]['barline']);
+                        if (in_array($bl, ['||', '|]', ':|', ':|:']) || $bl === '') break;
+                    }
+                    break;
+                }
+            }
+            $secondEndingSizes[$i] = $size;
+        }
+    }
+    
+    // DEBUG
+    file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc.txt',
+        "Tune: $debug_tune_name secondEndingSizes: " . print_r($secondEndingSizes, true) . "\n",
+        FILE_APPEND
+    );
 
     foreach ($bars as $index => $bar) {
-        $nextBar = isset($bars[$index + 1]) ? $bars[$index + 1] : null;
-
-        // A bar is an anacrusis if it's short AND the next bar is a full bar
+        $nextBar   = isset($bars[$index + 1]) ? $bars[$index + 1] : null;
         $thisBeats = countBeats($bar['content'], $unitLength);
         $nextBeats = $nextBar ? countBeats($nextBar['content'], $unitLength) : 0;
-        $isAnacrusisBar = ($thisBeats < $beatsPerMeasure * 0.75) && ($nextBeats >= $beatsPerMeasure * 0.75);
-
-        // If we're about to start an anacrusis and we already have content on
-        // the current line, flush the current line first
+    
+        $isAnacrusisBar      = ($thisBeats < $beatsPerMeasure * 0.75) && ($nextBeats >= $beatsPerMeasure * 0.75);
+        $isRepeatBarline     = in_array(trim($bar['barline']), $repeatBarlines);
+        $isFirstEndingStart  = in_array(trim($bar['barline']), ['|1']) || str_starts_with($bar['content'], '[1');
+        $isSecondEndingStart = in_array(trim($bar['barline']), ['|2']) || str_starts_with($bar['content'], '[2');
+    
         if ($isAnacrusisBar && trim($currentLine) !== '') {
-            $lines[] = trim($currentLine);
+            $lines[]     = trim($currentLine);
             $currentLine = '';
-            $barCount = 0;
+            $barCount    = 0;
         }
 
+        
+    
         $currentLine .= $bar['content'];
-
+    
         if (!empty($bar['barline'])) {
             $currentLine .= $bar['barline'];
-
-            if (!$isAnacrusisBar) {
+    
+            if (!$isAnacrusisBar && !$isSecondEndingStart) {
                 $barCount++;
             }
-
-            if ($barCount === 4) {
-                $lines[] = trim($currentLine);
+    
+            if ($isFirstEndingStart) {
+                // Look up how long the second ending is
+                $secondEndingLength = $secondEndingSizes[$index] ?? 0;
+                $inFirstEnding = true;
+            }
+    
+            if ($isRepeatBarline && $inFirstEnding) {
+                // Don't break here if second ending fits on this line
+                if ($secondEndingLength >= 3) {
+                    // Second ending too long — break here, it gets its own line
+                    $lines[]     = trim($currentLine);
+                    $currentLine = '';
+                    $barCount    = 0;
+                    $inFirstEnding = false;
+                }
+                // Otherwise don't break — let second ending bars append
+            } elseif ($isRepeatBarline || $barCount === 4) {
+                $lines[]     = trim($currentLine);
                 $currentLine = '';
-                $barCount = 0;
+                $barCount    = 0;
+                $inFirstEnding = false;
+            }
+    
+            // After second ending ends, always break
+            //$bl = trim($bar['barline']);
+            //if ($inFirstEnding && in_array($bl, ['||', '|]', ':|:']) && !$isFirstEndingStart) {
+            // After second ending ends, always break
+            $bl = trim($bar['barline']);
+            if ($inFirstEnding && in_array($bl, ['||', '|]', ':|:', ':|']) && ($isSecondEndingStart || !$isFirstEndingStart)) {
+                $lines[]     = trim($currentLine);
+                $currentLine = '';
+                $barCount    = 0;
+                $inFirstEnding = false;
             }
         }
     }
-
+    
     if (trim($currentLine) !== '') {
         $lines[] = trim($currentLine);
     }
-
+    
     return implode("\n", $lines);
 }
 
@@ -216,8 +303,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
 
                 $abcBody = implode("\n", $bodyLines);
+                if (!empty($_POST['normalize_abc'])) {
+                    $abcBody = formatAbcBody($abcBody, $timeSignature, $unitLength, $tuneName);
+                }
+                
                 //$abcBody = str_replace("\\\n", "", $abcBody); // remove ABC line continuations
-                $abcBody = formatAbcBody($abcBody, $timeSignature, $unitLength, $tuneName);
+                //$abcBody = formatAbcBody($abcBody, $timeSignature, $unitLength, $tuneName);
                 // TEMPORARY DEBUG - remove after testing
                 //file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc.txt', $abcBody);
 
@@ -243,7 +334,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         foreach ($lines as $line) {
                             $lower = strtolower($line);
                             foreach ($keywords as $keyword) {
-                                if (str_contains($lower, $keyword)) {
+                                if (preg_match('/\b' . preg_quote($keyword, '/') . '\b/', $lower)) {
                                     $tuneTypeName = $keyword;
                                     break 2;
                                 }

@@ -26,6 +26,13 @@
         </div>
 
         <div class="form-group">
+            <label>
+                <input type="checkbox" name="normalize_abc" value="1" checked />
+                Automatically normalize ABC line formatting
+            </label>
+        </div>
+
+        <div class="form-group">
             <label for="abc_text">Paste ABC Notation:</label>
             <textarea id="abc_text" name="abc_text" rows="20" required
                       placeholder="X:1&#10;T:Tune Name&#10;M:6/8&#10;K:Dmaj&#10;..."></textarea>

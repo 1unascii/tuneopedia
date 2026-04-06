@@ -598,3 +598,5871 @@ First bar beats: 1
 Beats per measure: 6
 Unit length: 1/8
 
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune
+First bar content: [G<EG<E]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: I Fee'd a Lad at Michaelmas
+First bar content: [G>GGB]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Miller's Wedding
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: John O'Groats Jig
+First bar content: [A/G/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Miss Wharton Duff
+First bar content: [B,]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Five Stringed Fiddle
+First bar content: [A,2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Skye Gathering
+First bar content: [A>d]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/16
+
+Tune: The Boy's Lament for his Dragon
+First bar content: [f]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Dark Island
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dudley Street
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Andy Dejarlis Jig
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: New Year's Day
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Shakin's o' the Pocky
+First bar content: [B,>DF>G F<D B,>A]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Silver Wings Polka
+First bar content: [c]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Old Man
+First bar content: [g2 g2]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Long Er Onie Old Man
+First bar content: [ga ge]
+First bar beats: 4
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: Edinburgh Jigg
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Flowers of Edinburgh
+First bar content: [D]
+First bar beats: 1
+Beats per measure: 4
+Unit length: 1/8
+
+Tune: The Tailor Made
+First bar content: [B/c/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Dunnigall's Rant
+First bar content: [A3 G F2 E2 C2 E2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Ane Irish Tune
+First bar content: [DE G2 G2 G4 G2]
+First bar beats: 12
+Beats per measure: 12
+Unit length: 1/8
+
+Tune: Gallways Lament
+First bar content: [d2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Trip to Kilkenny
+First bar content: [cB]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Hunter
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Waverley Steps
+First bar content: [(3ABc]
+First bar beats: 3
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The New Town of Edinburgh
+First bar content: [z2]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Golden Pheasant
+First bar content: [C/D/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Sir Torquil Monroe
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elizabeth Donald
+First bar content: [e]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Mrs Grace Bowie
+First bar content: [A2 c E2 c]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Inverary Castle
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Blodam Drain
+First bar content: [E2]
+First bar beats: 2
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Battle of Sherrifmuir
+First bar content: [E]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Dram Shell
+First bar content: [C]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Thornton Jig
+First bar content: [A2G]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Boys of Mallin
+First bar content: [Bfdf Bfdf]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Oot Pik Waltz
+First bar content: [(3D/E/F/]
+First bar beats: 3
+Beats per measure: 6
+Unit length: 1/4
+
+Tune: Fang the Fiddlers
+First bar content: [z]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Princes Royal
+First bar content: [DE]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Lament for the Death of the Rev. Archie Beaton
+First bar content: [Bc]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: American Hornpipe
+First bar content: [FG]
+First bar beats: 2
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Marchmont House
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Charlie Gore's Birthday
+First bar content: [f/g/]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Elsie Marley
+First bar content: [BAB G2G]
+First bar beats: 6
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: McKenzie Hay
+First bar content: [G]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: The Spey In Spate
+First bar content: [D2 FD A,DFA]
+First bar beats: 8
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Highland Fling
+First bar content: [F]
+First bar beats: 1
+Beats per measure: 8
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [B]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: Irish Jig
+First bar content: [A]
+First bar beats: 1
+Beats per measure: 6
+Unit length: 1/8
+
+Tune: The Duke of Buccleugh's Tune secondEndingSizes: 
+Tune: I Fee'd a Lad at Michaelmas secondEndingSizes: 
+Tune: The Miller's Wedding secondEndingSizes: 
+Tune: John O'Groats Jig secondEndingSizes: 
+Tune: Miss Wharton Duff secondEndingSizes: 
+Tune: The Five Stringed Fiddle secondEndingSizes: 
+Tune: The Skye Gathering secondEndingSizes: 
+Tune: The Boy's Lament for his Dragon secondEndingSizes: 
+Tune: Dark Island secondEndingSizes: 
+Tune: Dudley Street secondEndingSizes: 
+Tune: Andy Dejarlis Jig secondEndingSizes: 
+Tune: New Year's Day secondEndingSizes: 
+Tune: The Shakin's o' the Pocky secondEndingSizes: 
+Tune: Silver Wings Polka secondEndingSizes: 
+Tune: The Old Man secondEndingSizes: 
+Tune: Long Er Onie Old Man secondEndingSizes: 
+Tune: Edinburgh Jigg secondEndingSizes: 
+Tune: Flowers of Edinburgh secondEndingSizes: 
+Tune: The Tailor Made secondEndingSizes: 
+Tune: Dunnigall's Rant secondEndingSizes: 
+Tune: Ane Irish Tune secondEndingSizes: 
+Tune: Gallways Lament secondEndingSizes: 
+Tune: Trip to Kilkenny secondEndingSizes: 
+Tune: Charlie Hunter secondEndingSizes: 
+Tune: Waverley Steps secondEndingSizes: 
+Tune: The New Town of Edinburgh secondEndingSizes: 
+Tune: The Golden Pheasant secondEndingSizes: 
+Tune: Sir Torquil Monroe secondEndingSizes: 
+Tune: Elizabeth Donald secondEndingSizes: 
+Tune: Mrs Grace Bowie secondEndingSizes: 
+Tune: Inverary Castle secondEndingSizes: 
+Tune: Blodam Drain secondEndingSizes: 
+Tune: The Battle of Sherrifmuir secondEndingSizes: 
+Tune: The Dram Shell secondEndingSizes: 
+Tune: The Thornton Jig secondEndingSizes: 
+Tune: The Boys of Mallin secondEndingSizes: 
+Tune: Oot Pik Waltz secondEndingSizes: 
+Tune: Fang the Fiddlers secondEndingSizes: 
+Tune: The Princes Royal secondEndingSizes: 
+Tune: Lament for the Death of the Rev. Archie Beaton secondEndingSizes: 
+Tune: American Hornpipe secondEndingSizes: 
+Tune: Marchmont House secondEndingSizes: 
+Tune: Charlie Gore's Birthday secondEndingSizes: 
+Tune: Elsie Marley secondEndingSizes: 
+Tune: McKenzie Hay secondEndingSizes: 
+Tune: The Spey In Spate secondEndingSizes: 
+Tune: Highland Fling secondEndingSizes: 
+Tune: Irish Jig secondEndingSizes: 
+Tune: Irish Jig secondEndingSizes: 
+Tune: Irish Jig secondEndingSizes: 
+Tune: The Duke of Buccleugh's Tune secondEndingSizes: Array
+(
+)
+
+Tune: I Fee'd a Lad at Michaelmas secondEndingSizes: Array
+(
+)
+
+Tune: The Miller's Wedding secondEndingSizes: Array
+(
+)
+
+Tune: John O'Groats Jig secondEndingSizes: Array
+(
+)
+
+Tune: Miss Wharton Duff secondEndingSizes: Array
+(
+)
+
+Tune: The Five Stringed Fiddle secondEndingSizes: Array
+(
+)
+
+Tune: The Skye Gathering secondEndingSizes: Array
+(
+)
+
+Tune: The Boy's Lament for his Dragon secondEndingSizes: Array
+(
+)
+
+Tune: Dark Island secondEndingSizes: Array
+(
+)
+
+Tune: Dudley Street secondEndingSizes: Array
+(
+    [14] => 3
+)
+
+Tune: Andy Dejarlis Jig secondEndingSizes: Array
+(
+)
+
+Tune: New Year's Day secondEndingSizes: Array
+(
+)
+
+Tune: The Shakin's o' the Pocky secondEndingSizes: Array
+(
+)
+
+Tune: Silver Wings Polka secondEndingSizes: Array
+(
+    [8] => 8
+)
+
+Tune: The Old Man secondEndingSizes: Array
+(
+)
+
+Tune: Long Er Onie Old Man secondEndingSizes: Array
+(
+)
+
+Tune: Edinburgh Jigg secondEndingSizes: Array
+(
+)
+
+Tune: Flowers of Edinburgh secondEndingSizes: Array
+(
+)
+
+Tune: The Tailor Made secondEndingSizes: Array
+(
+)
+
+Tune: Dunnigall's Rant secondEndingSizes: Array
+(
+)
+
+Tune: Ane Irish Tune secondEndingSizes: Array
+(
+)
+
+Tune: Gallways Lament secondEndingSizes: Array
+(
+)
+
+Tune: Trip to Kilkenny secondEndingSizes: Array
+(
+)
+
+Tune: Charlie Hunter secondEndingSizes: Array
+(
+    [8] => 9
+    [18] => 0
+)
+
+Tune: Waverley Steps secondEndingSizes: Array
+(
+)
+
+Tune: The New Town of Edinburgh secondEndingSizes: Array
+(
+)
+
+Tune: The Golden Pheasant secondEndingSizes: Array
+(
+)
+
+Tune: Sir Torquil Monroe secondEndingSizes: Array
+(
+)
+
+Tune: Elizabeth Donald secondEndingSizes: Array
+(
+)
+
+Tune: Mrs Grace Bowie secondEndingSizes: Array
+(
+    [20] => 3
+)
+
+Tune: Inverary Castle secondEndingSizes: Array
+(
+)
+
+Tune: Blodam Drain secondEndingSizes: Array
+(
+)
+
+Tune: The Battle of Sherrifmuir secondEndingSizes: Array
+(
+)
+
+Tune: The Dram Shell secondEndingSizes: Array
+(
+)
+
+Tune: The Thornton Jig secondEndingSizes: Array
+(
+)
+
+Tune: The Boys of Mallin secondEndingSizes: Array
+(
+)
+
+Tune: Oot Pik Waltz secondEndingSizes: Array
+(
+)
+
+Tune: Fang the Fiddlers secondEndingSizes: Array
+(
+)
+
+Tune: The Princes Royal secondEndingSizes: Array
+(
+)
+
+Tune: Lament for the Death of the Rev. Archie Beaton secondEndingSizes: Array
+(
+)
+
+Tune: American Hornpipe secondEndingSizes: Array
+(
+)
+
+Tune: Marchmont House secondEndingSizes: Array
+(
+)
+
+Tune: Charlie Gore's Birthday secondEndingSizes: Array
+(
+)
+
+Tune: Elsie Marley secondEndingSizes: Array
+(
+)
+
+Tune: McKenzie Hay secondEndingSizes: Array
+(
+)
+
+Tune: The Spey In Spate secondEndingSizes: Array
+(
+)
+
+Tune: Highland Fling secondEndingSizes: Array
+(
+)
+
+Tune: Irish Jig secondEndingSizes: Array
+(
+)
+
+Tune: Irish Jig secondEndingSizes: Array
+(
+)
+
+Tune: Irish Jig secondEndingSizes: Array
+(
+    [8] => 16
+)
+
+Tune: The Duke of Buccleugh's Tune secondEndingSizes: Array
+(
+)
+
+Tune: I Fee'd a Lad at Michaelmas secondEndingSizes: Array
+(
+)
+
+Tune: The Miller's Wedding secondEndingSizes: Array
+(
+)
+
+Tune: John O'Groats Jig secondEndingSizes: Array
+(
+)
+
+Tune: Miss Wharton Duff secondEndingSizes: Array
+(
+)
+
+Tune: The Five Stringed Fiddle secondEndingSizes: Array
+(
+)
+
+Tune: The Skye Gathering secondEndingSizes: Array
+(
+)
+
+Tune: The Boy's Lament for his Dragon secondEndingSizes: Array
+(
+)
+
+Tune: Dark Island secondEndingSizes: Array
+(
+)
+
+Tune: Dudley Street secondEndingSizes: Array
+(
+    [14] => 4
+)
+
+Tune: Andy Dejarlis Jig secondEndingSizes: Array
+(
+)
+
+Tune: New Year's Day secondEndingSizes: Array
+(
+)
+
+Tune: The Shakin's o' the Pocky secondEndingSizes: Array
+(
+)
+
+Tune: Silver Wings Polka secondEndingSizes: Array
+(
+    [8] => 1
+)
+
+Tune: The Old Man secondEndingSizes: Array
+(
+)
+
+Tune: Long Er Onie Old Man secondEndingSizes: Array
+(
+)
+
+Tune: Edinburgh Jigg secondEndingSizes: Array
+(
+)
+
+Tune: Flowers of Edinburgh secondEndingSizes: Array
+(
+)
+
+Tune: The Tailor Made secondEndingSizes: Array
+(
+)
+
+Tune: Dunnigall's Rant secondEndingSizes: Array
+(
+)
+
+Tune: Ane Irish Tune secondEndingSizes: Array
+(
+)
+
+Tune: Gallways Lament secondEndingSizes: Array
+(
+)
+
+Tune: Trip to Kilkenny secondEndingSizes: Array
+(
+)
+
+Tune: Charlie Hunter secondEndingSizes: Array
+(
+    [8] => 1
+    [18] => 1
+)
+
+Tune: Waverley Steps secondEndingSizes: Array
+(
+)
+
+Tune: The New Town of Edinburgh secondEndingSizes: Array
+(
+)
+
+Tune: The Golden Pheasant secondEndingSizes: Array
+(
+)
+
+Tune: Sir Torquil Monroe secondEndingSizes: Array
+(
+)
+
+Tune: Elizabeth Donald secondEndingSizes: Array
+(
+)
+
+Tune: Mrs Grace Bowie secondEndingSizes: Array
+(
+    [20] => 4
+)
+
+Tune: Inverary Castle secondEndingSizes: Array
+(
+)
+
+Tune: Blodam Drain secondEndingSizes: Array
+(
+)
+
+Tune: The Battle of Sherrifmuir secondEndingSizes: Array
+(
+)
+
+Tune: The Dram Shell secondEndingSizes: Array
+(
+)
+
+Tune: The Thornton Jig secondEndingSizes: Array
+(
+)
+
+Tune: The Boys of Mallin secondEndingSizes: Array
+(
+)
+
+Tune: Oot Pik Waltz secondEndingSizes: Array
+(
+)
+
+Tune: Fang the Fiddlers secondEndingSizes: Array
+(
+)
+
+Tune: The Princes Royal secondEndingSizes: Array
+(
+)
+
+Tune: Lament for the Death of the Rev. Archie Beaton secondEndingSizes: Array
+(
+)
+
+Tune: American Hornpipe secondEndingSizes: Array
+(
+)
+
+Tune: Marchmont House secondEndingSizes: Array
+(
+)
+
+Tune: Charlie Gore's Birthday secondEndingSizes: Array
+(
+)
+
+Tune: Elsie Marley secondEndingSizes: Array
+(
+)
+
+Tune: McKenzie Hay secondEndingSizes: Array
+(
+)
+
+Tune: The Spey In Spate secondEndingSizes: Array
+(
+)
+
+Tune: Highland Fling secondEndingSizes: Array
+(
+)
+
+Tune: Irish Jig secondEndingSizes: Array
+(
+)
+
+Tune: Irish Jig secondEndingSizes: Array
+(
+)
+
+Tune: Irish Jig secondEndingSizes: Array
+(
+    [8] => 1
+)
+
