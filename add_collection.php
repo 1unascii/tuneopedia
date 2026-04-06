@@ -6,10 +6,10 @@
 //$debug_tune_name = '';
 
 // DETECT ANACRUSIS — count note units in first bar
-function countBeats($content, $unitLength = '1/8') {
+function countBeats($content, $default_note_length = '1/8') {
     // How many eighth notes is one L: unit worth?
     $multiplier = 1; // default L:1/8 = 1 eighth note
-    if (preg_match('/(\d+)\/(\d+)/', $unitLength, $m)) {
+    if (preg_match('/(\d+)\/(\d+)/', $default_note_length, $m)) {
         $multiplier = ((int)$m[1] / (int)$m[2]) / (1/8);
         // L:1/4 -> (1/4) / (1/8) = 2  (one quarter note = 2 eighth notes)
         // L:1/8 -> (1/8) / (1/8) = 1
@@ -37,7 +37,7 @@ function countBeats($content, $unitLength = '1/8') {
     return $beats;
 }
 
-function formatAbcBody($abcBody, $timeSignature, $unitLength = '1/8', $debug_tune_name) {
+function formatAbcBody($abcBody, $timeSignature, $default_note_length = '1/8', $debug_tune_name) {
     // Clean up input
     $abcBody = preg_replace('/\|\\\\\n/', '|', $abcBody);  // strip |\ continuations
     $abcBody = preg_replace('/\\\\\n/', ' ', $abcBody);     // strip \ continuations
@@ -48,7 +48,6 @@ function formatAbcBody($abcBody, $timeSignature, $unitLength = '1/8', $debug_tun
     $abcBody = str_replace('|1', '|[1', $abcBody);
     $abcBody = str_replace('|2', '|[2', $abcBody);
 
-    // Beats per measure (in eighth notes)
     // beatsPerMeasure in eighth notes — do NOT scale by unit length
     $beatsPerMeasure = 8;
     if (preg_match('/^(\d+)\/(\d+)$/', $timeSignature, $m)) {
@@ -77,30 +76,10 @@ function formatAbcBody($abcBody, $timeSignature, $unitLength = '1/8', $debug_tun
         }
     }
 
-
-
-    /*if ($debug_tune_name === 'Dudley Street') {
-        foreach ($bars as $i => $bar) {
-            file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc_2.txt',
-                "Bar $i: content=[" . $bar['content'] . "] barline=[" . $bar['barline'] . "]\n",
-                FILE_APPEND
-            );
-        }
-    }*/
-
-    /*file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc.txt', 
-        "Tune: " . $debug_tune_name . "\n" .
-        "First bar content: [" . ($bars[0]['content'] ?? 'EMPTY') . "]\n" .
-        "First bar beats: " . countBeats($bars[0]['content'] ?? '', $unitLength) . "\n" .
-        "Beats per measure: " . $beatsPerMeasure . "\n" .
-        "Unit length: " . $unitLength . "\n\n",
-        FILE_APPEND
-    );*/
-
     if (empty($bars)) return $abcBody;
 
     // Detect anacrusis
-    $firstBarBeats = countBeats($bars[0]['content'], $unitLength);
+    $firstBarBeats = countBeats($bars[0]['content'], $default_note_length);
     $isAnacrusis   = ($firstBarBeats < $beatsPerMeasure * 0.75);
 
     $lines       = [];
@@ -141,15 +120,15 @@ function formatAbcBody($abcBody, $timeSignature, $unitLength = '1/8', $debug_tun
     }
     
     // DEBUG
-    file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc.txt',
+    /*file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc.txt',
         "Tune: $debug_tune_name secondEndingSizes: " . print_r($secondEndingSizes, true) . "\n",
         FILE_APPEND
-    );
+    );*/
 
     foreach ($bars as $index => $bar) {
         $nextBar   = isset($bars[$index + 1]) ? $bars[$index + 1] : null;
-        $thisBeats = countBeats($bar['content'], $unitLength);
-        $nextBeats = $nextBar ? countBeats($nextBar['content'], $unitLength) : 0;
+        $thisBeats = countBeats($bar['content'], $default_note_length);
+        $nextBeats = $nextBar ? countBeats($nextBar['content'], $default_note_length) : 0;
     
         $isAnacrusisBar      = ($thisBeats < $beatsPerMeasure * 0.75) && ($nextBeats >= $beatsPerMeasure * 0.75);
         $isRepeatBarline     = in_array(trim($bar['barline']), $repeatBarlines);
@@ -188,7 +167,7 @@ function formatAbcBody($abcBody, $timeSignature, $unitLength = '1/8', $debug_tun
                     $barCount    = 0;
                     $inFirstEnding = false;
                 }
-                // Otherwise don't break — let second ending bars append
+            // Otherwise don't break — let second ending bars append
             } elseif ($isRepeatBarline || $barCount === 4) {
                 $lines[]     = trim($currentLine);
                 $currentLine = '';
@@ -196,9 +175,6 @@ function formatAbcBody($abcBody, $timeSignature, $unitLength = '1/8', $debug_tun
                 $inFirstEnding = false;
             }
     
-            // After second ending ends, always break
-            //$bl = trim($bar['barline']);
-            //if ($inFirstEnding && in_array($bl, ['||', '|]', ':|:']) && !$isFirstEndingStart) {
             // After second ending ends, always break
             $bl = trim($bar['barline']);
             if ($inFirstEnding && in_array($bl, ['||', '|]', ':|:', ':|']) && ($isSecondEndingStart || !$isFirstEndingStart)) {
@@ -275,12 +251,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 //------------------------------------------------------------------
                 $tuneName      = '';
                 $keySignature  = '';
-                $timeSignature = '4/4';
+                $timeSignature = '4/4'; //default
+                
 
                 $lines     = explode("\n", $rawTune);
                 $bodyLines = [];
                 $inBody    = false;
-                $unitLength    = '1/8'; // add this
+                $default_note_length    = '1/8'; // add this
                 
                 foreach ($lines as $line) {
                     $line = trim($line);
@@ -292,7 +269,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     } elseif (preg_match('/^M:\s*(.+)/', $line, $m)) {
                         $timeSignature = trim($m[1]);
                     } elseif (preg_match('/^L:\s*(.+)/', $line, $m)) {
-                        $unitLength = trim($m[1]);
+                        $default_note_length = trim($m[1]);
                     
                     } elseif (preg_match('/^K:\s*(.+)/', $line, $m)) {
                         $keySignature = trim($m[1]);
@@ -303,87 +280,87 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
 
                 $abcBody = implode("\n", $bodyLines);
-                if (!empty($_POST['normalize_abc'])) {
-                    $abcBody = formatAbcBody($abcBody, $timeSignature, $unitLength, $tuneName);
-                }
-                
-                //$abcBody = str_replace("\\\n", "", $abcBody); // remove ABC line continuations
-                //$abcBody = formatAbcBody($abcBody, $timeSignature, $unitLength, $tuneName);
-                // TEMPORARY DEBUG - remove after testing
-                //file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc.txt', $abcBody);
 
+                file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc.txt',
+                    "Tune: $tuneName | L: $default_note_length\n",
+                    FILE_APPEND
+                );
+
+                if (!empty($_POST['normalize_abc'])) {
+                    $abcBody = formatAbcBody($abcBody, $timeSignature, $default_note_length, $tuneName);
+                }
 
                 // Load all tune types from DB [lowercase name => id]
                 $stmt = $pdo->query("SELECT tune_type_id, name FROM tune_type");
                 $tuneTypes = [];
                 foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
                     $tuneTypes[strtolower($row['name'])] = (int)$row['tune_type_id'];
+                }
 
-                     // ── Step 1: Check R: field ────────────────────────────────────────────
-                    $tuneTypeName = '';
-                    foreach ($lines as $line) {
-                        if (preg_match('/^R:\s*(.+)/i', trim($line), $m)) {
-                            $tuneTypeName = strtolower(trim($m[1]));
-                            break;
-                        }
+
+                    // ── Step 1: Check R: field ────────────────────────────────────────────
+                $tuneTypeName = '';
+                foreach ($lines as $line) {
+                    if (preg_match('/^R:\s*(.+)/i', trim($line), $m)) {
+                        $tuneTypeName = strtolower(trim($m[1]));
+                        break;
                     }
+                }
 
-                    // ── Step 2: If no R: field, scan all headers for keywords ─────────────
-                    if (empty($tuneTypeName)) {
-                        $keywords = ['strathspey', 'slip jig', 'hornpipe', 'march', 'reel', 'jig', 'polka', 'waltz'];
-                        foreach ($lines as $line) {
-                            $lower = strtolower($line);
-                            foreach ($keywords as $keyword) {
-                                if (preg_match('/\b' . preg_quote($keyword, '/') . '\b/', $lower)) {
-                                    $tuneTypeName = $keyword;
-                                    break 2;
-                                }
+                // ── Step 2: If no R: field, scan all headers for keywords ─────────────
+                if (empty($tuneTypeName)) {
+                    $keywords = ['strathspey', 'slip jig', 'hornpipe', 'march', 'reel', 'jig', 'polka', 'waltz'];
+                    foreach ($lines as $line) {
+                        $lower = strtolower($line);
+                        foreach ($keywords as $keyword) {
+                            if (preg_match('/\b' . preg_quote($keyword, '/') . '\b/', $lower)) {
+                                $tuneTypeName = $keyword;
+                                break 2;
                             }
                         }
                     }
-
-                    // ── Step 3: Fall back to time signature ───────────────────────────────
-                    if (empty($tuneTypeName)) {
-                        $timeSigMap = [
-                            '4/4'  => 'reel',
-                            '6/8'  => 'jig',
-                            '9/8'  => 'slip jig',
-                            '12/8' => 'hornpipe',
-                            '3/4'  => 'waltz',
-                            '2/4'  => 'other',
-                        ];
-                        $tuneTypeName = $timeSigMap[$timeSignature] ?? 'other';
-                    }
-
-                    if (!isset($tuneTypes[$tuneTypeName])) {
-                        $stmt = $pdo->prepare("INSERT IGNORE INTO tune_type (name) VALUES (:name)");
-                        $stmt->execute([':name' => ucfirst($tuneTypeName)]);
-                        
-                        // Whether we inserted or it already existed, fetch the ID
-                        $stmt = $pdo->prepare("SELECT tune_type_id FROM tune_type WHERE LOWER(name) = :name LIMIT 1");
-                        $stmt->execute([':name' => $tuneTypeName]);
-                        $tuneTypeId = (int)$stmt->fetchColumn();
-                        $tuneTypes[$tuneTypeName] = $tuneTypeId;
-                    } else {
-                        $tuneTypeId = $tuneTypes[$tuneTypeName];
-                    }
-
-
                 }
+
+                // ── Step 3: Fall back to time signature ───────────────────────────────
+                if (empty($tuneTypeName)) {
+                    $timeSigMap = [
+                        '4/4'  => 'reel',
+                        '6/8'  => 'jig',
+                        '9/8'  => 'slip jig',
+                        '12/8' => 'hornpipe',
+                        '3/4'  => 'waltz',
+                        '2/4'  => 'other',
+                    ];
+                    $tuneTypeName = $timeSigMap[$timeSignature] ?? 'other';
+                }
+
+                if (!isset($tuneTypes[$tuneTypeName])) {
+                    $stmt = $pdo->prepare("INSERT IGNORE INTO tune_type (name) VALUES (:name)");
+                    $stmt->execute([':name' => ucfirst($tuneTypeName)]);
+                    
+                    // Whether we inserted or it already existed, fetch the ID
+                    $stmt = $pdo->prepare("SELECT tune_type_id FROM tune_type WHERE LOWER(name) = :name LIMIT 1");
+                    $stmt->execute([':name' => $tuneTypeName]);
+                    $tuneTypeId = (int)$stmt->fetchColumn();
+                    $tuneTypes[$tuneTypeName] = $tuneTypeId;
+                } else {
+                    $tuneTypeId = $tuneTypes[$tuneTypeName];
+                }
+
+
+                
 
                 if (empty($tuneTypeId)) {
                     $tuneTypeId = $tuneTypes['other'] ?? 1; // fallback so the tune always gets inserted
                 }
 
-                //error_log("Tune: $tuneName | Type name: $tuneTypeName | Type ID: $tuneTypeId");
-
-                /*------TUNE NAME------*/
 
                 if (empty($tuneName)) {
                     $results[] = ['status' => 'skipped', 'reason' => 'No T: field found', 'tune' => $rawTune];
                     continue;
                 }
 
+                
                 //------------------------------------------------------------------
                 // CHECK IF TUNE ALREADY EXISTS BY NAME
                 //------------------------------------------------------------------
@@ -400,16 +377,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $tuneId = $existingTune['tune_id'];
 
                     $stmt = $pdo->prepare("
-                        INSERT INTO setting (tune_id, user_id, name, time_signature, key_signature, abc_transcription)
-                        VALUES (:tune_id, :user_id, :name, :time_signature, :key_signature, :abc_transcription)
+                        INSERT INTO setting (tune_id, user_id, name, default_note_length, time_signature,  key_signature, abc_transcription)
+                        VALUES (:tune_id, :user_id, :name, :default_note_length, :time_signature, :key_signature, :abc_transcription)
                     ");
                     $stmt->execute([
-                        ':tune_id'           => $tuneId,
-                        ':user_id'           => $userId,
-                        ':name'              => $collectionName,
-                        ':time_signature'    => $timeSignature,
-                        ':key_signature'     => $keySignature,
-                        ':abc_transcription' => $abcBody
+                        ':tune_id'             => $tuneId,
+                        ':user_id'             => $userId,
+                        ':name'                => $tuneName,
+                        ':default_note_length' => $default_note_length,
+                        ':time_signature'      => $timeSignature,
+                        ':key_signature'       => $keySignature,
+                        ':abc_transcription'   => $abcBody
                     ]);
                     $settingId = $pdo->lastInsertId();
 
@@ -429,16 +407,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $tuneId = $pdo->lastInsertId();
 
                     $stmt = $pdo->prepare("
-                        INSERT INTO setting (tune_id, user_id, name, time_signature, key_signature, abc_transcription)
-                        VALUES (:tune_id, :user_id, :name, :time_signature, :key_signature, :abc_transcription)
+                        INSERT INTO setting (tune_id, user_id, name, default_note_length, time_signature,  key_signature, abc_transcription)
+                        VALUES (:tune_id, :user_id, :name, :default_note_length, :time_signature, :key_signature, :abc_transcription)
                     ");
                     $stmt->execute([
-                        ':tune_id'           => $tuneId,
-                        ':user_id'           => $userId,
-                        ':name'              => $tuneName,
-                        ':time_signature'    => $timeSignature,
-                        ':key_signature'     => $keySignature,
-                        ':abc_transcription' => $abcBody
+                        ':tune_id'             => $tuneId,
+                        ':user_id'             => $userId,
+                        ':name'                => $tuneName,
+                        ':default_note_length' => $default_note_length,
+                        ':time_signature'      => $timeSignature,
+                        ':key_signature'       => $keySignature,
+                        ':abc_transcription'   => $abcBody
                     ]);
                     $settingId = $pdo->lastInsertId();
 

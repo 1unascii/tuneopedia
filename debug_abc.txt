@@ -6466,3 +6466,821 @@ Tune: Irish Jig secondEndingSizes: Array
     [8] => 1
 )
 
+Tune: The Duke of Buccleugh's Tune secondEndingSizes: Array
+(
+)
+
+Tune: I Fee'd a Lad at Michaelmas secondEndingSizes: Array
+(
+)
+
+Tune: The Miller's Wedding secondEndingSizes: Array
+(
+)
+
+Tune: John O'Groats Jig secondEndingSizes: Array
+(
+)
+
+Tune: Miss Wharton Duff secondEndingSizes: Array
+(
+)
+
+Tune: The Five Stringed Fiddle secondEndingSizes: Array
+(
+)
+
+Tune: The Skye Gathering secondEndingSizes: Array
+(
+)
+
+Tune: The Boy's Lament for his Dragon secondEndingSizes: Array
+(
+)
+
+Tune: Dark Island secondEndingSizes: Array
+(
+)
+
+Tune: Dudley Street secondEndingSizes: Array
+(
+    [14] => 4
+)
+
+Tune: Andy Dejarlis Jig secondEndingSizes: Array
+(
+)
+
+Tune: New Year's Day secondEndingSizes: Array
+(
+)
+
+Tune: The Shakin's o' the Pocky secondEndingSizes: Array
+(
+)
+
+Tune: Silver Wings Polka secondEndingSizes: Array
+(
+    [8] => 1
+)
+
+Tune: The Old Man secondEndingSizes: Array
+(
+)
+
+Tune: Long Er Onie Old Man secondEndingSizes: Array
+(
+)
+
+Tune: Edinburgh Jigg secondEndingSizes: Array
+(
+)
+
+Tune: Flowers of Edinburgh secondEndingSizes: Array
+(
+)
+
+Tune: The Tailor Made secondEndingSizes: Array
+(
+)
+
+Tune: Dunnigall's Rant secondEndingSizes: Array
+(
+)
+
+Tune: Ane Irish Tune secondEndingSizes: Array
+(
+)
+
+Tune: Gallways Lament secondEndingSizes: Array
+(
+)
+
+Tune: Trip to Kilkenny secondEndingSizes: Array
+(
+)
+
+Tune: Charlie Hunter secondEndingSizes: Array
+(
+    [8] => 1
+    [18] => 1
+)
+
+Tune: Waverley Steps secondEndingSizes: Array
+(
+)
+
+Tune: The New Town of Edinburgh secondEndingSizes: Array
+(
+)
+
+Tune: The Golden Pheasant secondEndingSizes: Array
+(
+)
+
+Tune: Sir Torquil Monroe secondEndingSizes: Array
+(
+)
+
+Tune: Elizabeth Donald secondEndingSizes: Array
+(
+)
+
+Tune: Mrs Grace Bowie secondEndingSizes: Array
+(
+    [20] => 4
+)
+
+Tune: Inverary Castle secondEndingSizes: Array
+(
+)
+
+Tune: Blodam Drain secondEndingSizes: Array
+(
+)
+
+Tune: The Battle of Sherrifmuir secondEndingSizes: Array
+(
+)
+
+Tune: The Dram Shell secondEndingSizes: Array
+(
+)
+
+Tune: The Thornton Jig secondEndingSizes: Array
+(
+)
+
+Tune: The Boys of Mallin secondEndingSizes: Array
+(
+)
+
+Tune: Oot Pik Waltz secondEndingSizes: Array
+(
+)
+
+Tune: Fang the Fiddlers secondEndingSizes: Array
+(
+)
+
+Tune: The Princes Royal secondEndingSizes: Array
+(
+)
+
+Tune: Lament for the Death of the Rev. Archie Beaton secondEndingSizes: Array
+(
+)
+
+Tune: American Hornpipe secondEndingSizes: Array
+(
+)
+
+Tune: Marchmont House secondEndingSizes: Array
+(
+)
+
+Tune: Charlie Gore's Birthday secondEndingSizes: Array
+(
+)
+
+Tune: Elsie Marley secondEndingSizes: Array
+(
+)
+
+Tune: McKenzie Hay secondEndingSizes: Array
+(
+)
+
+Tune: The Spey In Spate secondEndingSizes: Array
+(
+)
+
+Tune: Highland Fling secondEndingSizes: Array
+(
+)
+
+Tune: Irish Jig secondEndingSizes: Array
+(
+)
+
+Tune: Irish Jig secondEndingSizes: Array
+(
+)
+
+Tune: Irish Jig secondEndingSizes: Array
+(
+    [8] => 1
+)
+
+Tune: The Duke of Buccleugh's Tune secondEndingSizes: Array
+(
+)
+
+Tune: I Fee'd a Lad at Michaelmas secondEndingSizes: Array
+(
+)
+
+Tune: The Miller's Wedding secondEndingSizes: Array
+(
+)
+
+Tune: John O'Groats Jig secondEndingSizes: Array
+(
+)
+
+Tune: Miss Wharton Duff secondEndingSizes: Array
+(
+)
+
+Tune: The Five Stringed Fiddle secondEndingSizes: Array
+(
+)
+
+Tune: The Skye Gathering secondEndingSizes: Array
+(
+)
+
+Tune: The Boy's Lament for his Dragon secondEndingSizes: Array
+(
+)
+
+Tune: Dark Island secondEndingSizes: Array
+(
+)
+
+Tune: Dudley Street secondEndingSizes: Array
+(
+    [14] => 4
+)
+
+Tune: Andy Dejarlis Jig secondEndingSizes: Array
+(
+)
+
+Tune: New Year's Day secondEndingSizes: Array
+(
+)
+
+Tune: The Shakin's o' the Pocky secondEndingSizes: Array
+(
+)
+
+Tune: Silver Wings Polka secondEndingSizes: Array
+(
+    [8] => 1
+)
+
+Tune: The Old Man secondEndingSizes: Array
+(
+)
+
+Tune: Long Er Onie Old Man secondEndingSizes: Array
+(
+)
+
+Tune: Edinburgh Jigg secondEndingSizes: Array
+(
+)
+
+Tune: Flowers of Edinburgh secondEndingSizes: Array
+(
+)
+
+Tune: The Tailor Made secondEndingSizes: Array
+(
+)
+
+Tune: Dunnigall's Rant secondEndingSizes: Array
+(
+)
+
+Tune: Ane Irish Tune secondEndingSizes: Array
+(
+)
+
+Tune: Gallways Lament secondEndingSizes: Array
+(
+)
+
+Tune: Trip to Kilkenny secondEndingSizes: Array
+(
+)
+
+Tune: Charlie Hunter secondEndingSizes: Array
+(
+    [8] => 1
+    [18] => 1
+)
+
+Tune: Waverley Steps secondEndingSizes: Array
+(
+)
+
+Tune: The New Town of Edinburgh secondEndingSizes: Array
+(
+)
+
+Tune: The Golden Pheasant secondEndingSizes: Array
+(
+)
+
+Tune: Sir Torquil Monroe secondEndingSizes: Array
+(
+)
+
+Tune: Elizabeth Donald secondEndingSizes: Array
+(
+)
+
+Tune: Mrs Grace Bowie secondEndingSizes: Array
+(
+    [20] => 4
+)
+
+Tune: Inverary Castle secondEndingSizes: Array
+(
+)
+
+Tune: Blodam Drain secondEndingSizes: Array
+(
+)
+
+Tune: The Battle of Sherrifmuir secondEndingSizes: Array
+(
+)
+
+Tune: The Dram Shell secondEndingSizes: Array
+(
+)
+
+Tune: The Thornton Jig secondEndingSizes: Array
+(
+)
+
+Tune: The Boys of Mallin secondEndingSizes: Array
+(
+)
+
+Tune: Oot Pik Waltz secondEndingSizes: Array
+(
+)
+
+Tune: Fang the Fiddlers secondEndingSizes: Array
+(
+)
+
+Tune: The Princes Royal secondEndingSizes: Array
+(
+)
+
+Tune: Lament for the Death of the Rev. Archie Beaton secondEndingSizes: Array
+(
+)
+
+Tune: American Hornpipe secondEndingSizes: Array
+(
+)
+
+Tune: Marchmont House secondEndingSizes: Array
+(
+)
+
+Tune: Charlie Gore's Birthday secondEndingSizes: Array
+(
+)
+
+Tune: Elsie Marley secondEndingSizes: Array
+(
+)
+
+Tune: McKenzie Hay secondEndingSizes: Array
+(
+)
+
+Tune: The Spey In Spate secondEndingSizes: Array
+(
+)
+
+Tune: Highland Fling secondEndingSizes: Array
+(
+)
+
+Tune: Irish Jig secondEndingSizes: Array
+(
+)
+
+Tune: Irish Jig secondEndingSizes: Array
+(
+)
+
+Tune: Irish Jig secondEndingSizes: Array
+(
+    [8] => 1
+)
+
+Tune: The Duke of Buccleugh's Tune | L: 1/8
+Tune: The Duke of Buccleugh's Tune secondEndingSizes: Array
+(
+)
+
+Tune: I Fee'd a Lad at Michaelmas | L: 1/8
+Tune: I Fee'd a Lad at Michaelmas secondEndingSizes: Array
+(
+)
+
+Tune: The Miller's Wedding | L: 1/8
+Tune: The Miller's Wedding secondEndingSizes: Array
+(
+)
+
+Tune: John O'Groats Jig | L: 1/8
+Tune: John O'Groats Jig secondEndingSizes: Array
+(
+)
+
+Tune: Miss Wharton Duff | L: 1/8
+Tune: Miss Wharton Duff secondEndingSizes: Array
+(
+)
+
+Tune: The Five Stringed Fiddle | L: 1/8
+Tune: The Five Stringed Fiddle secondEndingSizes: Array
+(
+)
+
+Tune: The Skye Gathering | L: 1/16
+Tune: The Skye Gathering secondEndingSizes: Array
+(
+)
+
+Tune: The Boy's Lament for his Dragon | L: 1/8
+Tune: The Boy's Lament for his Dragon secondEndingSizes: Array
+(
+)
+
+Tune: Dark Island | L: 1/8
+Tune: Dark Island secondEndingSizes: Array
+(
+)
+
+Tune: Dudley Street | L: 1/8
+Tune: Dudley Street secondEndingSizes: Array
+(
+    [14] => 4
+)
+
+Tune: Andy Dejarlis Jig | L: 1/8
+Tune: Andy Dejarlis Jig secondEndingSizes: Array
+(
+)
+
+Tune: New Year's Day | L: 1/8
+Tune: New Year's Day secondEndingSizes: Array
+(
+)
+
+Tune: The Shakin's o' the Pocky | L: 1/8
+Tune: The Shakin's o' the Pocky secondEndingSizes: Array
+(
+)
+
+Tune: Silver Wings Polka | L: 1/8
+Tune: Silver Wings Polka secondEndingSizes: Array
+(
+    [8] => 1
+)
+
+Tune: The Old Man | L: 1/8
+Tune: The Old Man secondEndingSizes: Array
+(
+)
+
+Tune: Long Er Onie Old Man | L: 1/8
+Tune: Long Er Onie Old Man secondEndingSizes: Array
+(
+)
+
+Tune: Edinburgh Jigg | L: 1/8
+Tune: Edinburgh Jigg secondEndingSizes: Array
+(
+)
+
+Tune: Flowers of Edinburgh | L: 1/8
+Tune: Flowers of Edinburgh secondEndingSizes: Array
+(
+)
+
+Tune: The Tailor Made | L: 1/8
+Tune: The Tailor Made secondEndingSizes: Array
+(
+)
+
+Tune: Dunnigall's Rant | L: 1/8
+Tune: Dunnigall's Rant secondEndingSizes: Array
+(
+)
+
+Tune: Ane Irish Tune | L: 1/8
+Tune: Ane Irish Tune secondEndingSizes: Array
+(
+)
+
+Tune: Gallways Lament | L: 1/8
+Tune: Gallways Lament secondEndingSizes: Array
+(
+)
+
+Tune: Trip to Kilkenny | L: 1/8
+Tune: Trip to Kilkenny secondEndingSizes: Array
+(
+)
+
+Tune: Charlie Hunter | L: 1/8
+Tune: Charlie Hunter secondEndingSizes: Array
+(
+    [8] => 1
+    [18] => 1
+)
+
+Tune: Waverley Steps | L: 1/8
+Tune: Waverley Steps secondEndingSizes: Array
+(
+)
+
+Tune: The New Town of Edinburgh | L: 1/8
+Tune: The New Town of Edinburgh secondEndingSizes: Array
+(
+)
+
+Tune: The Golden Pheasant | L: 1/8
+Tune: The Golden Pheasant secondEndingSizes: Array
+(
+)
+
+Tune: Sir Torquil Monroe | L: 1/8
+Tune: Sir Torquil Monroe secondEndingSizes: Array
+(
+)
+
+Tune: Elizabeth Donald | L: 1/8
+Tune: Elizabeth Donald secondEndingSizes: Array
+(
+)
+
+Tune: Mrs Grace Bowie | L: 1/8
+Tune: Mrs Grace Bowie secondEndingSizes: Array
+(
+    [20] => 4
+)
+
+Tune: Inverary Castle | L: 1/8
+Tune: Inverary Castle secondEndingSizes: Array
+(
+)
+
+Tune: Blodam Drain | L: 1/8
+Tune: Blodam Drain secondEndingSizes: Array
+(
+)
+
+Tune: The Battle of Sherrifmuir | L: 1/8
+Tune: The Battle of Sherrifmuir secondEndingSizes: Array
+(
+)
+
+Tune: The Dram Shell | L: 1/8
+Tune: The Dram Shell secondEndingSizes: Array
+(
+)
+
+Tune: The Thornton Jig | L: 1/8
+Tune: The Thornton Jig secondEndingSizes: Array
+(
+)
+
+Tune: The Boys of Mallin | L: 1/8
+Tune: The Boys of Mallin secondEndingSizes: Array
+(
+)
+
+Tune: Oot Pik Waltz | L: 1/4
+Tune: Oot Pik Waltz secondEndingSizes: Array
+(
+)
+
+Tune: Fang the Fiddlers | L: 1/8
+Tune: Fang the Fiddlers secondEndingSizes: Array
+(
+)
+
+Tune: The Princes Royal | L: 1/8
+Tune: The Princes Royal secondEndingSizes: Array
+(
+)
+
+Tune: Lament for the Death of the Rev. Archie Beaton | L: 1/8
+Tune: Lament for the Death of the Rev. Archie Beaton secondEndingSizes: Array
+(
+)
+
+Tune: American Hornpipe | L: 1/8
+Tune: American Hornpipe secondEndingSizes: Array
+(
+)
+
+Tune: Marchmont House | L: 1/8
+Tune: Marchmont House secondEndingSizes: Array
+(
+)
+
+Tune: Charlie Gore's Birthday | L: 1/8
+Tune: Charlie Gore's Birthday secondEndingSizes: Array
+(
+)
+
+Tune: Elsie Marley | L: 1/8
+Tune: Elsie Marley secondEndingSizes: Array
+(
+)
+
+Tune: McKenzie Hay | L: 1/8
+Tune: McKenzie Hay secondEndingSizes: Array
+(
+)
+
+Tune: The Spey In Spate | L: 1/8
+Tune: The Spey In Spate secondEndingSizes: Array
+(
+)
+
+Tune: Highland Fling | L: 1/8
+Tune: Highland Fling secondEndingSizes: Array
+(
+)
+
+Tune: Irish Jig | L: 1/8
+Tune: Irish Jig secondEndingSizes: Array
+(
+)
+
+Tune: Irish Jig | L: 1/8
+Tune: Irish Jig secondEndingSizes: Array
+(
+)
+
+Tune: Irish Jig | L: 1/8
+Tune: Irish Jig secondEndingSizes: Array
+(
+    [8] => 1
+)
+
+Tune: The Duke of Buccleugh's Tune | L: 1/8
+Tune: I Fee'd a Lad at Michaelmas | L: 1/8
+Tune: The Miller's Wedding | L: 1/8
+Tune: John O'Groats Jig | L: 1/8
+Tune: Miss Wharton Duff | L: 1/8
+Tune: The Five Stringed Fiddle | L: 1/8
+Tune: The Skye Gathering | L: 1/16
+Tune: The Boy's Lament for his Dragon | L: 1/8
+Tune: Dark Island | L: 1/8
+Tune: Dudley Street | L: 1/8
+Tune: Andy Dejarlis Jig | L: 1/8
+Tune: New Year's Day | L: 1/8
+Tune: The Shakin's o' the Pocky | L: 1/8
+Tune: Silver Wings Polka | L: 1/8
+Tune: The Old Man | L: 1/8
+Tune: Long Er Onie Old Man | L: 1/8
+Tune: Edinburgh Jigg | L: 1/8
+Tune: Flowers of Edinburgh | L: 1/8
+Tune: The Tailor Made | L: 1/8
+Tune: Dunnigall's Rant | L: 1/8
+Tune: Ane Irish Tune | L: 1/8
+Tune: Gallways Lament | L: 1/8
+Tune: Trip to Kilkenny | L: 1/8
+Tune: Charlie Hunter | L: 1/8
+Tune: Waverley Steps | L: 1/8
+Tune: The New Town of Edinburgh | L: 1/8
+Tune: The Golden Pheasant | L: 1/8
+Tune: Sir Torquil Monroe | L: 1/8
+Tune: Elizabeth Donald | L: 1/8
+Tune: Mrs Grace Bowie | L: 1/8
+Tune: Inverary Castle | L: 1/8
+Tune: Blodam Drain | L: 1/8
+Tune: The Battle of Sherrifmuir | L: 1/8
+Tune: The Dram Shell | L: 1/8
+Tune: The Thornton Jig | L: 1/8
+Tune: The Boys of Mallin | L: 1/8
+Tune: Oot Pik Waltz | L: 1/4
+Tune: Fang the Fiddlers | L: 1/8
+Tune: The Princes Royal | L: 1/8
+Tune: Lament for the Death of the Rev. Archie Beaton | L: 1/8
+Tune: American Hornpipe | L: 1/8
+Tune: Marchmont House | L: 1/8
+Tune: Charlie Gore's Birthday | L: 1/8
+Tune: Elsie Marley | L: 1/8
+Tune: McKenzie Hay | L: 1/8
+Tune: The Spey In Spate | L: 1/8
+Tune: Highland Fling | L: 1/8
+Tune: Irish Jig | L: 1/8
+Tune: Irish Jig | L: 1/8
+Tune: Irish Jig | L: 1/8
+Tune: The Duke of Buccleugh's Tune | L: 1/8
+Tune: I Fee'd a Lad at Michaelmas | L: 1/8
+Tune: The Miller's Wedding | L: 1/8
+Tune: John O'Groats Jig | L: 1/8
+Tune: Miss Wharton Duff | L: 1/8
+Tune: The Five Stringed Fiddle | L: 1/8
+Tune: The Skye Gathering | L: 1/16
+Tune: The Boy's Lament for his Dragon | L: 1/8
+Tune: Dark Island | L: 1/8
+Tune: Dudley Street | L: 1/8
+Tune: Andy Dejarlis Jig | L: 1/8
+Tune: New Year's Day | L: 1/8
+Tune: The Shakin's o' the Pocky | L: 1/8
+Tune: Silver Wings Polka | L: 1/8
+Tune: The Old Man | L: 1/8
+Tune: Long Er Onie Old Man | L: 1/8
+Tune: Edinburgh Jigg | L: 1/8
+Tune: Flowers of Edinburgh | L: 1/8
+Tune: The Tailor Made | L: 1/8
+Tune: Dunnigall's Rant | L: 1/8
+Tune: Ane Irish Tune | L: 1/8
+Tune: Gallways Lament | L: 1/8
+Tune: Trip to Kilkenny | L: 1/8
+Tune: Charlie Hunter | L: 1/8
+Tune: Waverley Steps | L: 1/8
+Tune: The New Town of Edinburgh | L: 1/8
+Tune: The Golden Pheasant | L: 1/8
+Tune: Sir Torquil Monroe | L: 1/8
+Tune: Elizabeth Donald | L: 1/8
+Tune: Mrs Grace Bowie | L: 1/8
+Tune: Inverary Castle | L: 1/8
+Tune: Blodam Drain | L: 1/8
+Tune: The Battle of Sherrifmuir | L: 1/8
+Tune: The Dram Shell | L: 1/8
+Tune: The Thornton Jig | L: 1/8
+Tune: The Boys of Mallin | L: 1/8
+Tune: Oot Pik Waltz | L: 1/4
+Tune: Fang the Fiddlers | L: 1/8
+Tune: The Princes Royal | L: 1/8
+Tune: Lament for the Death of the Rev. Archie Beaton | L: 1/8
+Tune: American Hornpipe | L: 1/8
+Tune: Marchmont House | L: 1/8
+Tune: Charlie Gore's Birthday | L: 1/8
+Tune: Elsie Marley | L: 1/8
+Tune: McKenzie Hay | L: 1/8
+Tune: The Spey In Spate | L: 1/8
+Tune: Highland Fling | L: 1/8
+Tune: Irish Jig | L: 1/8
+Tune: Irish Jig | L: 1/8
+Tune: Irish Jig | L: 1/8
+Tune: The Duke of Buccleugh's Tune | L: 1/8
+Tune: I Fee'd a Lad at Michaelmas | L: 1/8
+Tune: The Miller's Wedding | L: 1/8
+Tune: John O'Groats Jig | L: 1/8
+Tune: Miss Wharton Duff | L: 1/8
+Tune: The Five Stringed Fiddle | L: 1/8
+Tune: The Skye Gathering | L: 1/16
+Tune: The Boy's Lament for his Dragon | L: 1/8
+Tune: Dark Island | L: 1/8
+Tune: Dudley Street | L: 1/8
+Tune: Andy Dejarlis Jig | L: 1/8
+Tune: New Year's Day | L: 1/8
+Tune: The Shakin's o' the Pocky | L: 1/8
+Tune: Silver Wings Polka | L: 1/8
+Tune: The Old Man | L: 1/8
+Tune: Long Er Onie Old Man | L: 1/8
+Tune: Edinburgh Jigg | L: 1/8
+Tune: Flowers of Edinburgh | L: 1/8
+Tune: The Tailor Made | L: 1/8
+Tune: Dunnigall's Rant | L: 1/8
+Tune: Ane Irish Tune | L: 1/8
+Tune: Gallways Lament | L: 1/8
+Tune: Trip to Kilkenny | L: 1/8
+Tune: Charlie Hunter | L: 1/8
+Tune: Waverley Steps | L: 1/8
+Tune: The New Town of Edinburgh | L: 1/8
+Tune: The Golden Pheasant | L: 1/8
+Tune: Sir Torquil Monroe | L: 1/8
+Tune: Elizabeth Donald | L: 1/8
+Tune: Mrs Grace Bowie | L: 1/8
+Tune: Inverary Castle | L: 1/8
+Tune: Blodam Drain | L: 1/8
+Tune: The Battle of Sherrifmuir | L: 1/8
+Tune: The Dram Shell | L: 1/8
+Tune: The Thornton Jig | L: 1/8
+Tune: The Boys of Mallin | L: 1/8
+Tune: Oot Pik Waltz | L: 1/4
+Tune: Fang the Fiddlers | L: 1/8
+Tune: The Princes Royal | L: 1/8
+Tune: Lament for the Death of the Rev. Archie Beaton | L: 1/8
+Tune: American Hornpipe | L: 1/8
+Tune: Marchmont House | L: 1/8
+Tune: Charlie Gore's Birthday | L: 1/8
+Tune: Elsie Marley | L: 1/8
+Tune: McKenzie Hay | L: 1/8
+Tune: The Spey In Spate | L: 1/8
+Tune: Highland Fling | L: 1/8
+Tune: Irish Jig | L: 1/8
+Tune: Irish Jig | L: 1/8
+Tune: Irish Jig | L: 1/8
