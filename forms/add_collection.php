@@ -1,11 +1,13 @@
 <!--CSS-->
 <link href="css/style.css" rel="stylesheet" type="text/css"/>
 
+<script type="text/javascript" src="js/add_collection.js"></script>
+
 <div id="add-collection-wrapper">
 
     <h2>Add Collection from ABC</h2>
 
-    <form method="POST" action="add_collection.php">
+    <form method="POST" id="add-collection-form">
 
         <div class="form-group">
             <label for="collection_name">Collection Name:</label>
@@ -41,5 +43,7 @@
         <button type="submit" class="submit-btn">Import Collection</button>
 
     </form>
+
+    <div id="collection-results"></div>
 
 </div>
