@@ -1,0 +1,649 @@
+X:001
+T:The Duke of Buccleugh's Tune
+B:Apollo's Banquet, 1990, via... 
+B:The Popular Songs and Melodies of Scotland
+Z:Nigel Gatherer
+M:2/4
+L:1/8
+K:G
+G<EG<E|A>GAB|G<EG>A|B2 d z|
+GE/F/ GE|A>GAB|G<EG>A|B2 d z|]
+
+X:002
+T:I Fee'd a Lad at Michaelmas
+T:O Can You Labour Lea
+B:Johnson's Scots Musical Museum, via...
+B:The Popular Songs and Melodies of Scotland
+Z:Nigel Gatherer
+M:2/4
+L:1/8
+K:G
+G>GGB|A>GAB|G<GGB|e3 g|
+G>GGB|A>GAB|G<EE>D|G3|]
+
+X:003
+T:The Miller's Wedding
+T:The Miller's Daughter
+B:Cumming's Collection, 1780, via...
+B:The Popular Songs and Melodies of Scotland
+Z:Nigel Gatherer
+M:2/4
+L:1/8
+K:G
+D|G<GG>E|A>GAB|D<DE>D|G3 B|
+G<GG>E|A>GAB|D<DE>D|G3 z|]
+
+X:004
+T:John O'Groats Jig
+B:Kohlers Violin repository - slightly adapted
+C:John Bain, Wick
+Z:Nigel Gatherer
+M:6/8
+L:1/8
+O:Scottish
+R:jig
+K:Dm
+A/G/|FGA DFA|dfd ecA|Agf edc|=Bed c=BA|
+FGA DFA|dfd ecA|Bgf ed^c|dDD D2:|
+A|dfa afd|gbg ecA|dfa afd|=Bed c=BA|
+dfa afd|gbg ecA|Bgf ed^c|dDD D2:|
+
+X:005
+T:Miss Wharton Duff
+C:William Marshall
+Z:Nigel Gatherer
+M:4/4
+L:1/8
+R:march
+K:Bb
+B,|B2 c2 d/f/d/B/ A/c/A/F/|EgDf Ce/c/ d/B/A/F/|
+B2 c2 d/f/d/B/ A/c/A/F/|EgBb d/B/c/A/ B:|
+f/g/4a/4|bf e/d/c/B/ b/f/e/d/ e/d/c/B/|egGc e/c/d/B/ B/A/G/F/|
+EgDf Ce/c/ d/B/A/F/|b/f/d/B/ e/c/d/B/ F/B/A/c/ B:|
+
+X:006
+T:The Five Stringed Fiddle
+C:Nigel Gatherer
+N:In honour of Dick Rutter, violin
+N:maker, Edinburgh
+M:3/4
+L:1/8
+K:D
+A,2|D4 FG|A4 D2|B2 c2 d2|F A3 D2|G3 ABG|F4 D2|B, E3 D2|C2 A2 A,2|
+D4 FG|A4 D2|B2 c2 d2|F A3 D2|G3 ABG|F3 EDF|E3 DCE|D4:|
+AB/c/|d2 f3 d|c2 e3 c|B3 cdB|A F3 D2|G3 ABG|F4 D2|B,2 E3 d|C2 A3 G|
+F2 d3 F|G2 e3 G|A3 ceg|f3 dAF|G3 Beg|f3 edc|e2 d3 d|d4:|
+
+X:007
+T:The Skye Gathering
+B:"Ceol Na Fidhle" Vol.I (Skye 1985)
+Z:Nigel Gatherer
+M:2/4
+L:1/16
+K:D
+A>d|f>ed>e f<aA>d|f>gf>e d4|e2 e>f g>ef>d|
+e4 A2 d>e|f>ed>e f<aA>d|B<GB>d A2 g2|f2 f<a e>Ae<f|d4 d2:|
+f>g|a>Aa>g f>ed>e|f>Ad>e f4|g>fe>g f>ed>f|
+e4 A2 f>g|a>Aa>g f>ed>c|B<dB<d A2 g2|f2 f<a e>Ae<f|d4 d2:|
+
+X:008
+T:The Boy's Lament for his Dragon
+T:The 72nd's Farewell to Aberdeen
+B:The Jimmy Shand Bagpipe March Book
+Z:Nigel Gatherer
+L:1/8
+M:2/4
+K:D
+f|Ad de/>f/|g/>f/e/>d/ f2|gB Bc/>d/|e/>f/e/>c/ A2|Ad de/>f/|
+g/>f/e/>d/ f2|gB f/>e/d/>c/ d2 d::f/g/|aA A=c|BG A>B|
+Ad Ad|e/>d/c/>B/ Af/>g/|aA A=c|BG A>B|Ad f/>e/d/>c/ d2 d:|
+
+X:009
+T:Dark Island
+C:Ian Maclachlan
+S:Various records
+Z:Nigel Gatherer
+M:3/4
+L:1/8
+K:Dmix
+E|A3 E A2|G3 A G2|E3 D C2|D4 GA|
+B3 A G2|B d3 D2|B3 d B2|A4 DE|
+A3 E A2|G3 A G2|E3 D C2|D4 GA|
+B3 DdB|A3 DBA|G6|G4|]
+Bc|d3 D D2|B3 A G2|E C3 E2|D4 GA|
+B3 A G2|B d3 D2|B3 d B2|A4 DE|
+A3 E A2|G3 A G2|E3 D C2|D4 GA|
+B3 DdB|A3 DBA|G6|G4|]
+
+X:010
+T:Dudley Street
+C:Dan R MacDonald
+B:The Trip to Windsor Collection
+M:6/8
+L:1/8
+K:E
+F|EFE EGB|eba gfe|fdB Bdf|agf AGF|EFE EGB|eba gfe|
+fdB agf|e3 e2::g|bge Beg|Bba gfe|fdB Bdf|agf AGF|1bge Beg|
+Bba gfe|fdB agf|e3 e2:|2EGB Ace|Bdf egb|eac' bd'f'|e'3 e'2|]
+
+X:011
+T:Andy Dejarlis Jig
+B:Jerry Holland's Collection
+M:6/8
+L:1/8
+K:E
+z|EGB EGB|EGB c2 B|EBG EBG|=DFA B2 A|EGB EGB|
+EGB c2 a|g2 f Bcd|e3 e2::a|gbg efg|b2 a c3|
+f2 g f2 e|dcB c2 B|gbg efg|b2 a c2 g|g2 f Bcd|e3 e2:|
+
+X:012
+T:New Year's Day
+S:Gow's Complete Repository, c.1810
+N:Transposed from F; 1st bar
+N:changed from d/e/fe to dfe
+Z:Nigel Gatherer
+M:6/8 jig
+L:1/8
+K:D
+F|D>ED dfe|dDD D2 F|D>ED d>ef|eEE E2 F|DEF dcB|
+A2 g f2 e|d>cB AFd|AFD D2::F/G/|A>BA FAF|ABA F2 G|
+ABc d>ef|eEE E2 F|A>BA FAF|A2 g f2 e|dcB AFd|AFD D2:|
+
+X:013
+T:The Shakin's o' the Pocky
+C:James Scott Skinner and Peter Milne
+B:adapted from The Caledonian Companion
+N:as played by Aly Bain
+Z:Nigel Gatherer
+M:4/4
+L:1/8
+K:Bb 
+B,>DF>G F<D B,>A|B>A G/A/B/c/ d4|e>cd>B c>A BG|F<D B>D C2 C>D|
+B,>DF>G F<D B,>A|B>A G/A/B/c/ d4|e>cd>B c>AB>G|G/F/E/D/ F/E/D/C/ B,2 B|]
+a|b>f d<B g<e c>a|b>f e/d/c/B/ f3 g/a/|b>f d<B g<ec>B|A>B c<f B2 B>a|
+b>f d<B g<e c>a|b>f e/d/c/B/ f2 f>e|d>Be>c d/c/B/A/ B>G|\
+G/F/E/D/ F/E/D/C/ B,2 B|]
+
+X:014
+T:Silver Wings Polka
+C:Adam Rennie?
+S:78rpm record
+Z:Nigel Gatherer
+M:4/4
+L:1/8
+K:F
+c|a/>a/a/>a/ fA ed c2|F/>F/E/>F/ Ac ed B2|\
+e/>e/e/>e/ dd ee f2|g/>f/e/>f/ g/>a/g/>f/ ecde|
+a/>a/a/>a/ fA ed c2|F/>F/E/>F/ Ac d3 f|\
+e/>g/d/>f/ ee  e/>g/d/>f/ ee|1 e/>c/=B/>c/ de fc f:|\
+[2 e/>c/=B/>c/ fc f4|]
+c2- c/>d/=B/>d/ c2- c/>d/B/>d/|cdef fe e2|\
+B2- B/>A/G/>A/ B2- B/>A/G/>A/|Bcde eA A2|
+c2- c/>d/=B/>d/ c2- c/>d/=B/>d/|cdef ag d2|\
+g/>f/d/>f/ ee G/>F/D/>F/ EE|e/>c/=B/>c/ de fc f2:|
+a/>f/e/>g/ ff a/>f/e/>g/ ff|a/>f/e/>f/ bg d4|\
+g/>f/e/>f/ ee g/>f/e/>f/ ee|e/>c/=B/>c/ dc Fcde| 
+a/>f/e/>g/ ff a/>f/e/>g/ ff|a/>f/e/>f/ bg d4|\
+g/>f/e/>f/ ee g/>f/e/>f/ ee|e/>c/=B/>c/ cd fc f2:|
+
+X:015
+T:The Old Man
+S:Straloch MS, 1627
+Z:Nigel Gatherer
+O:Scottish
+L:1/8
+M:2/4
+K:G
+g2 g2|fg a2|g2 gd|B2 d2::e2 dB|A2 A2|BG dB|G2D2:|
+
+X:016
+T:Long Er Onie Old Man
+B:Skene MS (Lute tablature), c1640
+O:Scottish
+Z:Nigel Gatherer
+L:1/8
+M:2/4
+K:G
+ga ge|=fg a^f|ga gd|B2 d2:|ed Bd|=f3 A|
+GG d2|GG d2|ed Bd|=f3 a|GG dG|AB d|]
+
+X:017
+T:Edinburgh Jigg
+S:Gatherer's Musical Museum
+Z:Nigel Gatherer
+M:6/8
+L:1/8
+K:G
+B|D2E G2A|Bdg dBG|gag efg|dBG A2B|D2E G2A|
+ege dBG|g2e dBG|AGG G2::d|gfg b2g|fef a2f|e^de gdB|
+Bee e2f|gfe dcB|ABG FED|GBd gdc|BGG G2:|
+
+X:018
+T:Flowers of Edinburgh
+S:from the playing of Dave Swarbrick
+Z:Nigel Gatherer
+M:2/4
+L:1/8
+K:G
+D|GG BG/B/|dB g>e|dB B/A/G/A/|BG ED|
+GG BG/B/|dB g>e|dB B/A/G/A/|BG G:|
+d|g2 f>e|Be e>f|g2 f/g/f/e/|Be eg/e/|
+d/B/G/B/ dd|e/d/e/f/ gg/e/|dB B/A/G/A/|BG G:|
+
+X:019
+T:The Tailor Made
+C:Nigel Gatherer
+M:6/8
+L:1/8
+K:Bminor
+B/c/|dcB f2 B|F2 B Bcd|efg fed|cBA edc|dcB f2 B|F2 B Bcd|
+efg f2 e|dBB B2::f|b2 f gfe|d2 B Bcd|cBA eAA|fAA e2 a|
+b2 f gfe|fdB Bcd|cBA f2 e|dBB B2 f|b2 f gfe|d2 B Bcd|
+cBA eAA|fAA e2 c|dcB edc|fed cde|fed cBA|FBB B2:|
+
+X:020
+T:Dunnigall's Rant
+S:Andrew Adam's Music Book (ms)
+Z:Nigel Gatherer
+M:6/4
+L:1/8
+K:D
+A3 G F2 E2 C2 E2|D2 F2 A2 D4 F2|DEFDdA F4 B2|
+ABAG F2 E2 C2 E2|DEFD F2 EFGE G2|DEFD F2 EFGE G2|
+d2 a2 a2 a4 f2|defgaf cdefge|defgab a4 f2|
+agfgaf gfefge|agfgab agfgaf|gabagf g2 fedc|
+d3 c B2 A2 G2 F2|G3 A G2 E2 C2 E2|D3 A F2 D3 d F2|
+D3 A F2 E2 C2 E2|D3 A F2 d2 A2 B2|A3 G F2 E2 C2 E2|
+d2 A2 D2 d2 A2 F2|d2 A2 E2 dcBA F2|dcBA D2 dcBA E2|
+dcdcdc dcBAGF|E2 A2 A2 A4 G2|F2 A2 A2 C2 E2 E2|
+D2 A2 A2 A4 G2|F3 G A2 E2 C2 E2|]
+
+X:021
+T:Ane Irish Tune
+S:Andrew Adam's Music Book (ms) 1710
+Z:Nigel Gatherer
+M:6/4
+L:1/8
+K:G
+DE G2 G2 G4 G2|A3 BAG E4 D2|DE G2 G2 Bc d2 G2|A4 G2 G6|
+c2 dcBA B2 cBAG|A3 BAG E4 D2|DE G2 G2 Bc d2 G2|A4 G2 G4 z2|]
+f4 f2 f4 g2|e3 deg e2 d2 B2|d2 e2 g2 d4 BA|G4 G2 G2 E2 D2|
+fefg f2 edef e2|dBde d2 G2 E2 D2|DE G2 G2 Bc d2 G2|A4 G2 G4 z2|]
+
+X:022
+T:Gallways Lament
+S:Andrew Adam's Music Book (ms) 1710
+Z:Nigel Gatherer
+M:3/4
+L:1/8
+K:Bb
+d2|g2 g2 a2|g3 f d2|f2 gagf|f3 gaf|d2 g2 ga|g4 f2|d2 ca ca|G4|]
+
+X:023
+T:Trip to Kilkenny
+C:John McCusker
+S:Travelling Folk, Radio Scotland
+M:6/8
+L:1/8
+K:A
+cB|ABA Aca|f2f fef|a2f ecA|fec Bcd|
+cBA cee|f2f fef|a2f ecA|BcB A:|
+cd|efe Ace|f>ff dfa|g>gg egb|agf ecd|
+efe Ace|f>ff dfa|g>gg egb|aec Acd|
+efe Ace|f2f dfa|g2g egb|agf ecB|
+
+X:024
+T:Charlie Hunter
+C:Bobby MacLeod
+S:Bobby MacLeod's Selection of Country Dance Tunes
+M:6/8
+L:1/8
+K:D
+A|DFA GBd|Adf a2g|fed Bcd|ecA GFE|
+DFA GBd|Adf a2g|fef gec|1edd d2:|2edd d|]
+fg|afd d2c|BGG G2F|E^GB e2d|cAA Aag|
+fdA FDF|GBd g2g|fef gec|1edd d:|2edd d2|]
+
+X:025
+T:Waverley Steps
+C:R Black
+S:Radio Scotland, Dec 1991
+N:As played by the Iain MacPhail Band
+Z:Nigel Gatherer
+M:4/4
+L:1/8
+K:D
+(3ABc|d2 de dcBA|B3 c BAGF|A3 B AGFA|G2 E2 E2 (3ABc|
+d2 de dcBA|B3 c BAGF|A2 Bc d2 AG|F2 D2 D2:|
+FE|D2 d2 d2 cB|c2 e2 e2 de|f2 d2 d2 f2|edcB AGFE|
+D2 d2 d2 cB|c2 e2 e2 dc|BABc dBAG|F2 D2 DGFE|
+D2 d2 d2 cB|c2 e2 e2 de|f2 d2 d2 f2|edcB AGFE|
+DEFG A2 de|fedB A2 GF|EFGA Bcde|f2 d2 d2|]
+
+X:026
+T:The New Town of Edinburgh
+C:Iain MacPhail (?)
+S:Radio Scotland, Dec 1991
+N:As played by the Iain MacPhail Band
+Z:Nigel Gatherer
+M:4/4
+L:1/8
+K:E
+z2|e2 de ceBA|GABA GEBd|e2 de ceBe|AeGe F3 B|
+e2 de ceBA|GABA GBGE|CEAc dBcd|eEED E2:|
+B2|G2 =G^G FGEF|GEGB AGFE|A2 GA =GAF^G|AGAB cBce|
+G2 =G^G FGEF|GEGB AGFE|CEAc dBcd|eEED E2:|
+
+X:027
+T:The Golden Pheasant
+S:78rpm record (Adam Rennie & his Band)
+Z:Nigel Gatherer
+M:6/8
+L:1/8
+K:A
+C/D/|E2A E2A|E2A c2A|E2A d2c|cBA B2E|E2A E2A|E2A c2d|
+e2A F2A|ABG A2:|A|G2B B2e|A2c c2e|B2e e2g|fe^d e2B|
+G2B B2e|A2c c2e|B2e c2a|gf^d e2=d|c2B A2d|c2B A2E|
+F2A E2e|edc B2d|cdB A2d|cdB A2a|e2a fad|cdB A2|]
+
+X:028
+T:Sir Torquil Monroe
+C:Adam Rennie (?)
+S:78rpm record
+Z:Nigel Gatherer
+M:6/8
+L:1/8
+K:A
+E|EAA A2B|cAA A2G|FBB BcA|GEE E2E|EAA A2B|cAA A2G|
+FcB GFG|A3 A2:|d|cde ecA|dff f2A|GAB BGE|cee e2d|
+cde ecA|dff f2A|GAB EFG|A3 A2d|cde ecA|dff f2A|
+GAB BGE|cee e2e|efg agf|edc BAG|FGA BGE|A3 A2|]
+
+X:029
+T:Elizabeth Donald
+C:Adam Rennie (?)
+S:78rpm record
+Z:Nigel Gatherer
+M:6/8
+L:1/8
+K:A
+e|c2A AGA|F2A E2A|F2A E2A|GAB B2e|c2A AGA|F2A E2f|
+dBG EFG|A3 A2:|c/B/|A2c cBc|A2c E3|F2B BcB|G2B e3|
+c2A AGA|F2A D2f|dBG EFG|A3 A2 c/B/|A2c cBc|A2c E3|
+F2B BcB|G2B e3|AGA cBA|FDE F2f|dBG EFG|A3 A2|]
+
+X:030
+T:Mrs Grace Bowie
+C:Adam Rennie (?)
+S:78rpm record
+Z:Nigel Gatherer
+M:6/8
+L:1/8
+K:A
+A2 c E2 c|A2 c E2 c|AGA cBA|G2 B F3|G2 B F2 A|G2 B F2 G|ABA G2 F|
+ECD EFG|A2 E c2 E|A2 E c2 E|AGA cBA|G2 B F3|G2 B F2 A|G2 B F2 A|
+GFE c2 B|A3 A3::ECD E2 A|c2 c c3|c=c^c d2 c|B3 F2 A|1 G2 G F2 E|
+G2 G G3|d2 d c2 B|AGF E3:|2 G2 B F2 A|GAB F2 f|gfe dcB|A3 A2|]
+
+X:031
+T:Inverary Castle
+S:MS from 1850s
+Z:Nigel Gatherer
+M:4/4
+L:1/8
+K:Eminor
+z|B,>E E2 B,>EG<E|B,<EE<F G<A B2|B,>E E2 B,>EG<E|D>B,G,>A, B,>DD>^C|
+B,>E E2 B,>EG<E|B,<EE<F G<A B2|B,>E E2 B,>EG<E|D>B,G,>A, B,>D D|]
+B/A/|G>AB<g e>BB>A|G>AB>d Be e2|G>AB<e d<eB<e|d>AF<D F<A A2|
+G>A B/e/B B/g/B B/e/B|G>AB>e g/f/e/^d/ e>f|g>BA>G F>ED>C|\
+B,>G,D>G, B,>D D|]
+
+
+X:032
+T:Blodam Drain
+T:The Flowers Of the Thorn
+S:Dick Rutter, Edinburgh
+Z:Nigel Gatherer
+M:3/4
+L:1/8
+K:Am
+E2|A4 B2|c2 B2 A2|e2 dcBA|B4 B2|A2 AcBd|c2 B2 A2|^G2 GBAc|B4:|
+B2|c4 c2|d4 d2|e2 e2 f2|e4 d2|cBcd c2|dcde d2|efefef|g3 fed|
+cBcdec|dcdefd|e2 e2 a2|^g4 a2|a2 e2 c2|f2 e2 d2|c2 dcBc|A4|]
+
+X:033
+T:The Battle of Sherrifmuir
+T:Here's a Health To Them Far Awa'
+D:Billy Jackson & John Martin: The Braes of Lochiel
+Z:Nigel Gatherer
+M:6/8
+L:1/8
+K:A
+E|A>GF FEF|A3 A2B|c>BA dcd|e3 e2a|c'ba agf|e>dc def|
+edc BAB|A3 A2::c|edc BAB|A3 A2c|edc def|e3 e2a|
+c'ba agf|e>dc def|edc BAB|A3 A2::e|a>ec a>ec|e3 efg|
+agf edc|B3 B2a|c'ba agf|e>dc def|edc BAB|A3 A2:|
+
+X:034
+T:The Dram Shell
+T:Am Botal dubh 's an t-slige chreachann
+B:Simon Fraser Collection, 1874 edition
+Z:Nigel Gatherer
+M:4/4
+L:1/8
+K:F# minor
+C|F3a fecA|ce^dc BAGE|F3a fecf|ecBG AFF:|
+g|afcf cfaf|gebe gbeg|afcf cfaf|ecBG AFFg|
+afcf cfaf|gebe gbeg|agfg efcf|ecBG AFF|]
+
+X:035
+T:The Thornton Jig
+C:Donald Cameron
+D:Smalltalk (Greentrax 1994)
+Z:Nigel Gatherer
+M:6/8
+L:1/8
+K:G
+A2G|:F2D DED|G2A BAG|F2D DED|E2c cGE|F2D DED|
+G2A BAF|GBG FdF|E2c cGE::F2A ABA|ABc dAG|
+F2A ABc|E2c cGE|F2A ABA|ABc dAF|GBG FdF|E2c cGE:|
+
+To: IrTrad Posting <IRTRAD-L@LISTSERV.HEANET.IE>
+Subject: Re: Bernard Flaherty's "Trip to Sligo"
+Date: Thu, 15 Apr 1999 14:20:00
+Source: mail.irtrad-l@listserv.heanet.ie
+
+X:036
+T:The Boys of Mallin
+D:Buttons and Bows: 'Grace Notes' 1991
+Z:Nigel Gatherer
+M:4/4
+L:1/8
+K:Bm
+Bfdf Bfdf|Bfdf e2 dc|Bfdf Bfdf|ecAc ecdc:|
+Bcde f2df|g2eg fedc|Bcde f2df|ecAc ecdc|
+Bcde f2df|g2eg fedc|Bcde f2df|ecAc efga||
+bB B/B/B fBdF|b2ba fefa|bB B/B/B fBdf|ecAc efga|
+bB B/B/B fBdF|b2ba fefa|bgaf gefd|ecAc e2dc|]
+
+X:037
+T:Oot Pik Waltz
+T:Ook Pick Waltz
+T:Uke Pick
+T:Eskimo Waltz
+C:Frank Rogers
+M:3/4
+L:1/4
+K:G
+(3D/E/F/|G> F G/B/|A G E/D/|E G> A| G B d|e>d e/f/|e d B/G/|B d>e| 
+d2 B/d/|e>d e/g/|e d B/A/|B d B/A/|G E D|C> B, C/E/|D F E/D/|E G> A| 
+G B d|e B> A|B2 e|d B> A|B2 B|A> G A/B/|A G E/D/|E G A|G B d|e B> A|
+B2 f/e/|d B>G|B2 B|A> G A/B/|A G E/D/|E G E|D2|]
+
+X:038
+T:Fang the Fiddlers
+C:J R Findlater
+S:Manuscript collection
+Z:Nigel Gatherer
+L:1/8
+M:C|
+R:Reel
+K:Aminor
+z|A/A/A eA cAAc|B/B/B gd BGGB|A/A/A eA cAAc|dGdB A2 a:|
+c|Aaag aeea|gage dBGB|Aaag aeea|gegB A2 a:|
+
+X:039
+T:The Princes Royal
+T:The Princess Royal
+B:Gow's 2nd Repository, early 1800s
+N:transposed from Gm
+M:4/4
+L:1/8
+K:Dm
+DE|F2 EF D2 AG|FGEF D3 A|B3 A G2 cB|ABGA F4|
+F2 dF E2 cE|DEFD A,2 AG|FEFD A,D^CE|D2 D2 D2:|
+A2|d^cde d^cde|f2 F2 F2 de|fedc BAGF|EFGE C4|
+F2 EF G2 FG|A2 A2 d4|c2 F2 B4|A2 D2 G4|
+FGFE DEFD|^CDEC A,2 AG|FEFD A,D^CE|D2 D2 D2:|
+
+X:040
+T:Lament for the Death of the Rev. Archie Beaton
+C:John Mason
+S:loose sheet from fiddle club
+M:4/4
+L:1/8
+K:G
+Bc|d3d dcBA|G2 B2 D3 G|E2 GE D2 B,2|A6 Bc|
+d3d dcBA|G2 B2 D3 G|E2 cA F3 D|G6:|
+B,A,|G,3 B, D3 D|B3 A G3 E|D2 GE D2 B,2|A,6 B,A,|
+G,3 B, D3 D|B3 A G3 E|D2 GB, A,3 B,|G,6 B,A,|
+G,B,DG Bdga|b3 a g3 e|d2 ga d3 B|a6 Bc|
+d3d dcBA|G2 B2 D3 G|E2 cA FdCA,|G6|]
+
+X:041
+T:American Hornpipe
+D:First of May by James Bryan
+Z:Nigel Gatherer
+M:4/4
+L:1/8
+K:D
+FG|ABAG F2AF|G2Bc dAFD|GABA GFED|CDEF E2FG|ABAG F2AF|G2Bc dAFA|
+dfeg (3fgf ec|dz dc d2::(3ABc|d2 d2 fedf|edef dAFA|dcde fgaf|
+edef e2 (3ABc|dcde (3fgf df|edef dAFA|(3B=CB GB Age^c|d2 d2 d2:|
+
+X:042
+T:Marchmont House
+B:The Gow Collection (New York, 1986)
+N:1st note in bar 4 changed from "d".
+N:Orig. publ. in Bremner's Coll (1751-61)
+Z:Nigel Gatherer
+M:6/8
+L:1/8
+K:D
+A|F/G/AF D2A|d>ed dAG|F/G/AF D2f|eEE E2G|
+F/G/AF D2A|d>ed dAG|FdF Edc|dAF D2::g|f/g/af d2f|
+aba afd|f/g/af d>ef|eEE E2g|f/g/af dfa|bag fed|
+B/c/dB AFd|AFD D2::A|FAd FAd|dAF dAF|FAd d>ef|
+eEE E2g|FAd FAd|fed cBA|B/c/dB AFd|AFD D2::f|
+dfa dfa|afd afd|dfadef|eEE E2f|
+dfa dfa|bag fed|B/c/dB AFB|AFD D2:|
+
+X:043
+T:Charlie Gore's Birthday
+C:John Turner
+B:John Turners Melodies (W Virginia 1984)
+Z:Nigel Gatherer
+N:
+M:6/8
+L:1/8
+K:D
+f/g/|a>gf g>fe|d2f A2d|B>AG A>FD|E2C A,2G|
+A>FA d>cd|B>dg b2^g|a>=gf gfe|dAF D2:|
+A|d>Ad eA=c|B2A G2B|e>^de f>ed|c>AE A,2G|
+FAF D>EF|G>Bd g2 f/e/|dcA GEz|D3 D2:|
+
+X:044
+T:Elsie Marley
+B:Robin Williamson, "Fiddle Tunes" (New York 1976)
+N:"printed by Robert Petrie in 1796 and is
+N:"described by him as a 'bumpkin'."
+Z:Nigel Gatherer
+M:6/8
+L:1/8
+K:G
+BAB G2G|G2g gdc|BAB G2G|=F2f fcA|
+BAB G2G|G2g gdB|c2a B2g|A2=f fcA:|
+
+X:045
+T:McKenzie Hay
+C:James Scott Skinner
+Z:Nigel Gatherer
+M:4/4
+L:1/8
+K:D
+G|F<DF>A d2 d>f|e>cd>b c<aa>=c|B<Gd>B A2 F>D|
+E>A^G>B (3ABA (3=GFE|F<DF>A d2 d>f|e>cd>b c<aa>=c|
+(3BGB (3dcB (3Afe (3dcB|(3ABA (3GFE F<D D||
+g|f<dg>e a2 f>d|e>cd>B c<AA>g|fdge afbg|a>fg>f f<dd>e|
+f<dg>e a2 f>d|e>cd>B c<AA=c|(3BGB (3dcB (3Aag (3fed|
+(3cBA (3GFE f<D D|]
+
+X:046
+T:The Spey In Spate
+C:James Scott Skinner
+Z:Nigel Gatherer
+M:4/4
+L:1/8
+K:D
+D2 FD A,DFA|dcBA ^GAFD|E2 GE B,EGB|gecA GECA,|
+D2 FD A,DFA|dDcD BDAf|gefd ecdB|AFGE DABc||
+d/d/d fd AdFA|DFAd fagf|e/e/e ge BeGB|CEAc egfe|
+d/d/d fd AdFA|DFAd fagf|gefd ecdB|AFGE D4|]
+
+X:047
+T:Highland Fling
+D:Peter Wyper 78rpm (Columbia Double Face D202)
+Z:Nigel Gatherer
+M:4/4
+L:1/8
+K:D
+F|:D2 F<D G<E A2|D/D/D F<D G2 E<=C|D2 F<D G<E A2|\
+(3GFE d>B A2 G<E:|
+d>B (3cBA B<^G A2|d>B (3cBA B<^G A2|d>B (3cBA B<^G A<F|\
+G<ED>B A2 G<E:|
+
+X:048
+T:Irish Jig
+D:Peter Wyper 78rpm 
+Z:Nigel Gatherer
+M:6/8
+L:1/8
+K:D
+B|ADD FED|ADD D2B|ADD FED|CEE E2B|ADD FED|
+FGA BAG|FAA ABc|dDD D2::A|dcB AGF|GFE D2A,-|A,DD EDE|
+FBB B2c|dcB AGF|GFE D2A,-|A,DD EDE|FDD D2:|
+
+X:049
+T:Irish Jig
+T:Connachtman's Rambles
+D:Peter Wyper 78rpm 
+Z:Nigel Gatherer
+M:6/8
+L:1/8
+K:D
+A|FAA dAA|BAB dAA|FAA Afe|dBB BAG|FAA dAA|
+BAB def|gfe f2e|dBB B2::A|Bbb faa|fbb afe|
+fbb faa|fef A2e|fbb faa|fbb afe|fef agf|edc B2:|
+
+X:050
+T:Irish Jig
+D:Peter Wyper 78rpm 
+Z:Nigel Gatherer
+M:6/8
+L:1/8
+K:D
+A|DFF DFF|EGG EGG|FAA dcd|fee ecA|DFF DFF|EGG EGG|
+FAd cBc|1edd d2:|2edd dcd||f3 d3|eee e3|g3 c3|ddd d3|
+f3 d3|eee e3|g3 c3|ddd dcB|A3 F2G|A3 F2G|
+AFA dAd|fed cBA|G3 E2F|GAG E2F|GBA AFE|DDD D2|]
+

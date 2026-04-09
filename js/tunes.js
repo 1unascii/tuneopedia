@@ -56,6 +56,11 @@ $(document).ready(function(){
 
     var rowsPerPage = 10;
     var currentPages = {};
+    var collectionRowsPerPage = 5;
+    var currentCollectionPage = 1;
+    var collectionTuneRowsPerPage = {};
+    var collectionTunePages = {};
+    var collectionActiveTabs = {};
     
     function paginateTable(tableId, page) {
         var $rows = $('#' + tableId + ' tbody tr');
@@ -82,7 +87,7 @@ $(document).ready(function(){
     }
 
     function paginateAll(page) {
-        $('table').each(function() {
+        $('#tabs table').each(function() {
             paginateTable($(this).attr('id'), page);
         });
     }
@@ -167,5 +172,264 @@ $(document).ready(function(){
             filterAndPaginate(tableId, filter, page); // USE page INSTEAD OF 1
         }
     });
+
+    function renderCollectionPagination(page, totalPages) {
+        var $controls = $('#collections-pagination-controls');
+        $controls.empty();
+
+        if (totalPages <= 1) {
+            return;
+        }
+
+        for (var i = 1; i <= totalPages; i++) {
+            $controls.append(
+                $('<a>')
+                    .text(i)
+                    .addClass('collection-page-link' + (i === page ? ' active' : ''))
+                    .attr('data-page', i)
+            );
+        }
+    }
+
+    function filterAndPaginateCollections(page) {
+        var $accordion = $('#collections-accordion');
+
+        if (!$accordion.length) {
+            return;
+        }
+
+        var filter = ($('#collection-filter').val() || '').toLowerCase();
+        collectionRowsPerPage = parseInt($('#collections-per-page-select').val(), 10) || 5;
+
+        var matchedHeaders = [];
+
+        $accordion.find('.collection-header').each(function() {
+            var $header = $(this);
+            var searchText = $header.find('.collection-title').text().toLowerCase();
+
+            if (filter === '' || searchText.indexOf(filter) !== -1) {
+                matchedHeaders.push($header);
+            }
+        });
+
+        var totalPages = Math.ceil(matchedHeaders.length / collectionRowsPerPage);
+
+        if (totalPages === 0) {
+            page = 1;
+        } else if (page > totalPages) {
+            page = totalPages;
+        }
+
+        currentCollectionPage = page;
+
+        $accordion.find('.collection-header, .collection-body').hide();
+
+        if (matchedHeaders.length === 0) {
+            $('#collections-empty-state').show();
+        } else {
+            $('#collections-empty-state').hide();
+
+            var start = (page - 1) * collectionRowsPerPage;
+            var end = start + collectionRowsPerPage;
+
+            $(matchedHeaders.slice(start, end)).each(function() {
+                $(this).show();
+                $(this).next('.collection-body').show();
+            });
+        }
+
+        renderCollectionPagination(page, totalPages);
+
+        if ($accordion.hasClass('ui-accordion')) {
+            $accordion.accordion('option', 'active', false);
+            $accordion.accordion('refresh');
+        }
+    }
+
+    function getCollectionTuneFilter(collectionId) {
+        return ($('#collection-tune-filter-' + collectionId).val() || '').toLowerCase();
+    }
+
+    function getCollectionTuneRowsPerPage(collectionId) {
+        return collectionTuneRowsPerPage[collectionId] || parseInt($('#collection-tunes-per-page-' + collectionId).val(), 10) || 10;
+    }
+
+    function getActiveCollectionTableId(collectionId) {
+        var $tabs = $('#collection-tabs-' + collectionId);
+        var $panel = $tabs.find('.ui-tabs-panel:visible');
+
+        if (!$panel.length) {
+            $panel = $tabs.children('div.collection-tab-panel').first();
+        }
+
+        return $panel.find('table').attr('id');
+    }
+
+    function renderCollectionTunePagination(tableId, page, totalPages) {
+        var $controls = $('#pagination-' + tableId);
+        $controls.empty();
+
+        if (totalPages <= 1) {
+            return;
+        }
+
+        for (var i = 1; i <= totalPages; i++) {
+            $controls.append(
+                $('<a>')
+                    .text(i)
+                    .addClass('collection-tune-page-link' + (i === page ? ' active' : ''))
+                    .attr('data-page', i)
+                    .attr('data-table', tableId)
+            );
+        }
+    }
+
+    function filterAndPaginateCollectionTunes(tableId, page) {
+        var $table = $('#' + tableId);
+
+        if (!$table.length) {
+            return;
+        }
+
+        var collectionId = $table.data('collection-id');
+        var filter = getCollectionTuneFilter(collectionId);
+        var rowsPerPageForTable = getCollectionTuneRowsPerPage(collectionId);
+        var $rows = $table.find('tbody tr');
+        var $matchedRows = $rows.filter(function() {
+            var title = $(this).find('.tune_title').text().toLowerCase();
+            return filter === '' || title.indexOf(filter) !== -1;
+        });
+
+        var totalPages = Math.ceil($matchedRows.length / rowsPerPageForTable);
+
+        if (totalPages === 0) {
+            page = 1;
+        } else if (page > totalPages) {
+            page = totalPages;
+        }
+
+        collectionTunePages[tableId] = page;
+
+        $rows.hide();
+
+        if ($matchedRows.length) {
+            var start = (page - 1) * rowsPerPageForTable;
+            $matchedRows.slice(start, start + rowsPerPageForTable).show();
+        }
+
+        renderCollectionTunePagination(tableId, page, totalPages);
+    }
+
+    function paginateCollectionTunesForAllTabs(collectionId, resetPages) {
+        var $tables = $('#collection-tabs-' + collectionId + ' table.collection-tunes-table');
+
+        if (resetPages) {
+            $tables.each(function() {
+                collectionTunePages[$(this).attr('id')] = 1;
+            });
+        }
+
+        $tables.each(function() {
+            var tableId = $(this).attr('id');
+            var page = collectionTunePages[tableId] || 1;
+            filterAndPaginateCollectionTunes(tableId, page);
+        });
+    }
+
+    function initializeCollectionTabs(collectionId) {
+        var $tabs = $('#collection-tabs-' + collectionId);
+
+        if (!$tabs.length) {
+            return;
+        }
+
+        if ($tabs.hasClass('ui-tabs')) {
+            $tabs.tabs('destroy');
+        }
+
+        var activeIndex = typeof collectionActiveTabs[collectionId] === 'number' ? collectionActiveTabs[collectionId] : 0;
+
+        $tabs.tabs({
+            active: activeIndex,
+            activate: function(event, ui) {
+                var newIndex = ui.newTab.index();
+                var tableId = ui.newPanel.find('table').attr('id');
+
+                collectionActiveTabs[collectionId] = newIndex;
+
+                if (tableId) {
+                    filterAndPaginateCollectionTunes(tableId, collectionTunePages[tableId] || 1);
+                }
+            }
+        });
+
+        var activeTableId = getActiveCollectionTableId(collectionId);
+        if (activeTableId) {
+            filterAndPaginateCollectionTunes(activeTableId, collectionTunePages[activeTableId] || 1);
+        }
+    }
+
+    window.initializeCollectionsPage = function() {
+        var $accordion = $('#collections-accordion');
+
+        if (!$accordion.length) {
+            return;
+        }
+
+        if ($accordion.hasClass('ui-accordion')) {
+            $accordion.accordion('destroy');
+        }
+
+        $accordion.accordion({
+            collapsible: true,
+            active: false,
+            heightStyle: "content"
+        });
+
+        $('.collection-tunes-per-page').each(function() {
+            var collectionId = $(this).data('collection-id');
+            collectionTuneRowsPerPage[collectionId] = parseInt($(this).val(), 10) || 10;
+        });
+
+        $('.collection-tabs').each(function() {
+            initializeCollectionTabs($(this).data('collection-id'));
+        });
+
+        filterAndPaginateCollections(1);
+    };
+
+    $(document).on('change', '#collections-per-page-select', function() {
+        filterAndPaginateCollections(1);
+    });
+
+    $(document).on('input', '#collection-filter', function() {
+        filterAndPaginateCollections(1);
+    });
+
+    $(document).on('click', '.collection-page-link', function() {
+        var page = parseInt($(this).data('page'), 10) || 1;
+        filterAndPaginateCollections(page);
+    });
+
+    $(document).on('change', '.collection-tunes-per-page', function() {
+        var collectionId = $(this).data('collection-id');
+        collectionTuneRowsPerPage[collectionId] = parseInt($(this).val(), 10) || 10;
+        paginateCollectionTunesForAllTabs(collectionId, true);
+    });
+
+    $(document).on('input', '.collection-tune-filter', function() {
+        var collectionId = $(this).data('collection-id');
+        paginateCollectionTunesForAllTabs(collectionId, true);
+    });
+
+    $(document).on('click', '.collection-tune-page-link', function() {
+        var tableId = $(this).data('table');
+        var page = parseInt($(this).data('page'), 10) || 1;
+        filterAndPaginateCollectionTunes(tableId, page);
+    });
+
+    if ($('#collections-accordion').length) {
+        window.initializeCollectionsPage();
+    }
     
 });

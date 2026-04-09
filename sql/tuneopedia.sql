@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2026 at 01:20 AM
+-- Generation Time: Apr 09, 2026 at 01:26 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -68,11 +68,12 @@ CREATE TABLE `collection` (
   `collection_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `author` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
   `publisher` varchar(255) DEFAULT NULL,
   `published_date` date DEFAULT NULL,
-  `description` text DEFAULT NULL,
   `cover_image` varchar(255) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp()
+  `created_at` datetime DEFAULT current_timestamp(),
+  `is_shared` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -91,6 +92,25 @@ CREATE TABLE `collection_tune` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `composer`
+--
+
+CREATE TABLE `composer` (
+  `composer_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `composer`
+--
+
+INSERT INTO `composer` (`composer_id`, `name`) VALUES
+(1, 'Traditional'),
+(2, '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `discussion_thread`
 --
 
@@ -98,6 +118,21 @@ CREATE TABLE `discussion_thread` (
   `discussion_thread_id` int(11) NOT NULL,
   `tune_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `file`
+--
+
+CREATE TABLE `file` (
+  `file_id` int(11) NOT NULL,
+  `tune_id` int(11) DEFAULT NULL,
+  `setting_id` int(11) DEFAULT NULL,
+  `file_type` varchar(50) NOT NULL,
+  `location` varchar(500) NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -151,11 +186,11 @@ CREATE TABLE `setting` (
   `tune_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `default_note_length` varchar(10) DEFAULT '1/8',
   `time_signature` varchar(7) NOT NULL DEFAULT '4/4',
   `key_signature` varchar(50) DEFAULT NULL,
   `abc_transcription` text DEFAULT NULL,
-  `file_type` varchar(50) DEFAULT NULL,
-  `file_url` varchar(255) DEFAULT NULL
+  `notes` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -196,7 +231,8 @@ CREATE TABLE `tune` (
   `tune_id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `tune_type_id` int(11) DEFAULT NULL,
-  `composer` varchar(255) DEFAULT NULL
+  `composer_id` int(11) DEFAULT NULL,
+  `composer` int(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -252,46 +288,15 @@ CREATE TABLE `tune_type` (
 --
 
 INSERT INTO `tune_type` (`tune_type_id`, `name`) VALUES
-(1, 'Reel'),
-(2, 'Jig'),
-(3, 'Polka'),
 (4, 'Hornpipe'),
+(2, 'Jig'),
+(78, 'March'),
+(53, 'Other'),
+(3, 'Polka'),
+(1, 'Reel'),
 (5, 'Slip Jig'),
-(6, 'Other'),
-(7, 'Waltz'),
-(8, 'Strathspey'),
-(9, 'Reel'),
-(10, 'Jig'),
-(11, 'Polka'),
-(12, 'Hornpipe'),
-(13, 'Slip Jig'),
-(14, 'Other'),
-(15, 'Waltz'),
-(16, 'Strathspey'),
-(17, 'Reel'),
-(18, 'Jig'),
-(19, 'Polka'),
-(20, 'Hornpipe'),
-(21, 'Slip Jig'),
-(22, 'Other'),
-(23, 'Waltz'),
-(24, 'Strathspey'),
-(25, 'Reel'),
-(26, 'Jig'),
-(27, 'Polka'),
-(28, 'Hornpipe'),
-(29, 'Slip Jig'),
-(30, 'Other'),
-(31, 'Waltz'),
-(32, 'Strathspey'),
-(33, 'Reel'),
-(34, 'Jig'),
-(35, 'Polka'),
-(36, 'Hornpipe'),
-(37, 'Slip Jig'),
-(38, 'Other'),
-(39, 'Waltz'),
-(40, 'Strathspey');
+(52, 'Strathspey'),
+(51, 'Waltz');
 
 -- --------------------------------------------------------
 
@@ -321,6 +326,13 @@ CREATE TABLE `user` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `user_name`, `email`, `password`) VALUES
+(1, 'Joseph', 'Weiner', '1unascii', 'josepheaorle@gmail.com', '?h?OT\Zh???C???');
 
 --
 -- Indexes for dumped tables
@@ -361,12 +373,26 @@ ALTER TABLE `collection_tune`
   ADD KEY `tune_id` (`tune_id`);
 
 --
+-- Indexes for table `composer`
+--
+ALTER TABLE `composer`
+  ADD PRIMARY KEY (`composer_id`);
+
+--
 -- Indexes for table `discussion_thread`
 --
 ALTER TABLE `discussion_thread`
   ADD PRIMARY KEY (`discussion_thread_id`),
   ADD KEY `tune_id` (`tune_id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `file`
+--
+ALTER TABLE `file`
+  ADD PRIMARY KEY (`file_id`),
+  ADD KEY `tune_id` (`tune_id`),
+  ADD KEY `setting_id` (`setting_id`);
 
 --
 -- Indexes for table `post`
@@ -421,7 +447,8 @@ ALTER TABLE `track`
 --
 ALTER TABLE `tune`
   ADD PRIMARY KEY (`tune_id`),
-  ADD KEY `tune_type_id` (`tune_type_id`);
+  ADD KEY `tune_type_id` (`tune_type_id`),
+  ADD KEY `tune_ibfk_composer` (`composer_id`);
 
 --
 -- Indexes for table `tunebook`
@@ -450,7 +477,8 @@ ALTER TABLE `tune_track`
 -- Indexes for table `tune_type`
 --
 ALTER TABLE `tune_type`
-  ADD PRIMARY KEY (`tune_type_id`);
+  ADD PRIMARY KEY (`tune_type_id`),
+  ADD UNIQUE KEY `unique_name` (`name`);
 
 --
 -- Indexes for table `tune_video`
@@ -501,10 +529,22 @@ ALTER TABLE `collection_tune`
   MODIFY `collection_tune_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `composer`
+--
+ALTER TABLE `composer`
+  MODIFY `composer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `discussion_thread`
 --
 ALTER TABLE `discussion_thread`
   MODIFY `discussion_thread_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `file`
+--
+ALTER TABLE `file`
+  MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `post`
@@ -570,7 +610,7 @@ ALTER TABLE `tune_track`
 -- AUTO_INCREMENT for table `tune_type`
 --
 ALTER TABLE `tune_type`
-  MODIFY `tune_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `tune_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1985;
 
 --
 -- AUTO_INCREMENT for table `tune_video`
@@ -582,7 +622,7 @@ ALTER TABLE `tune_video`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -608,6 +648,13 @@ ALTER TABLE `collection_tune`
 ALTER TABLE `discussion_thread`
   ADD CONSTRAINT `discussion_thread_ibfk_1` FOREIGN KEY (`tune_id`) REFERENCES `tune` (`tune_id`),
   ADD CONSTRAINT `discussion_thread_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+
+--
+-- Constraints for table `file`
+--
+ALTER TABLE `file`
+  ADD CONSTRAINT `file_ibfk_1` FOREIGN KEY (`tune_id`) REFERENCES `tune` (`tune_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `file_ibfk_2` FOREIGN KEY (`setting_id`) REFERENCES `setting` (`setting_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `post`
@@ -655,7 +702,8 @@ ALTER TABLE `track`
 -- Constraints for table `tune`
 --
 ALTER TABLE `tune`
-  ADD CONSTRAINT `tune_ibfk_1` FOREIGN KEY (`tune_type_id`) REFERENCES `tune_type` (`tune_type_id`);
+  ADD CONSTRAINT `tune_ibfk_1` FOREIGN KEY (`tune_type_id`) REFERENCES `tune_type` (`tune_type_id`),
+  ADD CONSTRAINT `tune_ibfk_composer` FOREIGN KEY (`composer_id`) REFERENCES `composer` (`composer_id`);
 
 --
 -- Constraints for table `tunebook`

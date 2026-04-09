@@ -28,7 +28,18 @@
 
         // Only add a tune row if a tune actually exists for this collection
         if ($row['tune_id']) {
-            $collections[$cid]['tunes'][] = [
+            $typeId = $row['tune_type_id'] ?: 0;
+            $typeName = $row['tune_type_name'] ?: 'Other';
+
+            if (!isset($collections[$cid]['tunes'][$typeId])) {
+                $collections[$cid]['tunes'][$typeId] = [
+                    'type_id' => $typeId,
+                    'type_name' => $typeName,
+                    'items' => []
+                ];
+            }
+
+            $collections[$cid]['tunes'][$typeId]['items'][] = [
                 'tune_id'         => $row['tune_id'],
                 'tune_name'       => $row['tune_name'],
                 'setting_id'      => $row['setting_id'],
@@ -48,9 +59,31 @@
         <p>No collections found.</p>
     <?php else: ?>
 
+        <div id="collections-pagination-and-search">
+            <span class="filter-bar">
+                <label for="collection-filter">Search collections: </label>
+                <input type="text" id="collection-filter" placeholder="Filter collections by title..." />
+            </span>
+
+            <span class="pagination-top">
+                <label for="collections-per-page-select">Collections per page: </label>
+                <select id="collections-per-page-select">
+                    <option value="5" selected>5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </span>
+        </div>
+
+        <div class="pagination-controls" id="collections-pagination-controls"></div>
+        <p id="collections-empty-state" style="display: none;">No collections match your search.</p>
+
         <div id="collections-accordion">
 
             <?php foreach ($collections as $col): ?>
+            <?php $collectionId = (int) $col['collection_id']; ?>
 
             <!--COLLECTION HEADER (ACCORDION TRIGGER)-->
             <h3 class="collection-header">
@@ -82,44 +115,86 @@
                 <?php endif; ?>
 
                 <?php if (!empty($col['tunes'])): ?>
-                <table class="collection-tunes-table">
-                    <thead class="ui-state-default">
-                        <tr>
-                            <th>#</th>
-                            <th>Title</th>
-                            <th>Key</th>
-                            <th>Add Favorite</th>
-                        </tr>
-                    </thead>
-                    <tbody class="ui-state-default">
-                        <?php foreach ($col['tunes'] as $t): ?>
-                        <tr class="tune_data_row" id="<?= $t['tune_id'] ?>">
+                <div class="collection-tunes-toolbar">
+                    <label for="collection-tune-filter-<?= $collectionId ?>">Search tunes: </label>
+                    <input
+                        type="text"
+                        class="collection-tune-filter"
+                        id="collection-tune-filter-<?= $collectionId ?>"
+                        data-collection-id="<?= $collectionId ?>"
+                        placeholder="Filter tunes by title..."
+                    />
 
-                            <!--POSITION-->
-                            <td><?= htmlspecialchars($t['position']) ?></td>
+                    <label for="collection-tunes-per-page-<?= $collectionId ?>">Tunes per page: </label>
+                    <select
+                        class="collection-tunes-per-page"
+                        id="collection-tunes-per-page-<?= $collectionId ?>"
+                        data-collection-id="<?= $collectionId ?>"
+                    >
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
 
-                            <!--TUNE TITLE AND SHOW ABC BUTTON-->
-                            <td>
-                                <span class="show_abc" id="<?= $t['setting_id'] ?>">
-                                    <img class="music_note_icon" src="images/notes.gif" alt="show abc notation" />
-                                </span>
-                                <span class="tune_title" id="<?= $t['tune_id'] ?>">
-                                    <?= htmlspecialchars($t['tune_name']) ?>
-                                </span>
-                            </td>
-
-                            <!--KEY SIGNATURE-->
-                            <td><?= htmlspecialchars($t['key_signature'] ?? 'N/A') ?></td>
-
-                            <!--ADD FAVORITE-->
-                            <td class="tune-favorite-col">
-                                <span class="ui-icon ui-icon-star tune-favorite-icon" id="user-info" data-user-id="<?php echo $_SESSION['user_id']; ?>"></span>
-                            </td>
-
-                        </tr>
+                <div class="collection-tabs" id="collection-tabs-<?= $collectionId ?>" data-collection-id="<?= $collectionId ?>">
+                    <ul>
+                        <?php foreach ($col['tunes'] as $type): ?>
+                            <?php $panelId = 'collection-' . $collectionId . '-type-' . (int) $type['type_id']; ?>
+                            <li>
+                                <a class="tabs" href="#<?= $panelId ?>"><?= htmlspecialchars($type['type_name']) ?>s</a>
+                            </li>
                         <?php endforeach; ?>
-                    </tbody>
-                </table>
+                    </ul>
+
+                    <?php foreach ($col['tunes'] as $type): ?>
+                        <?php $panelId = 'collection-' . $collectionId . '-type-' . (int) $type['type_id']; ?>
+                        <?php $tableId = $panelId . '-table'; ?>
+                        <div id="<?= $panelId ?>" class="collection-tab-panel">
+                            <div class="pagination-controls collection-tunes-pagination" id="pagination-<?= $tableId ?>"></div>
+                            <table class="collection-tunes-table" id="<?= $tableId ?>" data-collection-id="<?= $collectionId ?>">
+                                <thead class="ui-state-default">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Title</th>
+                                        <th>Key</th>
+                                        <th>Add Favorite</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="ui-state-default">
+                                    <?php foreach ($type['items'] as $t): ?>
+                                    <tr class="tune_data_row" id="<?= $t['tune_id'] ?>">
+
+                                        <!--POSITION-->
+                                        <td><?= htmlspecialchars($t['position']) ?></td>
+
+                                        <!--TUNE TITLE AND SHOW ABC BUTTON-->
+                                        <td>
+                                            <span class="show_abc" id="<?= $t['setting_id'] ?>">
+                                                <img class="music_note_icon" src="images/notes.gif" alt="show abc notation" />
+                                            </span>
+                                            <span class="tune_title" id="<?= $t['tune_id'] ?>">
+                                                <?= htmlspecialchars($t['tune_name']) ?>
+                                            </span>
+                                        </td>
+
+                                        <!--KEY SIGNATURE-->
+                                        <td><?= htmlspecialchars($t['key_signature'] ?? 'N/A') ?></td>
+
+                                        <!--ADD FAVORITE-->
+                                        <td class="tune-favorite-col">
+                                            <span class="ui-icon ui-icon-star tune-favorite-icon" id="user-info" data-user-id="<?php echo $_SESSION['user_id']; ?>"></span>
+                                        </td>
+
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
                 <?php else: ?>
                     <p>No tunes in this collection yet.</p>
                 <?php endif; ?>
@@ -146,10 +221,8 @@
 <!--INIT ACCORDION-->
 <script>
     $(function() {
-        $("#collections-accordion").accordion({
-            collapsible: true,
-            active: false,
-            heightStyle: "content"
-        });
+        if (typeof window.initializeCollectionsPage === "function") {
+            window.initializeCollectionsPage();
+        }
     });
 </script>

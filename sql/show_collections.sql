@@ -10,6 +10,8 @@ SELECT
     ct.position,
     t.tune_id,
     t.name              AS tune_name,
+    t.tune_type_id,
+    tt.name             AS tune_type_name,
     s.setting_id,
     s.key_signature,
     s.time_signature,
@@ -17,6 +19,7 @@ SELECT
 FROM collection c
 LEFT JOIN collection_tune ct  ON c.collection_id = ct.collection_id
 LEFT JOIN tune t               ON ct.tune_id = t.tune_id
+LEFT JOIN tune_type tt         ON t.tune_type_id = tt.tune_type_id
 LEFT JOIN setting s            ON s.tune_id = t.tune_id
     AND s.setting_id = (
         SELECT MIN(s2.setting_id)

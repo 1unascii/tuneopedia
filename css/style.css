@@ -210,7 +210,9 @@ footer {
     padding: 0;
 }
 
-.page-link {
+.page-link,
+.collection-page-link,
+.collection-tune-page-link {
     display: inline-block;
     margin: 0 3px;
     padding: 3px 8px;
@@ -218,7 +220,9 @@ footer {
     color: white;
 }
 
-.page-link.active {
+.page-link.active,
+.collection-page-link.active,
+.collection-tune-page-link.active {
     font-weight: bold;
     text-decoration: underline;
 }
@@ -233,4 +237,19 @@ th {
 }
 #tune-filter {
     width: 200px;
+}
+
+#collections-pagination-and-search,
+.collection-tunes-toolbar {
+    margin: 5px 0 10px 0;
+}
+
+#collection-filter,
+.collection-tune-filter {
+    width: 260px;
+}
+
+#collections-pagination-controls,
+.collection-tunes-pagination {
+    margin: 5px 0 10px 0;
 }
