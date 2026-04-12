@@ -253,3 +253,7 @@ th {
 .collection-tunes-pagination {
     margin: 5px 0 10px 0;
 }
+
+.no-setting-icon { opacity: 0.25; cursor: default; pointer-events: none; }
+
+.tune-back-btn { margin-bottom: 14px; cursor: pointer; }

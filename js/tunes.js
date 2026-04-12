@@ -1,7 +1,54 @@
 $(document).ready(function(){
 
    //$('.show_abc').click(function() {
-    $(document).on('click', '.show_abc', function() { 
+    $(document).on('click', '.tune_title', function() {
+        var tune_id = $(this).attr('id');
+        var $panel = $(this).closest('.ui-tabs-panel');
+        if (!$panel.length) return;
+
+        var $table = $panel.find('table');
+        var tableId = $table.attr('id');
+        var isCollectionTable = $table.hasClass('collection-tunes-table');
+        var savedPage = isCollectionTable
+            ? (collectionTunePages[tableId] || 1)
+            : (currentPages[tableId] || 1);
+        var savedHtml = $panel.html();
+
+        // Store state on the panel so tab-switch can also restore it
+        $panel.data('tunePageState', {
+            savedHtml: savedHtml,
+            savedPage: savedPage,
+            tableId: tableId,
+            isCollectionTable: isCollectionTable
+        });
+
+        $panel.load('tune_page.php?tune_id=' + tune_id, function() {
+            var $backBtn = $('<button class="tune-back-btn">&#8592; Back</button>');
+            $panel.prepend($backBtn);
+
+            var abcDataEl = $panel.find('#tune-abc-data')[0];
+            if (abcDataEl) {
+                try {
+                    var abc = JSON.parse(abcDataEl.textContent);
+                    ABCJS.renderAbc('tune-notation', abc);
+                } catch(e) {}
+            }
+
+            $backBtn.one('click', function() {
+                $panel.html(savedHtml);
+                $panel.removeData('tunePageState');
+                if (tableId) {
+                    if (isCollectionTable) {
+                        filterAndPaginateCollectionTunes(tableId, savedPage);
+                    } else {
+                        paginateTable(tableId, savedPage);
+                    }
+                }
+            });
+        });
+    });
+
+    $(document).on('click', '.show_abc', function() {
         var setting_id = $(this).attr('id');
         var $thisSpan = $(this); // ← must be here, BEFORE $.post
         //git rid of any old close icons
@@ -63,14 +110,17 @@ $(document).ready(function(){
     var collectionActiveTabs = {};
     
     function paginateTable(tableId, page) {
-        var $rows = $('#' + tableId + ' tbody tr');
+        var showNoSetting = $('#show-no-setting').is(':checked');
+        var $allRows = $('#' + tableId + ' tbody tr');
+        var $rows = showNoSetting ? $allRows : $allRows.not('.no-setting');
         var total = $rows.length;
         var totalPages = Math.ceil(total / rowsPerPage);
         var start = (page - 1) * rowsPerPage;
         var end = start + rowsPerPage;
-    
-        // Reset all rows first, then hide/show the correct slice
-       $rows.hide().slice(start, end).show();
+
+        // Reset all rows first, then show only the eligible slice
+        $allRows.hide();
+        $rows.slice(start, end).show();
     
         var $controls = $('#pagination-' + tableId);
         $controls.empty();
@@ -93,11 +143,14 @@ $(document).ready(function(){
     }
 
     function filterAndPaginate(tableId, filter, page) {
+        var showNoSetting = $('#show-no-setting').is(':checked');
         var $allRows = $('#' + tableId + ' tbody tr');
-    
+
         $allRows.each(function() {
             var title = $(this).find('.tune_title').text().toLowerCase();
-            $(this).toggle(filter === '' || title.indexOf(filter) !== -1);
+            var matchesFilter = filter === '' || title.indexOf(filter) !== -1;
+            var matchesNoSetting = showNoSetting || !$(this).hasClass('no-setting');
+            $(this).toggle(matchesFilter && matchesNoSetting);
         });
     
         var $visibleRows = $('#' + tableId + ' tbody tr:visible');
@@ -153,7 +206,7 @@ $(document).ready(function(){
         var filter = $(this).val().toLowerCase();
         var tableId = $("#tabs .ui-tabs-panel:visible table").attr('id');
         currentPages = {}; // ADD THIS - reset all saved pages on new search
-    
+
         if (filter === '') {
             paginateTable(tableId, 1);
         } else {
@@ -161,15 +214,45 @@ $(document).ready(function(){
         }
     });
 
+    $(document).on('change', '#show-no-setting', function() {
+        currentPages = {};
+        if ($('#tabs').length) {
+            var filter = $('#tune-filter').val().toLowerCase();
+            var tableId = $("#tabs .ui-tabs-panel:visible table").attr('id');
+            if (filter === '') {
+                paginateAll(1);
+            } else {
+                filterAndPaginate(tableId, filter, 1);
+            }
+        }
+        $('.collection-tunes-table').each(function() {
+            filterAndPaginateCollectionTunes($(this).attr('id'), 1);
+        });
+    });
+
     $("#tabs").on("tabsactivate", function(event, ui) {
+        // If the tab we're leaving was showing a tune detail, restore its table
+        var oldState = ui.oldPanel.data('tunePageState');
+        if (oldState) {
+            ui.oldPanel.html(oldState.savedHtml);
+            ui.oldPanel.removeData('tunePageState');
+            if (oldState.tableId) {
+                if (oldState.isCollectionTable) {
+                    filterAndPaginateCollectionTunes(oldState.tableId, oldState.savedPage);
+                } else {
+                    paginateTable(oldState.tableId, oldState.savedPage);
+                }
+            }
+        }
+
         var tableId = ui.newPanel.find('table').attr('id');
         var filter = $('#tune-filter').val().toLowerCase();
-        var page = currentPages[tableId] || 1; // ADD THIS
-    
+        var page = currentPages[tableId] || 1;
+
         if (filter === '') {
             paginateTable(tableId, page);
         } else {
-            filterAndPaginate(tableId, filter, page); // USE page INSTEAD OF 1
+            filterAndPaginate(tableId, filter, page);
         }
     });
 
@@ -294,10 +377,13 @@ $(document).ready(function(){
         var collectionId = $table.data('collection-id');
         var filter = getCollectionTuneFilter(collectionId);
         var rowsPerPageForTable = getCollectionTuneRowsPerPage(collectionId);
+        var showNoSetting = $('#show-no-setting').is(':checked');
         var $rows = $table.find('tbody tr');
         var $matchedRows = $rows.filter(function() {
             var title = $(this).find('.tune_title').text().toLowerCase();
-            return filter === '' || title.indexOf(filter) !== -1;
+            var matchesFilter = filter === '' || title.indexOf(filter) !== -1;
+            var matchesNoSetting = showNoSetting || !$(this).hasClass('no-setting');
+            return matchesFilter && matchesNoSetting;
         });
 
         var totalPages = Math.ceil($matchedRows.length / rowsPerPageForTable);
@@ -356,6 +442,20 @@ $(document).ready(function(){
                 var tableId = ui.newPanel.find('table').attr('id');
 
                 collectionActiveTabs[collectionId] = newIndex;
+
+                // If the tab we're leaving was showing a tune detail, restore its table
+                var oldState = ui.oldPanel.data('tunePageState');
+                if (oldState) {
+                    ui.oldPanel.html(oldState.savedHtml);
+                    ui.oldPanel.removeData('tunePageState');
+                    if (oldState.tableId) {
+                        if (oldState.isCollectionTable) {
+                            filterAndPaginateCollectionTunes(oldState.tableId, oldState.savedPage);
+                        } else {
+                            paginateTable(oldState.tableId, oldState.savedPage);
+                        }
+                    }
+                }
 
                 if (tableId) {
                     filterAndPaginateCollectionTunes(tableId, collectionTunePages[tableId] || 1);

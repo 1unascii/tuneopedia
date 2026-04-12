@@ -1,5 +1,5 @@
 <!--CSS-->
-<link href="css/tunes.css" rel="stylesheet" type="text/css"/>
+<link href="css/tunes.css?v=2" rel="stylesheet" type="text/css"/>
 
 <!--FETCH THE TUNES AND ORGANIZE THEM BY TYPE-->
 <?php
@@ -34,6 +34,14 @@
         <label for="tune-filter">Search: </label>
         <input type="text" id="tune-filter" placeholder="Filter tunes by title..." />
     </span >
+
+    <!--SHOW NO SETTINGS-->
+    <span class="filter-bar">
+        <label for="show-no-setting">
+            <input type="checkbox" id="show-no-setting" />
+            Show tunes with no settings
+        </label>
+    </span>
 
     <!--PAGINATION-->
     <span class="pagination-top">
@@ -80,12 +88,12 @@
 
         <!--PHP FOR EACH-->
         <?php foreach ($categoryItems as $t): ?>
-        <tr class="tune_data_row" id="<?= $t['tune_id'] ?>">
+        <tr class="tune_data_row<?= empty($t['setting_id']) ? ' no-setting' : '' ?>" id="<?= $t['tune_id'] ?>">
 
             <!--TUNE TITLE AND SHOW ABC BUTTON-->
             <td>
-                <span class="show_abc" id="<?php echo ($t['setting_id']) ?>">
-                    <img class="music_note_icon" src="images/notes.gif" alt="shows_abc_for_most_popular_setting" /> 
+                <span class="<?= empty($t['setting_id']) ? 'dead_link' : 'show_abc' ?>" id="<?php echo ($t['setting_id']) ?>">
+                    <img class="music_note_icon<?= empty($t['setting_id']) ? ' no-setting-icon' : '' ?>" src="images/notes.gif" alt="shows_abc_for_most_popular_setting" />
                 </span>
                 <span class="tune_title" id="<?php echo ($t['tune_id']) ?>">
                     <?= htmlspecialchars($t['tune_name']) ?>

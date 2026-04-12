@@ -1,0 +1,1481 @@
+ANNOTATIONS:
+Array
+(
+    [DID GO I SHE WAY WHICH] => Array
+        (
+            [title] => Which Way Did She Go?  Irish, Slow Air (3/4 Time)
+            [notes] => E Flat Major. Standard tuning. AB. Both ‘A’ and ‘B’ parts are nine measures long. O'Neill (O’Neill’s Irish Music), 1915; No. 84, pg. 49.
+        )
+
+    [I ME SHALL TURN WAY WHICH] => Array
+        (
+            [title] => Which Way Shall I Turn Me
+            [notes] => AKA and see "Tom Tinker's my true love." English, Air. The tune appears under this title in John Gay's Beggar's Opera of 1728.
+        )
+
+    [FAVORITE WHIDDONS] => Array
+        (
+            [title] => Whiddon's Favorite
+            [notes] => American, Reel. A Major. Standard. AABB. Probably the W.H. Whiddon whose name is listed as composer for several Ryan’s Mammoth Collection tunes. Cole (1000 Fiddle Tunes), 1940; pg. 3. Ryan’s Mammoth Collection, 1883; pg. 25.
+        )
+
+    [HORNPIPE WHIDDONS] => Array
+        (
+            [title] => Whiddon's Hornpipe
+            [notes] => English, Scottish, American; Hornpipe. B Flat Major (most versions): G Major (Miller). Standard. AABB. Lisa Ornstein points out the second strain is something of a ‘floater’, similar to the first strain of  “Norfolk Hornpipe [1]” printed in Ryan’s Mammoth Collection (c. 1883) and credited to W.H. Whiddon, and to that of “The Wily Old Bachelor.” Cole (1000 Fiddle Tunes), 1940; pg. 85. Craig (The Empire Collection of Hornpipes), c. late 19th cent.). Kerr (Merry Melodies), vol. 2; No. 386, pg. 43. Miller (Fiddler’s Throne), 2004; No. 322, pg. 189. Ryan’s Mammoth Collection, 1883; pg. 119.
+        )
+
+    [TREE WHIFFLE] => Array
+        (
+            [title] => Whiffle Tree
+            [notes] => American, Quadrille. Edison 51236 (78 RPM), 1923, John Baltzell (appears as last tune of "Old Red Barn Medley Quadrille") {Baltzell was a native of Mt. Vernon, Ohio, as was minstrel Dan Emmett (d. 1904). Emmett returned to the town in 1888, poor, and later taught Baltzell to play the fiddle}.
+        )
+
+    [FIFE OF WHIGS] => Array
+        (
+            [title] => Whigs Of Fife
+            [notes] => Scottish, Reel. F Major (most versions): G Major (Aird). Standard. AB (Surenne): AAB (Gow): AABB (Aird, Kerr, Martin): AABB' (Athole): AABBCCDD (Marshall). John Glen finds the tune earliest published in Neil Stewart's 1761 collection (pg. 24). The tune was published in a sheet by William Marshall, and is sometimes therefore attributed to him. Yet, as Kate Dunlay points out, it is unlikely he composed it for he would only have been aged 13 when the tune appeared in Stewart’s 1761 collection. It is more reasonable, suggests Dunlay, that Marshall composed the last two parts as variations.  Marshall was a staunch Tory all his life and so perhaps had no love for the Whigs of the County of Fife, Scotland. John Glen finds the tune earliest published in Neil Stewart's 1761 collection (pg. 24). Aird (Selections), vol. II, 1785; No. 43, pg. 16. Gow (Complete Repository), Part 1, 1799; pg. 29. Kerr (Merry Melodies), Vol. 2; No. 182, pg. 21. Marshall, Fiddlecase Edition, 1978; Kinrara Collection (1800), pg. 26. Martin (Ceol na Fidhle), Vol. 2, 1988; pg. 28. Stewart-Robertson (The Athole Collection), 1884; pg. 205. Surenne (Dance Music of Scotland), 1852; pg. 126. Rounder 7059, Alex Francis MacKay with Gordon MacLean – “Gaelic in the Bow” (2005).
+
+See also listings at:
+
+Alan Snyder’s Cape Breton Fiddle Recording Index
+        )
+
+    [HUNT WHIGSBOROUGH] => Array
+        (
+            [title] => Whigsborough Hunt
+            [notes] => AKA and see “Hunting the Hare [2].” Irish, Hop Jig (9/8 time). From the Levey collection. See also note for “Do it Fair.”
+        )
+
+    [FOR PAWN SOME THEIR WHILE] => Array
+        (
+            [title] => While For Some Pawn Their
+            [notes] => .. AKA and see “My Nanny-O.”
+        )
+
+    [GAZING MOONLIGHT ON THE WHILE] => Array
+        (
+            [title] => While Gazing On The Moonlight (ag Amairc Air Solas Na Re)
+            [notes] => AKA and see "Oonagh." Irish, Air (6/8 time, "animated"). F Major/D Minor. Standard tuning. One part. O'Neill (Music of Ireland: 1850 Melodies), 1903/1979; No. 283, pg. 49.
+        )
+
+    [AWAY FAR IS MAUREEN WHILE] => Array
+        (
+            [title] => While Maureen Is Far Away
+            [notes] => Irish, Air (4/4 time). D Minor. Standard tuning. One part. Source for notated version: "Received in 1884...from Mr. John Healy, Teacher of Smithstown National School near Castlecomer Co. Kilkenny. He was then over 70 years of age, and had learned these tunes in early life" (Joyce). Joyce (Old Irish Folk Music and Songs), 1909; No. 340, pg. 156.
+        )
+
+    [BRIGHT STARS THE WERE WHILE] => Array
+        (
+            [title] => While The Stars Were Bright
+            [notes] => Irish, Slow Air (3/4 time). G Major. Standard tuning. AAB. Source for notated version: "(Taken) down from Ned Goggin the professional fiddler of Glenosheen Co. Limerick (1844 to 1850)" {Joyce}. Joyce (Old Irish Folk Music and Songs), 1909; No. 166, pg. 84.
+        )
+
+    [THE WHIM] => Array
+        (
+            [title] => Whim [1], The
+            [notes] => AKA – “Bartholomew Fair.” English, Country Dance Tune (6/8 time). G Major. Standard tuning. AB (Sharp): AABB (Barnes). The tune dates to 1695 where it appears in the 9th edition of John Playford’s English Dancing Master. It was reprinted in 1721 in the 17th edition of the work, with the title “The Whim, or Bartholomew Fair.” Regarding the alternate title, Bartholomew Fair is the name of Ben Jonson’s play, written in 1614, and refer to an annual fair held in West Smithfield held between the years 1133–1855 on St. Bartholomew’s Day. So famous was the fair that aspects of it entered popular vernacular, at leas for a time. For example, a ‘Bartholomew doll’ was a tawdry, overdressed woman, in association with a flashy, bespangled doll that could be found for sale at the fair. A ‘Bartholomew pig’ was a very fat person, derived from the fact that one of the chief attractions of the fair were pigs, roasted whole, and sold piping hot to the crowd. Shakespeare makes reference to this in Henry IV (ii 4) when Falstaff calls himself:
+
+***
+
+A tidy little Bartholomew boar-pig.
+
+***
+
+Bruce Olson finds the melody also published in Walsh’s Compleat Country Dancing Master of 1718, and reprinted by the same publisher in 1735 in his Third Book of the same work. John Glen (1891) finds the earliest appearance of a Scottish tune by this name in print in Robert Ross's 1780 collection (pg. 12).  Barnes (English Country Dance Tunes), 1986. Sharp (Country Dance Tunes), 1909/1994; pg. 53. Harvest 0777 7 81428 2  9, Albion Dance Band – “The Prospect Before Us” (1993. Orig. rec. in 1976).
+        )
+
+    [A MOMENT OF THE WHIM] => Array
+        (
+            [title] => Whim Of A Moment, The
+            [notes] => American, Jig. C major. Standard tuning. AABB. Composed by R. Nagle. Cole (1000 Fiddle Tunes), 1940; pg. 64. Ryan’s Mammoth Collection, 1883; pg. 93.
+        )
+
+    [BLOSSOM THE WHIN] => Array
+        (
+            [title] => Whin Blossom, The (blat Na Aitin)
+            [notes] => Irish, Air (6/8 time, "graceful"). D Major. Standard tuning. AB. Source for notated version: O’Reilly [O’Neill]. O'Neill (Music of Ireland: 1850 Melodies), 1903/1979; No. 515, pg. 90.
+        )
+
+    [HORNPIPE WHINHAMS] => Array
+        (
+            [title] => Whinham’s Hornpipe
+            [notes] => English, Hornpipe. England, Northumbria. F Major. Standard tuning. AA’BB. Composed by Robert Whinham (1814-1893). Dixon (Remember Me), 1995; pg. 17.
+        )
+
+    [JIG WHINHAMS] => Array
+        (
+            [title] => Whinham’s Jig
+            [notes] => AKA and see “Me Mother’s Jig.” English, Jig. England, Northumberland. Composed by Robert Whinham (1814-1893). The tune appears under this title in the T. Armstrong manuscript (c. 1850, in John Armstrong of Carrick’s collection), and in L. Baty’s manuscript (1883, Beamish Museum), as researched by Graham Dixon. Topic 12TS388, High Level Ranters – “Four in a Bar.”
+        )
+
+    [REEL WHINHAMS] => Array
+        (
+            [title] => Whinham’s Reel
+            [notes] => AKA and see “Mrs. Thompson of Gofton’s Strathspey,” “The Pibroch!” English, Reel. G Major. Standard tuning. AABB: AABBCCDD’EE’ (Callaghan): AABBCCDDEAABB (Dixon). Composed by Robert Whinham, an itinerant Northumbrian musician, fiddle and dancing master, teacher and composer, who lived between 1814 and 1893. Whinham ended his days in a workhouse in Morpeth where he was registered as a “teacher of music in Morpeth (Northumberland).” The only known photograph of him was taken there. Callaghan (2007) notes the tune is popular throughout England, although usually only the first two parts are played. Source for notated version: Colin Ross [Dixon]. Callaghan (Hardcore English), 2007; pg. 94. Dixon (Remember Me), 1995; pg. 17. Folktracks 30-119, Billy Ballantine – “Whistle in the Wind.” Topic Records, Willie Taylor & Joe Hutton  – “Bonnie North Tyne.” REDE 002, Dishalagie – “Berwick Pipes.” Topic 12TS184, High Level Ranters – “Northumberland for Ever.” Topic 12TS239, George Hepple & Donald Ridley (et al) – “Wild Hills o’ Wannies.”
+        )
+
+    [HILLS THE WHINNY] => Array
+        (
+            [title] => Whinny Hills, The
+            [notes] => See “Whinny Hills of Leitrim.”
+        )
+
+    [HILLS LEITRIM OF THE WHINNY] => Array
+        (
+            [title] => Whinny Hills Of Leitrim [1], The
+            [notes] => AKA ‑ "Leitrim Town." Irish, Slip Jig. D Major. Standard tuning (fiddle). AAB (Boys of the Lough, Mulvihill, Tubridy): AABB’ (Mallinson). The tune was first recorded in 1928 by Leitrim flute player John McKenna (1880-1947) under the title “Leitrim Town.” McKenna recorded a number of tunes during his carear that referenced his home county. Source: flute player John McKenna (County Leitrim), from an old 78 RPM record [Boys of the Lough]. Boys of the Lough, 1977; p. 24. Breathnach (Folk Music and Dances of Ireland), 1971; 11. Bulmer & Sharpley (Music from Ireland), vol. 2, No. 54. Mallinson (Enduring), 1995; No. 88, p. 37. Mulvihill (1st Collection), 1986; No. 5, p. 107. Tubridy (Irish Traditional Music, Book Two), 1999; p. 42. Front Hall 018, How To Change a Flat Tire ‑ "Traditional Music of Ireland and Shetland," 1978. Trailer LER 2090, Boys of the Lough ‑ "Second Album."
+        )
+
+    [AND GIRD HER HER WHIP] => Array
+        (
+            [title] => Whip Her And Gird Her
+            [notes] => AKA and see “Ranger’s Frolick.” Scottish, Irish, English; Country Dance Tune or Jig. G Major. Standard tuning (fiddle). ABC (Geoghegan): AABBCCD (Joyce). The melody appears in the Drummond Castle Manuscript (in the possession of the Earl of Ancaster at Drummond Castle), inscribed "A Collection of Country Dances written for the use of his Grace the Duke of Perth by Dav. Young, 1734." Joyce obtained the melody from the Pigot collection. Northumbrian musician William Vickers included the melody in his 1770 manuscript collection (as “Whipper and Girder”), with “Ranger’s Frolick” as an alternate title. See also “Ranger’s Frolick,” by which name the melody appears in English country dance collections. Geoghegan (Compleat Tutor for the Pastoral or New Bagpipe), c. 1745-46; p. 24. Joyce (Old Irish Folk Music and Songs), 1909; No. 722, p. 360.
+        )
+
+    [BELOW COVERING HER THE WHIP] => Array
+        (
+            [title] => Whip Her Below The Covering
+            [notes] => Scottish. An 18th century tune with a bawdy or risque title.
+        )
+
+    [CAT FROM TABLE THE THE UNDER WHIP] => Array
+        (
+            [title] => Whip The Cat From Under The Table
+            [notes] => AKA and see "Drive the Cat from under the Table," "Dance Light for My Heart Lies Under Your Feet," "Peas on the Hearth," "The Humours of Partenn," "Foxy Mary," "Huish the Cat," "Humours of Panteen/Purteen/Parteen," "Bimid ag Ol [1]," "Gilibeart Mhac Fhlannchadha," "Pis ar an Iarta."
+        )
+
+    [AROUND DEVIL STUMP THE THE WHIP] => Array
+        (
+            [title] => Whip(ping) The Devil Around The Stump
+            [notes] => AKA and see "Booger Man," "Chasing the Devil Around the Stump," "Hummingbird Reel." Old‑Time, Breakdown. USA, Eastern Tenn., Western N.C. Broadway Records A1964 (78 RPM), 1924?, J. Dedrick Harris {Harris was a legendary fiddler, born in Tennessee, who played regularly with Bob Taylor while he was running for Governor of the state in the late 1800's. He moved to western North Carolina in the 1920's and influenced a generation of fiddlers there: Osey Helton, Bill Hensley, Manco Sneed and Marcus Martin, to name a few of the outstanding ones}. In the repertoire of Osey Helton.
+        )
+
+    [RANT THE WHIPMANS] => Array
+        (
+            [title] => Whipman's Rant, The
+            [notes] => AKA – “Is your Graith in order.” Scottish, Strathspey. D Major. Standard tuning. AB (Atole): AABB (Gow). The tune appears in Gow’s Repository as “Is your Graith in order, or the whipman’s Rant.” Six measures to each part. Gow (Complete Repository), Part 1, 1799; pg. 4. Stewart-Robertson (The Athole Collection), 1884; pg. 100.
+        )
+
+    [HORNPIPE WHIPPLES] => Array
+        (
+            [title] => Whipple's Hornpipe
+            [notes] => American, Scottish; Hornpipe. B Flat Major (most versions): G Major (Miller). Standard tuning. AABB. Howe prints instructions for a contra-dance to the tune. An identical title appears in a list of traditional Ozark Mountain fiddle tunes compiled by musicologist/folklorist Vance Randolph, published in 1954. Cole (1000 Fiddle Tunes), 1940; pg. 94. Howe (1000 Jigs and Reels), c. 1867; pg. 81. Kerr (Merry Melodies), vol. 2; No. 338, pg. 37. Miller (Fiddler’s Throne), 2004; No. 323, pg. 189.  Ryan’s Mammoth Collection, 1883; pg. 129. White’s Unique Collection, 1896; No. 132, pg. 23.
+        )
+
+    [THE WHIRLIGIG] => Array
+        (
+            [title] => Whirligig, The
+            [notes] => AKA and see "Woodicock." English, Country Dance Tune (6/8 time). D Minor. Standard tuning. ABBA (Sharp): ABBCBBC (Barnes, Raven). The melody was published in Playford's English Dancing Master (1650), “to the tune of ‘Woodicock’.” Barnes (English Country Dance Tunes), 1986. Raven (English Country Dance Tunes), 1984; pg. 38. Sharp (Country Dance Tunes), 1909/1994; pg. 43. Familiar Records FAM 47, Pyewackett ‑ "7 to Midnight" (1985. Appears as "Woodicock").
+        )
+
+    [BOW LAST THE WHIRLIGIGS] => Array
+        (
+            [title] => Whirligig’s Last Bow, The
+            [notes] => AKA – “Whiligig’s Maggot.” English, Country Dance Tune (2/4 time). D Dorian. Standard tuning. AAB. Composed by collector, researcher, teacher, musician and composer Pat Shaw in 1973. Barnes (English Country Dance Tunes, vol. 2), 2005; pg. 142.
+        )
+
+    [THE WHISH] => Array
+        (
+            [title] => Whish, The
+            [notes] => English, Country Dance Tune (6/8 time). G Major. Standard tuning. AA (x11). The tune dates to 1650. Barnes (English Country Dance Tunes), 1986. Sharp (Country Dance Tunes), 1909/1994; pg. 66.
+        )
+
+    [CAT FROM TABLE THE UNDER WHISH] => Array
+        (
+            [title] => Whish, Cat From Under The Table
+            [notes] => AKA and see “Drive the cat from under the table,” "Huish the cat," "Huis/Uis an cat," "Hunt the Cat," "Wollop the Cat," "Jackson's Humours of Panteen." Irish, Double Jig. C Major. Standard tuning. AB (Bunting): AABB (Kerr, O'Neill). The Irish collector Edward Bunting noted the tune from harper Charles Byrne in 1802, along with two opening lines:
+
+***
+
+Whish, cat, from under the table,
+
+And you shall have milk while ever I'm able.
+
+***
+
+O'Neill's "Huish the cat" is nearly note-for-note the same as the version given by Bunting and is likely taken from him. "Whish" is one of a family of tunes, claims Breandan Breathnach in Coel Rinnce na hEireann, which includes the jigs "Bimid Ag Ol [1]," "Last Night's Fun [2]," and others. The air "Katty Quin" is a close variant, reports O'Sullivan (1983), as is "Jackson's Humours of Panteen," ascribed to the 18th century piper Walker Jackson. Breathnach (1976) felt "Bill Harte's Jig [1]," "Did you see my man looking for me? [2]" and "Dance light, for my heart lies under your feet” were related tunes. Finally, O'Sullivan notes there are motivic connections with a reel, "Gilibeart Mhac Fhlannchadha," in Breathnach's collection (CRE I, No. 83). Kerr (Merry Melodies), Vol. 2; No. 231, pg. 26. O'Neill (Music of Ireland: 1850 Melodies), 1903/1979; No. 909, pg. 169. O'Neill (Dance Music of Ireland: 1001 Gems), 1907/1986; No. 382, pg. 77 (appears as "Huish the Cat"). O'Sullivan/Bunting, 1983; No. 4, pgs. 6-7. Tara Records 4008, “Josephine Marsh” (1996. Appears as “Wallop the Cat from Under the Table”).
+        )
+
+    [WHISKERS] => Array
+        (
+            [title] => Whiskers
+            [notes] => AKA and see “The Devil’s Ball,” "Steve's Rag,” “Taney County Special.” Old‑Time, Country Rag. USA; Missouri, Alabama. C Major. Standard tuning. AB (Beisswenger & McCann): AA'BB' (Phillips). Related to "Stone's Rag." Ragtime composer Percy Wenrich (born Joplin, Mo.) is said to have based his hit “Peaches and Cream Rag” in part on this tune. Beisswenger (2008) could find no published work by this name, and speculates that it may have been a precursor tune to the mature ragtime genre of the 1890’s, in oral circulation in the latter part of the century. Mark Wilson sees similarities to “Salty Dog Blues,” while Guthrie Meade links it to “Stone’s Rag” and “Alabama Jubilee.” Sources for notated versions: Art Galbraith (Springfield, Mo.) [Phillips]; Lacey Hartje (b. 1926, Joplin, Mo.) [Beisswenger & McCann]. Beisswenger & McCann (Ozark Fiddle Music), 2008; pg. 52. Phillips (Traditional American Fiddle Tunes), vol. 2, 1995; pg. 165. Decca 5049 (78 RPM), Stripling Brothers (Alabama) {1934}. Rounder 0157, Art Galbraith - "Simple Pleasures." Rounder 0436, Lacey Hartje – “Traditional Fiddle Music of the Ozarks, Vol. 2: On the Springfield Plain” (2000). Train on the Island Records TI‑12, Bob Bovee and Gail Heil ‑ "For Old Time's Sake" {learned from Bob Holt (Ava, Mo.)}.
+        )
+
+    [WHISKEY] => Array
+        (
+            [title] => Whiskey
+            [notes] => AKA and see "Rye Whiskey [2]." Old‑Time, Breakdown. USA, Pennsylvania. G Major. Standard tuning. AB. "The whole second strain of the present version is evidently made up with a basis of material from the two final bars of the first half. Tunes in which the second part shows clear evidence of derivation from the first are not infrequent in the folk dance music of our tradition, either British or American. They reveal to us another way in which a 'half‑tune' (either incompletely remembered or originally only one strain long) can be eked out to produce a tune of normal reel or hornpipe length" (Bayard, 1944). 'Whiskey', with an 'e' is the American and Irish spelling of the word, while 'whisky' suffices for Scotland and England (as well as Canada). The root for either spelling is the Gaelic 'usquebaugh', which means 'water of life'. Source for notated version: Irvin Yaugher Jr. (Mt. Independence, Pa., 1943; one of his mother's favorite tunes) [Bayard]. Bayard (Hill Country Tunes), 1944; No. 35.
+        )
+
+    [AND BEER WHISKEY] => Array
+        (
+            [title] => Whiskey And Beer
+            [notes] => AKA and see "Another Jig Will Do," “Tight Breeches.” Irish, Slip Jig. D Major. Standard tuning. AB. The combination of a glass of beer and a shot of whiskey goes by the name 'boilermaker' in some bars. In many 19th century saloons, even in New York City, the only beverages served were whiskey and beer. Cole (1000 Fiddle Tunes), 1940; pg. 58. Ryan’s Mammoth Collection, 1883; pg. 87.
+        )
+
+    [AND BRANDY WHISKEY] => Array
+        (
+            [title] => Whiskey And Brandy
+            [notes] => Irish, Jig. G Major. Standard tuning. AABB. Kennedy (Traditional Dance Music of Britain and Ireland: Jigs & Quicksteps, Trips & Humours), 1997; No. 194, pg. 45.
+        )
+
+    [AND WATER WHISKEY] => Array
+        (
+            [title] => Whiskey And Water (uisge Agus Uisge-beata)
+            [notes] => AKA and see “Wink and I’ll Follow You.” Irish, Single Jig. E Dorian. Standard tuning. AABB'. O'Neill (Music of Ireland: 1850 Melodies), 1903/1979; No. 874, pg. 162. O'Neill (Dance Music of Ireland: 1001 Gems), 1907/1986; No. 377, pg. 76.
+        )
+
+    [BARREL WHISKEY] => Array
+        (
+            [title] => Whiskey Barrel
+            [notes] => AKA and see "Madam Parisott's Hornpipe," "Parisott Hornpipe." American, Reel. D Major. Standard tuning. AABB. The melody appears under this title in George P. Knauff's Virginia Reels, volume I (Baltimore, 1839).
+        )
+
+    [BEFORE BREAKFAST WHISKEY] => Array
+        (
+            [title] => Whiskey Before Breakfast
+            [notes] => AKA and see "Spirits of the Morning." Canadian (originally), Old‑Time; Breakdown. D Major. Standard tuning. AABB. A widely known tune, often mistaken for an old traditional old‑time tune (it was even listed on one album as "an Irish tune which has been popular in America for a number of years”). It has generally been credited to the mid‑twentieth century by Manitoba, Canada, fiddler and composer Andy de Jarlis (known for his fine waltzes) probably on the strength of his copyrighted arrangement (it is a common practice among music publishers to copyright arrangements of traditional tunes). " “Whiskey Before Breakfast” was included in de Jarlis’ book Canadian Fiddle Tunes from Red River Valley (1957), where he is credited for the arrangement only.  According to Paul Gifford, the tune’s popularity in the United States is fairly recent, probably stemming from its inclusion on a Voyager Records LP called “More Fiddle Favorites,” by Canadian fiddle champion Lloyd Sexsmith, who probably learned it from de Jarlis (sometimes DesJarlis). It is often used as musical accompaniment for the quadrille 'Reel of Eight' in Canada. Gibbons (1982) notes that “Whiskey” is a favorite of Metis (native American) dance troupes in Western Canada, and in this connection Gifford suggests that de Jarlis learned the tune from Metis fiddler Teddy Boy Houle’s father (de Jarlis himself had Metis blood). It seems that de Jarlis and the elder Houle were up playing till dawn with the aid of libation before finally passing out.  On finally awaking, de Jarlis remembered the last tune they played and perhaps gave it the “Whiskey” name. Perlman (1979) identifies it as coming from Canada's Maritime provinces where it is called "Spirits of the Morning." It has been pointed out by several sources that the ‘A’ section is similar to the older melodies “Liverpool Hornpipe,” “Great Eastern,” “Bennett’s Favorite” and the Irish reels “Silver Spire” and “Greenfields of America,” however, the original source for all these tunes may be “Speed the Plow.” Folksinger/multiinstrumentalist Mike Cross wrote words to the melody which have become popular in Bluegrass circles (Bryan Bowers also recorded his song). Sources for notated versions: Frank Lowery (Prince Georges, British Columbia) [Gibbon]; Clem Myers [Phillips]; Dick Barrett [Phillips]. Brody (Fiddler’s Fakebook), 1983; pg. 290. Frets Magazine, April 1989; pg. 64. Gibbons (As It Comes: Folk Fiddling From Prince George, British Columbia), 1982; No. 3, pgs. 14‑15 (includes variations). Phillips (Traditional American Fiddle Tunes), Vol. 1, 1994; pgs. 254-255 (two versions). Silberberg (Tunes I Learned at Tractor Tavern), 2002; pg. 168. Sing Out!, 198‑, pg. 75. Spandaro (10 Cents a Dance), 1980; pg. 20. American Heritage 19A, Loyd Wanzer‑ "Plain and Fancy Fiddlin.'" Bay 204, "The Arkansas Sheiks." Fretless 103, "Clem Myers: Northeast Regional Fiddle Champion 1967 & 1970." June Appal 003, John McCutcheon ‑ "How Can I Keep From Singing?" (1975. Learned from Ben Hensley, Speedwell, Tenn.). London EBX 4118, Andy DeJarlis ‑ "Backwoods Fiddle Tunes.' Marimac 9017, Vesta Johnson (Mo.) ‑ "Down Home Rag." Missouri State Old Time Fiddlers Association 002, Taylor McBaine (Mo.) ‑ "Boone County Fiddler." Revonah RE‑924, "The West Orrtanna String Band" (1977). Rounder 0063, Norman Blake‑ "Whiskey Before Breakfast." Voyager 304, Dick Barrett‑ "More Fiddle Jam Sessions."
+        )
+
+    [HEART OF SOULS WHISKEY] => Array
+        (
+            [title] => Whiskey, Heart Of Souls
+            [notes] => AKA and see "Oh, Whiskey, Heart of Souls."
+        )
+
+    [HORNPIPE THE WHISKY] => Array
+        (
+            [title] => Whisky Hornpipe, The
+            [notes] => AKA and see "Off to California [1]."
+        )
+
+    [IN JAR THE WHISKEY] => Array
+        (
+            [title] => Whiskey In The Jar [1]
+            [notes] => AKA and see "Off/Going to California [1]," "Fireman's Reel," "Gypsy Hornpipe [4]," "Whiskey You're the Devil," "Possum Up a Gum Stump [1]," "Lexington," "Old Towser," "Buttermilk and Cider." Irish, Hornpipe. A Major. Standard tuning. AABB. Roche Collection, 1982, vol. 2; No. 217, pg. 12.
+        )
+
+    [IN JARJUG THE WHISKEY] => Array
+        (
+            [title] => Whiskey In The Jar/jug
+            [notes] => AKA and see “An Cailín Fionn,” "The Milestone [1]," "The Millstone," "The Old Locks and Quays of Galway," "The Connacht Reel [1]," "The New Domain/Demense," "The College Grove(s)," "The Green Jacket."
+        )
+
+    [ISLAND WHISKEY] => Array
+        (
+            [title] => Whiskey Island
+            [notes] => AKA and see "Church Street Polka."
+        )
+
+    [JIG WHISKEY] => Array
+        (
+            [title] => Whiskey Jig
+            [notes] => AKA and see “Harbor Lights Jig,” "Marie's Family." Canadian, Jig. Canadal; Cape Breton, Prince Edward Island. G Major. Standard tuning. AABCC (Dunlay & Greenberg): AABB'CC (Dunlay & Reich): AA’BB’CC (Cranford, Perlman). The alternate names for the tune, “Harbor Lights” and “Marie’s Family,” are Cape Breton titles. Sources for notated versions: Donald Angus Beaton (Mabou, Cape Breton) [Dunlay & Greenberg, Dunlay & Reich]; fiddler Brenda Stubbert (b. 1959, Point Aconi, Cape Breton, Nova Scotia) [Cranford]; Stephen Toole (1927-1995, Green Road, Queens County, Prince Edward Island) [Perlman]. Cranford (Brenda Stubbert’s), 1994; No. 129, pg. 45. Dunlay & Greenberg Reich (Traditional Celtic Violin Music of Cape Breton), 1996; pg. 115. Dunlay & Reich (Traditional Celtic Fiddle Music of Cape Breton), 1986; pg. 76. Perlman (The Fiddle Music of Prince Edward Island), 1996; pg. 125. DAB4‑1985, Donald Angus Beaton‑ "A Musical Legacy" (1985) Rodeo Banff RBS 1066, Dan Joe MacInnis‑ "The Cape Breton Fiddle Of..." (appears as "Marie's Family"). Celtic CX 43, SCX 57, Johnny Wilmot‑ "The Fiddlers of Cape Breton" (various artists){appears as 2nd in "Cape Breton Favorite Jigs" medley}.
+        )
+
+    [JOE WHISKEY] => Array
+        (
+            [title] => Whiskey Joe
+            [notes] => Old‑Time, Breakdown. USA, Northeast Tennessee. A northeast Tennesse title for this tune, which is related to "Big‑Eyed Rabbit.”
+        )
+
+    [WALTZ WHISKEY] => Array
+        (
+            [title] => Whiskey Waltz
+            [notes] => AKA and see “Black Velvet Waltz” [1].
+        )
+
+    [AGAIN BACK WELCOME WHISKY] => Array
+        (
+            [title] => Whisk(e)y Welcome Back Again
+            [notes] => See "Welcome Whisky Back Again." Scottish, Strathspey. B Flat Major. Standard. AAB (Athole): AABB' (Kerr). This tune followed "Farewell to Whisky [1]" in Gow's collection. Kerr (Merry Melodies), Vol. 2; No. 206, pg. 23. Stewart-Robertson (The Athole Collection), 1884; pg. 291.
+        )
+
+    [DEVIL THE WHISKEY YOURE] => Array
+        (
+            [title] => Whiskey You're The Devil (uisge Beata Is Tu An Diabal!)
+            [notes] => AKA and see "The Gypsy Hornpipe [4]," "Off/Going to California [1]," "Fireman's Reel," "Possum Up a Gum Stump," "Lexington," "Old Towser," "Whiskey in the Jar [1]," "Buttermilk and Cider." Irish, Hornpipe. A Major. Standard tuning. AABB. One of the popular "Going/Off to California" tune family. O'Neill (Krassen), 1976; pg. 183. O'Neill (Music of Ireland: 1850 Melodies), 1903/1979; No. 1639, pg. 304. O'Neill (Dance Music of Ireland: 1001 Gems), 1907/1986; No. 866, pg. 149.
+        )
+
+    [AND COME ILL LAD MY TO WHISTLE YOU] => Array
+        (
+            [title] => Whistle And I'll Come To You My Lad
+            [notes] => Scottish (originally Irish), Slow Jig. G Minor. Standard tuning. AABB. A 4/4 time version of the tune is "The Fife Hunt." The air was reputedly composed by fiddler John Bruce, born between 1700 and 1720 in Braemar. He took part in the rising of 1745, but was imprisoned in Edinburgh Castle when Bonnie Prince Charlie was defeated, though his skill at the fiddle supposedly helped to mitigate his sentence. He later lived at Dumfries and there became acquainted with Robert Burns before his death in 1785. Gow (1806) identifies the tune as “Irish.” The British Minstrel and Musical and Literary Miscellany, vol. II, 1843‑45, pg. 169. Carlin (The Gow Collection), 1986; No. 380. Crosby (The Caledonian Musical Repository), 1811; pg. 144. Crosby (The Irish Musical Repository), 1808; pg. 284. Goulding (Instructions for the Fife), 1790; pg. 30. Gow (Complete Repository), Part 3, 1806, pg. 12. Graham, pgs. 244‑245. Johnson (The Scots Musical Museum), 1787‑1803; vol. II, No. 106 and vol. VI, No. 560. Kerr (Merry Melodies), vol. 1, pg. 33. Moffat (The Minstrelsy of Ireland), 1897; pg. 280. Murphy (Collection of Irish Airs...), 1809 or 1820; pg. 18. O'Farrell, 1797‑1800; pg. 19. O'Neill (Music of Ireland: 1850 Melodies), 1903; No. 391. Shield (The Poor Soldiers), 1782?; pgs. 3‑5, 8.
+        )
+
+    [AND FOR ILL WAIT WHISTLE YOU] => Array
+        (
+            [title] => Whistle And I'll Wait For You (fead, Agus Fanfad Me Leat)
+            [notes] => AKA and see "Since Love is the Plan." Irish, Air (6/8 time, "with spirit"). D Major. Standard tuning. AAB. O'Neill (Music of Ireland: 1850 Melodies), 1903/1979; No. 391, pg. 68.
+        )
+
+    [ON WAY WHISTLE YOUR] => Array
+        (
+            [title] => Whistle On Your Way
+            [notes] => AKA and see “Bonnie Blue Flag.” Old-Time. Rounder CD 0382, Marvin Gaster - “Uncle Henry’s Favorites.”
+        )
+
+    [OVEROER WHISTLE] => Array
+        (
+            [title] => Whistle Over/o'er (the Lave O't)
+            [notes] => AKA and see “Maggie Pickens,” “Nancy Wants Her Own Share.” Scottish (originally), English; Rant or Strathspey. England, Northumberland. G Major (most versions): E Flat Major (Emmerson). Standard tuning. One part (Emmerson, Hunter): AAB (S. Johnson, Kerr, Neil, Skinner): AABB (Alburger, Hall & Stafford, Raven): ABCCDD (Martin): AABCCD (Athole), AABBCCDD (Bremner, Glen, Gow, McGlashan). The tune (and song, both extent in several versions) appears to be an early 18th century set of "De'il Stick the Minister," although it has often been attributed to dancing master John Bruce of Dumfries (c. 1720‑1785, born in Braemar), the poet Robert Burns being the first to do so. Others (e.g. Mayne) say the air was composed long before him, and Emmerson (1971) finds in all little evidence to support claims for Bruce. A colorful character, Bruce was a Jacobite, born in Braemar between 1700 and 1720, who was imprisoned in Edinburgh Castle after the rising of 1745 and the defeat of Bonnie Prince Charlie. Reportedly his skill as a fiddler helped free him and he went to Dumfries where he became acquainted with Robert Burns (who called him "an honest man, though a red wud Highlander") before passing away in 1785 (Collinson, 1966/Alburger, 1983). Grattan Flood (1906), whose scholarship always requires a skeptical reading, says the tune was originally an Irish air dating back to the 17th century called "Maggie Pickens," which the Scots appropriated c. 1715‑1740 and set to the song "Whistle O'er the Lave O't" (whose words were so indelicate, according to Flood, that Robert Burns had to rewrite them in 1790.
+
+***
+
+The tune has long been employed as a march. For example, it was a favorite march of the Irish Volunteers (1774‑1784), and (alternating with “The British Grenadiers”) it has been the march-past melody of the Royal Highland Fusiliers.
+
+***
+
+"Whistle's" first printed appearance was in 1757 in either Robert Bremner's Scots Reels {as Glen, 1891, finds} or James Oswald's Caledonian Pocket Companion where it appears in rant form. Alburger searched the Blaikie Manuscript (1692), as it had been reported by James Dick to be contained there, however she could not locate it in the Wighton copy. It is one of the "missing tunes" from William Vickers' 1770 Northumbrian dance manuscript, but is contained in the 1768 Gillespie Manuscript of Perth. O’Neill (1922) prints a version from the Caledonian Muse (1785) that he says is identical to that published by Bremner.
+
+***
+
+Today, the version that was published by James Scott Skinner (1890) is commonly associated with the Scottish traditional dance "Sean(n) Triubhas," along with "Gin ye kiss my Wife," which Skinner says is the “original tune” of the dance. Seann Triubhas (‘The Shoddy Breeks’) is performed in tartan trousers, not kilts, although other items of Highland dress remain the same. Christine Martin (2002) says the Seann Triubhais is the youngest of the traditional Highland dances and was devised sometime after the Battle of Culloden, when the wearing of the kilt was outlawed and tartan trousers were substituted. Martin dates the dance to 1783, and says Bruce (the dancing master, noted above) employed the “Whistle o’er the Lave o’t” tune for it. In fact, states Emmerson (1972) "Whistle" is so intimately associated with the dance that it is now commonly known as "Seann Triubhas" (see also note for "Seann Triubhas Willighan," the original tune for the dance). O’Neill (1922) noted that it was “the statement of Joseph Cant of Chicago, a first prize winner at several piping competitions; that it was the favorite tune for the Sean Truis or "Old Man's Dance" in his native Perthshire. The rhythm of it was deemed more suitable to the requirements of dancers burdened with years than the preceding tune (“Shaun Truish Willichan”). On such excellent authority it has been included in this classification.” David Murray, writing in his book Music of the Scottish Regiments (Edinburgh, 1994), says: “The dance is said to express the disgust of the Highlanders at being forced to wear trousers instead of the kilt under the terms of the Disarming Act of 1747—although some of the steps and arm movements, which are claimed to illustrate this disgust, owe more to the ballet training undergone by a prominent Highland dancer of the nineteenth century than to the native Highland tradition.” (pg. 179).
+
+***
+
+The song "Whistle o'er the lave o't" was written in the 17th century and contains ribald lyrics which can be found in David Herd's Ancient and Modern Scottish Songs. “One of many Scots songs with indelicate suggestions,” notes Purser (1992), “‘fiddling’ has long been a double-entendre and whistling a way of avoiding the over-explicit.” Burns’ words (which poke fun at the institution of marriage) go, in part:
+
+***
+
+I am a fiddler to my trade
+
+An' a' the tunes that e'er I play'd
+The sweetest still to wife or maid
+
+Was ‑ Whistle owre the lave o't.
+
+***
+
+My mother sent me to the well,
+
+She had better gang hersell,
+
+I got the thing I dare nae tell,
+
+Whistle o'er the lave o't.  
+
+***
+
+The first verse of this version first appears in the Merry Muses where it is the chorus of "Let me ryke up to dight that tear,' while the 2nd verse is from Herd's book of Scots Songs (1769), referenced above. Alburger (Scottish Fiddlers and Their Music), 1982; Ex. 87, p. 140. Bremner (Scots Reels), 1757; p. 56. Dick, No. 250. Emmerson (Rantin’ Pipe and Tremblin’ String), 1971; No. 36, pg. 133. Glen (The Glen Collection of Scottish Music), vol. 1, 1891; p. 6. Gow (Complete Repository), Part 1, 1799; p. 12. Hall & Stafford (Charlton Memorial Tune Book), 1974; pg. 1. Hardie (Caledonian Companion), 1992; p. 53. Henderson (Flowers of Scottish Melody), 1935. Hunter (The Fiddle Music of Scotland), 1988; No. 87. Johnson, Musical Museum, 1787. S. Johnson (A Twenty Year Anniversary Collection), 2003; p. 12. Kerr (Merry Melodies), vol. 1; Set 16, No. 3, p. 11. Martin (Traditional Scottish Fiddling), 2002; pg. 53. McGlashan (Collection of Strathspey Reels), c. 1780/81; p. 31. Neil (The Scots Fiddle), 1991; No. 96, p. 129. O’Neill (Waifs and Strays of Gaelic Melody), 1922; No. 104. Raven (English Country Dance Tunes), 1984; pg. 180. Skinner (Harp and Claymore), 1904; p. 59. Stewart-Robertson (The Athole Collection), 1884; p. 172. “James F. Dickie’s Delights” (1976). “The Fiddler’s Companion” (1980).
+
+See also listings at:
+
+Alan Snyder’s Cape Breton Fiddle Recording Index
+
+Jane Keefer’s Folk Music Index: An Index to Recorded Sources
+        )
+
+    [REEL THE WHISTLEBINKIES] => Array
+        (
+            [title] => Whistlebinkies Reel, The
+            [notes] => Scottish, Reel. R. Wallace, The Glasgow Collection of Bagpipe Music. Green Linnet GLCD1182, The Tannahill Weavers - “Choice Cuts 1987-1996.”
+        )
+
+    [THE WHISTLER] => Array
+        (
+            [title] => Whistler, The
+            [notes] => New England, Polka. G Major. Standard tuning. ABB'. Miller & Perron (101 Polkas), 1978; No. 59.
+        )
+
+    [AND DOG HIS THE WHISTLER] => Array
+        (
+            [title] => Whistler And His Dog, The
+            [notes] => AKA and see “Acrobat’s Reel,” “Baker’s Reel,” “Spit Fire (Reel)” Irish, Reel. Ossian OSS-21, Rose Murphy – “Milltown Lass” (1989. A reissue of the original 1977 Topic recording of east Galway fiddle and melodeon player Murphy).
+        )
+
+    [FROM ROSSLEA THE WHISTLER] => Array
+        (
+            [title] => Whistler From Rosslea, The
+            [notes] => Irish, Reel. G Major. Standard tuning. AA’BB’. Composed by fiddler and composer Ed Reavy (1898-1988, County Cavan/Phila., Pa.). The tune is titled after a fish-selling whistler seen by Reavy at a fair in Rosslea. The whistler had the range of a fiddle or flute and ornamented his melodies in the traditional style. Martin Hayes transformed the tune on his recording to a slower-tempoed, C Minor setting. Reavy (The Collected Compositions of Ed Reavy), No. 36, pg. 38. Green Linnet GLCD 1127, “Martin Hayes” (1993). Outlet SOLP 1033, Josephine Keegan - "Irish Traditional Music" (1977). Popcorn Behavior – “Journeywork” (1997).
+        )
+
+    [HURLEY THE WHISTLER] => Array
+        (
+            [title] => Whistler Hurley, The
+            [notes] => Irish, Hornpipe. D Major. Standard tuning. AABB. Source for notated version: Oliver Roland [McGuire & Keegan]. McGuire & Keegan (Irish Tunes by the 100), 1975; No. 81, pg. 22.
+        )
+
+    [WALTZ WHISTLERS] => Array
+        (
+            [title] => Whistler's Waltz [1]
+            [notes] => Old‑Time, Waltz. D Major. Standard tuning. AA'B. A modern composition (1966) by Lloyd Wanzer, Weiser (Idaho?). Source for notated version: Hollis Taylor [Phillips]. Phillips (Traditional American Fiddle Tunes), vol. 2, 1995; pg. 325.
+        )
+
+    [COON THE WHISTLING] => Array
+        (
+            [title] => Whistling Coon, The
+            [notes] => Old‑Time. F Major. Standard tuning. USA, Mississippi. A composition of Carroll County, Mississippi, fiddler Willie Narmour (b. 1889). Musical Traditions MT 104, Narmour & Smith - "Where the Southern Crosses the Dog: Mississippi Fiddle Music 1928-35."
+        )
+
+    [BARBER WHISTLING] => Array
+        (
+            [title] => Whistling Barber
+            [notes] => AKA and see "The Mills are Grinding [1]."
+        )
+
+    [FARMER THE WHISTLING] => Array
+        (
+            [title] => Whistling Farmer, The
+            [notes] => Canadian, Jig. G Major. Standard tuning. AABB. Messer (Anthology of Favorite Fiddle Tunes), 1980; No. 145, pg. 94.
+        )
+
+    [MIKE WHISTLING] => Array
+        (
+            [title] => Whistling Mike (micil/miceal An Feadaire)
+            [notes] => Irish, Hornpipe. G Major. Standard tuning. AABB. Bayard (1981) thinks the tune closely related to "The Ladies Dressed in Their Garments So Green" and "The Dusinberry March;" also see "The Tin Ware Lass" and "Pewter Mug." See also “Kingston.” O'Neill (Krassen), 1976; pg. 192. O'Neill (Music of Ireland: 1850 Melodies), 1903/1979; No. 1679, pg. 312. O'Neill (Dance Music of Ireland: 1001 Gems), 1907/1986; No. 887, pg. 153.
+        )
+
+    [POSTMAN THE WHISTLING] => Array
+        (
+            [title] => Whistling Postman [1], The
+            [notes] => AKA and see “Connolly’s Reel.” Irish, Reel. D Major. Standard tuning. AAB. Sources for notated versions: flute player Colm O'Donnell (b. 1962, Aclare, County Sligo) [Flaherty]; set dance music recorded at Na Píobairí Uilleann in the 1980’s [Taylor]. Flaherty (Trip to Sligo), 1990; pg. 13. set dance music recorded at Na Píobairí Uilleann in the 1980’s [Taylor]. Miller (Fiddler’s Throne), 2004; No. 267, pg. 160. Taylor (Music for the Sets: Yellow Book), 1995; pg. 5.
+
+See also listing at: 
+
+Alan Ng’s Irishtune.info
+        )
+
+    [REUBEN WHISTLING] => Array
+        (
+            [title] => Whistling Reuben
+            [notes] => Old‑Time. Perhaps "Whistling Rufus." The title appears in a list of traditional Ozark Mountain fiddle tunes compiled by musicologist/folklorist Vance Randolph, published in 1954.
+        )
+
+    [RUFUS WHISTLING] => Array
+        (
+            [title] => Whistling Rufus
+            [notes] => AKA and see "Way Down South (in Dixie)." Old‑Time; Two-Step. USA; Virginia, West Virginia, Alabama, Missouri, Arkansas, Arizona. G Major {Beisswenger & McCann, Phillips}: G Major ('A' and 'B' parts) & C Major ('C' part). Standard tuning. AB (Beisswenger & McCann, Phillips): AAB (Brody). The tune was composed in 1899 by Kerry Mills (1869-1948, who also composed “Georgia Camp Meeting” and “Red Wing”), at the beginning of the ragtime era. It was described at the time of its publication as a “characteristic march” but with the addition that it “can be used effectively as a two-step, polka or cakewalk.” The first page of the original music also records that:
+
+***
+
+No cakewalk given in the Black Belt district of Alabama was
+considered worth while attending unless “Whistling Rufus” was
+
+engaged to furnish the music. Unlike other musicians, Rufus always
+
+performed alone, playing an accompaniment to his whistling on an
+
+old guitar, and it was with great pride that he called himself the
+
+“one-man band.”  
+
+***
+
+Cauthen (1990), however, calls it a minstrel composition that passed into fiddling tradition, although on what authority she suggests the predating of Mills is not known.  Arizona fiddler Kenner C. Kartchner identified it as a "good two‑step from around 1900" (Shumway). It was played by Rock Ridge, Alabama, fiddlers around 1920 and it appears in a list of traditional Ozark Mountain fiddle tunes compiled by musicologist/folklorist Vance Randolph, published in 1954. Stacy Phillips (1995) notes that the first section is sometimes bowed right next to the bridge, resulting in a whistle-like tone. The tune was in the repertoire of West Virginia fiddler Edden Hammons. It was recorded on a cylinder record around 1899 by Vess L. Ossman, the pre-eminent banjo player of the 1890’s, nicknamed “The Banjo King.” Early 78 RPM recordings include Gid Tanner & Riley Puckett (1924), Ernest Thompson (1924), McLaughlin’s Old Time Melody Makers (1928), the Kessinger Brothers (1929) and Arkie the Arkansas Woodchopper (1941) [see Guthrie Meade, Country Music Sources, 2002]. See also related melodies “Old Parnell Reel” and “North Carolina Breakdown.”
+
+***
+
+“Whistling Rufus” was popularized in Scotland and Ireland by Scottish accordion player and dance-band leader Jimmy Shand, who recorded it in the 1950’s.
+
+***
+
+Sources for notated versions: Buddy Pendleton [Brody]; Gary Johnston (b. 1937, Nevada, Missouri), learned from Lyman Enloe in the 1960’s [Beisswenger & McCann]. Beisswenger & McCann (Ozarks Fiddle Music), 2008; pg. 81. Brody (Fiddler’s Fakebook), 1983; pg. 291. Phillips (Traditional American Fiddle Tunes), vol. 2, 1995; pg. 166. Ruth (Pioneer Western Folk Tunes), 1948; No. 40, pg. 15. American Heritage 510, Jay Belt‑ "Fiddlin' Jay Belt." Bluebird Records, 1934, The Skillet Lickers. County 705, Buddy Pendleton‑ "Virginia Breakdown." County 412, "Fiddling Doc Roberts" (Ky.) {appears as "Way Down South"}. Folkways FA 2337, Clark Kessiger (Va.) ‑ "Live at Union Grove." Marimac 9017, Vesta Johnson (Mo.) ‑ "Down Home Rag." Rebel 1531, Curly Ray Cline‑ "Fishin' For Another Hit." Edden Hammons Collection, Disc 2. “Doc Watson & Son” (1965).
+
+See also listing at:
+
+Jane Keefer’s Folk Music Index: An Index to Recorded Sources
+        )
+
+    [THE THIEF WHISTLING] => Array
+        (
+            [title] => Whistling Thief [1], The
+            [notes] => English, Scottish; Jig. England, Northumberland. G Major. Standard tuning. AABB. Kerr (Merry Melodies), vol. 3; No. 253, pg. 28. Williamson (English, Welsh, Scottish and Irish Fiddle Tunes), 1976; pg. 29.
+        )
+
+    [MONDAY WHIT] => Array
+        (
+            [title] => Whit Monday
+            [notes] => English, Reel. D Major. Standard tuning. AAB. Composed by musician, teacher, collector and composer Pat Shaw. See note for “Clarance House” for more. Barnes (English Country Dance Tunes, vol. 2), 2005; pg. 20.
+        )
+
+    [ABBEY WHITBY] => Array
+        (
+            [title] => Whitby Abbey
+            [notes] => English, Reel. England, Northumberland. D Major. Standard tuning. AAB. Seattle (William Vickers), 1987, Part 3; No. 405.
+        )
+
+    [PIER WHITBY] => Array
+        (
+            [title] => Whitby Pier
+            [notes] => English, Jig. England, Northumberland. D Major. Standard tuning. AABB. Seattle (William Vickers), 1987, Part 3; No. 406.
+        )
+
+    [BROWN COW THE WHITEBACKED] => Array
+        (
+            [title] => White-backed Brown Cow, The (druimfionn Donn Oilir)
+            [notes] => AKA and see "Colly, My Cow." Irish. The air was composed in 1648. A version was rendered into English by the Irish actor Thomas Dogget and sung by him in 1690 as "Colly My Cow."
+        )
+
+    [BLACKBIRD THE WHITE] => Array
+        (
+            [title] => White Blackbird, The
+            [notes] => Irish, Air. A Dorian. Standard tuning. AABB.
+        )
+
+    [BLANKET THE WHITE] => Array
+        (
+            [title] => White Blanket [1], The (an Súisín Bán)
+            [notes] => AKA and see "Súisín Bán." Irish, Long or Set Dance (2/4 or 4/4 time). G Major (Mulvihill, O'Neill, Roche, Tubridy, Vallely, Williamson): A Major. Standard tuning. One part (O'Neill/1001, Williamson): AABB (Mulvihill, O'Neill, Roche, Tubridy, Vallely). The title is sometimes known in Englished Gaelic as "The Suisheen Bawn." Musically, it begins on the subdominant chord and for those versions with separate parts, the 'A' and 'B' parts are not the same lengths, as is not uncommon in set dances. However, there are many and diverse variants of the melody. An early version of the melody appears in Neales’ Collection of the Most Celebrated Irish Tunes (Dublin, 1726), the first real collection of Irish folk music (Ó Canainn, 1978). O’Neill’s “The Maid without Dower” may be a related melody. “An Súisíin Bán” is also a sean-nós song that appears in Hyde’s Love Songs of Connaught (1893). Dr. Douglas Hyde (1860-1949) of Castlerea, County Roscommon was a scholar, a founder of the modern Irish theatre, and one of the seven co-founders of the Gaelic League. He was elected its first president, and later, in 1938 was unanimously acclaimed Ireland’s first president. Cotter (Traditional Irish Tin Whistle Tutor), 1989; 92. Mulvihill (1st Collection), 1986; No. 10, p. 111. O'Neill (Krassen), 1976; p. 223. O'Neill (Music of Ireland: 1850 Melodies), 1903; No. 1794, p. 335. O'Neill (Dance Music of Ireland: 1001 Gems), 1907; No. 981, p. 168. Roche Collection, vol. 2; No. 273, p. 30. Tubridy (Irish Traditional Music, Book Two), 1999; p. 15. Vallely (Learn to Play the Fiddle with Armagh Pipers Club), 197?; No. 30, p. 29. Williamson (English, Welsh, Scottish and Irish Fiddle Tunes), 1976; pg. 79. Cló Iar Chonnachta CICD 165, John Wynne & John McEvoy – “Pride of the West” (2007). RCA 09026-60916-2, The Chieftains - "An Irish Evening" (1991). Shanachie 79024, “Chieftains 4.” Shanachie 79024, "Chieftains 4" (1972‑73, 1983. Learned by Uilleann piper Paddy Moloney from Junior Crehan at the funeral of Irish piping great Willie Clancy {Alun Owen}). Gearóid O hAllmhuráin - "Traditional Music From Clare and Beyond" (appears as “An Cuisin Ban”).
+
+See also listings at:
+
+Jane Keefer’s Folk Music Index: An Index to Recorded Sources 
+
+Alan Ng’s Irishtune.info
+        )
+
+    [AND BREAD BUTTER WHITE] => Array
+        (
+            [title] => White Bread And Butter (im Agus Aran Ban)
+            [notes] => Irish, Air (3/4 time, "gaily"). Ireland, County Antrim. A Major. Standard tuning (fiddle). AB. Source for notated version: fiddler and Chicago police Sergeant James O’Neill, Francis O’Neill’s collaborator [O’Neill]. O'Neill (Music of Ireland: 1850 Melodies), 1903; No. 402, p. 70.
+        )
+
+    [BOY BREASTED THE WHITE] => Array
+        (
+            [title] => White Breasted Boy, The
+            [notes] => Irish, Air (3/4 time). B Flat Major. Standard tuning. AB. Stanford (1905) notes that two untitled tunes in Petrie’s collection, Nos. 72 and 140, are variants. Source for notated version: “Mrs. Close” [Stanford/Petrie]. Stanford/Petrie (Complete Collection), 1905; No. 621, pg. 156.
+        )
+
+    [CALF THE WHITE] => Array
+        (
+            [title] => White Calf, The
+            [notes] => Irish, Air (9/8 time). D Mixolydian. Standard tuning. AB. Source for notated version: "Copied from a MS. book lent to me by Surgeon‑Major‑General King of Dublin (about 1885), who copied them 40 years previously from an old MS. book in Cork" (Joyce). Joyce (Old Irish Folk Music and Song), 1909; No. 368, pg. 169.
+        )
+
+    [CALVES THE WHITE] => Array
+        (
+            [title] => White Calves, The (na Gamhna Geala)
+            [notes] => AKA - "The Lovely Calves." Irish, Slow Air (4/4 time). D Dorian (Joyce): C Minor (O'Sullivan/Bunting). Standard tuning. One part (O'Sullivan/Bunting): AB (Joyce). O'Sullivan (1983) thinks there may be a relationship between this song and "Ailliliu Na nGamhna" in Walshe's "Ceol Ar Sinsear" (pg. 88). Source for notated version: the index to the Irish collector Edward Bunting's 1840 collection asserts the melody was noted "at Deel Castle, Ballina in 1792," while his MS copy is marked "from Charles Byrne's singing." Joyce (The Pigot Collection), 1909; No. 721, pg. 359. O'Sullivan/Bunting, 1983; No. 54, pgs. 83-84.
+        )
+
+    [CLOVER WHITE] => Array
+        (
+            [title] => White Clover
+            [notes] => See "Fight About the Fireside."
+        )
+
+    [COCKADE THE WHITE] => Array
+        (
+            [title] => White Cockade [1], The (an Cnota Bán)
+            [notes] => AKA and see "The Duke of Buccleugh's Tune," "The Ranting Highlander/Highlandman," "Fiddler's Morris," "A Highland Lad My Love Was Born,” "The Highland Laddie [3]," "The Lad With the White Cockade," "O, An Ye Were Dead, Guidman,” “The Rose in the Garden” (a Kings County, PEI title), "White Cock Head." Scottish (originally), Irish, English, Canadian, American; Scottish Measure, Reel, March, or Country Dance. USA; New England, New Hampshire, Maine, southwestern Pa., New York, Michigan. Canada, Prince Edward Island. G Major (most versions): C Major (Howe/Accordeon): F Major (Kershaw). Standard tuning. AB (Bayard, Kershaw, O'Neill/1850, Skye): AAB (Linscott): AABB (most versions). The tune in its original form is properly catagorized a Scottish Measure. One of the first printings of the air is in Playford's Apollo's Banquet of 1687 where it was called simply a "Scots tune," and another early title seems to have been "The Duke of Buccleugh's Tune." Bayard (1981) dates the tune to the latter 17th century (apparently due to the Playford publication), but admits it might be older, although Flood (1906) more decisively (though without documentation) identifies it as a popular air and song of 1615‑1630. Linscott (1939) finds a relatively late printing by Herd in 1776, by which time the air was thoroughly established.
+
+***
+
+A cockade was a ribbon in the shape of a rosette used as a decoration on hats, and thus was a convenient vehicle to display the wearer’s loyalties in much the same manner as a button or a bumper sticker nowadays. It was used especially as a uniform decoration and to mark irregular troops in the 18th century and various colors represented different loyalties. A white cockade was associated with Jacobite rebels in 1715 and again for Bonnie Prince Charlie’s uprising in 1745, in both Scotland and Ireland. The Americans, with a high percentage of both Scots-Irish and Irish in their ranks who identified with the earlier rebels, adopted the white cockade as their symbol during the Revolutionary War and when France entered the war they added the black cockade of that country’s troops, forming the black and white “Alliance cockade” (Johnson, Scottish Fiddle Music in the 18th Century, 1984, and others). It is popularly though the title of the tune refers to a these Jacobite symbols. Jacobite associations to it dimmed by the end of the century, allowing the tune to be absorbed (like the Highlander’s kilts) and used as a march in the British army in 1812 where it appears in a military musician's manuscript book of the period (Winstock). Other military citations include it as one of two stirring tunes (along with "St. Patrick's Day in the Morning") played by pipers attached to the Irish Brigade in the service of France which helped to turn the tide of battle against the English troops in the battle of Fontenoy on May 11, 1745 (O’Neill, 1913). Flood (1906) and O’Neill (1913) state it was probably the last appearance in battle of the Irish Piob mor (war pipes or great pipes, which did survive in Scotland) of any mention.
+
+***
+
+The title is from a Jacobite song from the 18th century written by Muiris mac Daibhi mac Gerailt (Maurice FitzDavid FitzGerald) perhaps after, it has been variously suggested, the fashion of wearing white ribboned plumes in men's hats of the time or possibly to the white cockade which Dublin ladies wore in their hair to show their support of the House of Stewart. Breathnach (CRE II) reports that Seán Ó Dálaigh wrote a note to this song stating that it refers not, as many think, to a military cockade but rather to bouquets of ribbons worn by the young women of Munster at weddings and other such occasions early in the 17th century. Donald Mattson (1974) also believes the title “White Cockade” has nothing to do with a military cockade but rather refers to a bouquet. This custom is referred to in a verse Ó Dálaigh attributes to the period poet Muiris Mac Gearailt:
+
+***
+
+A chailín donn deas an chnota bháin,
+
+Do bhuair is mheall mé le h-iomad grá;
+
+Tair-se liom 's ná de/an me/ chrá,
+
+Mar do thug mé greann dod' chnota bán.
+
+***
+
+Oh pretty brown girl of the white cockade,
+
+Who grieved and charmed me with abundance of love;
+
+Come with me and don't torment me,
+
+Because I mocked your white cockade.  [translation by Paul de Grae]
+
+***
+
+Scots poet Robert Burns rewrote the lyrics as “A Highland Lad my Love was Born,” but the tune itself seems to have been more popular than even his song, and it was often used as a vehicle for various songs about love, topography, and drinking (see "The Ranting Highlander," "The Highland Laddie," "Fiddler's Morris"). {As an aside, Burn’s originally specified his lyric be sung to the tune of the song "O, and ye were dead, Guidman,” which was written to the melody of "Watson's Scotch Measure"}. In America, the tune was published by Philadelphia publishers Benjamin and Joseph Carr in Evening Amusement (1796). The melody appears in the music manuscript copybook of Henry Livingston, Jr.  Livingston purchased the estate of Locust Grove, Poughkeepsie, New York, in 1771 at the age of 23. In 1775 he was a Major in the 3rd New York Regiment, which participated in Montgomery’s invasion of Canada in a failed attempt to wrest Montreal from British control. An important land-owner in the Hudson Valley, and a member of the powerful Livingston family, Henry was also a surveyor and real estate speculator, an illustrator and map-maker, and a Justice of the Peace for Dutchess County. He was also a poet and musician, and presumably a dancer, as he was elected a Manager for the New York Assembly’s dancing season of 1774-1775, along with his 3rd cousin, John Jay, later U.S. Chief Justice of Governor of New York. “White Cockade” was still commonly played at Orange County, New York, country dances in the 1930's (Lettie Osborn, New York Folklore Quarterly). The tune is associated with a dance of the same name in New England, and one set appears in Linscott’s Folk Songs of Old New England; Johnson also prints a Scottish contra dance to the tune. Burchenal (1918) gives the tune as commonly played in that region for the contra dance Camptown Hornpipe. It was listed in the repertoire of Maine fiddler Mellie Dunham (the elderly Dunham was Henry Ford's champion fiddler in the late 1920's). The title appears in Henry Robson's list of popular Northumbrian song and dance tunes ("The Northern Minstrel's Budget"), which he published c. 1800. The English novelist Thomas Hardy, himself an accordion player and fiddler, mentions the tune in scene notes to his drama The Dynasts:
+
+***
+
+It is a June Midnight at The Duke & Duchess of  Richmond's. A band
+of stringed instruments shows in the background. The room is crowded
+
+with a brilliant assemblage of more than two hundred of the distinguished
+
+people sojourning in the city on account of the war and other reasons, and
+
+of local personages of State and fashion. The ball has opened with 'The
+
+White Cockade.'
+
+***
+
+The author of English Folk-Song and Dance (pg. 144) found the tune in the repertoire of fiddler William Tilbury (who lived at Pitch Place, midway between Chrut and Thursley in Surrey), who, in his young days, used to play the fiddle at village dances. Tilbury learned his repertoire from an uncle, Fiddler Hammond, who died around 1870 and who was the village musician before him. The conclusion was that “The White Cockade” and similar old country dance tunes survived in tradition (at least in southwest Surrey) well into the second half of the 19th century. A jig form of the tune is known as "A Hundred Pipers and A’." The melody is contained in the Joseph Kershaw manuscript. Kershaw was a fiddler who lived in Slackcote, Saddleworth, North West England, in the 19th century, and his manuscript dates from around 1820 onwards.
+
+***
+
+Sources for notated versions: Dennis McClure (Willimantic, Conn.) [Linscott]; Clyde Lloyd (fifer from Indiana County, Pa., 1952), Hiram Horner (fifer from Westmoreland and Fayette Counties, Pa., 1960), Hogg (Pa., 1948), George Strosnider (fiddler from Greene County, Pa., 1930's) [Bayard]; flute and whistle Micho Russell, 1973 (Doolin, Co. Clare) [Breathnach]; Francis MacDonald (b. 1940, Morell Rear, North-East Kings County, Prince Edward Island) [Perlman]; tin whistle player Micho Russell (Doolin, County Clare) [Breathnach]; Aird’s Selections [Henderson]. Adam, 1928; No. 16. Aird (Selections), 1778 (1782?), Vol. 1, No. 1 (appears as "The Ranting Highlandman," a title G. Farquhar Graham thought Aird found more prudent than “The White Cockade” as sentiments from the rising of ’45 were still strong). American Veteran Fifer, 1927; No. 13, pg. 7.  Barnes (English Country Dance Tunes, vol. 2), 2005; pg. 147 (appears as “Yorkshire Square Eight”, the name of a country dance set to the tune). Bayard (Dance to the Fiddle), No. 174A‑D, pgs. 125‑126. Blake (Ye Ancient Song and Fife), 1974; pg. 26. Breathnach (CRÉ II), 1976; No. 115, pg. 63. Brody (Fiddler’s Fakebook), 1983; pg. 291. Burchenal (American Country Dances, vol. 1), 1918; pg. 18 (appears as "Camptown Hornpipe"). Cahusac's Pocket Companion for the Flute, 1795?, vol. 1, pg. 40. Carlin (Gow Collection), 1986; No. 466. Cazden, Jigs, Reels and Squares, Vol. 1, pg. 20. Creighton, 1933; No. 85, pg. 183. DeVille, 1905; No. 73. Emmerson (Rantin' Pipe and Tremblin' String), pg. 124. Ford (Traditional Music in America), 1940; pg. 109. Fraser (The Airs and Melodies Peculiar to the Highlands of Scotland and the Isles), 1816; No. 126. Gow (Vocal Melodies of Scotland), 1822; pg. 35. Gow (Complete Repository), Part 2, 1802; pg. 19. Graham, 1908; pg. 219. Hardie (Caledonian Companion), 1992; pg. 29. Harding Collection (1915) and Harding's Original Collection (1928), No. 18. Henderson (Flowers of Scottish Melody), 1935. Howe (Complete Preceptor for the Accordeon), c. 1843; pg. 6. Howe (School for the Violin), 1851, pg. 33. Hunter (Fiddle Music of Scotland), 1988; No. 313. Huntington, (William Litten's), 1977; pg, 17. Jarman (Old Time Fiddlin' Tunes); No. or pg. 22. JEFDSS, vol. 1, pg. 94 (2nd half). JFSS, vol. IV, pg. 159 (2nd half). Johnson (The Scots Musical Museum), 1787‑1803, vol. 3, No. 272 (apparently the first printing in Scotland). Johnson (Twenty‑Eight Country Dances as Done at the New Boston Fair), Vol. 8, 1988; pg. 10. The Joseph Kershaw Manuscript, 1993; No. 18. Joyce (Ancient Irish Music), 1873, No. 80. Joyce (Old Irish Folk Music and Song), 1909; No. 112. Keller (Giles Gibbs Jr., His Book for the Fife...1777), 1974, pg. 28. Kennedy (Fiddlers Tune Book), vol. 1, 1951; No. 60, pg. 29. Kerr (Merry Melodies), vol. 1; No. 2, pg. 23 & pg. 40. Linscott (Folk Songs of Old New England), 1939; pgs. 117 & 120. MacDonald (The Skye Collection), 1887; pg 170. Mattson & Walz (Old Fort Snelling), 1974; pg. 42. McDonald (The Gesto Collection), 1895; pgs. 6 & 126. McDonald (Highland Vocal Airs), 1784; pg. 33 (Dance No. 5). Miller & Perron (New England Fiddler’s Repertoire), 1983; No. 105. Morrison (Twenty-Four Early American Country Dances, Cotillions & Reels, for the Year 1976), 1976; pg. 41. O'Daly, 1849, vol. 1, pg. 50. O’Farrell (Pocket Companion, vol. III), c. 1808; pgs. 4-5 (with variations). O'Malley, 1919, pg. 41. O'Neill (O’Neill’s Irish Music), 1915/1987; No. 108, pg. 61 (includes variations). O'Neill (Music of Ireland: 1850 Melodies), 1903/1979; No. 1803, pg. 328. Perlman (The Fiddle Music of Prince Edward Island), 1996; pg. 155. Preston, 1796, pg. 127. Raven (English Country Dance Tunes), 1984; pg. 151. Ritson (Scottish Songs), vol. II, pg. 430. Robbins, 1933, No. 82, pg. 26. Ruth (Pioneer Western Folk Tunes), 1948; No. 80, pg. 29. The Scottish Country Dance Book, 1930‑57, No. 5 (tune 11). Shaw (Cowboy Dances), 1943; pg. 391. Smith (Scottish Minstrel), 1820‑24, vol. 1, pg. 21. Stewart-Robertson (The Athole Collection), 1884; pg. 147. Sweet (Fifer’s Delight), 1965/1981; pg. 32. Thompson (Scottish Airs for the Voice), 1805, vol. 4, No. 188. Tolman (Nelson Music Collection), pg. 168. Trim (Thomas Hardy), 1990; No. 6 (appears as "White Cock Head"). White's Excelsior Collection, 1907; pg. 72. Wilson (Companion to the Ballroom), 1840; pgs. 39 & 54. ALcazar Dance Series FR 204, Rodney Miller ‑ "New England Chestnuts 2" (1981). Folkways FA 2381, "The Hammered Dulcimer as played by Chet Parker" (1966). Folkways FTS 31036, Roger Sprung‑ "Grassy Licks." Maggie’s Music MM220, Hesperus – “Celtic Roots.” North Star NS0038, "The Village Green: Dance Music of Old Sturbridge Village." Olympic 6151, The Scottish Festival orchestra‑ "Scottish Traditonal Fiddle Music" (1978). RCA 09026-60916-2, The Chieftains - "An Irish Evening" (1991). Topic TSCD607, Walter & Daisy Bulwer – “English Country Music” (2000. Originally recorded 1962). Transatlantic 337, Dave Swarbrick‑ "Swarbrick." Victor 20537 (78 RPM), Mellie Dunham (Me.), 1926 (appears as 2nd tune of "Medley of Reels").
+        )
+
+    [CREEK WHITE] => Array
+        (
+            [title] => White Creek
+            [notes] => Old‑Time, Breakdown. USA, Oklahoma. A Major. AEae tuning. AABB. Thede says the name possibly alludes to the Missouri White Creek. The tune was one in the repertoire of the Oklahoma Collins family, some members of whom contributed to Thede's book; the modern-day representative of this musical family, fiddler Earl Collins, recorded several albums. Source for notated version: Red McLaron (Ottawa County, Oklahoma) [Thede]. Thede (The Fiddle Book), 1967; pg. 111. Yodel-Ay-Hee 008, One Eyed Dog - "Traditional Mountain Tunes" (1993).
+
+
+
+M:2/4
+
+L:1/8
+
+A2)A2:|2 A2 (AB||
+
+M:C
+
+L:1/8
+
+c2[c2e2] cdec|d2 [d2f2] ddfd|c2[c2e2] cdec|B2 Bc B2AB|c2[c2e2] cdec|
+
+d2[d2f2] ddfd|efec B2G2|1 A3(B A2 AB:|2 A3 (B A4||
+        )
+
+    [CROW THE WHITE] => Array
+        (
+            [title] => White Crow, The
+            [notes] => AKA‑ "Time To Go." Canadian, Reel. Canada, Cape Breton. C Major. Standard tuning. ABCD (more often played as a two‑part reel). David MacIssac, learned from the playing of Donald MacLellan (Cape Breton), who believes he obtained the tune from one of the mid-19th century collections published by Elias Howe [Dunlay and Reich]. Dunlay & Greenberg (Traditional Celtic Violin Music from Cape Breton), 1996; pg. 67. Dunlay & Reich (Traditional Celtic Fiddle Music from Cape Breton), 1986; pg. 67. UCCBP 1007 (University College of Cape Breton), David MacIssac‑ "Celtic Music of Cape Breton, Vol. 1" (Various artists). Decca 14006 (78 RPM), Alex Gillis and Alcide Aucoin/The Inverness Serenaders (c. 1930's. Appears as "Time To Go"). Cape Breton's Magazine Tape, Mike MacDougall‑ "Mike MacDougall's Tape For Fr. Hector.” WMT002, Wendy MacIsaac – “That’s What You Get” (1997?).
+        )
+
+    [FEATHER THE WHITE] => Array
+        (
+            [title] => White Feather, The
+            [notes] => American, Reel. USA, southwestern Pa. G Major. Standard tuning. ABB'. Source for notated version: Levi Hall (elderly fiddler from Fayette County, Pa., 1944) [Bayard]. Bayard (Dance to the Fiddle), 1981; No. 111, pg. 63.
+        )
+
+    [FISH IN RAPIDS THE WHITE] => Array
+        (
+            [title] => White Fish In The Rapids
+            [notes] => American, Reel. USA, northern Michigan. B Flat Major. Standard tuning. AABB. Old-Time. Paul Gifford remarks that this tune was supposedly written by Henry Thorne (1841-1928), “a part-Indian Civil War veteran who played for Henry Ford….around Sault Ste. Marie, Michigan, it was the real ‘local’ tune.” Paul also remarks that the Native Americans around the St. Mary’s River depended on the whitefish on the rapids. See also the closely related tunes "Good for the Tongue" and "Jenkins' Hornpipe." Source for notated version: Wendy Kosocoff [Phillips]. Phillips (Traditional American Fiddle Tunes), vol. 1, 1994; pg. 255.
+        )
+
+    [FLAIL THE WHITE] => Array
+        (
+            [title] => White Flail, The (an Suirtin Ban)
+            [notes] => Irish, Air (4/4 time). G Major. Standard tuning. One part. Source for notated version: blind fiddler Michael Daffy (Co. Clare, Ireland) [Darley & McCall]. Darley & McCall (Darley & McCall Collection of Traditional Irish Music), 1914; No. 10, pg. 4.
+        )
+
+    [DONT FOLKS ME RIGHT TREAT WHITE] => Array
+        (
+            [title] => White Folks Don't Treat Me Right
+            [notes] => AKA and see "Poor White Folks." Old-Time, Breakdown. A Major. AEae tuning. AABB. Source for notated version: fiddler Kenny Baker with Bill Monroe and the Blue Grass Boys (Ky.) [Phillips]. Phillips (Traditional American Fiddle Tunes), vol. 1, 1994; pg. 256.
+        )
+
+    [FRIARS HORNPIPE WHITE] => Array
+        (
+            [title] => White Friar’s Hornpipe
+            [notes] => English, Hornpipe. G Major. Standard tuning. AABB. The melody appears in Walsh’s third collection of Lancashire tunes (Lancashire Jiggs, Hornpipes, Joaks, etc.) published around the year 1730. The White Friars were the Carmelites, so-called because the dressed in white.
+        )
+
+    [LASS THE WHITEHAIRED] => Array
+        (
+            [title] => White-haired Lass, The
+            [notes] => AKA and see “Ships are Sailing [1].” Irish, Reel. E Minor. Standard tuning. AA’BB. Source for notated version: accordion player Johnny O’Leary (Sliabh Luachra region of the Cork-Kerry border) [Moylan]. Moylan (Johnny O’Leary), 1994; No. 328, pg. 187.
+        )
+
+    [PIPER THE WHITEHAIRED] => Array
+        (
+            [title] => White-haired Piper, The
+            [notes] => AKA and see "The Belles of Tipperary [2]," "The Blea‑berry Blossom," "The Connacht Lasses," "The Dandy Girl/Lass/Lasses," "The Four Courts of Dublin, " "The Green Fields to America," "Jackson's Welcome to Cork [1]," "Johnny Shooting in the Glen," "The Kerry Star," "Miss Monaghan," "O'Connell in Clare," "Stormy Weather [1]," "The Barrow Castle," "Lamont's Reel."
+        )
+
+    [HAVEN THE VOLUNTEER WHITE] => Array
+        (
+            [title] => White Haven Volunteer, The
+            [notes] => See “Whitehaven Volunteers.”
+        )
+
+    [CABAGES HEAD WHITE] => Array
+        (
+            [title] => White Head Cabages
+            [notes] => AKA – “Easter Tuesday [2].” English, Jig. G Major. Standard tuning. The melody was printed by John Walsh in the Second Book of the Compleat Country Dancing Master (London, 1719), as “White Hard Cabages,” and again in Walsh’s 3rd edition of the same work (London, 1735 and 1749), under the corrected title “White Head Cabages.” It was also printed by John Young in his Dancing Master, vol. 2 of 1718 and 1728 (editions 3 and 4).
+        )
+
+    [HEATHER WHITE] => Array
+        (
+            [title] => White Heather [1]
+            [notes] => Scottish, Strathspey. F Major. Standard tuning. AABB’. Kerr (Merry Melodies), vol. 4; No. 151, pg. 18.
+        )
+
+    [DEAR HILLS IRELAND OF THE WHITE] => Array
+        (
+            [title] => White Hills Of Dear Ireland, The (ban-chnoic Éireann Ogh)
+            [notes] => AKA and see "Uailleacan Dhuv Ó!" "Song of Sorrow." Irish, Air (4/4 time, "lively"). G Mixolydian. Standard tuning. AAB. The song (which also translates as "The Fair Hills of Ireland") is included in Joyce’s Irish Music and Song. It was written by Donncha Rua Mac Con Mara, born in Cratloe, County Clare, in 1715.  Mac Con Mara was groomed for the priesthood in Rome until he was expelled for his "wildness." He returned to Ireland in 1740 to take a schoolmaster's position in Waterford, then journeyed to Newfoundland in 1745 where he stayed until 1756. It is likely he wrote the still popular "Ban Chnoic Éireann Ó" while in the new world.
+
+***
+
+Bíonn barr bog slím ar chaoin-chnuic Éireann
+
+Bán-chnuic Éireann Ó!
+
+'S is fearr ná'n tír seo díogha gach sléibh' ann,
+
+Bán-chnuic Éireann Ó!
+
+Tá grá im chroí im inntinn fein,
+
+Bán-chnuic Éireann Ó!
+***
+
+The soil is rich and soft, the air is mild and bland
+
+O the fair hills of Éire Ó!
+
+Her barest rock is greener to me than this rude land
+
+O the fair hills of Éire ÓO! in heart and soul, I shall ever love,
+
+The fair hills of Éire Ó   (translated by James Clarence Mangan)
+
+***
+
+O'Neill (Music of Ireland: 1850 Melodies), 1903/1979; No. 370, pg. 64. GTD Heritage Trad. HCD 008, Tommy Peoples - "Traditional Irish Music Played on the Fiddle" (appears as "Ban Chnoic Éirinn Ó").
+        )
+
+    [HORSE THE WHITE] => Array
+        (
+            [title] => White Horse [1], The
+            [notes] => Irish, Air (6/8 time). D Major. Standard tuning. AABB. Source for notated version: Patrick MacDowell, "the distinguished sculptor: born in Belfast 1799: died 1870" (Joyce). Joyce (Old Irish Folk Music and Song), 1909; No. 535, pg. 286.
+        )
+
+    [HORSE WHITE] => Array
+        (
+            [title] => White Horse [3]
+            [notes] => AKA and see "Ston(e)y Point [1]", "Wild Horse," "Pigtown Fling." American, Reel.
+        )
+
+    [BREAKDOWN HORSE WHITE] => Array
+        (
+            [title] => White Horse Breakdown
+            [notes] => Bluegrass, Breakdown. USA. G Major. Standard tuning. Intro, AABB. Composed by the 'Father of Bluegrass', mandolinist Bill Monroe. Source for notated version: Blaine Sprouse [Brody]. Brody (Fiddler’s Fakebook), 1983; pg. 292. County 736, Kenny Baker‑ "Kenny Baker Country." Takoma D‑1064, Norman Blake‑ "Directions." Rounder 0117, "Blaine Sprouse."
+        )
+
+    [HOUSES OF SHEILDAG THE WHITE] => Array
+        (
+            [title] => White Houses Of Sheildag, The (taighean Geala Shieldaig)
+            [notes] => Scottish, Reel. G Major/A Dorian. Standard tuning. AABB. A pipe tune. MacDonald notes “also known in Skye as “Porst an Righ,” "The King’s tune.” MacDonald (The Skye Collection), 1887; pg. 70.
+        )
+
+    [JACKJOCK WHITE] => Array
+        (
+            [title] => White Jack/jock
+            [notes] => AKA and see "The White Joak."
+        )
+
+    [JOAKJOKE THE WHITE] => Array
+        (
+            [title] => White Joak/joke, The
+            [notes] => AKA – “White Jack.” English, Jig. England, Northumberland. D Major (Walsh): G Major (Bush). Standard tuning. AABB. There were several tunes named in association with the popular “Black Joke,” with different colours specified in the title: white, brown, green, etc. John Glen (1891) finds the earliest appearance of the tune in print in Robert Ross's 1780 collection (pg. 38), however,“The White Joak” appeared much earlier in Walsh’s Lancashire Jiggs, Hornpipes, Joaks, etc. (c. 1730), as well as Walsh’s Dancing Master (1731), and subsequently in several ballad operas. Samuel Bayard finds it under the title “White Lime” in Nicholas Bennett’s Alawon fy Ngwlad (I, pg. 45). It also appears in the manuscript collection of Captain George Bush (1753?-1797), an officer in the Continental Army during the Revolutionary War, believed to have been copied from a now-lost fife tutor printed in Philadelphia in 1776 by Hall and Sellers. Kate Van Winkler Keller says the tune dates from the 1720’s and was used throughout the 18th century as a vehicle for songs and dances. Samuel Bayard (in his article “A Miscellany of Tune Notes,” Studies in Folklore, pg. 170) finds a version of the tune printed under the title “White Lime” in Nicholas Bennett’s Welsh publication Alawon fy Ngwlad (1896, I, pg. 45). The parts are asymmetrical in William Vickers’ Northumbrian version of 1770, the first having eight bars while the second has twelve. Vickers also has repeated ‘tag’ measures at the end of each part. Source for notated version: the Bush MS [Keller]. Keller (Fiddle Tunes from the American Revolution), 1992; pg. 16. Offord (John of the Greeny Cheshire Way), 1985; No. 107. Seattle (William Vickers), 1987, Part 2; No. 207. Shy Music SHYCD1, Stewart Hardy – “Tod’s Assembly.”
+        )
+
+    [ASTON LADIES WHITE] => Array
+        (
+            [title] => White Ladies Aston
+            [notes] => English, Morris Dance Tune (time). G Major. Standard. One part. Collected from the village of White Ladies Aston, Worcestershire, England. Bacon (The Morris Ring), 1974; pg. 313.
+        )
+
+    [LEAF WHITE] => Array
+        (
+            [title] => White Leaf (an Duilleog Bhán)
+            [notes] => Irish, Reel. A Major (Miller & Perron): G Major (Breathnach). Standard. AABB. May have been composed by Oliver O'Higgins. “The White Leaf” seems similar to the well-known “Mason’s Apron” and may be a variant. Source for notated version: the mid-20th century collection of Jack Wade (County Monaghan), who included the note “This is the old way of playing it. It is played quite differently now like many more” [Breathnach]. See also the variant “The Tinker’s Bib,” sometimes called “The Green Leaf.”  Source for notated version: Oliver O’Higgins (Cloon, County Leitrim) [Miller & Perron]. Breathnach (CRÉ IV), 1996; No. 191, pgs. 88-89. Bulmer & Sharpley (Music from Ireland), vol. 4, No. 26. Miller & Perron (Irish Traditional Fiddle Music), 1977; Addenda. Miller & Perron (Irish Traditional Fiddle Music), 2nd Edition, 2006; pg. 109. Cló Iar-Chonnachta CICD 173, Brian Conway – “Consider the Source” (2008). Green Linnet GLCD 1227, Oisín Mac Diarmada – “Ar an bhFidil” (2004).
+
+See also listings at:
+
+Alan Snyder’s Cape Breton Fiddle Recording Index
+
+Jane Keefer’s Folk Music Index: An Index to Recorded Sources 
+
+Alan Ng’s Irishtune.info
+        )
+
+    [LIGHTNING WHITE] => Array
+        (
+            [title] => White Lightning
+            [notes] => Canadian, Reel. Canada, Cape Breton. Composed by Cape Breton fiddler Rodney MacDonald. Smithsonian Folkways Records, SFW CD 40507, The Beaton Family of Mabou – “Cape Breton Fiddle and Piano Music” (2004).
+        )
+
+    [ASS I LIGHTNING MY WHITE] => Array
+        (
+            [title] => White Lightning, My Ass! Irish, Jig
+            [notes] => A Major. Standard tuning. AABB. Composed by Falmouth, Massachusetts, writer and musician Bill Black.
+        )
+
+    [LIME WHITE] => Array
+        (
+            [title] => White Lime
+            [notes] => See note for “White Joak/Joke.”
+        )
+
+    [MAN WHITE] => Array
+        (
+            [title] => White Man
+            [notes] => AKA – “Bell Cow.” Old‑Time, Breakdown. USA, Missouri. D Major. Standard tuning. AABB. “White Man” is one of the ‘100 essential Missouri fiddle tunes’ according to Missouri fiddler Charlie Walden. Source for notated version: Bill Katon (Tebbetts, Missouri) [Christeson]. R.P. Christeson (Old Time Fiddlers Repertory, vol. 2), 1984; pg. 60.
+        )
+
+    [MOUNTAIN THE WHITE] => Array
+        (
+            [title] => White Mountain [1], The
+            [notes] => Irish, Air. The title is perhaps "Bright Mountain." Green Linnet SIF1035, Brian Conway & Tony De Marco - "The Apple in Winter" (1981. Learned by De Marco from the singing County Kilkenny sean nos singer Joe Sweeney).
+        )
+
+    [MAID MOUNTAIN THE WHITE] => Array
+        (
+            [title] => White Mountain Maid, The (an Cailin Ua Sliab-ban)
+            [notes] => Irish, Air (3/4 time). D Major. Standard tuning. One part. Source for notated version: Chicago Police Sergeant James O’Neill, a fiddler originally from County Down and Francis O’Neill’s collaborator [O’Neill]. O'Neill (Music of Ireland: 1850 Melodies), 1903/1979; No. 491, pg. 86.
+        )
+
+    [MOUNTAIN REEL WHITE] => Array
+        (
+            [title] => White Mountain Reel
+            [notes] => American, Reel. USA, New Hampshire. The tune is composed in French‑Canadian style. Bay 209, "The Gypsy Gyppo String Band" (1977. Learned from French‑Canadian style New Hampshire fiddler Larry Riendeau).
+        )
+
+    [MOUNTAINS THE WHITE] => Array
+        (
+            [title] => White Mountains, The
+            [notes] => New England, Waltz. D Major. Standard tuning. One part. The title refers to the famous northern New Hampshire range of the Appalachians. McQuillen, Bob's Notebook, vol. 2; pg. 39.
+        )
+
+    [MULE WHITE] => Array
+        (
+            [title] => White Mule
+            [notes] => Old‑Time, Breakdown. The tune is "Puncheon Floor [2]," considerably simplified, with a third part added. Victor Vi 21534 (78 RPM), Hoyt Ming and His Pep Steppers.
+        )
+
+    [PETTICOAT THE WHITE] => Array
+        (
+            [title] => White Petticoat, The (an Cota-beag Ban)
+            [notes] => AKA and see “Handy with the Stick.” Irish (originally), English; Double Jig. England, North‑West. E Minor. Standard tuning. AABB. One of the few tunes in O’Neill’s in aeolian minor (nearly all minor-sounding tunes are in dorian). The provenance of the tune is not known—many have remarked on its unusual nature in the context of the bulk of O’Niell’s collection, and the melody is only sourced to Francis O’Neill himself (a very loose source attribution, as O’Neill often put his name to tunes he learned from in the course of years of playing with Irish musicians from Chicago and other areas). “Handy with the Stick” is a related and possibly earlier tune. Knowles (Northern Frisk), 1988; No. 38. O'Neill (Krassen), 1976; pg. 74. O'Neill (Music of Ireland: 1850 Melodies), 1979; No. 773, pg. 144. Green Linnet SIF 1149, Joe Derrane – “Give Us Another.” Green Linnet SIF 1160, Patrick Street – “Cornerboys.” Shanchie 78002, “Solas.” Patty Furlong – “Traditional Irish Music on the Button Accordion” (1999).
+        )
+
+    [PONY THE WHITE] => Array
+        (
+            [title] => White Pony, The (an Pónaí Bán)
+            [notes] => AKA and see “Chalk Sunday,” “Johnny Dennehy’s,” “Pretty Jane.” Irish, Jig. A Major (Levey): G Major (Breathnach). Standard tuning. AABB. The tune appears as one of  "The Farranfore Jigs" by the group Shegui on their album "Around the World for Sport” (1980), whose source was Tom Billy (Murphy) and Jack Dennehy (sic). See also “Johnny Dennehy’s”—Dennehy was a fiddler from the Farranfore, County Kerry, area (halfway between Tralee and Castleisland) greatly influenced by the fiddling of fellow Sliabh Luachra musician Tom Billy Murphy. Breathnach (CRÉ V), 1999; No. 16, pg. 10. Levey (2nd Collection), 1873. Decca (78 RPM), Sean McGuire’s Ceili Band (c. 1950’s).
+        )
+
+    [POST THE WHITE] => Array
+        (
+            [title] => White Post, The (le Poteau Blanc)
+            [notes] => French‑Canadian, Reel. A Major. Standard tuning. AABB’. The ‘B’ part’s last measure has an extra beat in the first turn. The tune comes from the repertoire of Joseph Allard (1873-1947), mentor of Jean Carignan. Remon & Bouchard (25 Crooked Tunes, vol. 2: Québec Fiddle Tunes), 1997; No. 21. Folkways FG 3531, "Old Time Fiddle Tunes played by Jean Carignan" (1968).
+        )
+
+    [RIVER WHITE] => Array
+        (
+            [title] => White River
+            [notes] => Old-Time, Breakdown. USA, Missouri. A Major. AEac# tuning. AABBC. The tune was recorded for the Library of Congress by musicologist/folklorist Vance Randolph, from the playing of Ozark Mountain fiddlers in the early 1940's. The White River flows through southern Missouri and northern Arkansas and into the Mississippi River at Scrubgrass Bend, above Rosedale, Mississippi. The tune was “a special tune” played in the Goforth family repertoire for generations, according to the liner notes of Gene Goforth’s album, however, John Hartford (2001) says it is “one of those ancient Ozark tunes that nobody seems to know its origin.” Howe Teague learned it when he was young, and said he thought he had learned it from influential fiddler Roy Wooliver, and also cited another local fiddler, Buck Sullivan, as another he remembered playing it (Beisswenger & McCann, 2008). Drew Beisswenger (2008) notes similarities with other Ozark tunes “Old Charlie Deckard,” “Bear Creek Sally Goodin’,” and “Broken-Legged Chicken,” all of whom he says resemble parts of the well-known “Old Dan Tucker.” Source for notated version: Howe Teague (1913-2005, Dent County, Missouri) [Beisswenger & McCann]. Beisswenger & McCann (Ozark Fiddle Music), 2008; pg. 150. Grey Eagle 101, Howe Teague – “Now That’s a Good Tune: Masters of Missouri Traditional Fiddling” (1989. Various artists). Rounder CD-0388, Gene Goforth – “Emminence Breakdown” (1997). Rounder 0442, John Hartford – “Hamilton Ironworks” (2001). Rounder CD 0435, Howe Teague – “Traditional Fiddle Music of the Ozarks, vol. 1” (1999. Various artists).
+        )
+
+    [BOTTOMS RIVER WHITE] => Array
+        (
+            [title] => White River Bottoms
+            [notes] => Old-Time, Breakdown. USA, Indiana. D Major. Standard tuning. AABB. The tune was known among older fiddlers in central and southern Indiana, reports Paul Tyler, including Noble Melton, Frank Wisehart, Ken Smelser, as well as Lotus Dickey and Jimmy Campbell of Dolan Heights. Sources for notated versions: Lotus Dickey (Indiana) [Phillips]; W.B. Reid [Silberberg]. Phillips (Traditional American Fiddle Tunes), vol. 2, 1995; pg. 256. Silberberg (Tunes I Learned at Tractor Tavern), 2002; pg. 169.
+        )
+
+    [CHARLEY RIVER WHITE] => Array
+        (
+            [title] => White River Charley
+            [notes] => Old‑Time. The title appears in a list of traditional Ozark Mountain fiddle tunes compiled by musicologist/folklorist Vance Randolph, published in 1954.
+        )
+
+    [RIVER SHORE WHITE] => Array
+        (
+            [title] => White River Shore
+            [notes] => Old‑Time. The title appears in a list of traditional Ozark Mountain fiddle tunes compiled by musicologist/folklorist Vance Randolph, published in 1954.
+        )
+
+    [RIVER STOMP WHITE] => Array
+        (
+            [title] => White River Stomp
+            [notes] => Canadian, American; Country Rag (4/4 time) or Set Dance. F Major. Standard tuning. AA’B (Perlman): AA'BCC (Phillips): AA'BCD (Messer). See also the related "Oklahoma Rag" and "Beaumont Rag." Sources for notated versions: Howard Cawley with Jack Cawley's Oklahoma Ridge Runners (Stillwater, Oklahoma) [Phillips]; Harry Lecky (b. 1929, Milburn, West Prince County, Prince Edward Island), who learned it from the radio in the 1940’s, probably, says Perlman, from the playing of Don Messer [Perlman]. Messer (Way Down East), 1948; No. 97. Messer (Anthology of Favorite Fiddle Tunes), 1980; No. 179, pg. 124. Perlman (The Fiddle Music of Prince Edward Island), 1996; pg. 149. Phillips (Traditional American Fiddle Tunes), vol. 2, 1995; pg. 167. Marimac 9111, Jack Cawley's Oklahoma Ridge Runners ‑ "Goin' Up Town: Old Time String Bands, vol. 2" (originally recorded in 1930). Rounder CD7014, Harry Lecky – “Fiddlers of Western Prince Edward Island” (1997).
+        )
+
+    [ROCK THE WHITE] => Array
+        (
+            [title] => White Rock, The
+            [notes] => Irish, Jig or Air (6/8 time). D Major/Mixolydian. Standard tuning. AB. Stanford/Petrie (Complete Collection), 1905; No. 575, pg. 145.
+        )
+
+    [ROSE THE WHITE] => Array
+        (
+            [title] => White Rose, The
+            [notes] => English, Hornpipe. G Major. Standard tuning. AABB. A modern composition by editor Michael Raven. Raven (English Country Dance Tunes), 1984; pg. 201.
+        )
+
+    [ROSE WHITE] => Array
+        (
+            [title] => White Rose (waltz) [2]
+            [notes] => American, Waltz. D Major. Standard tuning. AABB. Page, Northern Junket, vol. 6, No. 3, March 1958; pg. 13.
+        )
+
+    [BAY IN SAILS THE WHITE] => Array
+        (
+            [title] => White Sails In The Bay
+            [notes] => Irish, Jig. Composed by the late County Tipperary fiddler Seán Ryan (d. 1985). Ryan (The Hidden Ireland), 13.
+        )
+
+    [SNOWDON WHITE] => Array
+        (
+            [title] => White Snowdon
+            [notes] => AKA and see “Eryri Wen.”
+        )
+
+    [SNOWDEN WHITES] => Array
+        (
+            [title] => White’s Snowden
+            [notes] => English, Air (2/4 time). G Major. Standard tuning. AABB. A different tune than “Eryi Wen,” above. The tune also appears as “White Snowdon” in the music manuscript copybook of John Burks, dated 1821, who may have been from the north of England (photocopy in possession of the editor). It is nearly identical with Gibbon’s version. Source for notated version: the 1823-26 music mss of papermaker and musician Joshua Gibbons (1778-1871, of Tealby, near Market Rasen, Lincolnshire Wolds) [Sumner]. Sumner (Lincolnshire Collections, vol. 1: The Joshua Gibbons Manuscript), 1997; pg. 95.
+        )
+
+    [CLOG STAR WHITE] => Array
+        (
+            [title] => White Star Clog
+            [notes] => American, Clog. D Major. Standard tuning. AABB. White’s Unique Collection, 1896; No. 146, pg. 26.
+        )
+
+    [REEL STAR WHITE] => Array
+        (
+            [title] => White Star Reel
+            [notes] => American, Reel. G Major. Standard tuning. AABB. Al Smitley suggests the tune may possibly have been named for the clipper ship White Star, a name that appears in American Clipper Ships 1833-1858 by Howe and Matthews. Much more likely, however, is that the melody was named for the White Star Line, a steamship company launched in 1870, officially called the Oceanic Steam Navigation Company. The Titanic was a White Star ship, as were many other ships whose names ended with “ic” (Celtic and Adriatic). They were known for their comfortable, often luxurious accommodations, and, though this compromised speed, the ships were the favourites of the leisured classes. Cole (1000 Fiddle Tunes), 1940; pg. 41. Ryan’s Mammoth Collection, 1883; pg. 68.
+        )
+
+    [SWAN THE WHITE] => Array
+        (
+            [title] => White Swan [1], The
+            [notes] => American, Waltz. D Major. Standard tuning. AA'B. Source for notated version: Ruthie Dornfeld [Phillips]. Phillips (Traditional American Fiddle Tunes), vol. 2, 1995; pg. 327.
+        )
+
+    [WHITE WINGS] => Array
+        (
+            [title] => White Wings [1]
+            [notes] => Scottish, Country Dance Tune (6/8 time). D Major ('A' part) & A Major ('B' part). Standard tuning. AABB. Kerr (Merry Melodies), vol. 3; No. 398, pg. 44.
+        )
+
+    [WHITECROSS] => Array
+        (
+            [title] => Whitecross
+            [notes] => Irish, Reel. G Major/Mixolydian (‘A’ part) & G Dorian (‘B’ part). Standard tuning. AA’B. Composed by County Cavan/Philadelphia fiddler and composer Ed Reavy (1898-1988) for lifelong friend and musical supporter Lou Quinn, who came from a locale near Whitecross, County Armagh. Reavy (The Collected Compositions of Ed Reavy), No. 55, pgs. 59-60.
+        )
+
+    [WHITEFACE] => Array
+        (
+            [title] => Whiteface
+            [notes] => Old-Time, Breakdown. E Minor. Standard tuning. ABCCC. Composed by Joe Thrift of the Redhots in honor of a white-faced cow. Silberberg (Tunes I Learned at Tractor Tavern), 2002; pg. 169.
+        )
+
+    [REEL WHITEFACE] => Array
+        (
+            [title] => Whiteface Reel
+            [notes] => New England, Reel. A Dorian. Standard tuning. AABB. Composed and performed by Tom McCreesh for the 1980 Lake Placid, N.Y., XIII Olympic Winter Games. The title perhaps refers to cliff faces on mountains in the North East. Spandaro (10 Cents a Dance), 1980; pg. 50. Front Hall Records FHR023, Michael, McCreesh, and Campbell ‑ "The Host of the Air" (1980).
+        )
+
+    [ON RAPIDS THE WHITEFISH] => Array
+        (
+            [title] => Whitefish On The Rapids
+            [notes] => See “White Fish in the Rapids.”
+        )
+
+    [VOLUNTEERS WHITEHAVEN] => Array
+        (
+            [title] => Whitehaven Volunteers
+            [notes] => English, Country Dance Tune (2/4 time). G Major. Standard tuning. AABB. The melody is in a similar vein to “Petronella.” The Whitehaven Volunteers were probably a local militia unit raised during the Napoleonic Wars, from Whitehaven, Cumbria, England, although Barry Callaghan says they were raised for the American War of Independence in 1778. A racing purse in the name of the Whitehaven Volunteers (‘The Whitehaven Volunteers’ Plate’) survived until at least until the mid-1860’s when winners for the Whitehaven racecourse were announced in the racing calendars. It is sometimes played as a hornpipe, schottische or barndance, depending on the amount of “swing” or dotted rhythms are employed. Source for notated version: the music manuscript collection of William Docker (Newby Head, Cumbria) [Callaghan, Knowles]. Callaghan (Hardcore English), 2007; pg. 54. Knowles (A Northern Lass), 1995; pg. 15. Harbourtown Records HARCD 047, The Boat Band – “A Trip to the Lakes” (2006).
+
+
+
+V:1
+%P:A
+d2>c2|\
+B2B2 BcAB|G2G2 G2D2|G2B2 d2B2|edcB A2dc|\
+B2B2 BcAB|G2G2 G2D2|E2c2 BAGF|G4 ::\
+%P:B
+d2>c2| B2d2 d2ef|g2d2 dedc|B2de d2B2|AGAB A2dc|\
+B2d2 d2ef|gfga g2dc|B2G2 BAGF|G4 :|
+        )
+
+    [DAUGHTER FROM GLEN THE WHITES] => Array
+        (
+            [title] => White's Daughter From The Glen
+            [notes] => AKA ‑ "Inghin/Inion an Fhaoit On N‑Gleann". Irish, Slow Air (4/4 time). G Major. Standard tuning. One part (Ó Canainn): AAB (Joyce). Cowdery (1990) identifies this melody as "a kind of outlining correspondent of the first strain of 'The Blackbird,' although the overall form is not the same." He analyzes the tune and its tune family in his work "The Melodic Tradition of Ireland."  Source for notated version: James O'Farrell of Cootehill, Co. Cavan (Joyce). Joyce (Old Irish Folk Music and Songs), 1909; No. 807, pg. 392. Ó Canainn (Traditional Slow Airs of Ireland), 1995; No. 36, pg. 35. Dolphin DOL 1008, Tomas Ó Canainn - "A Kindly Welcome" (1974).
+        )
+
+    [WHITESBURG] => Array
+        (
+            [title] => Whitesburg
+            [notes] => Old-Time, Breakdown. A Major/Mixolydian. Standard tuning. ABB'. The 'G' notes may be either sharp or natural. Kentucky fiddler Santford Kelly recorded a tune called “Whitesbury of Old Kentucky,” later recorded by bluegrass musician Ricky Scaggs on a Rebel LP as “Whitesburg.” Source for notated version: Evan Stover (NY) with Fiddle Fever [Phillips]. Phillips (Traditional American Fiddle Tunes), vol. 1, 1994; pg. 256.
+        )
+
+    [HORNPIPE WHITESIDES] => Array
+        (
+            [title] => Whiteside’s Hornpipe
+            [notes] => Irish, Hornpipe. G Major. Standard tuning. AABB. O’Neill (1922) says of his source: “James Whiteside, the ‘Bard of Bray’, County Wicklow, was a genius—scholar, poet, musician, composer. Born in County Monaghan in 1844, he retired after 40 years service as a schoolteacher at Bray. His playing of the violin won two first honors at two Feiseanna. An interesting sketch of his life appears on pages 384-7, {O’Neill’s} Irish Minstrels and Musicians.” Source for notated version: James Whiteside [O’Neill]. O’Neill (Waifs and Strays of Gaelic Melody), 1922; No. 320.
+        )
+
+    [STATION WHITEWASH] => Array
+        (
+            [title] => Whitewash Station
+            [notes] => See “Hop High Ladies.”
+        )
+
+    [KATE WHITEWASHED] => Array
+        (
+            [title] => Whitewashed Kate
+            [notes] => AKA and see "Kate Lay Sleeping," "Kate's Laid in the Hay," "Round and Round This Green Sugar Tree." American, March (4/4 time). USA, southwestern Pa. A Dorian. Standard tuning. AB. This piece, a fiddle tune and a song air, turns up in playparty and sea‑chanty traditions. These words were collected with the tune:
+
+***
+
+Whitewashed Kate she was my darling (x3)
+
+Ear‑lye in the morning.
+
+***
+
+Source for notated version: Samuel Losch (fiddler from Juniata County, Pa., 1930's) [Bayard]. Bayard (Dance to the Fiddle), 1981; No. 251D, pg. 215.
+        )
+
+    [JIG WHITEWATER] => Array
+        (
+            [title] => Whitewater Jig
+            [notes] => American, Jig. USA, northern New York. A Major ('A' part) & D Major ('B' part). Standard tuning. AA'BB'. Source for notated version: learned by fiddler Vic Kibler (Hamilton County, N.Y.) from "local country musician and fiddler Jimmy Hamblin, of Fort Ann, who has recorded it" [Bohrer]. Bohrer (Vic Kibler), 1992; No. 4, pg. 4.
+        )
+
+    [BARN CHAPEL DANCE WHITLEY] => Array
+        (
+            [title] => Whitley Chapel Barn Dance
+            [notes] => Composed by the late Scottish bandleader and accordion player Jimmy Shand. It is used as a vehicle for the Bradford Barndance.
+        )
+
+    [FANCY WHITNEYS] => Array
+        (
+            [title] => Whitney's Fancy (roga Ui Uitnaig/uitnig)
+            [notes] => Irish, Hornpipe. G Major. Standard tuning. AABB. O'Neill (O’Neill’s Irish Music), 1915/1987; No. 360, pg. 174. O'Neill (Krassen), 1976; pg. 213. O'Neill (Music of Ireland: 1850 Melodies), 1903/1979; No. 1765, pg. 329. O'Neill (Dance Music of Ireland: 1001 Gems), 1907/1986; No. 933, pg. 159.
+        )
+
+    [THE WHITSTABLE] => Array
+        (
+            [title] => Whitstable, The
+            [notes] => Scottish, Hornpipe. G Major. Standard tuning. AABBCC'. Kerr (Merry Melodies), vol. 3; No. 344, pg. 37.
+        )
+
+    [FAIR WHITTINGHAM] => Array
+        (
+            [title] => Whittingham Fair
+            [notes] => AKA and see "Parsley, Sage, Rosemary, and Thyme." English, Air (6/8 time). England, Northumberland. E Minor. Standard tuning. One part. "This is another example of the enigmatically duolinear ballad, and popular in the north and west of the county of Northumberland; it is also known in several parts of England, but is sung usually as a nursery ballad" (Bruce & Stokoe). It is a variant of the better-known “Scarborough Fair,” however, both songs derived from the Child Ballad No 2., “The Elfin Knight.” “Whittingham” is pronounced ‘Whitting-jum’, and is a village in Northumberland, about 20 miles south of the Scottish border. It was is the site for the Whittingham Show, also called the Whittingham Games or Whittingham Fair, a country fair (held on the third week of August) that goes back many hundreds of years.
+
+***
+
+Are you going to Whittingham Fair,
+
+Parsley, sage, rosemary and thyme;
+
+Remember me to one who lives there,
+
+For once she was a true love of mine. (Bruce & Stokoe)
+
+***
+
+Bruce & Stokoe (Northumbrian Minstrelsy), 1882; pgs. 81‑82.
+        )
+
+    [GREEN LANE WHITTINGHAM] => Array
+        (
+            [title] => Whittingham Green Lane
+            [notes] => English, Waltz. G Major. Standard tuning. AAB. Northumbrian Pipers Tune Book, vol. 1, 1936. Raven (English Country Dance Tunes), 1984; pg. 135.
+        )
+
+    [HORNPIPE THE VALE WHITTINGHAM] => Array
+        (
+            [title] => Whittingham Vale Hornpipe, The
+            [notes] => English, Hornpipe. England, Northumberland. G Major. Standard tuning. AA'BB'. Composed by Tom Carruthers. Hall & Stafford (Charlton Memorial Tune Book), 1974; pg. 48.
+        )
+
+    [WHITTLIN WOOD] => Array
+        (
+            [title] => Whittlin' Wood
+            [notes] => Old‑Time. Source: Pat Kingery, Southern Ky.
+        )
+
+    [ARE WHO YOU] => Array
+        (
+            [title] => Who Are You? (cia E Tusa?)
+            [notes] => Irish, Air (2/4 time, "with spirit"). G Major. Standard tuning. One part. O'Neill (Music of Ireland: 1850 Melodies), 1979; No. 239, pg. 41.
+        )
+
+    [CAN E HELP IT NOW WHO] => Array
+        (
+            [title] => Who Can Help It Now?  English, Reel
+            [notes] => England, Northumberland. G Major. Standard. AABB. Seattle (William Vickers), 1987, Part 3; No. 402.
+        )
+
+    [FANCY HATH HIS PLEASD WHO] => Array
+        (
+            [title] => Who Hath His Fancy Pleas'd
+            [notes] => English, Air (irregular meter). G Major. Standard. One part. The tune is "Wilhelmus van Nassauen," which has remained the Dutch national anthem to the present day. The words have been attributed to Sir Philip Sidney. Kines, 1964; pg. 76.
+        )
+
+    [A HIT NELLIE PIPE STOVE THE WHO WITH] => Array
+        (
+            [title] => Who Hit Nellie With The Stove Pipe?  American, Reel
+            [notes] => USA, southwestern Pa. D Major. Standard tuning. AB. The first part is shared with the tunes "Redman's Reel,” "Polka Reel" (Cazden), and an untitled breakdown in Christeson (1973, No. 98, pg. 68). Source for notated version: Walter Neal (fiddler from Armstrong County, Pa., 1952) [Bayard]. Bayard (Dance to the Fiddle), 1981; No. 392, pg. 375.
+        )
+
+    [A AND DANCE LEARNED TO TOWDLE WHO YOU] => Array
+        (
+            [title] => Who Learned You To Dance And A Towdle
+            [notes] => AKA ‑ "Who Learned You to Dance, Babbity Bowster {bolster}."AKA and see "Country Bumpkin."  Scottish, Reel. D Major. Standard tuning. AB. The tune, which Emmerson (1972) calls "one of the most common of Scottish tunes...yet on the lips of every Lowland child," first appears under this name in the Skene Manuscript (c. 1620). It was later collected from tradition, from girls playing on the streets of Glasgow, and printed with words beginning "Who learned you to dance, Babbity Bowster {bolster}, Babbity Bowster." The tune was associated with the cushion dance, an old kissing dance performed with a pillow (See note for "Babbity Bowster"). Alburger (Scottish Fiddlers and Their Music), 1983; Ex. 2, pgs. 16‑17.
+        )
+
+    [A LEAD LIFE LIST SOLDIERS TO WHO] => Array
+        (
+            [title] => Who List To Lead A Soldier's Life
+            [notes] => English, Country Dance Tune (6/4 time). A Major. Standard tuning. AB. This air, from the latter sixteenth century, appears in Playford's Dancing Master of 1650. As was usual for popular tunes, it was later used as the vehicle for several songs. Chappell (Popular Music of the Olden Times), Vol. 1, 1859; pg. 303.
+        )
+
+    [LIVETH MERRY SO WHO] => Array
+        (
+            [title] => Who Liveth So Merry
+            [notes] => English, Ballad Air (3/4 time). G Major. Standard tuning. AA. This late sixteenth century air appears in Deuteromelia (1609) and Pills to Purge Melancholy (1698). Kines (1964) notes it was an early song built on occupations, which must have proved popular, for many other such songs are found later in the 17th century in Pills to Purge Melancholy. Chappell (Popular Music of the Olden Times), vol. 1, 1859; pg. 137. Kines (Songs From Shakespeare's Plays and Popular Songs of Shakespeare's Time), 1964; pg. 90.
+        )
+
+    [AKA BRITCHES MADE WHO YOUR] => Array
+        (
+            [title] => Who Made Your Britches?  Aka And See “limerick Lasses
+            [notes] => ” American, Reel. D Major. Standard tuning. AB. “Who Made Your Britches?” is the first two parts of the Irish tune “Limerick Lasses.” Cole (1000 Fiddle Tunes), 1940; pg. 25. Ryan’s Mammoth Collection, 1883; pg. 50.
+        )
+
+    [I PO SPILT THE WHO] => Array
+        (
+            [title] => Who Spilt The Po? Irish, Polka
+            [notes] => Ireland, Sliabh Luachra. A polka that the late Jack Connell, of Lighthouse, Ballydesmond, used to play, according to Donal Hickey (Stone Mad for Music, 1999). The story of the title goes that a man was walking into town to get his usual draught of stout, usually carried home in an earthernware crock, in those days. He had forgotten his jar, but his wife had purchased that day a new chamber pot, a ‘po’, and seeing this as a suitable substitute he had the publican fill the vessel. On the way home, however, ‘the road was rough, the donkey was tough and that’s how I spilt the po.’
+        )
+
+    [FALSE STORIES THESE TOLD WHO YOU] => Array
+        (
+            [title] => Who Told You These False Stories
+            [notes] => Irish, Air (2/4 time). F Major/Mixolydian. Standard tuning. AB. Source for notated version: “From Mr. R. Fitzgerald” [Stanford/Petrie]. Stanford/Petrie (Complete Collection), 1905; No. 655, pg. 164.
+        )
+
+    [DANDLE MARY MY WHO WILL] => Array
+        (
+            [title] => Who Will Dandle My Mary?  (co A Ni Mire Ri Mairi)
+            [notes] => Scottish, Slow Air (9/8 time). G Major. Standard tuning. AAB. This tune "is a tender lullaby or baby‑song, to which Mrs. Fraser of Bruiach, formerly mentioned, composed admirable verses, while dandling her daughter, the present Mrs. Nicholson of Inverness. There are, however, other words more ancient. The mention of its being a 'baby‑song' will lead the poet into the train of ideas suited to it" (Fraser). Fraser (The Airs and Melodies Peculiar to the Highlands of Scotland and the Isles), 1874; No. 175, pg. 71.
+        )
+
+    [DOBBIN HO WHOA] => Array
+        (
+            [title] => Whoa Ho Dobbin
+            [notes] => American, Country Dance Tune (2/4). C Major. Standard. AB tuning. Shaw (Cowboy Dances), 1943; pg. 285.
+        )
+
+    [MULE WHOA] => Array
+        (
+            [title] => Whoa Mule (whoa) [1]
+            [notes] => AKA and see "Fortune," "Kicking Mule." Old‑Time, Breakdown. USA; Missouri, Oklahoma, Georgia, southwestern Va., western North Carolina. G Major. Standard tuning. AABB. This "band" tune and tune title was characteristic of Patrick County, southwestern Va. (Tom Carter & Blanton Owen, 1976), and Surry County, North Carolina (Kerry Blech). It was one of the songs recorded in Atlanta, Georgia, by Roba Stanley, fourteen years old, in August 1924 for OKeh Records. She, “according to country music historians, became America’s first recorded female country singer (Wayne W. Daniel, Pickin’ on Peachtree, 1990), but sang the song on the recording as a duet with her father, R.M. “Rob” Stanley, the winner of the Georgia state fiddling championship in 1920. Sources for notated versions: Bill Katon (Tebbetts, Missouri) [Christeson]: Max Collins (Pottawatomie County, Oklahoma) [Thede].
+
+***
+
+(Spoken)
+
+"Say, look hyah, Jane!
+
+Doancha wanna take a ride?"
+
+"Well, doan care if I do."
+
+So he hitch up his mule an' staht out.
+
+***
+
+(Sung)
+
+Well, it's whoa, mule, git up and down,
+
+'Til ah says who‑‑‑‑a mule.
+
+***
+
+Well its git up and down
+
+Just as fas' as you can
+
+Fer I'se goin' to feed ye 
+
+All the oats an' bran.
+
+***
+
+An' its who‑‑‑a mule, git up and down,
+
+'Til Ah say who‑‑‑a mule.
+
+***
+
+(Spoken)
+
+"Ain't he a mule, Miss Jane?"
+
+"Uh‑huh."
+
+***
+
+Christeson (Old Time Fiddlers Repertory, vol. 2), 1984; pg. 87. The Devil's Box, pg. 23. Thede (The Fiddle Book), 1967; pg. 130. In the repertoire of Phil Reeve of the Georgia Yellow Hammers (north Ga.). Bluebird 5591B (78 RPM), Gid Tanner and His Skillet Lickers (north Ga.) {1934}. Document 8039, “The Hill Billies/Al Hopkins and His Buckle Busters: Compoete Recorded Works in Chronological Order, Vol. 1” (reissue). In the repertoire of the Kimble Family, Patrick County, Va., and Benton Flippen, Surry County, North Carolina.
+        )
+
+    [CANT DAMN GET MULE ON SADDLE THE WHOA] => Array
+        (
+            [title] => Whoa Mule, Can’t Get The Damn Saddle On
+            [notes] => American, Breakdown. USA, Texas. G Major. From the playing of Texas fiddler Major Franklin.
+        )
+
+    [BE SHE WHOEER] => Array
+        (
+            [title] => Whoe’er She Be (be N-eirinn I)
+            [notes] => Irish, Air (4/4 time). F Major. Standard tuning. One part. Joyce (1873) relates that the burden (“Ben-erinn i”) is common to several love songs and prints a verse from one of the best, written in the 18th century by the poet William “Blind William,” Herrernan, a native of Shronell, Tipperary (the entire song can be found in Walsh’s Irish Popular Songs).
+
+***
+
+But O! One noon I clomb a hill,
+
+To sigh alone, to weep my fill;
+
+And there Heav’n’s mercy sent to me,
+
+My treasure rare, Ben-e-rinn-i, Ben-e-rinn-I
+
+***
+
+Source for notated version: noted in 1853 from the singing of Michael Dinneen, Coolfree, County Limerick [Joyce]. Howe (1000 Jigs and Reels), c. 1867; pg. 22. Joyce (Ancient Irish Music), 1890; No. 46, pg. 47.
+        )
+
+    [BUNCH KEYS OF WHOLE] => Array
+        (
+            [title] => Whole Bunch Of Keys
+            [notes] => Old‑Time, Breakdown. A Major. AEae tuning. AABBBB. Source for notated version: Tara Nevins (New York) via Liz Slade (Yorktown, New York) [Kuntz]. Kuntz, Private Collection.
+        )
+
+    [CHICKEN IN SOUP THE THE WHOLE] => Array
+        (
+            [title] => Whole Chicken In The Soup, The (an Chearc Ar Fad Ins An T-anraith)
+            [notes] => Irish, Single Jig. G Major. Standard tuning. AABB’. Breathnach (CRÉ II), 1976; No. 63. Breathnach (Folk Music and Dances of Ireland), 1971; 19.
+        )
+
+    [AND BROTH HEN THE THE WHOLE] => Array
+        (
+            [title] => Whole Hen And The Broth, The
+            [notes] => See "Kelly's Goat."
+        )
+
+    [BE BUT CHARLIE KING WHOLL] => Array
+        (
+            [title] => Who'll Be King But Charlie
+            [notes] => See "Wha'll (Who'll) Be King But Charlie." AKA and see "Behind the Bush in the Garden [1]."
+        )
+
+    [AKA BESOMS BUY MY WHOLL] => Array
+        (
+            [title] => Who'll Buy My Besoms? Aka And See "the Merry Merchant [2]
+            [notes] => " Irish, Air (3/4 time). G Major. Standard tuning. AB. Stanford/Petrie (Complete Collection), 1905; No. 857-858, pg. 214.
+        )
+
+    [COME FIGHT I IN SNOW THE TO WHOLL] => Array
+        (
+            [title] => Who'll Come To Fight In The Snow? Irish, Slip Jig
+            [notes] => D Major. Standard. AABB. McNulty (Dance Music of Ireland), 1965; pg. 27.
+        )
+
+    [DANCE WATTIE WHOLL WI] => Array
+        (
+            [title] => Who'll Dance Wi' Wattie
+            [notes] => AKA and see "Wha'll Dance Wi' Wattie."
+        )
+
+    [DO GOOD HARM MAN ME NE WHOOP] => Array
+        (
+            [title] => Whoop(e)! Do(e) Me Ne(e) Harm, Good Man
+            [notes] => AKA and see "Paddy Whack [1]." Irish, English; Country Dance Air (3/4 time). G Mixolydian (Merryweather): D Major (Chappell): C Mixolydian (Kines). Standard tuning. One part (Kines, Merryweather): AB (Chappell). Composed by William Corkine, 1610. Chappell (1859) and Merryweather (1989) point out that the final four bars will support the title words once (Chappell) or twice (Merryweather), though the lyrics (probably bawdy) have been lost. The ballad was referred to twice by Shakespeare in A Winter's Tale (act iv, sc. 3). Chappell's air, which appears in the W. Corkine's First Book of Ayres (1610) was later adapted by Thomas Moore for use to his song "While History's Muse." The melody Kines uses, different from Chappell and Merryweather's, was quoted by Sir Fredrick Bridge from a 17th century viol da gamba book. Chappell (Popular Music of the Olden Times), Vol. 1, 1859; pg. 96. Kines (Songs From Shakespeare's Plays and Popular Songs of Shakespeare's Time), 1964; pg. 28. Merryweather (Merryweather's Tunes for the English Bagpipe), 1989; pg. 36.
+        )
+
+    [CINDY EM UP WHOOP] => Array
+        (
+            [title] => Whoop 'em Up Cindy
+            [notes] => AKA and see "Cindy [1]." Old‑Time, Song Tune and Breakdown. Marimac 9008, The Lazy Aces String Band ‑ "Still Lazy After All These Years" (1986. Learned from Uncle Dave Macon via the New Lost City Ramblers).
+        )
+
+    [MARCH THE WHORES] => Array
+        (
+            [title] => Whore's March, The
+            [notes] => English, Jig. England, Northumberland. G Major. Standard tuning. AABB. Seattle (William Vickers), 1987, Part 3; No. 547.
+        )
+
+    [BEEN BEEN GONE HERE IVE SINCE WHOS] => Array
+        (
+            [title] => Who's Been Here Since I've Been Gone
+            [notes] => Old‑Time, Breakdown. Gerry Milnes relates a story attached to the tune in which a man returns home after having been away for a year in the army, only to find a newborn baby in a cradle (some version have him sneaking in while his wife is out hanging the wash). His reaction: to take the fiddle down off the wall and play “Who’s Been Here Since I’ve Been Gone.” Some versions of the story give that his second surprise is that the fiddle is in a different tuning than the one he plays in. Jeff Titon (2001) notes that “Who’s been here since I’ve been gone” is a “floating lyric sung by a cuckold that also turns up in African American tradition” and gives Howlin’ Wolfe’s song “Smokestack Lightning” as a example. Solomon Northrup discussed slave fiddling in his book 12 Years a Slave and printed the “Who’s been here…” lyric. See note for “Ways of the World [2].” See also the related “Pretty Little Girl with the Blue Dress On” and “Gate to Go Through.” Gennett 6828 (78 RPM), Doc Roberts (Ky.). Shanachie Records 6040, Gerry Milnes & Lorriane Lee Hammond – “Hell Up Coal Holler” (1999. “Old Mose Coffman played this one”).
+        )
+
+    [KEEPING TALLY WHOS] => Array
+        (
+            [title] => Who's Keeping Tally
+            [notes] => Old‑Time. The title appears in a list of traditional Ozark Mountain fiddle tunes compiled by musicologist/folklorist Vance Randolph, published in 1954.
+
+ 
+
+WHOSE BLACK BABY ARE YOU? See “Goodbye Liza Jane [3].”
+        )
+
+    [AWA MAN S WHIGS WHURRY] => Array
+        (
+            [title] => Whurry Whigs Awa’ Man!  Scottish, Air
+            [notes] => The tune was played by a Highland piper in the army of Montrose during his defeat at Philiphaugh in September, 1645.  In typical brave Highland fashion, the piper placed himself on a small mound near the river Ettrick and proceeded to play to rally his fellow soldiers until a bullet from the opposing side cut him down. He fell mortally wounded into the river and drowned, and ever after the spot has been known as Piper’s Pool. The song can be found in James Hogg’s Jacobite Relics (vol. 2, pg. 63).
+        )
+
+    [ARE EYES FLOWING MINE STILL WHY] => Array
+        (
+            [title] => Why Are Mine Eyes Still Flowing
+            [notes] => English, Air. The air was published by John Gay in his The Beggar's Opera (1729), and also appears in D’Urfey’s Pills to Purge Melancholy, vol. II, (1719). Raven (English Country Dance Tunes), 1984; pg. 69.
+        )
+
+    [A A ACAN CANT DANCE LIKE MAN WHITE WHY] => Array
+        (
+            [title] => Why Can’t A White Man Dance Like A…can? American, Breakdown
+            [notes] => USA, Texas. A variant of “Natchez Under the Hill [1],” from the playing of Orville Burns and Ace Sewell.
+        )
+
+    [DID MARRY PROMISE TO WHY YOU] => Array
+        (
+            [title] => Why Did You Promise To Marry
+            [notes] => English, Slip Jig. England, Northumberland. D Major. Standard tuning. AABBCC. See also the related “Astrope wells the new way” and “Merry Making [2].” Seattle (William Vickers), 1987, Part 2; No. 238. Front Hall FHR‑08, Alistair Anderson ‑ "Traditional Tunes" (1976).
+        )
+
+    [DIDNT I LOVE MAIRE WHY] => Array
+        (
+            [title] => Why Didn't I Love Maire? (tuige Gan Grá A'm Do Mháire?)
+            [notes] => Irish, Slip Jig. G Major. Standard tuning. AAB. Breathnach gives this verse to the tune from Tim Leahy:
+
+***
+
+Why didn't I love Maire?
+
+Why didn't she love me?
+
+Why didn't I love Maire,
+
+Better than anybody?
+
+***
+
+She has twenty cows,
+
+And I have only four.
+
+Buckle them up together
+
+And that’ll make twenty-four.
+
+***
+
+Breathnach (1985) finds the ‘B’ part similar to that of “The Beesom.” Source for notated version: fiddler Mickey Burke, 1968 (Listowel, Co. Kerry, Ireland) [Breathnach]. Breathnach (CRÉ II), 1976; No. 96, pg. 52.
+        )
+
+    [DO I LEAVE ME WHY YOU] => Array
+        (
+            [title] => Why Do You Leave Me? Irish, Slow Air (4/4 Time)
+            [notes] => F Major. Standard tuning. AB. Source for notated version: Patrick MacDowell, "the distinguished sculptor: born in Belfast 1799: died in 1870" (Joyce). Joyce (Old Irish Folk Music and Songs), 1909; No. 512, pg. 278.
+        )
+
+    [DONT O SHOVEL WHY YOU] => Array
+        (
+            [title] => Why Don't You Shovel? Old-time, Breakdown
+            [notes] => C Major. Standard tuning. AABB. Source for notated version: Lynn “Chirps” Smith [Phillips]. Phillips (Traditional American Fiddle Tunes, vol. 1), 1994; pg. 257.
+        )
+
+    [DISDAINED FAITHFUL IS SLAVE WHY YOUR] => Array
+        (
+            [title] => Why Is Your Faithful Slave Disdained (bononcini)
+            [notes] => English, Air. The air was published by John Gay in his Beggar's Opera (1729), where it appears under the title "If love the virgin's heart invade." It also appears ("in an indifferent form," says Kidson {1922}) in Pills to Purge Melancholy, vol. III, 1719; Pulver (1923) indicates this popular melody found its way, under different titles, into many ballad operas of the early 18th century. Raven (English Country Dance Tunes), 1984; pg. 51.
+        )
+
+    [FLIRT HOW MADAM NOW WHY] => Array
+        (
+            [title] => Why How Now, Madam Flirt
+            [notes] => AKA and see "Gossip Joan," "Good morrow, Gossip Joan."  English, Air. The tune appears under the above title in John Gay's Beggar's Opera of 1728.
+        )
+
+    [BE DAY I MY ON S SAD SHOULD SO WEDDING WHY] => Array
+        (
+            [title] => Why Should I Be So Sad On My Wedding Day?  Scottish, Air
+            [notes] => The melody was reputedly rung out by the bells of St. Giles in Edinburgh to signal the Union between Scotland and England in 1707. An apparently deliberate expression of ambivalence.
+        )
+
+    [E I LIKE LOVE MY NOT SHOULD WHY] => Array
+        (
+            [title] => Why Should I Not Like My Love?  English, Scottish; Country Dance Tune (9/8)
+            [notes] => England, Northumberland. A Minor. Standard tuning. AB. The title (as “Why Should I Not Love My Love”) appears in Henry Robson's list of popular Northumbrian song and dance tunes ("The Northern Minstrel's Budget"), which he published c. 1800. Aird (Selections of Scotch, English, Irish and Foreign Airs), vol. II, 1785; No. 149, pg. 55.
+
+
+
+WHY SHOULD I NOT LOVE MY LOVE?  See “Why Should I Not Like My Love.”
+        )
+
+    [FOLK NOT POOR SHOULD WHY] => Array
+        (
+            [title] => Why Should Not Poor Folk? (cad Fath Nach Ndeinfadh Na Boicht?)
+            [notes] => AKA and see "Jackson's maid at the fair [1]." Irish, Air (6/8 time). C Major. Standard tuning. ABC. O'Sullivan (1983) points out the tune, from Bunting's 1840 collection, is really an extended version of "A ghaoith on nDeas," printed in Bunting's 1809 volume A General Collection of the Ancient Music of Ireland (pg. 37). A version of the tune appears as "Jackson's maid at the fair" in O'Farrell's Pocket Companion for the Irish or Union Pipes (Vol. 1, pg. 771), c. 1811. Source for notated version: the Irish collector Edward Bunting noted the melody in 1792 from "the performance of an old man well known by the 'soubriquet' of 'Poor Folk,' who formerly perambulated the northern counties, playing on a tin fiddle." O'Sullivan/Bunting, 1983; No. 50, pgs. 79-80.
+        )
+
+    [PART SHOULD SO SOON WE WHY] => Array
+        (
+            [title] => Why Should We Part So Soon
+            [notes] => Irish, Air (3/4 time). A Major. Standard tuning. AABB. O’Farrell (Pocket Companion, vol. 1); c. 1805; pg. 73.
+        )
+
+    [FOR QUARREL RICHES SHOULD WE WHY] => Array
+        (
+            [title] => Why Should We Quarrel For Riches
+            [notes] => English, Irish;Air (9/8 time). G Major/E Minor. Standard tuning. ABB.  O’Farrell (c. 1810) assigns an Irish provenance for this sailor’s song, although it appears earlier in Allan Ramsay’s Tea-Table Miscellany (London). The first verse and chorus go:
+
+***
+
+How pleasant a sailor's life passes,
+Who roams o'er the watery main!
+No treasure he ever amasses,
+But cheerfully spends all his gain.
+We're strangers to party and faction,
+To honour and honesty true;
+And would not commit a bad action
+For power or profit in view.
+Chorus:
+Then why should we quarrel for riches,
+Or any such glittering toys;
+A light heart, and a thin pair of breeches,
+Will go through the world, my brave boys!
+
+***
+
+ Joyce (Old Irish Folk Muisc and Songs), 1909; No. 437, pgs. 247‑248. O’Farrell (Pocket Companion, vol. IV), c. 1810; pg. 125.
+        )
+
+    [BE DAY N SAD SHOULD SO UPON WEDDING WHY YOU YOUR] => Array
+        (
+            [title] => Why Should You Be So Sad Upon Your Wedding Day?  Northumbrian
+            [notes] => Title appears in Henry Robson's list of popular Northumbrian song and dance tunes ("The Northern Minstrel's Budget"), which he published c. 1800.
+        )
+
+    [AKA H SOLDIERS WHY WHY] => Array
+        (
+            [title] => Why, Soldiers, Why?  Aka ‑ "how Stands The Glass Around," "wolfe's Song," "the Duke Of Berwick's March
+            [notes] => " English, March and Song (4/4 time). F Minor. Standard tuning. AB. The tune appears in The Patron, a ballad opera, in 1729 and also in Vocal Music (1775) where it is called "A Soldier's Song." It was popular with English soldiers in the Napoleonic Wars, but associated with General Wolfe and the capture of Québec in 1759. Erroneously reported to have been sung by Wolfe the night before he was killed in battle on the Plains of Abraham (Winstock, 1970). Chappell (Popular Music of the Olden Times), vol. 2, 1859; pgs. 134‑135.
+        )
+
+    [BAY WHYCOCOMAGH] => Array
+        (
+            [title] => Whycocomagh Bay
+            [notes] => Canadian, Reel. Canada, Cape Breton. D Mixolydian. Standard tuning. AB (MacQuarrie): ABB’ (Fitzgerald). A 20th century composition by Gordon MacQuarrie. Source for notated version: Winston Fitzgerald (1914-1987, Cape Breton) [Cranford]. Cranford (Winston Fitzgerald), 1997; No. 137, pg. 56.
+        )
+
+)

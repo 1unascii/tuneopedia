@@ -1,0 +1,16 @@
+FILES: Array
+(
+    [abc_file] => Array
+        (
+            [name] => fiddlers_companion_w.abc
+            [full_path] => fiddlers_companion_w.abc
+            [type] => application/octet-stream
+            [tmp_name] => C:\xampp\tmp\phpF5B0.tmp
+            [error] => 0
+            [size] => 0
+        )
+
+)
+
+POST keys: collection_name, author, description, normalize_abc, parse_annotations, abc_text
+abc_text len: 0

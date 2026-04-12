@@ -1,0 +1,39 @@
+#tune-page {
+    padding: 20px;
+}
+
+.tune-page-title {
+    margin-bottom: 4px;
+}
+
+.tune-page-type {
+    color: #888;
+    font-style: italic;
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.tune-page-notes {
+    background: #3a3a2e;
+    border-left: 3px solid #888;
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+}
+
+.tune-page-notes p {
+    margin: 0 0 0.5em 0;
+}
+
+.tune-page-notes p:last-child {
+    margin-bottom: 0;
+}
+
+#tune-notation {
+    margin-top: 20px;
+}
+
+.tune-page-no-notation {
+    color: #999;
+    font-style: italic;
+}

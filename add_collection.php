@@ -1,198 +1,6 @@
-<!--CSS-->
-<link href="css/style.css" rel="stylesheet" type="text/css"/>
-
 <?php
 
-//$debug_tune_name = '';
-
-// DETECT ANACRUSIS — count note units in first bar
-function countBeats($content, $default_note_length = '1/8') {
-    // How many eighth notes is one L: unit worth?
-    $multiplier = 1; // default L:1/8 = 1 eighth note
-    if (preg_match('/(\d+)\/(\d+)/', $default_note_length, $m)) {
-        $multiplier = ((int)$m[1] / (int)$m[2]) / (1/8);
-        // L:1/4 -> (1/4) / (1/8) = 2  (one quarter note = 2 eighth notes)
-        // L:1/8 -> (1/8) / (1/8) = 1
-    }
-
-    $content = preg_replace('/\(\d+/', '', $content);   // strip tuplet markers
-    $content = preg_replace('/\{[^}]*\}/', '', $content); // grace notes
-    $content = preg_replace('/\[[^\]]*\]/', '', $content); // chords
-    $content = preg_replace('/[!+~HLMOPSTuv]/', '', $content); // decorations
-
-    preg_match_all('/[a-gA-GzZ][,\']*(\d*)(\/?(\d*))/', $content, $matches, PREG_SET_ORDER);
-    $beats = 0;
-    foreach ($matches as $note) {
-        $num   = $note[1] !== '' ? (int)$note[1] : 1;
-        $slash = $note[2];
-        if ($slash === '/') {
-            $denom = 2;
-        } elseif (preg_match('/\/(\d+)/', $slash, $dm)) {
-            $denom = (int)$dm[1];
-        } else {
-            $denom = 1;
-        }
-        $beats += ($num / $denom) * $multiplier;
-    }
-    return $beats;
-}
-
-function formatAbcBody($abcBody, $timeSignature, $default_note_length = '1/8', $debug_tune_name) {
-    // Clean up input
-    $abcBody = preg_replace('/\|\\\\\n/', '|', $abcBody);  // strip |\ continuations
-    $abcBody = preg_replace('/\\\\\n/', ' ', $abcBody);     // strip \ continuations
-    $abcBody = preg_replace('/\n\s*\n/', "\n", $abcBody);  // remove blank lines
-    $abcBody = trim($abcBody);
-
-    // Normalise all ending markers to [1 and [2
-    $abcBody = str_replace('|1', '|[1', $abcBody);
-    $abcBody = str_replace('|2', '|[2', $abcBody);
-
-    // beatsPerMeasure in eighth notes — do NOT scale by unit length
-    $beatsPerMeasure = 8;
-    if (preg_match('/^(\d+)\/(\d+)$/', $timeSignature, $m)) {
-        $beatsPerMeasure = (int)$m[1] * (8 / (int)$m[2]);
-        // 3/4 = 3 * (8/4) = 6 eighth notes
-        // 4/4 = 4 * (8/4) = 8 eighth notes
-        // 6/8 = 6 * (8/8) = 6 eighth notes
-    }
-
-    // Protect [1 and [2 so they don't get eaten by the splitter
-    $abcBody = str_replace('[2', 'SECONDENDING', $abcBody);
-    $abcBody = str_replace('[1', 'FIRSTENDING', $abcBody);
-
-    // Split on barlines, keeping the delimiters
-    $parts = preg_split('/(\|\||:\|:|\|2|\|1|::|:\||\|\]|\|:|\|)/', $abcBody, -1, PREG_SPLIT_DELIM_CAPTURE);
-
-    // Pair content with its following barline, restoring ending markers
-    $bars = [];
-    for ($i = 0; $i < count($parts); $i += 2) {
-        $content = trim($parts[$i]);
-        $barline = isset($parts[$i + 1]) ? $parts[$i + 1] : '';
-        $content = str_replace('SECONDENDING', '[2', $content);
-        $content = str_replace('FIRSTENDING', '[1', $content);
-        if ($content !== '') {
-            $bars[] = ['content' => $content, 'barline' => $barline];
-        }
-    }
-
-    if (empty($bars)) return $abcBody;
-
-    // Detect anacrusis
-    $firstBarBeats = countBeats($bars[0]['content'], $default_note_length);
-    $isAnacrusis   = ($firstBarBeats < $beatsPerMeasure * 0.75);
-
-    $lines       = [];
-    $currentLine = '';
-    $barCount    = 0;
-
-    $repeatBarlines = [':|:', '::', ':|', '|:'];
-    $firstEndingBarlines = ['|1', '[1'];
-    $secondEndingBarlines = ['[2', '|2'];
-    
-    $lines        = [];
-    $currentLine  = '';
-    $barCount     = 0;
-    $inFirstEnding = false;
-    $secondEndingLength = 0;
-    
-    // Pre-calculate second ending lengths
-    // Find each [2 or |2 and count bars until the next || or |] or :|
-    $secondEndingSizes = [];
-    for ($i = 0; $i < count($bars); $i++) {
-        if (in_array(trim($bars[$i]['barline']), $firstEndingBarlines) || str_starts_with($bars[$i]['content'], '[1')) {
-            // Look ahead to find the second ending
-            $size = 0;
-            for ($j = $i + 1; $j < count($bars); $j++) {
-                //if (in_array(trim($bars[$j]['barline']), $secondEndingBarlines) || str_starts_with($bars[$j]['content'], '[2')) {
-                if (in_array(trim($bars[$j]['barline']), $secondEndingBarlines) || str_starts_with($bars[$j]['content'], '[2')) {    
-                    // Now count bars in second ending — start from j (the second ending bar itself)
-                    for ($k = $j; $k < count($bars); $k++) {
-                        $size++;
-                        $bl = trim($bars[$k]['barline']);
-                        if (in_array($bl, ['||', '|]', ':|', ':|:']) || $bl === '') break;
-                    }
-                    break;
-                }
-            }
-            $secondEndingSizes[$i] = $size;
-        }
-    }
-    
-    // DEBUG
-    /*file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc.txt',
-        "Tune: $debug_tune_name secondEndingSizes: " . print_r($secondEndingSizes, true) . "\n",
-        FILE_APPEND
-    );*/
-
-    foreach ($bars as $index => $bar) {
-        $nextBar   = isset($bars[$index + 1]) ? $bars[$index + 1] : null;
-        $thisBeats = countBeats($bar['content'], $default_note_length);
-        $nextBeats = $nextBar ? countBeats($nextBar['content'], $default_note_length) : 0;
-    
-        $isAnacrusisBar      = ($thisBeats < $beatsPerMeasure * 0.75) && ($nextBeats >= $beatsPerMeasure * 0.75);
-        $isRepeatBarline     = in_array(trim($bar['barline']), $repeatBarlines);
-        $isFirstEndingStart  = in_array(trim($bar['barline']), ['|1']) || str_starts_with($bar['content'], '[1');
-        $isSecondEndingStart = in_array(trim($bar['barline']), ['|2']) || str_starts_with($bar['content'], '[2');
-    
-        if ($isAnacrusisBar && trim($currentLine) !== '') {
-            $lines[]     = trim($currentLine);
-            $currentLine = '';
-            $barCount    = 0;
-        }
-
-        
-    
-        $currentLine .= $bar['content'];
-    
-        if (!empty($bar['barline'])) {
-            $currentLine .= $bar['barline'];
-    
-            if (!$isAnacrusisBar && !$isSecondEndingStart) {
-                $barCount++;
-            }
-    
-            if ($isFirstEndingStart) {
-                // Look up how long the second ending is
-                $secondEndingLength = $secondEndingSizes[$index] ?? 0;
-                $inFirstEnding = true;
-            }
-    
-            if ($isRepeatBarline && $inFirstEnding) {
-                // Don't break here if second ending fits on this line
-                if ($secondEndingLength >= 3) {
-                    // Second ending too long — break here, it gets its own line
-                    $lines[]     = trim($currentLine);
-                    $currentLine = '';
-                    $barCount    = 0;
-                    $inFirstEnding = false;
-                }
-            // Otherwise don't break — let second ending bars append
-            } elseif ($isRepeatBarline || $barCount === 4) {
-                $lines[]     = trim($currentLine);
-                $currentLine = '';
-                $barCount    = 0;
-                $inFirstEnding = false;
-            }
-    
-            // After second ending ends, always break
-            $bl = trim($bar['barline']);
-            if ($inFirstEnding && in_array($bl, ['||', '|]', ':|:', ':|']) && ($isSecondEndingStart || !$isFirstEndingStart)) {
-                $lines[]     = trim($currentLine);
-                $currentLine = '';
-                $barCount    = 0;
-                $inFirstEnding = false;
-            }
-        }
-    }
-    
-    if (trim($currentLine) !== '') {
-        $lines[] = trim($currentLine);
-    }
-    
-    return implode("\n", $lines);
-}
-
+include_once('functions.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (session_status() === PHP_SESSION_NONE) {
@@ -203,14 +11,134 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $author         = trim($_POST['author'] ?? '');
     $collectionName = trim($_POST['collection_name']);
     $description    = trim($_POST['description'] ?? '');
-    $abcText        = trim($_POST['abc_text']);
+    $fileUploaded = isset($_FILES['abc_file']) && $_FILES['abc_file']['error'] !== UPLOAD_ERR_NO_FILE;
+    if ($fileUploaded) {
+        if ($_FILES['abc_file']['error'] !== UPLOAD_ERR_OK) {
+            $error = "File upload failed (error code " . $_FILES['abc_file']['error'] . ").";
+        } elseif ($_FILES['abc_file']['size'] === 0) {
+            $error = "The uploaded file is empty.";
+        } else {
+            $abcText = file_get_contents($_FILES['abc_file']['tmp_name']);
+            if ($abcText === false) {
+                $error = "Failed to read the uploaded file.";
+            }
+        }
+    } else {
+        $abcText = trim($_POST['abc_text'] ?? '');
+        if (empty($abcText)) {
+            $error = "Please upload an ABC file or paste ABC notation.";
+        }
+    }
+    if (empty($error)) {
     $abcText        = str_replace("\r\n", "\n", $abcText);
     $abcText        = str_replace("\r", "\n", $abcText);
     $userId         = $_SESSION['user_id'];
+    $annotationNotes = [];
+
+    
+    if (!empty($_POST['parse_annotations'])) {
+        // Build a text containing ONLY annotation sections:
+        //   1. Text before the first X: block
+        //   2. The annotation "tail" of each X: block (text after the abc body ends)
+        //
+        // This prevents the regex from matching S:, B:, Z:, N: header fields
+        // or body lines that use '.' for staccato notation.
+        $segments = preg_split('/(?=^\s*X:\s*\d+)/m', $abcText, -1, PREG_SPLIT_NO_EMPTY);
+        $nonAbcParts = [];
+
+        foreach ($segments as $seg) {
+            if (!preg_match('/^\s*X:\s*\d+/m', $seg)) {
+                // Pre-X: content (annotations before the very first tune)
+                $nonAbcParts[] = $seg;
+            } else {
+                // X: block — keep only the annotation tail after the abc body ends.
+                // The body ends when a line starts with an H-Y letter (English word,
+                // not a note — same heuristic used by the body parser below).
+                $segLines = explode("\n", $seg);
+                $inBody   = false;
+                $tail     = [];
+
+                foreach ($segLines as $line) {
+                    if (preg_match('/^K:/i', trim($line))) {
+                        $inBody = true;
+                        continue;
+                    }
+                    if ($inBody) {
+                        $t = trim($line);
+                        if ($t === '') continue;
+                        if (preg_match('/^[A-GZ]*[H-Y]/', $t)) {
+                            $inBody = false;   // body has ended
+                            $tail[] = $line;   // first annotation line
+                        }
+                        // else: abc body line — skip
+                    } elseif (!empty($tail)) {
+                        $tail[] = $line;       // subsequent annotation lines
+                    }
+                    // before K: — header lines, skip
+                }
+
+                if (!empty($tail)) {
+                    $nonAbcParts[] = implode("\n", $tail);
+                }
+            }
+        }
+
+        $nonAbcText = implode("\n", $nonAbcParts);
+
+        // Title: uppercase first char + anything up to first period on the line.
+        // Notes: everything until the next annotation title (2+ consecutive uppercase
+        //        letters at line start + period on same line) or end of text.
+        preg_match_all('/^([A-Z][^\n.]+)\.\s*(.*?)(?=^[A-Z]{2,}[^\n]*\.\s|\z)/ms',
+            $nonAbcText, $annotationMatches, PREG_SET_ORDER);
+
+        foreach ($annotationMatches as $match) {
+            $rawTitle = trim($match[1]);
+            $notes    = trim($match[2]);
+            if (empty($rawTitle)) continue;
+            // Strip parenthetical subtitles e.g. "(An Cnota Bán)" and bracketed numbers e.g. "[1]"
+            $keyBase = preg_replace('/\([^)]*\)/', '', $rawTitle);
+            $keyBase = preg_replace('/\[\d+\]/', '', $keyBase);
+            // Extract only the ALL-CAPS portion (the tune name), stopping before any
+            // lowercase description e.g. "WHICH WAY DID SHE GO?  Irish, Slow Air (3/4 time)"
+            // → use "WHICH WAY DID SHE GO?" only, not the trailing description
+            if (preg_match('/^([^a-z]+)/', $keyBase, $capsMatch)) {
+                $capsTitle = $capsMatch[1];
+            } else {
+                $capsTitle = $keyBase;
+            }
+            $normalised = strtoupper(preg_replace('/[^A-Z0-9\s]/i', '', $capsTitle));
+            $words = preg_split('/\s+/', trim($normalised));
+            sort($words);
+            $sortedKey = implode(' ', array_filter($words));
+            if (empty($sortedKey)) continue;
+            // Don't overwrite — keep first entry ([1] variant is usually more complete than [2])
+            if (!isset($annotationNotes[$sortedKey])) {
+                $annotationNotes[$sortedKey] = [
+                    'title' => ucwords(strtolower($rawTitle)),
+                    'notes' => $notes
+                ];
+            }
+        }
+
+        // Reduce abcText to only the ABC blocks for subsequent parsing
+        preg_match_all('/^X:.*?(?=^X:|\z)/ms', $abcText, $abcBlocks);
+        $abcText = trim(implode("\n", $abcBlocks[0]));
+    }
+
+    file_put_contents('C:/xampp/htdocs/tuneopedia/debug_annotated_abc.txt', "ANNOTATIONS:\n" . print_r($annotationNotes, true));
+
+
+    //--------------------------------------------------------------------------
+    // LOAD TUNE TYPES FROM DB ONCE
+    //--------------------------------------------------------------------------
+    $stmt = $pdo->query("SELECT tune_type_id, name FROM tune_type");
+    $tuneTypes = [];
+    foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
+        $tuneTypes[strtolower($row['name'])] = (int)$row['tune_type_id'];
+    }
 
     //--------------------------------------------------------------------------
     // PARSE ABC TEXT INTO INDIVIDUAL TUNES
-    // Each tune starts with an X: field. Split on X: at the start of a line.
     //--------------------------------------------------------------------------
     $rawTunes = preg_split('/(?=^\s*X:\s*\d+)/m', $abcText, -1, PREG_SPLIT_NO_EMPTY);
 
@@ -218,15 +146,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "No tunes found in the ABC text. Make sure each tune starts with an X: field.";
     } else {
 
-        // CHECK IF COLLECTION ALREADY EXISTS
         $stmt = $pdo->prepare("SELECT collection_id FROM collection WHERE name = :name LIMIT 1");
         $stmt->execute([':name' => $collectionName]);
         if ($stmt->fetch()) {
             $error = "A collection named \"" . htmlspecialchars($collectionName) . "\" already exists.";
         } else {
-            //----------------------------------------------------------------------
-            // INSERT COLLECTION
-            //----------------------------------------------------------------------
+
             $stmt = $pdo->prepare("
                 INSERT INTO collection (name, author, description, created_at)
                 VALUES (:name, :author, :description, NOW())
@@ -242,63 +167,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $results  = [];
 
             foreach ($rawTunes as $rawTune) {
-
                 $rawTune = trim($rawTune);
                 if (empty($rawTune)) continue;
 
-                //------------------------------------------------------------------
-                // EXTRACT FIELDS FROM ABC BLOCK
-                //------------------------------------------------------------------
-                $tuneName      = '';
-                $keySignature  = '';
-                $timeSignature = '4/4'; //default
-                
+                $tuneName            = '';
+                $keySignature        = '';
+                $timeSignature       = '4/4';
+                $default_note_length = '1/8';
+                $lines               = explode("\n", $rawTune);
+                $bodyLines           = [];
+                $fieldNotes          = [];
+                $inBody              = false;
 
-                $lines     = explode("\n", $rawTune);
-                $bodyLines = [];
-                $inBody    = false;
-                $default_note_length    = '1/8'; // add this
-                
+                // ── Extract headers ───────────────────────────────────────────
                 foreach ($lines as $line) {
                     $line = trim($line);
-                
                     if (preg_match('/^T:\s*(.+)/', $line, $m)) {
-                        if (empty($tuneName)) {
-                            $tuneName = trim($m[1]);
-                        }
+                        if (empty($tuneName)) $tuneName = trim($m[1]);
                     } elseif (preg_match('/^M:\s*(.+)/', $line, $m)) {
                         $timeSignature = trim($m[1]);
                     } elseif (preg_match('/^L:\s*(.+)/', $line, $m)) {
                         $default_note_length = trim($m[1]);
-                    
                     } elseif (preg_match('/^K:\s*(.+)/', $line, $m)) {
                         $keySignature = trim($m[1]);
                         $inBody = true;
-                    } elseif ($inBody && !empty($line)) {
+                    } elseif (preg_match('/^[ZSN]:\s*(.+)/', $line, $m)) {
+                        $fieldNotes[] = trim($m[1]);
+                    } elseif ($inBody) {
+                        if (empty($line)) continue;
+                        // An annotation title is two or more ALL-CAPS words — stop here
+                        // ABC notes only use A-G (and Z for rests); a word with any H-Y letter is a real word
+                        if (preg_match('/^[A-GZ]*[H-Y]/', $line)) break;
                         $bodyLines[] = $line;
                     }
                 }
 
+                // ── Build ABC body ────────────────────────────────────────────
                 $abcBody = implode("\n", $bodyLines);
-
-                file_put_contents('C:/xampp/htdocs/tuneopedia/debug_abc.txt',
-                    "Tune: $tuneName | L: $default_note_length\n",
-                    FILE_APPEND
-                );
-
                 if (!empty($_POST['normalize_abc'])) {
                     $abcBody = formatAbcBody($abcBody, $timeSignature, $default_note_length, $tuneName);
                 }
 
-                // Load all tune types from DB [lowercase name => id]
-                $stmt = $pdo->query("SELECT tune_type_id, name FROM tune_type");
-                $tuneTypes = [];
-                foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-                    $tuneTypes[strtolower($row['name'])] = (int)$row['tune_type_id'];
+                // ── Annotation lookup ─────────────────────────────────────────
+                $tuneNotes = '';
+                if (!empty($_POST['parse_annotations']) && !empty($tuneName)) {
+                    $tuneKeyBase = preg_replace('/\([^)]*\)/', '', $tuneName);
+                    $tuneKeyBase = preg_replace('/\[\d+\]/', '', $tuneKeyBase);
+                    $normalisedTuneName = strtoupper(preg_replace('/[^A-Z0-9\s]/i', '', $tuneKeyBase));
+                    $tuneWords = preg_split('/\s+/', trim($normalisedTuneName));
+                    sort($tuneWords);
+                    $sortedTuneName = implode(' ', array_filter($tuneWords));
+                    if (isset($annotationNotes[$sortedTuneName])) {
+                        $tuneNotes = $annotationNotes[$sortedTuneName]['notes'];
+                        unset($annotationNotes[$sortedTuneName]);
+                    }
                 }
 
-
-                    // ── Step 1: Check R: field ────────────────────────────────────────────
+                // ── Tune type detection ───────────────────────────────────────
                 $tuneTypeName = '';
                 foreach ($lines as $line) {
                     if (preg_match('/^R:\s*(.+)/i', trim($line), $m)) {
@@ -307,7 +232,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
 
-                // ── Step 2: If no R: field, scan all headers for keywords ─────────────
                 if (empty($tuneTypeName)) {
                     $keywords = ['strathspey', 'slip jig', 'hornpipe', 'march', 'reel', 'jig', 'polka', 'waltz'];
                     foreach ($lines as $line) {
@@ -321,7 +245,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
 
-                // ── Step 3: Fall back to time signature ───────────────────────────────
                 if (empty($tuneTypeName)) {
                     $timeSigMap = [
                         '4/4'  => 'reel',
@@ -337,8 +260,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (!isset($tuneTypes[$tuneTypeName])) {
                     $stmt = $pdo->prepare("INSERT IGNORE INTO tune_type (name) VALUES (:name)");
                     $stmt->execute([':name' => ucfirst($tuneTypeName)]);
-                    
-                    // Whether we inserted or it already existed, fetch the ID
                     $stmt = $pdo->prepare("SELECT tune_type_id FROM tune_type WHERE LOWER(name) = :name LIMIT 1");
                     $stmt->execute([':name' => $tuneTypeName]);
                     $tuneTypeId = (int)$stmt->fetchColumn();
@@ -347,59 +268,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $tuneTypeId = $tuneTypes[$tuneTypeName];
                 }
 
-
-                
-
                 if (empty($tuneTypeId)) {
-                    $tuneTypeId = $tuneTypes['other'] ?? 1; // fallback so the tune always gets inserted
+                    $tuneTypeId = $tuneTypes['other'] ?? 1;
                 }
-
 
                 if (empty($tuneName)) {
                     $results[] = ['status' => 'skipped', 'reason' => 'No T: field found', 'tune' => $rawTune];
                     continue;
                 }
 
-                
-                //------------------------------------------------------------------
-                // CHECK IF TUNE ALREADY EXISTS BY NAME
-                //------------------------------------------------------------------
-                $stmt = $pdo->prepare("
-                    SELECT tune_id FROM tune WHERE name = :name LIMIT 1
-                ");
+                // ── Check if tune exists ──────────────────────────────────────
+                $stmt = $pdo->prepare("SELECT tune_id FROM tune WHERE name = :name LIMIT 1");
                 $stmt->execute([':name' => $tuneName]);
                 $existingTune = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if ($existingTune) {
-                    //--------------------------------------------------------------
-                    // TUNE EXISTS — add a new setting named after the collection
-                    //--------------------------------------------------------------
                     $tuneId = $existingTune['tune_id'];
-
                     $stmt = $pdo->prepare("
-                        INSERT INTO setting (tune_id, user_id, name, default_note_length, time_signature,  key_signature, abc_transcription)
+                        INSERT INTO setting (tune_id, user_id, name, default_note_length, time_signature, key_signature, abc_transcription)
                         VALUES (:tune_id, :user_id, :name, :default_note_length, :time_signature, :key_signature, :abc_transcription)
                     ");
                     $stmt->execute([
                         ':tune_id'             => $tuneId,
                         ':user_id'             => $userId,
-                        ':name'                => $tuneName,
+                        ':name'                => $collectionName,
                         ':default_note_length' => $default_note_length,
                         ':time_signature'      => $timeSignature,
                         ':key_signature'       => $keySignature,
                         ':abc_transcription'   => $abcBody
                     ]);
                     $settingId = $pdo->lastInsertId();
-
                     $results[] = ['status' => 'existing_tune', 'tune' => $tuneName, 'tune_id' => $tuneId, 'setting_id' => $settingId];
 
                 } else {
-                    //--------------------------------------------------------------
-                    // NEW TUNE — insert into tune then setting
-                    //--------------------------------------------------------------
-                    $stmt = $pdo->prepare("
-                        INSERT INTO tune (name, tune_type_id) VALUES (:name, :tune_type_id)
-                    ");
+                    $stmt = $pdo->prepare("INSERT INTO tune (name, tune_type_id) VALUES (:name, :tune_type_id)");
                     $stmt->execute([
                         ':name'         => $tuneName,
                         ':tune_type_id' => $tuneTypeId
@@ -407,7 +309,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $tuneId = $pdo->lastInsertId();
 
                     $stmt = $pdo->prepare("
-                        INSERT INTO setting (tune_id, user_id, name, default_note_length, time_signature,  key_signature, abc_transcription)
+                        INSERT INTO setting (tune_id, user_id, name, default_note_length, time_signature, key_signature, abc_transcription)
                         VALUES (:tune_id, :user_id, :name, :default_note_length, :time_signature, :key_signature, :abc_transcription)
                     ");
                     $stmt->execute([
@@ -420,13 +322,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ':abc_transcription'   => $abcBody
                     ]);
                     $settingId = $pdo->lastInsertId();
-
                     $results[] = ['status' => 'inserted', 'tune' => $tuneName, 'tune_id' => $tuneId, 'setting_id' => $settingId];
                 }
 
-                //------------------------------------------------------------------
-                // LINK TUNE TO COLLECTION
-                //------------------------------------------------------------------
+                // ── Save notes ────────────────────────────────────────────────
+                $noteStmt = $pdo->prepare("INSERT INTO tune_note (tune_id, note) VALUES (:tune_id, :note)");
+                if (!empty($tuneNotes)) {
+                    // Split annotation into one row per paragraph, skip separators like ***
+                    $paragraphs = preg_split('/\n{2,}/', trim($tuneNotes));
+                    foreach ($paragraphs as $para) {
+                        $para = trim($para);
+                        if ($para === '' || preg_match('/^\*+$/', $para)) continue;
+                        $noteStmt->execute([':tune_id' => $tuneId, ':note' => $para]);
+                    }
+                }
+                foreach ($fieldNotes as $fn) {
+                    if ($fn !== '') {
+                        $noteStmt->execute([':tune_id' => $tuneId, ':note' => $fn]);
+                    }
+                }
+
+                // ── Link to collection ────────────────────────────────────────
                 $stmt = $pdo->prepare("
                     INSERT INTO collection_tune (collection_id, tune_id, position)
                     VALUES (:collection_id, :tune_id, :position)
@@ -440,11 +356,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $position++;
             }
 
+            // ── Insert tunes with no notation ─────────────────────────────────
+            if (!empty($_POST['parse_annotations'])) {
+                foreach ($annotationNotes as $normalised => $annotation) {
+                    $stmt = $pdo->prepare("INSERT INTO tune (name, tune_type_id) VALUES (:name, :tune_type_id)");
+                    $stmt->execute([
+                        ':name'         => $annotation['title'],
+                        ':tune_type_id' => $tuneTypes['other'] ?? 1
+                    ]);
+                    $tuneId = $pdo->lastInsertId();
+
+                    if (!empty($annotation['notes'])) {
+                        $noteStmt2 = $pdo->prepare("INSERT INTO tune_note (tune_id, note) VALUES (:tune_id, :note)");
+                        $paragraphs = preg_split('/\n{2,}/', trim($annotation['notes']));
+                        foreach ($paragraphs as $para) {
+                            $para = trim($para);
+                            if ($para === '' || preg_match('/^\*+$/', $para)) continue;
+                            $noteStmt2->execute([':tune_id' => $tuneId, ':note' => $para]);
+                        }
+                    }
+
+                    $stmt = $pdo->prepare("
+                        INSERT INTO collection_tune (collection_id, tune_id, position)
+                        VALUES (:collection_id, :tune_id, :position)
+                    ");
+                    $stmt->execute([
+                        ':collection_id' => $collectionId,
+                        ':tune_id'       => $tuneId,
+                        ':position'      => $position
+                    ]);
+
+                    $position++;
+                    $results[] = ['status' => 'inserted', 'tune' => $annotation['title']];
+                }
+            }
+
             $success = true;
         }
     }
+    } // end if (empty($error))
 }
-
 ?>
 
 <!--RESULTS-->

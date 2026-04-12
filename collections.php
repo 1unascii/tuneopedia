@@ -65,6 +65,13 @@
                 <input type="text" id="collection-filter" placeholder="Filter collections by title..." />
             </span>
 
+            <span class="filter-bar">
+                <label for="show-no-setting">
+                    <input type="checkbox" id="show-no-setting" />
+                    Show tunes with no settings
+                </label>
+            </span>
+
             <span class="pagination-top">
                 <label for="collections-per-page-select">Collections per page: </label>
                 <select id="collections-per-page-select">
@@ -165,15 +172,15 @@
                                 </thead>
                                 <tbody class="ui-state-default">
                                     <?php foreach ($type['items'] as $t): ?>
-                                    <tr class="tune_data_row" id="<?= $t['tune_id'] ?>">
+                                    <tr class="tune_data_row<?= empty($t['setting_id']) ? ' no-setting' : '' ?>" id="<?= $t['tune_id'] ?>">
 
                                         <!--POSITION-->
                                         <td><?= htmlspecialchars($t['position']) ?></td>
 
                                         <!--TUNE TITLE AND SHOW ABC BUTTON-->
                                         <td>
-                                            <span class="show_abc" id="<?= $t['setting_id'] ?>">
-                                                <img class="music_note_icon" src="images/notes.gif" alt="show abc notation" />
+                                            <span class="<?= empty($t['setting_id']) ? 'dead_link' : 'show_abc' ?>" id="<?= $t['setting_id'] ?>">
+                                                <img class="music_note_icon<?= empty($t['setting_id']) ? ' no-setting-icon' : '' ?>" src="images/notes.gif" alt="show abc notation" />
                                             </span>
                                             <span class="tune_title" id="<?= $t['tune_id'] ?>">
                                                 <?= htmlspecialchars($t['tune_name']) ?>
