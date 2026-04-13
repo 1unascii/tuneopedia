@@ -331,7 +331,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Split annotation into one row per paragraph, skip separators like ***
                     $paragraphs = preg_split('/\n{2,}/', trim($tuneNotes));
                     foreach ($paragraphs as $para) {
-                        $para = trim($para);
+                        $para = preg_replace('/\n+/', "\n", trim($para));
                         if ($para === '' || preg_match('/^\*+$/', $para)) continue;
                         $noteStmt->execute([':tune_id' => $tuneId, ':note' => $para]);
                     }
@@ -370,7 +370,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $noteStmt2 = $pdo->prepare("INSERT INTO tune_note (tune_id, note) VALUES (:tune_id, :note)");
                         $paragraphs = preg_split('/\n{2,}/', trim($annotation['notes']));
                         foreach ($paragraphs as $para) {
-                            $para = trim($para);
+                            $para = preg_replace('/\n+/', "\n", trim($para));
                             if ($para === '' || preg_match('/^\*+$/', $para)) continue;
                             $noteStmt2->execute([':tune_id' => $tuneId, ':note' => $para]);
                         }

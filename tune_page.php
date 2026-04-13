@@ -48,7 +48,7 @@ $primaryId     = !empty($settings) ? (int)$settings[0]['setting_id'] : 0;
     <div class="tune-page-notes collapsed">
         <div class="tune-page-notes-body">
             <?php foreach ($tuneNotes as $note): ?>
-            <p><?= nl2br(htmlspecialchars($note)) ?></p>
+            <p><?= nl2br(htmlspecialchars(preg_replace('/\n+/', "\n", trim($note)))) ?></p>
             <?php endforeach; ?>
         </div>
         <button class="tune-page-notes-toggle" type="button">Show more</button>
