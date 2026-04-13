@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>abc_playback.js — Key Playback Tests</title>
+    <style>
+        body { font-family: monospace; padding: 2em; background: #1e1e1e; color: #d4d4d4; }
+        h1   { color: #9cdcfe; }
+        h2   { color: #569cd6; margin-top: 2em; }
+        .pass { color: #4ec9b0; }
+        .fail { color: #f44747; }
+        .summary { font-size: 1.2em; margin-top: 2em; border-top: 1px solid #444; padding-top: 1em; }
+        table { border-collapse: collapse; margin-top: 0.5em; }
+        td, th { padding: 0.3em 1.2em 0.3em 0; text-align: left; }
+        th { color: #c586c0; }
+    </style>
+</head>
+<body>
+<h1>abc_playback.js — Key Playback Tests</h1>
+
+<script>
+
+    // ── Key data (must match abc_playback.js exactly) ─────────────────────────
+
+    var sharpsToPush = [["Ff"],["Cc"],["Gg"],["Dd"],["Aa"],["Ee"],["Bb"]];
+    var flatsToPush  = [["B","b"],["E","e"],["A","a"],["D","d"],["G","g"],["C","c"],["F","f"]];
+
+    var sharpKeysArray = [
+        ["C","D dorian","G Mixolydian","A minor"],
+        ["G","A dorian","D Mixolydian","E minor"],
+        ["D","E dorian","A Mixolydian","B minor"],
+        ["A","B dorian","E Mixolydian","F# minor"],
+        ["E","F# dorian","B Mixolydian","C# minor"],
+        ["B","C# dorian","F# Mixolydian","G# minor"],
+        ["F#","G# dorian","C# Mixolydian","D# minor"],
+        ["C#","D# dorian","G# Mixolydian","A# minor"]
+    ];
+    var flatKeysArray = [
+        ["C","D dorian","G Mixolydian","A minor"],
+        ["F","G dorian","C Mixolydian","D minor"],
+        ["Bb","C dorian","F Mixolydian","G minor"],
+        ["Eb","F dorian","Bb Mixolydian","C minor"],
+        ["Ab","Bb dorian","Eb Mixolydian","F minor"],
+        ["Db","Eb dorian","Ab Mixolydian","Bb minor"],
+        ["Gb","Ab dorian","Db Mixolydian","Eb minor"],
+        ["Cb","Db dorian","Gb Mixolydian","Ab minor"]
+    ];
+
+    // ── Pure function extracted from abc_playback.js keypress handler ─────────
+    // Returns the string that would be passed to $(this).play() for a plain
+    // letter keyPress (no accidental modifiers, no octave modifiers).
+    function determinePlayback(key, keyPress) {
+        var sharps = [];
+        var flats  = [];
+
+        var innerSharpKeysArrayIndex = sharpKeysArray.findIndex(function (innerArr) {
+            return innerArr.indexOf(key) !== -1;
+        });
+
+        var innerFlatKeysArrayIndex = flatKeysArray.findIndex(function (innerArr) {
+            return innerArr.indexOf(key) !== -1;
+        });
+
+        if (innerSharpKeysArrayIndex > 0) {
+            for (var i = 0; i < innerSharpKeysArrayIndex; i++) {
+                sharps.push(sharpsToPush[i]);
+            }
+        } else if (innerFlatKeysArrayIndex > 0) {
+            for (var i = 0; i < innerFlatKeysArrayIndex; i++) {
+                flats.push(flatsToPush[i]);
+            }
+        }
+
+        if (sharps.join('').indexOf(keyPress) > -1) {
+            return '^' + keyPress;
+        } else if (flats.join('').indexOf(keyPress) > -1) {
+            return '_' + keyPress;
+        } else {
+            return keyPress;
+        }
+    }
+
+    // ── Test runner ───────────────────────────────────────────────────────────
+
+    var passed = 0;
+    var failed = 0;
+    var results = [];
+
+    function assertEquals(description, expected, actual) {
+        var ok = (expected === actual);
+        if (ok) { passed++; } else { failed++; }
+        results.push({ description: description, expected: expected, actual: actual, ok: ok });
+    }
+
+    // ── Tests ─────────────────────────────────────────────────────────────────
+
+    // B Mixolydian: sharpKeysArray index 4 — 4 sharps in order F C G D
+    assertEquals('B Mixolydian: F should be sharp',  '^F', determinePlayback('B Mixolydian', 'F'));
+    assertEquals('B Mixolydian: C should be sharp',  '^C', determinePlayback('B Mixolydian', 'C'));
+    assertEquals('B Mixolydian: G should be sharp',  '^G', determinePlayback('B Mixolydian', 'G'));
+    assertEquals('B Mixolydian: D should be sharp',  '^D', determinePlayback('B Mixolydian', 'D'));
+    assertEquals('B Mixolydian: A should be natural', 'A', determinePlayback('B Mixolydian', 'A'));
+    assertEquals('B Mixolydian: E should be natural', 'E', determinePlayback('B Mixolydian', 'E'));
+    assertEquals('B Mixolydian: B should be natural', 'B', determinePlayback('B Mixolydian', 'B'));
+
+    // Ab Mixolydian: flatKeysArray index 5 — 5 flats in order B E A D G
+    assertEquals('Ab Mixolydian: D should be flat',  '_D', determinePlayback('Ab Mixolydian', 'D'));
+    assertEquals('Ab Mixolydian: B should be flat',  '_B', determinePlayback('Ab Mixolydian', 'B'));
+    assertEquals('Ab Mixolydian: E should be flat',  '_E', determinePlayback('Ab Mixolydian', 'E'));
+    assertEquals('Ab Mixolydian: A should be flat',  '_A', determinePlayback('Ab Mixolydian', 'A'));
+    assertEquals('Ab Mixolydian: G should be flat',  '_G', determinePlayback('Ab Mixolydian', 'G'));
+    assertEquals('Ab Mixolydian: C should be natural', 'C', determinePlayback('Ab Mixolydian', 'C'));
+    assertEquals('Ab Mixolydian: F should be natural', 'F', determinePlayback('Ab Mixolydian', 'F'));
+
+    // C major / D dorian / G Mixolydian / A minor — all natural (index 0, no accidentals)
+    assertEquals('C major: C should be natural',     'C',  determinePlayback('C', 'C'));
+    assertEquals('C major: F should be natural',     'F',  determinePlayback('C', 'F'));
+    assertEquals('D dorian: F should be natural',    'F',  determinePlayback('D dorian', 'F'));
+    assertEquals('A minor: G should be natural',     'G',  determinePlayback('A minor', 'G'));
+
+    // G major: one sharp (F)
+    assertEquals('G major: F should be sharp',       '^F', determinePlayback('G', 'F'));
+    assertEquals('G major: f should be sharp',       '^f', determinePlayback('G', 'f'));
+    assertEquals('G major: C should be natural',     'C',  determinePlayback('G', 'C'));
+
+    // D major: two sharps (F C)
+    assertEquals('D major: F should be sharp',       '^F', determinePlayback('D', 'F'));
+    assertEquals('D major: C should be sharp',       '^C', determinePlayback('D', 'C'));
+    assertEquals('D major: G should be natural',     'G',  determinePlayback('D', 'G'));
+
+    // Bb major: two flats (B E)
+    assertEquals('Bb major: B should be flat',       '_B', determinePlayback('Bb', 'B'));
+    assertEquals('Bb major: E should be flat',       '_E', determinePlayback('Bb', 'E'));
+    assertEquals('Bb major: F should be natural',    'F',  determinePlayback('Bb', 'F'));
+
+    // F dorian: flatKeysArray index 3 — 3 flats in order B E A
+    assertEquals('F dorian: B should be flat',       '_B', determinePlayback('F dorian', 'B'));
+    assertEquals('F dorian: E should be flat',       '_E', determinePlayback('F dorian', 'E'));
+    assertEquals('F dorian: A should be flat',       '_A', determinePlayback('F dorian', 'A'));
+    assertEquals('F dorian: D should be natural',    'D',  determinePlayback('F dorian', 'D'));
+    assertEquals('F dorian: G should be natural',    'G',  determinePlayback('F dorian', 'G'));
+
+    // E dorian (index 2 in sharpKeysArray): F C sharps
+    assertEquals('E dorian: F should be sharp',      '^F', determinePlayback('E dorian', 'F'));
+    assertEquals('E dorian: C should be sharp',      '^C', determinePlayback('E dorian', 'C'));
+    assertEquals('E dorian: G should be natural',    'G',  determinePlayback('E dorian', 'G'));
+
+    // ── Render results ────────────────────────────────────────────────────────
+
+    var html = '<table><tr><th>Test</th><th>Expected</th><th>Actual</th><th>Result</th></tr>';
+    for (var i = 0; i < results.length; i++) {
+        var r = results[i];
+        var status = r.ok ? '<span class="pass">PASS</span>' : '<span class="fail">FAIL</span>';
+        html += '<tr>'
+            + '<td>' + r.description + '</td>'
+            + '<td>' + r.expected + '</td>'
+            + '<td>' + r.actual   + '</td>'
+            + '<td>' + status     + '</td>'
+            + '</tr>';
+    }
+    html += '</table>';
+    document.write(html);
+
+    var summaryClass = (failed === 0) ? 'pass' : 'fail';
+    document.write('<p class="summary ' + summaryClass + '">'
+        + passed + ' passed, ' + failed + ' failed'
+        + '</p>');
+
+</script>
+</body>
+</html>

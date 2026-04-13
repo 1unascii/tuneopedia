@@ -28,7 +28,10 @@
 <link href="css/style.css?v=2" rel="stylesheet" type="text/css"/>
 <script src='node_modules/abcjs/dist/abcjs-basic.js' type='text/javascript'></script>
 <script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
-<script type="text/javascript" language="javascript" src="js/tunes.js?v=8"></script><!--This forces cloudflared tunnel to reload this JS file after changes have been made-->
+<script type="text/javascript" language="javascript" src="js/jquery-turtle.min.js"></script>
+<script type="text/javascript" language="javascript" src="js/abc_playback.js?v=2"></script>
+<script type="text/javascript" language="javascript" src="js/tunes.js?v=9"></script>
+<script type="text/javascript" language="javascript" src="js/tune_page.js?v=5"></script><!--This forces cloudflared tunnel to reload this JS file after changes have been made-->
 <!--script type="text/javascript" language="javascript" src="js/tunes.js"></script-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

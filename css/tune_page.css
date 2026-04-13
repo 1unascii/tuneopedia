@@ -16,17 +16,43 @@
 .tune-page-notes {
     background: #3a3a2e;
     border-left: 3px solid #888;
-    padding: 10px 16px;
+    padding: 10px 16px 0;
     margin-bottom: 20px;
-    white-space: pre-wrap;
+}
+
+.tune-page-notes-body {
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.tune-page-notes.collapsed .tune-page-notes-body {
+    max-height: 4.5em;
+    -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
 }
 
 .tune-page-notes p {
-    margin: 0 0 0.5em 0;
+    margin: 0 0 0.1em 0;
 }
 
 .tune-page-notes p:last-child {
     margin-bottom: 0;
+}
+
+.tune-page-notes-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 0.82em;
+    padding: 4px 0 8px;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.tune-page-notes-toggle:hover {
+    color: #ddd;
 }
 
 #tune-notation {
@@ -36,4 +62,218 @@
 .tune-page-no-notation {
     color: #999;
     font-style: italic;
+}
+
+.tune-page-setting-count {
+    color: #aaa;
+    font-style: italic;
+    margin: 0 0 12px 0;
+}
+
+/* ── Settings list ─────────────────────────────────────────────────────────── */
+
+#tune-settings {
+    margin-top: 20px;
+}
+
+.setting-block {
+    border-top: 1px solid #4a4a3a;
+    padding: 14px 0 6px;
+}
+
+.setting-block:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+.setting-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 0.88em;
+    color: #bbb;
+}
+
+.setting-label {
+    font-weight: bold;
+    color: #ddd;
+}
+
+.setting-key,
+.setting-time {
+    background: #3a3a2e;
+    padding: 1px 6px;
+    border-radius: 3px;
+}
+
+.setting-submitter {
+    font-style: italic;
+}
+
+/* ── Vote controls ─────────────────────────────────────────────────────────── */
+
+.setting-vote-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.vote-btn {
+    background: none;
+    border: 1px solid #555;
+    color: #999;
+    cursor: pointer;
+    padding: 2px 10px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    line-height: 1.6;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.vote-btn:hover {
+    border-color: #aaa;
+    color: #eee;
+}
+
+.vote-up.vote-active {
+    border-color: #6a6;
+    color: #8c8;
+}
+
+.vote-down.vote-active {
+    border-color: #a66;
+    color: #c88;
+}
+
+.vote-score {
+    min-width: 24px;
+    text-align: center;
+    color: #ddd;
+    font-size: 0.95em;
+}
+
+.setting-notation {
+    margin: 8px 0;
+}
+
+/* ── Edit form ─────────────────────────────────────────────────────────────── */
+
+.edit-setting-btn {
+    background: none;
+    border: 1px solid #555;
+    color: #aaa;
+    cursor: pointer;
+    padding: 2px 10px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    margin-left: 10px;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.edit-setting-btn:hover {
+    border-color: #aaa;
+    color: #eee;
+}
+
+.setting-edit-area {
+    margin-top: 12px;
+    border-top: 1px dashed #4a4a3a;
+    padding-top: 12px;
+}
+
+.edit-loading {
+    color: #888;
+    font-style: italic;
+}
+
+.edit-setting-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+}
+
+.edit-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.edit-field label {
+    font-size: 0.82em;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.edit-field input,
+.edit-field select,
+.edit-field textarea {
+    background: #2a2a1e;
+    border: 1px solid #555;
+    color: #ddd;
+    padding: 5px 8px;
+    border-radius: 3px;
+    font-size: 0.9em;
+    font-family: inherit;
+}
+
+.edit-field input:focus,
+.edit-field select:focus,
+.edit-field textarea:focus {
+    outline: none;
+    border-color: #888;
+}
+
+.edit-field-wide {
+    grid-column: 1 / -1;
+}
+
+.edit-field textarea {
+    resize: vertical;
+    font-family: monospace;
+    line-height: 1.4;
+}
+
+.edit-form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit-save-btn,
+.edit-cancel-btn {
+    padding: 5px 16px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9em;
+    border: 1px solid #666;
+}
+
+.edit-save-btn {
+    background: #3a5a3a;
+    border-color: #6a6;
+    color: #cec;
+}
+
+.edit-save-btn:hover {
+    background: #4a6a4a;
+}
+
+.edit-cancel-btn {
+    background: none;
+    color: #aaa;
+}
+
+.edit-cancel-btn:hover {
+    border-color: #aaa;
+    color: #ddd;
+}
+
+.edit-error {
+    color: #c88;
+    font-size: 0.88em;
 }

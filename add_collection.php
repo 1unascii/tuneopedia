@@ -183,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 foreach ($lines as $line) {
                     $line = trim($line);
                     if (preg_match('/^T:\s*(.+)/', $line, $m)) {
-                        if (empty($tuneName)) $tuneName = trim($m[1]);
+                        if (empty($tuneName)) $tuneName = trim(preg_replace('/\s*\[\d+\]/', '', trim($m[1])));
                     } elseif (preg_match('/^M:\s*(.+)/', $line, $m)) {
                         $timeSignature = trim($m[1]);
                     } elseif (preg_match('/^L:\s*(.+)/', $line, $m)) {
@@ -291,7 +291,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt->execute([
                         ':tune_id'             => $tuneId,
                         ':user_id'             => $userId,
-                        ':name'                => $collectionName,
+                        ':name'                => $tuneName,
                         ':default_note_length' => $default_note_length,
                         ':time_signature'      => $timeSignature,
                         ':key_signature'       => $keySignature,

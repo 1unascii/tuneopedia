@@ -26,13 +26,27 @@ $(document).ready(function(){
             var $backBtn = $('<button class="tune-back-btn">&#8592; Back</button>');
             $panel.prepend($backBtn);
 
-            var abcDataEl = $panel.find('#tune-abc-data')[0];
-            if (abcDataEl) {
-                try {
-                    var abc = JSON.parse(abcDataEl.textContent);
-                    ABCJS.renderAbc('tune-notation', abc);
-                } catch(e) {}
+            // Render primary notation into #tune-notation
+            var $primaryBlock = $panel.find('.setting-block:first');
+            if ($primaryBlock.length) {
+                var $primaryAbc = $primaryBlock.find('.setting-abc-data');
+                if ($primaryAbc.length) {
+                    try {
+                        ABCJS.renderAbc('tune-notation', JSON.parse($primaryAbc[0].textContent));
+                    } catch(e) {}
+                }
             }
+            // Render each alternate setting's inline notation div
+            $panel.find('.setting-block:not(:first-child)').each(function() {
+                var $block = $(this);
+                var $abcEl = $block.find('.setting-abc-data');
+                var $notDiv = $block.find('.setting-notation');
+                if ($abcEl.length && $notDiv.length) {
+                    try {
+                        ABCJS.renderAbc($notDiv.attr('id'), JSON.parse($abcEl[0].textContent));
+                    } catch(e) {}
+                }
+            });
 
             $backBtn.one('click', function() {
                 $panel.html(savedHtml);
