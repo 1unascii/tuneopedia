@@ -127,7 +127,7 @@
 
 <!--DISPLAY SHEET MUSIC HERE-->
 <div class="container">
-	<p>Select the tune you want to display. </p> 
+	<p id="select-tune-prompt">Select the tune you want to display. </p>
 	<div id="paper"></div>
 </div>
                    

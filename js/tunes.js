@@ -12,6 +12,10 @@ $(document).ready(function(){
         var savedPage = isCollectionTable
             ? (collectionTunePages[tableId] || 1)
             : (currentPages[tableId] || 1);
+        // Clear any open sheet music and its close icon before saving state
+        $('#paper').empty();
+        $('.show-abc-close').remove();
+
         var savedHtml = $panel.html();
 
         // Store state on the panel so tab-switch can also restore it
@@ -22,7 +26,12 @@ $(document).ready(function(){
             isCollectionTable: isCollectionTable
         });
 
+        $('#select-tune-prompt').hide();
+
         $panel.load('tune_page.php?tune_id=' + tune_id, function() {
+            // Remove close icon in case the $.post callback fired late and re-inserted it
+            $('.show-abc-close').remove();
+
             var $backBtn = $('<button class="tune-back-btn">&#8592; Back</button>');
             $panel.prepend($backBtn);
 
@@ -51,6 +60,7 @@ $(document).ready(function(){
             $backBtn.one('click', function() {
                 $panel.html(savedHtml);
                 $panel.removeData('tunePageState');
+                $('#select-tune-prompt').show();
                 if (tableId) {
                     if (isCollectionTable) {
                         filterAndPaginateCollectionTunes(tableId, savedPage);
@@ -250,6 +260,7 @@ $(document).ready(function(){
         if (oldState) {
             ui.oldPanel.html(oldState.savedHtml);
             ui.oldPanel.removeData('tunePageState');
+            $('#select-tune-prompt').show();
             if (oldState.tableId) {
                 if (oldState.isCollectionTable) {
                     filterAndPaginateCollectionTunes(oldState.tableId, oldState.savedPage);
@@ -462,6 +473,7 @@ $(document).ready(function(){
                 if (oldState) {
                     ui.oldPanel.html(oldState.savedHtml);
                     ui.oldPanel.removeData('tunePageState');
+                    $('#select-tune-prompt').show();
                     if (oldState.tableId) {
                         if (oldState.isCollectionTable) {
                             filterAndPaginateCollectionTunes(oldState.tableId, oldState.savedPage);

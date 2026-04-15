@@ -185,7 +185,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if (preg_match('/^T:\s*(.+)/', $line, $m)) {
                         if (empty($tuneName)) $tuneName = trim(preg_replace('/\s*\[\d+\]/', '', trim($m[1])));
                     } elseif (preg_match('/^M:\s*(.+)/', $line, $m)) {
-                        $timeSignature = trim($m[1]);
+                        $ts = trim($m[1]);
+                        if ($ts === 'C')  $ts = '4/4';
+                        elseif ($ts === 'C|') $ts = '2/2';
+                        $timeSignature = $ts;
                     } elseif (preg_match('/^L:\s*(.+)/', $line, $m)) {
                         $default_note_length = trim($m[1]);
                     } elseif (preg_match('/^K:\s*(.+)/', $line, $m)) {

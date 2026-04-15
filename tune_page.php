@@ -42,7 +42,12 @@ $primaryId     = !empty($settings) ? (int)$settings[0]['setting_id'] : 0;
 
 <div id="tune-page" data-tune-id="<?= $tune_id ?>">
 
-    <p class="tune-page-setting-count"><?= $settingCount ?> setting<?= $settingCount !== 1 ? 's' : '' ?></p>
+    <p class='tune-page-setting-count'><?php echo $settingCount; ?>
+    <?php if ($settingCount === 1): echo "setting";?>
+    <?php else: echo "settings";?>
+    <?php endif; ?>
+    </p>
+    
 
     <?php if (!empty($tuneNotes)): ?>
     <div class="tune-page-notes collapsed">
@@ -93,11 +98,9 @@ $primaryId     = !empty($settings) ? (int)$settings[0]['setting_id'] : 0;
                 <?php if (!empty($s['key_signature'])): ?>
                 <span class="setting-key"><?= htmlspecialchars($s['key_signature']) ?></span>
                 <?php endif; ?>
-                <?php if (!empty($s['time_signature'])): ?>
-                <span class="setting-time"><?= htmlspecialchars($s['time_signature']) ?></span>
-                <?php endif; ?>
+                
                 <?php if (!empty($s['user_name'])): ?>
-                <span class="setting-submitter">Transcribed by <?= htmlspecialchars($s['user_name']) ?></span>
+                <span class="setting-submitter">Uploaded by <?= htmlspecialchars($s['user_name']) ?></span>
                 <?php endif; ?>
             </div>
 
