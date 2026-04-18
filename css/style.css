@@ -44,8 +44,7 @@ footer                          {
                             clear: both;
 }
 #form_for_new_tune           {
-                            width: 425px;
-                            float:left;
+                            max-width: 900px;
 }
 
 #home_link                              {

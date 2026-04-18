@@ -25,11 +25,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.3/jquery-ui.min.js"></script>
 <link href="css/ui-darkness/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
-<link href="css/style.css?v=2" rel="stylesheet" type="text/css"/>
+<link href="css/style.css?v=3" rel="stylesheet" type="text/css"/>
 <script src='node_modules/abcjs/dist/abcjs-basic.js' type='text/javascript'></script>
 <script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
 <script type="text/javascript" language="javascript" src="js/jquery-turtle.min.js"></script>
-<script type="text/javascript" language="javascript" src="js/abc_playback.js?v=2"></script>
+<script type="text/javascript" language="javascript" src="js/abc_editor.js?v=3"></script>
 <script type="text/javascript" language="javascript" src="js/tunes.js?v=12"></script>
 <script type="text/javascript" language="javascript" src="js/tune_page.js?v=5"></script><!--This forces cloudflared tunnel to reload this JS file after changes have been made-->
 <!--script type="text/javascript" language="javascript" src="js/tunes.js"></script-->
