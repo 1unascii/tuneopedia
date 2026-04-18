@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Don't rewrite real files or directories (css/, js/, images/)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Route everything through the front controller
+RewriteRule ^ index.php [QSA,L]

@@ -1,0 +1,89 @@
+.
+├── .claude
+  ├── settings.local.json
+├── .env
+├── .git
+├── .gitignore
+├── .htaccess
+├── abc_files
+├── composer.json
+├── controllers
+  ├── add_collection.php
+  ├── add_tune.php
+  ├── auth.php
+  ├── collections.php
+  ├── edit_setting.php
+  ├── favorite_tune.php
+  ├── get_tune_body.php
+  ├── register.php
+  ├── remove_tune.php
+  ├── tune_page.php
+  ├── tunes.php
+  ├── vote_setting.php
+├── css
+  ├── internet_explorer.css
+  ├── overcast
+  ├── registration.css
+  ├── style.css
+  ├── tune_page.css
+  ├── tunes.css
+  ├── ui-darkness
+├── debug_annotated_abc.txt
+├── file_structure.txt
+├── forms
+  ├── abc_editor.php
+  ├── add_collection.php
+  ├── edit_setting.php
+  ├── index.php
+  ├── login.php
+  ├── login_from_tune_editor.php
+  ├── mode_options
+    ├── dorian.php
+    ├── major.php
+    ├── minor.php
+    ├── mixolydian.php
+  ├── preview.php
+  ├── registration.php
+  ├── update_tune.php
+├── images
+├── includes
+  ├── connect.php
+  ├── footer.php
+  ├── functions.php
+  ├── functions_abc.php
+  ├── header.php
+  ├── legacy_functions.php
+├── index.php
+├── js
+  ├── abc_editor.js
+  ├── abc_playback.js
+  ├── add_collection.js
+  ├── lib
+  ├── links.js
+  ├── login.js
+  ├── login_from_tune_editor.js
+  ├── register.js
+  ├── set_tune_headers.js
+  ├── tune_page.js
+  ├── tunes.js
+├── links.php
+├── models
+  ├── Collection.php
+  ├── Setting.php
+  ├── Tune.php
+  ├── User.php
+├── node_modules
+├── package.json
+├── package-lock.json
+├── README
+├── sql
+├── tests
+  ├── abc_playback_test.html
+  ├── AbcFormatterTest.php
+├── types
+  ├── index.d.ts
+├── vendor
+├── views
+  ├── collections.php
+  ├── tune_page.php
+  ├── tunes.php

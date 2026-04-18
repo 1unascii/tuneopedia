@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<?php
+    session_start();
+?>
+<div id="page_loader">Please wait while we query the database</div>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <!--[if IE]>
+       <link href="css/themes/internet_explorer.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.3/jquery-ui.min.js"></script>
+<link href="css/themes/ui-darkness/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
+<link href="css/main.css?v=4" rel="stylesheet" type="text/css"/>
+<script src='js/lib/abcjs-basic.js' type='text/javascript'></script>
+<script type="text/javascript" src="js/lib/jquery.dataTables.js"></script>
+<script type="text/javascript" src="js/lib/jquery-turtle.min.js"></script>
+<script type="text/javascript" src="js/modules/login.js?v=5"></script>
+<script type="text/javascript" src="js/modules/abc-editor.js?v=6"></script>
+<script type="text/javascript" src="js/modules/tunes.js?v=22"></script>
+<script type="text/javascript" src="js/modules/tune-page.js?v=9"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Rye&display=swap" rel="stylesheet">
+
+<title class='site-title'>Tuneopedia</title>
+
+<div align = "center">
+    <div id="pop_up">
+        <img id="logo" class='banner-image'  src='images/music_scroll_4.png'/>
+    </div>
+</div>
+
+    <link rel="shortcut icon" href="images/notes.gif" />
+</head>
+<body>
+

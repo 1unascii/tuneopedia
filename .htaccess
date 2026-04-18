@@ -1,0 +1,18 @@
+RewriteEngine On
+RewriteBase /tuneopedia/
+
+# Block direct access to sensitive files and directories
+RewriteRule ^\.env$ - [F,L]
+RewriteRule ^composer\.(json|lock)$ - [F,L]
+RewriteRule ^(controllers|models|views|helpers|vendor|config)/ - [F,L]
+
+# If the request maps to a real file/dir inside public/, serve it
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/tuneopedia/public/$1 -f
+RewriteRule ^(.+)$ public/$1 [L]
+
+# If nothing matched a real file, route through the front controller
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ public/index.php [QSA,L]

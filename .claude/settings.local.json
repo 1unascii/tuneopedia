@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sed -i 's/include_once\\('\\\\''functions\\\\.php'\\\\''\\)/include_once\\('\\\\''includes\\\\/functions.php'\\\\''\\)/g' add_collection.php edit_setting.php index.php register.php tune_page.php)",
+      "Bash(sed -i \"s/include_once\\('header\\\\.php'\\)/include_once\\('includes\\\\/header.php'\\)/g\" index.php)",
+      "Bash(sed -i \"s/include_once\\('footer\\\\.php'\\)/include_once\\('includes\\\\/footer.php'\\)/g\" index.php)",
+      "Bash(sed -i \"s/include_once\\('auth\\\\.php'\\)/include_once\\('includes\\\\/auth.php'\\)/g\" register.php)",
+      "Bash(sed -i \"s|js/jquery\\\\.dataTables\\\\.js|js/lib/jquery.dataTables.js|g; s|js/jquery-turtle\\\\.min\\\\.js|js/lib/jquery-turtle.min.js|g\" includes/header.php)",
+      "Bash(sed -i \"s|js/jquery-turtle\\\\.min\\\\.js|js/lib/jquery-turtle.min.js|g\" forms/abc_editor.php)",
+      "Bash(sed -i \"s|__DIR__ \\\\. '/../functions_abc\\\\.php'|__DIR__ . '/../includes/functions_abc.php'|\" tests/AbcFormatterTest.php)",
+      "Bash(grep -r \"SELECT\\\\|INSERT\\\\|UPDATE\\\\|DELETE\" /c/xampp/htdocs/tuneopedia/sql/*.sql)",
+      "Bash(php:*)",
+      "Bash(git mv:*)",
+      "Bash(ls:*)",
+      "Read(//c/xampp/apache/logs/**)"
+    ]
+  }
+}

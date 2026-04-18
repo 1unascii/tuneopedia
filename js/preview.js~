@@ -1,7 +1,0 @@
-$(document).ready(function(){
-    abc = $('#hdr').val();
-    abc_editor = new ABCJS.Editor("abc", { canvas_id: "canvas", midi_id:"midi", warnings_id:"warnings" });
-    window.ABCJS.edit.EditArea.prototype.getString = function() {
-        return abc + this.textarea.value;
-    };
-})

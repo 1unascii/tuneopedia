@@ -7,7 +7,7 @@ Alternatively you can import the file into mysql on the command line with,
 
 Windows: 
 mysql -u root -p tuneopedia < "C:\path\to\your\sql\tuneopedia.sql"
-On an XAMPP server you would use: "C:\xampp\htdocs\sql\tuneopedia.sql"
+On an XAMPP server you would use: "C:\xampp\htdocs\tuneopedia\sql\tuneopedia.sql"
 
 Linux:
 mysql -u root -p tuneopedia < "/var/www/tuneopedia.sql"

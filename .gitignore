@@ -9,3 +9,12 @@ vendor/
 # Ignore OS-specific files
 Thumbs.db
 .DS_Store
+
+# Ignore editor backup files
+*~
+
+# Ignore debug output files
+debug_*.txt
+
+# Ignore ABC source files
+abc_files/
