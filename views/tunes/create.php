@@ -90,13 +90,7 @@
 
     <div class="edit-form-actions">
         <div id="save_or_login">
-        <?php
-            if (array_key_exists('Authenticated', $_SESSION)) {
-                echo '<input type="button" value="Save" id="save" class="edit-save-btn"/>';
-            } else {
-                include(__DIR__ . '/../auth/login_inline.php');
-            }
-        ?>
+            <input type="button" value="Save" id="save" class="edit-save-btn"/>
         </div>
     </div>
 

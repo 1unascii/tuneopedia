@@ -1,6 +1,87 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
-    // ── Notes expand/collapse ─────────────────────────────────────────────────
+    var collectionTunePages = window.collectionTunePages || {};
+
+    // ── Navigate to tune detail ──────────────────────────────────────────────
+
+    $(document).on('click', '.tune_title', function() {
+        var tuneId = $(this).attr('id');
+        sessionStorage.setItem('lastViewedTuneId', tuneId);
+        var $panel = $(this).closest('.ui-tabs-panel');
+        if (!$panel.length) return;
+
+        var $table = $panel.find('table');
+        var tableId = $table.attr('id');
+        var isCollectionTable = $table.hasClass('collection-tunes-table');
+        var savedPage = isCollectionTable
+            ? (collectionTunePages[tableId] || 1)
+            : 1;
+
+        $('#paper').empty();
+
+        var savedHtml = $panel.html();
+
+        $panel.data('tunePageState', {
+            savedHtml: savedHtml,
+            savedPage: savedPage,
+            tableId: tableId,
+            isCollectionTable: isCollectionTable
+        });
+
+        $('#select-tune-prompt').hide();
+
+        $panel.load('page/tune-page?tune_id=' + tuneId, function() {
+            var $backBtn = $('<button class="tune-back-btn">&#8592; Back</button>');
+            $panel.prepend($backBtn);
+
+            var $primaryBlock = $panel.find('.setting-block:first');
+            if ($primaryBlock.length) {
+                var $primaryAbc = $primaryBlock.find('.setting-abc-data');
+                if ($primaryAbc.length) {
+                    try {
+                        ABCJS.renderAbc('tune-notation', JSON.parse($primaryAbc[0].textContent));
+                    } catch(e) {}
+                }
+            }
+
+            $panel.find('.setting-block:not(:first-child)').each(function() {
+                var $block = $(this);
+                var $abcEl = $block.find('.setting-abc-data');
+                var $notDiv = $block.find('.setting-notation');
+                if ($abcEl.length && $notDiv.length) {
+                    try {
+                        ABCJS.renderAbc($notDiv.attr('id'), JSON.parse($abcEl[0].textContent));
+                    } catch(e) {}
+                }
+            });
+
+            $backBtn.one('click', function() {
+                $panel.html(savedHtml);
+                $panel.removeData('tunePageState');
+                $('#select-tune-prompt').show();
+                if (tableId) {
+                    if (isCollectionTable && typeof window.filterAndPaginateCollectionTunes === 'function') {
+                        window.filterAndPaginateCollectionTunes(tableId, savedPage);
+                    } else if (typeof window.paginateTable === 'function') {
+                        window.paginateTable(tableId, savedPage);
+                    }
+                }
+                var lastTuneId = sessionStorage.getItem('lastViewedTuneId');
+                if (lastTuneId) {
+                    setTimeout(function() {
+                        var $row = $panel.find('tr#' + lastTuneId);
+                        if ($row.length) {
+                            $row.addClass('tune-highlighted');
+                            $row[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }, 0);
+                }
+            });
+        });
+    });
+
+    // ── Notes expand/collapse ────────────────────────────────────────────────
+
     $(document).on('click', '.tune-page-notes-toggle', function () {
         var $notes = $(this).closest('.tune-page-notes');
         var $body  = $notes.find('.tune-page-notes-body');
@@ -9,22 +90,22 @@ $(document).ready(function () {
             $body.css('max-height', $body[0].scrollHeight + 'px');
             $(this).text('Show less');
         } else {
-            $body.css('max-height', $body[0].scrollHeight + 'px');// set explicit height before collapsing so transition works
-            $body[0].offsetHeight;// force reflow
+            $body.css('max-height', $body[0].scrollHeight + 'px');
+            $body[0].offsetHeight;
             $notes.addClass('collapsed');
             $body.css('max-height', '');
             $(this).text('Show more');
         }
     });
 
-    // ── Edit button: load form inline ─────────────────────────────────────────
+    // ── Edit setting: load form inline ───────────────────────────────────────
+
     $(document).on('click', '.edit-setting-btn', function () {
         var $btn      = $(this);
         var settingId = $btn.data('setting-id');
         var $block    = $btn.closest('.setting-block');
         var $editArea = $block.find('.setting-edit-area');
 
-        // Toggle: if form already open, close it and restore original notation
         if ($editArea.is(':visible')) {
             restoreNotation($block);
             $editArea.hide().empty();
@@ -35,18 +116,15 @@ $(document).ready(function () {
 
         $.get('api/edit-setting', { setting_id: settingId }, function (html) {
             $editArea.html(html);
-
-            // Render live preview immediately from the loaded form values
             renderFromForm($block);
-
-            // Keep re-rendering on any field change
             $editArea.on('input change', 'input, select, textarea', function () {
                 renderFromForm($block);
             });
         });
     });
 
-    // ── Cancel edit: restore the original notation ────────────────────────────
+    // ── Cancel edit ──────────────────────────────────────────────────────────
+
     $(document).on('click', '.edit-cancel-btn', function () {
         var $block    = $(this).closest('.setting-block');
         var $editArea = $(this).closest('.setting-edit-area');
@@ -54,7 +132,8 @@ $(document).ready(function () {
         $editArea.hide().empty();
     });
 
-    // ── Build ABC string from form fields and render into the notation div ────
+    // ── Build ABC from form fields and render ────────────────────────────────
+
     function renderFromForm($block) {
         var $form = $block.find('.edit-setting-form');
         if (!$form.length) return;
@@ -71,7 +150,8 @@ $(document).ready(function () {
         renderNotation($block, abcString);
     }
 
-    // ── Re-render the original (stored) ABC for a block ───────────────────────
+    // ── Restore original notation ────────────────────────────────────────────
+
     function restoreNotation($block) {
         var $abcEl = $block.find('.setting-abc-data');
         if (!$abcEl.length) return;
@@ -80,7 +160,8 @@ $(document).ready(function () {
         } catch (e) {}
     }
 
-    // ── Render an ABC string into the correct notation div for a block ─────────
+    // ── Render ABC into the correct notation div ─────────────────────────────
+
     function renderNotation($block, abcString) {
         var settingId = $block.data('setting-id');
         var targetId  = $block.hasClass('primary-setting')
@@ -89,7 +170,8 @@ $(document).ready(function () {
         ABCJS.renderAbc(targetId, abcString);
     }
 
-    // ── Save edit ─────────────────────────────────────────────────────────────
+    // ── Save edit ────────────────────────────────────────────────────────────
+
     $(document).on('submit', '.edit-setting-form', function (e) {
         e.preventDefault();
         var $form     = $(this);
@@ -104,11 +186,9 @@ $(document).ready(function () {
 
             var s = data.setting;
 
-            // Update meta display
             $block.find('.setting-key').text(s.key_signature);
             $block.find('.setting-time').text(s.time_signature);
 
-            // Rebuild and re-render the ABC for this setting
             var newAbc =
                 'X:' + s.setting_id + '\n' +
                 'T:' + s.tune_name  + '\n' +
@@ -117,7 +197,6 @@ $(document).ready(function () {
                 'K:' + s.key_signature + '\n' +
                 s.abc_transcription;
 
-            // Update the stored ABC data used by reordering
             $block.find('.setting-abc-data').text(JSON.stringify(newAbc));
 
             var isPrimary = $block.hasClass('primary-setting');
@@ -128,12 +207,12 @@ $(document).ready(function () {
                 ABCJS.renderAbc(notationId, newAbc);
             }
 
-            // Close the form
             $block.find('.setting-edit-area').hide().empty();
         }, 'json');
     });
 
-    // ── Vote button handler ───────────────────────────────────────────────────
+    // ── Vote ─────────────────────────────────────────────────────────────────
+
     $(document).on('click', '.vote-btn', function () {
         var $btn       = $(this);
         var settingId  = parseInt($btn.data('setting-id'));
@@ -151,7 +230,6 @@ $(document).ready(function () {
         }, function (data) {
             if (data.error) return;
 
-            // Update the block's score and button states
             var $block = $('.setting-block[data-setting-id="' + settingId + '"]');
             $block.data('vote-score', data.vote_score);
             $block.find('.vote-score').text(data.vote_score);
@@ -163,14 +241,12 @@ $(document).ready(function () {
     });
 
     // ── Reorder settings by vote score ───────────────────────────────────────
+
     function reorderSettings($container) {
         if (!$container.length) return;
 
         var currentPrimaryId = parseInt($container.data('primary-setting-id'));
 
-        // Detach, sort, re-append — DOM must be updated BEFORE calling ABCJS.renderAbc
-        // because ABCJS looks up the target via document.getElementById and won't find
-        // detached elements.
         var $blocks = $container.find('.setting-block').detach();
         $blocks.sort(function (a, b) {
             return parseInt($(b).data('vote-score')) - parseInt($(a).data('vote-score'));
@@ -179,18 +255,15 @@ $(document).ready(function () {
         var newPrimaryId = parseInt($($blocks[0]).data('setting-id'));
         var primaryChanged = (newPrimaryId !== currentPrimaryId);
 
-        // Re-append in new order and renumber labels first
         $blocks.each(function (i) {
             $(this).find('.setting-label').text('Setting ' + (i + 1));
             $container.append(this);
         });
 
-        // Now that elements are in the DOM, handle notation updates
         if (primaryChanged) {
             var $newPrimary = $container.find('.setting-block[data-setting-id="' + newPrimaryId + '"]');
             var $oldPrimary = $container.find('.setting-block[data-setting-id="' + currentPrimaryId + '"]');
 
-            // Render new primary's notation into #tune-notation at the top
             var $newAbc = $newPrimary.find('.setting-abc-data');
             if ($newAbc.length) {
                 try {
@@ -198,7 +271,6 @@ $(document).ready(function () {
                 } catch (e) {}
             }
 
-            // Render old primary's notation into its per-setting div, then show it
             var $oldNotDiv = $oldPrimary.find('.setting-notation');
             if ($oldNotDiv.length) {
                 var $oldAbc = $oldPrimary.find('.setting-abc-data');
@@ -210,10 +282,8 @@ $(document).ready(function () {
                 $oldNotDiv.show();
             }
 
-            // Hide new primary's per-setting notation div (shown in #tune-notation above)
             $newPrimary.find('.setting-notation').hide();
 
-            // Update classes and tracking
             $oldPrimary.removeClass('primary-setting');
             $newPrimary.addClass('primary-setting');
             $container.data('primary-setting-id', newPrimaryId);

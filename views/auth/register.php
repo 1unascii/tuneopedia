@@ -5,7 +5,7 @@
 <?php
     include_once(__DIR__ . '/../../helpers/tune_helpers.php')
 ?>
-<script type="text/javascript" src="js/modules/register.js"></script>
+<script type="text/javascript" src="js/modules/users/create_user.js?v=1"></script>
 
 <div id="form_wrapper">
     <h2>Registration</h2>

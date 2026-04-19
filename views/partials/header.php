@@ -17,12 +17,15 @@
 <script src='js/lib/abcjs-basic.js' type='text/javascript'></script>
 <script type="text/javascript" src="js/lib/jquery.dataTables.js"></script>
 <script type="text/javascript" src="js/lib/jquery-turtle.min.js"></script>
-<script type="text/javascript" src="js/modules/login.js?v=5"></script>
+<script type="text/javascript" src="js/modules/users/auth_user.js?v=1"></script>
 <script type="text/javascript" src="js/modules/abc-editor.js?v=6"></script>
-<script type="text/javascript" src="js/modules/tunes.js?v=49"></script>
-<script type="text/javascript" src="js/modules/tune-page.js?v=9"></script>
+<script type="text/javascript" src="js/modules/tunes/index.js?v=1"></script>
+<script type="text/javascript" src="js/modules/tunes/show.js?v=2"></script>
+<script type="text/javascript" src="js/modules/favorites/index.js?v=1"></script>
+<script type="text/javascript" src="js/modules/collections/index.js?v=1"></script>
 <link href="css/discussion.css?v=3" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="js/modules/discussion.js?v=5"></script>
+<script type="text/javascript" src="js/modules/discussions/index.js?v=1"></script>
+<script type="text/javascript" src="js/modules/discussions/show.js?v=1"></script>
 <script src="https://kit.fontawesome.com/5c647e36cb.js" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -24,7 +24,7 @@ $(document).on('change', '#abc_file', function() {
             selectedFiles.push(file);
         }
     });
-    this.value = ''; // reset so the same file can be re-added after removal
+    this.value = '';
     renderFileList();
 });
 
