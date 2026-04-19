@@ -187,7 +187,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = "A collection named \"" . htmlspecialchars($collectionName) . "\" already exists.";
         } else {
 
-            $collectionId = Collection::create($pdo, $collectionName, $author, $description);
+            $isShared     = !empty($_POST['is_shared']);
+            $collectionId = Collection::create($pdo, $collectionName, $author, $description, $isShared, $userId);
 
             $position   = 1;
             $results    = [];

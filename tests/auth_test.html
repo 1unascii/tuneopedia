@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Auth Tests — Register &amp; Login</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body { font-family: monospace; background: #1a1a1a; color: #ccc; padding: 20px; }
+        .pass { color: #6c6; }
+        .fail { color: #c66; }
+        .running { color: #cc6; }
+        #results { white-space: pre-wrap; line-height: 1.8; }
+        h1 { color: #ddd; font-size: 1.2em; }
+        button { padding: 8px 20px; font-size: 1em; cursor: pointer; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Auth Tests — Register &amp; Login</h1>
+    <button id="run-tests">Run Tests</button>
+    <div id="results"></div>
+
+    <script>
+    var BASE = '/tuneopedia/';
+    var testUser = {
+        first_name: 'Test',
+        last_name:  'User',
+        email:      'testuser_' + Date.now() + '@test.com',
+        user_name:  'testuser_' + Date.now(),
+        password:   'TestPass123!',
+        register:   true
+    };
+    var passed = 0;
+    var failed = 0;
+
+    function log(msg, cls) {
+        $('#results').append('<div class="' + (cls || '') + '">' + msg + '</div>');
+    }
+
+    function assert(label, condition) {
+        if (condition) {
+            log('  ✓ ' + label, 'pass');
+            passed++;
+        } else {
+            log('  ✗ ' + label, 'fail');
+            failed++;
+        }
+    }
+
+    function runTests() {
+        $('#results').empty();
+        passed = 0;
+        failed = 0;
+
+        log('Test user: ' + testUser.user_name);
+        log('Test email: ' + testUser.email);
+        log('');
+
+        // ── Test 1: Register ──────────────────────────────────────────────
+        log('TEST 1: Register a new user', 'running');
+        $.post(BASE + 'api/register', testUser)
+        .done(function(data) {
+            assert('Server responds', true);
+            assert('Response is "Thank you for signing up"', data.trim() === 'Thank you for signing up');
+
+            // ── Test 2: Verify user exists in DB ──────────────────────────
+            log('');
+            log('TEST 2: Verify user exists in database', 'running');
+            $.post(BASE + 'api/auth', {
+                user_name: testUser.user_name,
+                password:  'wrong_password_xyz',
+                login:     true
+            })
+            .done(function(data) {
+                assert('User found (wrong password rejected, not "Database error")',
+                    data.trim() === 'Invalid username or password.');
+
+                // ── Test 3: Duplicate registration ────────────────────────
+                log('');
+                log('TEST 3: Duplicate registration rejected', 'running');
+                $.post(BASE + 'api/register', testUser)
+                .done(function(data) {
+                    assert('Username already taken', data.trim() === 'The username you entered is already in use');
+
+                    // ── Test 4: Duplicate email ───────────────────────────
+                    log('');
+                    log('TEST 4: Duplicate email rejected', 'running');
+                    var dupEmail = $.extend({}, testUser, { user_name: 'different_user_' + Date.now() });
+                    $.post(BASE + 'api/register', dupEmail)
+                    .done(function(data) {
+                        assert('Email already in use', data.trim() === 'The email you entered is already in use');
+
+                        // ── Test 5: Login ─────────────────────────────────
+                        log('');
+                        log('TEST 5: Login with correct credentials', 'running');
+                        $.post(BASE + 'api/auth', {
+                            user_name: testUser.user_name,
+                            password:  testUser.password,
+                            login:     true
+                        })
+                        .done(function(data) {
+                            assert('Server responds', true);
+                            assert('Response is "Login successful!"', data.trim() === 'Login successful!');
+
+                            // ── Test 6: Login with wrong password ─────────
+                            log('');
+                            log('TEST 6: Login with wrong password', 'running');
+                            $.post(BASE + 'api/auth', {
+                                user_name: testUser.user_name,
+                                password:  'WrongPassword!',
+                                login:     true
+                            })
+                            .done(function(data) {
+                                assert('Response is "Invalid username or password."',
+                                    data.trim() === 'Invalid username or password.');
+
+                                // ── Test 7: Login with nonexistent user ───
+                                log('');
+                                log('TEST 7: Login with nonexistent user', 'running');
+                                $.post(BASE + 'api/auth', {
+                                    user_name: 'nonexistent_user_xyz',
+                                    password:  'anything',
+                                    login:     true
+                                })
+                                .done(function(data) {
+                                    assert('Response is "Invalid username or password."',
+                                        data.trim() === 'Invalid username or password.');
+
+                                    // ── Summary ───────────────────────────
+                                    log('');
+                                    log('════════════════════════════════');
+                                    var total = passed + failed;
+                                    if (failed === 0) {
+                                        log('All ' + total + ' assertions passed', 'pass');
+                                    } else {
+                                        log(passed + '/' + total + ' passed, ' + failed + ' failed', 'fail');
+                                    }
+
+                                    // ── Cleanup: delete test user ─────────
+                                    log('');
+                                    log('Cleaning up test user...', 'running');
+                                    $.post(BASE + 'api/test-cleanup', {
+                                        user_name: testUser.user_name
+                                    })
+                                    .done(function(data) {
+                                        log('  Cleanup: ' + data.trim());
+                                    })
+                                    .fail(function() {
+                                        log('  Cleanup endpoint not available (manual cleanup needed)', 'fail');
+                                    });
+                                })
+                                .fail(function() { assert('Request succeeded', false); });
+                            })
+                            .fail(function() { assert('Request succeeded', false); });
+                        })
+                        .fail(function() { assert('Request succeeded', false); });
+                    })
+                    .fail(function() { assert('Request succeeded', false); });
+                })
+                .fail(function() { assert('Request succeeded', false); });
+            })
+            .fail(function() { assert('Request succeeded', false); });
+        })
+        .fail(function() { assert('Registration request succeeded', false); });
+    }
+
+    $('#run-tests').on('click', runTests);
+    </script>
+</body>
+</html>

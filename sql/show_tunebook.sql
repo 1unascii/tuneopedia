@@ -28,10 +28,12 @@ SELECT
     -- Added the username join here
     rs.user_id AS user_id,
     u.user_name AS user_name,
-    COALESCE(rs.net_score, 0) AS setting_popularity
+    COALESCE(rs.net_score, 0) AS setting_popularity,
+    CASE WHEN tb.tunebook_id IS NOT NULL THEN 1 ELSE 0 END AS is_favorited
 FROM tune t
 JOIN tune_type tt ON t.tune_type_id = tt.tune_type_id
 LEFT JOIN RankedSettings rs ON t.tune_id = rs.tune_id AND rs.setting_rank = 1
 -- Link to the user table to get the name
 LEFT JOIN user u ON rs.user_id = u.user_id
+LEFT JOIN tunebook tb ON t.tune_id = tb.tune_id AND tb.user_id = :user_id
 ORDER BY t.name ASC;

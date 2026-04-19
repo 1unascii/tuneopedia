@@ -7,6 +7,8 @@ SELECT
     c.description,
     c.cover_image,
     c.created_at,
+    c.is_shared,
+    c.user_id AS collection_user_id,
     ct.position,
     t.tune_id,
     t.name              AS tune_name,

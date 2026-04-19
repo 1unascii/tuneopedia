@@ -1,34 +1,54 @@
+<link href="css/tune-page.css?v=6" rel="stylesheet" type="text/css"/>
+<link href="css/registration.css?v=2" rel="stylesheet" type="text/css"/>
 <link href="js/lib/src/jquery.password.css" rel="stylesheet" type="text/css"/>
-<link href="css/registration.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="js/lib/src/jquery.password.js"></script>
 <?php
     include_once(__DIR__ . '/../../helpers/tune_helpers.php')
 ?>
 <script type="text/javascript" src="js/modules/register.js"></script>
-<h3>Registration Form</h3>
-<table id="registration_form" class="form">
-<form>
-    <label>First Name: </label>    
-    <span ><input id="first_name" type="text" name="first_name"/></span><br /> 
-    <label>Last Name: </label>
-    <span><input id="last_name" type="text" name="last_name"/></span><br />
-    <label>Email: </label>    
-    <span><input id="email" type="text" name="email"/></span><br />
-    <label>Username: </label>
-    <span><input id="user_name" type="text" name="username"/></span><br />
-    <label>Password: </label>
-    <span id="pass_span"><input id="password" type="password" name="password"/><br />
-    <span id="strength_meter">
-    </span></span><br />
-    <label>Confirm Password: </label>
-    <span><input id="pass_conf" type="password" name="password_confirm"/></span>
-    <input type="hidden" id="register" value="true"/><br /> 
-    <input id="register_btn" type="button" value="Sign me up"/>
-    
-    
-</form>
-</table>
-<br />
 
+<div id="form_wrapper">
+    <h2>Registration</h2>
+    <form id="registration_form" class="edit-setting-form">
 
+        <div class="edit-field">
+            <label for="first_name">First Name</label>
+            <input id="first_name" type="text" name="first_name" required />
+        </div>
 
+        <div class="edit-field">
+            <label for="last_name">Last Name</label>
+            <input id="last_name" type="text" name="last_name" required />
+        </div>
+
+        <div class="edit-field">
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" required />
+        </div>
+
+        <div class="edit-field">
+            <label for="user_name">Username</label>
+            <input id="user_name" type="text" name="username" required />
+        </div>
+
+        <div class="edit-field">
+            <label for="password">Password</label>
+            <span id="pass_span">
+                <input id="password" type="password" name="password" required />
+            </span>
+            <span id="strength_meter"></span>
+        </div>
+
+        <div class="edit-field">
+            <label for="pass_conf">Confirm Password</label>
+            <input id="pass_conf" type="password" name="password_confirm" required />
+        </div>
+
+        <input type="hidden" id="register" value="true" />
+
+        <div class="edit-form-actions">
+            <button type="button" id="register_btn" class="edit-save-btn">Sign me up</button>
+        </div>
+
+    </form>
+</div>

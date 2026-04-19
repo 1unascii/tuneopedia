@@ -40,6 +40,13 @@
         </div>
 
         <div class="edit-field edit-field-wide">
+            <label>
+                <input type="checkbox" name="is_shared" value="1" checked />
+                Make this collection public
+            </label>
+        </div>
+
+        <div class="edit-field edit-field-wide">
             <label for="abc_file">Upload ABC File(s)</label>
             <input type="file" id="abc_file" accept=".abc,.txt" multiple />
         </div>

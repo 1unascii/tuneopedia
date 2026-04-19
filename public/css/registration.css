@@ -1,5 +1,14 @@
-#strength_meter{
-                    display: inline-block;
-                    margin-left: 155px;
-                    padding-top: 5px;
+#strength_meter {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.85em;
+}
+
+#pass_span {
+    display: flex;
+    flex-direction: column;
+}
+
+#pass_span input {
+    width: 100%;
 }

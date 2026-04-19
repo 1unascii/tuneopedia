@@ -8,6 +8,7 @@
         }
     });
 </script>
+<h2>Tunes</h2>
 <div id="pagination-and-search">
     <span class="filter-bar">
         <label for="tune-filter">Search: </label>
@@ -61,7 +62,7 @@
 
             <td>
                 <span class="<?= empty($t['setting_id']) ? 'dead_link' : 'show_abc' ?>" id="<?php echo ($t['setting_id']) ?>">
-                    <img class="music_note_icon<?= empty($t['setting_id']) ? ' no-setting-icon' : '' ?>" src="images/notes.gif" alt="shows_abc_for_most_popular_setting" />
+                    <i class="fa-solid fa-magnifying-glass-music music_note_icon<?= empty($t['setting_id']) ? ' no-setting-icon' : '' ?>"></i>
                 </span>
                 <span class="tune_title" id="<?php echo ($t['tune_id']) ?>">
                     <?= htmlspecialchars($t['tune_name']) ?>
@@ -73,7 +74,8 @@
             </td>
 
             <td class="tune-favorite-col">
-                <span class="ui-icon ui-icon-star tune-favorite-icon" id="user-info" data-user-id="<?php echo $_SESSION['user_id']; ?>">
+                <span class="favorite-toggle" data-user-id="<?= $_SESSION['user_id'] ?? 0 ?>">
+                    <i class="fa-sharp fa-solid <?= !empty($t['is_favorited']) ? 'fa-xmark favorited' : 'fa-plus' ?> favorite-icon"></i>
                 </span>
             </td>
 

@@ -15,7 +15,7 @@ label                       {
                             }
 .tune_data_row,th           {
                             background: hsl(calc(var(--i) *8), 30%, 25%) !important;
-
+                            line-height: 1;
                             }
 
 .tune_data_row td           {
@@ -35,19 +35,8 @@ label                       {
                             }
 
 .tune-favorite-col           {
-                            width: 2.5em;
-                            min-width: 2rem;
-                            min-height: 1.5rem;
-                            text-align: center;
-                            vertical-align: middle;
                             cursor: pointer;
-                            }
-.tune-favorite-icon          {
-                            display: inline-block;
-                            width: 16px;
-                            height: 16px;
-                            cursor: pointer;
-                            vertical-align: middle;
+                            overflow: hidden;
                             }
 
 .tune_title:hover            {
@@ -57,4 +46,35 @@ label                       {
 .tune-highlighted .tune_title {
                             color: #ffc73d;
                             font-style: italic;
+                            }
+
+.collection-select-col       {
+                            width: 2.5em;
+                            text-align: center;
+                            vertical-align: middle;
+                            }
+
+.collection-select-icon      {
+                            display: inline-block;
+                            cursor: pointer;
+                            }
+
+.collection-selected         {
+                            background: rgba(89, 180, 212, 0.15) !important;
+                            }
+
+#collection-selection-bar    {
+                            position: sticky;
+                            bottom: 0;
+                            background: #222;
+                            border-top: 1px solid #444;
+                            padding: 10px 15px;
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            z-index: 10;
+                            }
+
+#save-collection-form        {
+                            margin-top: 20px;
                             }

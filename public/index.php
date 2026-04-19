@@ -9,6 +9,7 @@ require_once(BASE_PATH . '/controllers/TuneController.php');
 require_once(BASE_PATH . '/controllers/CollectionController.php');
 require_once(BASE_PATH . '/controllers/SettingController.php');
 require_once(BASE_PATH . '/controllers/AuthController.php');
+require_once(BASE_PATH . '/controllers/DiscussionController.php');
 
 $scriptDir = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
 $base = preg_replace('#/public$#', '', $scriptDir);
@@ -24,11 +25,19 @@ $apiRoutes = [
     'add-tune'       => ['TuneController',       'create'],
     'remove-tune'    => ['TuneController',       'delete'],
     'get-tune-body'  => ['TuneController',       'getBody'],
-    'favorite-tune'  => ['TuneController',       'toggleFavorite'],
+    'favorite-tune'   => ['TuneController',       'toggleFavorite'],
+    'remove-favorite' => ['TuneController',       'removeFavorite'],
     'edit-setting'   => ['SettingController',     'edit'],
     'vote-setting'   => ['SettingController',     'vote'],
     'register'       => ['AuthController',        'register'],
-    'add-collection' => ['CollectionController',  'create'],
+    'test-cleanup'   => ['AuthController',        'testCleanup'],
+    'add-collection'            => ['CollectionController',  'create'],
+    'create-collection-from-favorites' => ['CollectionController',  'createFromFavorites'],
+    'add-to-existing-collection'       => ['CollectionController',  'addToExisting'],
+    'create-thread'  => ['DiscussionController',  'createThread'],
+    'create-post'    => ['DiscussionController',  'createPost'],
+    'delete-thread'  => ['DiscussionController',  'deleteThread'],
+    'delete-post'    => ['DiscussionController',  'deletePost'],
 ];
 
 if ($route === 'api/auth' && isset($_GET['logout'])) {
@@ -72,7 +81,11 @@ if (preg_match('#^fragment/(.+)$#', $route, $m)) {
 $pageRoutes = [
     'tunes'       => ['TuneController',       'index'],
     'collections' => ['CollectionController',  'index'],
-    'tune-page'   => ['TuneController',       'show'],
+    'home'               => ['TuneController',       'home'],
+    'tune-page'          => ['TuneController',       'show'],
+    'my-tunes'           => ['TuneController',       'favorites'],
+    'discussion'         => ['DiscussionController',  'index'],
+    'discussion-thread'  => ['DiscussionController',  'show'],
 ];
 
 if (preg_match('#^page/(.+)$#', $route, $m) && isset($pageRoutes[$m[1]])) {
@@ -83,14 +96,19 @@ if (preg_match('#^page/(.+)$#', $route, $m) && isset($pageRoutes[$m[1]])) {
 
 // ── Full page rendering ──────────────────────────────────────────────────────
 $serverRoutes = [
-    ''            => ['TuneController',       'index'],
+    ''            => ['TuneController',       'home'],
+    'home'        => ['TuneController',       'home'],
     'tunes'       => ['TuneController',       'index'],
     'collections' => ['CollectionController',  'index'],
+    'discussion'  => ['DiscussionController',  'index'],
 ];
 
 if (preg_match('#^tune/(\d+)$#', $route, $m)) {
     $_GET['tune_id'] = (int)$m[1];
     $contentAction = ['TuneController', 'show'];
+} elseif (preg_match('#^discussion/(\d+)$#', $route, $m)) {
+    $_GET['thread_id'] = (int)$m[1];
+    $contentAction = ['DiscussionController', 'show'];
 } else {
     $contentAction = $serverRoutes[$route] ?? ['TuneController', 'index'];
 }

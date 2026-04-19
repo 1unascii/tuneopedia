@@ -7,10 +7,33 @@ require_once(__DIR__ . '/../models/User.php');
 
 class TuneController {
 
+    public function home() {
+        include __DIR__ . '/../views/home/index.php';
+    }
+
     public function index() {
-        $pdo = connect();
-        [$groupedTunes, $tune_type_names] = Tune::getAllGroupedByType($pdo);
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        $pdo    = connect();
+        $userId = (int) ($_SESSION['user_id'] ?? 0);
+        [$groupedTunes, $tune_type_names] = Tune::getAllGroupedByType($pdo, $userId);
         include __DIR__ . '/../views/tunes/index.php';
+    }
+
+    public function favorites() {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+
+        if (empty($_SESSION['Authenticated']) || empty($_SESSION['user_id'])) {
+            echo '<p class="error-message">You must be logged in to view your tunes.</p>';
+            return;
+        }
+
+        $pdo    = connect();
+        $userId = (int) $_SESSION['user_id'];
+        [$groupedTunes, $tune_type_names] = Tune::getFavoritesGroupedByType($pdo, $userId);
+        $userCollections = $pdo->prepare("SELECT collection_id, name FROM collection WHERE user_id = :user_id ORDER BY name");
+        $userCollections->execute([':user_id' => $userId]);
+        $userCollections = $userCollections->fetchAll(PDO::FETCH_ASSOC);
+        include __DIR__ . '/../views/tunes/favorites.php';
     }
 
     public function show() {
@@ -101,6 +124,34 @@ class TuneController {
         } else {
             http_response_code(404);
             echo json_encode(['error' => 'Setting not found']);
+        }
+    }
+
+    public function removeFavorite() {
+        session_start();
+        header('Content-Type: text/plain; charset=utf-8');
+
+        if (empty($_SESSION['Authenticated']) || !isset($_SESSION['user_id'])) {
+            http_response_code(401);
+            echo 'Unauthorized';
+            return;
+        }
+
+        $tuneId = (int) $_POST['tune_id'];
+        $userId = (int) $_SESSION['user_id'];
+
+        $pdo = connect();
+        if (!$pdo) {
+            http_response_code(500);
+            echo 'Database error';
+            return;
+        }
+
+        if (User::removeFavorite($pdo, $userId, $tuneId)) {
+            echo 'OK';
+        } else {
+            http_response_code(500);
+            echo 'Could not remove favorite';
         }
     }
 

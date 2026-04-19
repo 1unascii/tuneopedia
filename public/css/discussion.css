@@ -1,0 +1,181 @@
+/* ── Discussion Forum ────────────────────────────────────────────────────── */
+
+#discussion-container             {
+                                  max-width: 900px;
+                                  margin: 0 auto;
+                                  padding: 10px;
+                                  }
+
+#discussion-header                {
+                                  display: flex;
+                                  justify-content: space-between;
+                                  align-items: center;
+                                  margin-bottom: 15px;
+                                  }
+
+#discussion-header h2             {
+                                  margin: 0;
+                                  }
+
+/* ── Thread list ────────────────────────────────────────────────────────── */
+
+#discussion-thread-list           {
+                                  width: 100%;
+                                  border-collapse: collapse;
+                                  }
+
+.discussion-thread-row            {
+                                  cursor: pointer;
+                                  }
+
+.discussion-thread-row:hover      {
+                                  background: rgba(255, 255, 255, 0.05) !important;
+                                  }
+
+.thread-title-link                {
+                                  color: #59b4d4;
+                                  cursor: pointer;
+                                  }
+
+.thread-title-link:hover          {
+                                  text-decoration: underline;
+                                  }
+
+.discussion-post-count,
+.discussion-last-activity         {
+                                  text-align: center;
+                                  white-space: nowrap;
+                                  }
+
+/* ── New thread form ────────────────────────────────────────────────────── */
+
+#new-thread-form                  {
+                                  background: rgba(255, 255, 255, 0.05);
+                                  border: 1px solid #444;
+                                  border-radius: 4px;
+                                  padding: 15px;
+                                  margin-bottom: 20px;
+                                  }
+
+#new-thread-form h3               {
+                                  margin-top: 0;
+                                  }
+
+.form-group                       {
+                                  margin-bottom: 12px;
+                                  }
+
+.form-group label                 {
+                                  display: block;
+                                  margin-bottom: 4px;
+                                  margin-left: 0;
+                                  }
+
+.form-group input[type="text"],
+.form-group textarea              {
+                                  width: 100%;
+                                  box-sizing: border-box;
+                                  padding: 8px;
+                                  background: #222;
+                                  color: #ddd;
+                                  border: 1px solid #555;
+                                  border-radius: 3px;
+                                  font-family: inherit;
+                                  font-size: inherit;
+                                  }
+
+.form-group textarea              {
+                                  resize: vertical;
+                                  }
+
+.form-actions                     {
+                                  display: flex;
+                                  gap: 8px;
+                                  }
+
+/* ── Thread detail ──────────────────────────────────────────────────────── */
+
+#thread-detail                    {
+                                  border-bottom: 1px solid #444;
+                                  padding-bottom: 15px;
+                                  margin-bottom: 20px;
+                                  }
+
+#thread-detail h2                 {
+                                  margin-bottom: 5px;
+                                  }
+
+.thread-meta,
+.post-meta                        {
+                                  color: #999;
+                                  font-size: 0.9em;
+                                  margin-bottom: 10px;
+                                  display: flex;
+                                  align-items: center;
+                                  gap: 12px;
+                                  }
+
+.thread-author,
+.post-author                      {
+                                  color: #59b4d4;
+                                  }
+
+.post-body                        {
+                                  line-height: 1.6;
+                                  }
+
+/* ── Posts ──────────────────────────────────────────────────────────────── */
+
+.post-card                        {
+                                  background: rgba(255, 255, 255, 0.03);
+                                  border: 1px solid #333;
+                                  border-radius: 4px;
+                                  padding: 12px;
+                                  margin-bottom: 10px;
+                                  }
+
+/* ── Reply form ─────────────────────────────────────────────────────────── */
+
+#reply-form                       {
+                                  margin-top: 20px;
+                                  border-top: 1px solid #444;
+                                  padding-top: 15px;
+                                  }
+
+#reply-form h3                    {
+                                  margin-top: 0;
+                                  }
+
+/* ── Delete buttons ─────────────────────────────────────────────────────── */
+
+.delete-thread-btn,
+.delete-post-btn                  {
+                                  cursor: pointer;
+                                  display: inline-block;
+                                  }
+
+/* ── Misc ───────────────────────────────────────────────────────────────── */
+
+.discussion-empty                 {
+                                  color: #888;
+                                  font-style: italic;
+                                  }
+
+#discussion-login-link            {
+                                  color: #59b4d4;
+                                  text-decoration: none;
+                                  }
+
+#discussion-login-link:hover      {
+                                  text-decoration: underline;
+                                  }
+
+.discussion-login-prompt          {
+                                  color: #888;
+                                  font-style: italic;
+                                  margin-top: 20px;
+                                  }
+
+#back-to-threads-btn              {
+                                  margin-bottom: 15px;
+                                  }

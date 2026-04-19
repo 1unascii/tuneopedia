@@ -32,8 +32,23 @@ class AuthController {
             session_destroy();
             echo "You have been logged out";
         } else {
-            header("Location: /");
+            $base = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+            $base = preg_replace('#/public$#', '', $base);
+            header("Location: $base/");
         }
+    }
+
+    public function testCleanup() {
+        $username = $_POST['user_name'] ?? '';
+        if (!preg_match('/^testuser_\d+$/', $username)) {
+            echo 'Refused: only test users can be deleted';
+            return;
+        }
+        $db = connect();
+        if (!$db) { echo 'Database error'; return; }
+        $stmt = $db->prepare("DELETE FROM user WHERE user_name = :name");
+        $stmt->execute([':name' => $username]);
+        echo $stmt->rowCount() ? 'Deleted' : 'User not found';
     }
 
     public function register() {

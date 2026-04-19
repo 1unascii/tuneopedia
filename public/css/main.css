@@ -1,3 +1,95 @@
+.noto-music-regular {
+  font-family: "Noto Music", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  display: inline-block;
+  transform: scale(1.8);
+  vertical-align: baseline;
+  transform-origin: center bottom;
+  margin-right: 6px;
+  position: relative;
+  top: 3px;
+}
+
+.music_note_icon,
+.favorite-icon,
+.collection-select-icon,
+.remove-favorite-icon {
+  font-size: 0.75em;
+}
+
+.show_abc .music_note_icon:hover {
+  color: #59b4d4;
+  cursor: pointer;
+}
+
+.show_abc .music_note_icon.active-notation {
+  color: orange;
+}
+
+.show_abc .music_note_icon.active-notation:hover {
+  color: #59b4d4;
+}
+
+.favorite-toggle {
+  cursor: pointer;
+}
+
+.favorite-toggle .favorite-icon:hover {
+  color: #59b4d4;
+  cursor: pointer;
+}
+
+.favorite-toggle .favorite-icon.favorited {
+  color: #ffc73d;
+}
+
+.favorite-toggle .favorite-icon.favorited:hover {
+  color: #59b4d4;
+}
+
+.remove-favorite-icon {
+  cursor: pointer;
+}
+
+.remove-favorite-icon:hover {
+  color: #e55;
+}
+
+#save-collection-btn {
+  cursor: pointer;
+  font-size: 1.1em;
+}
+
+#save-collection-btn:hover {
+  color: #59b4d4;
+}
+
+#clear-collection-btn {
+  cursor: pointer;
+  font-size: 1.1em;
+}
+
+#clear-collection-btn:hover {
+  color: #e55;
+}
+
+.collection-select-icon {
+  cursor: pointer;
+}
+
+.collection-select-icon:hover {
+  color: #59b4d4;
+}
+
+.collection-select-icon.collection-active {
+  color: #ffc73d;
+}
+
+.collection-select-icon.collection-active:hover {
+  color: #59b4d4;
+}
+
 /*------------------------------------------------------------------------------
 Creates the darkening effect on the screen while a page is loading
 ------------------------------------------------------------------------------*/
@@ -74,9 +166,17 @@ td                                      {
 
 .tabs {
     background-color: #444;
-    color: #00fff2; /* Neon teal from the banner */
+    color: #00fff2;
     border: none;
     font-family: 'Fondamento', cursive;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-state-hover a {
+    color: #59b4d4;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active a {
+    color: #ffaf0f;
 }
 .banner-image {
     position: relative;

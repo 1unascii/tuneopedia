@@ -1,7 +1,8 @@
 <link href="css/main.css" rel="stylesheet" type="text/css"/>
 <link href="css/tunes.css?v=3" rel="stylesheet" type="text/css"/>
 
-<div id="collections-content">
+<h2>Collections</h2>
+<div id="collections-content" data-current-user-id="<?= $currentUserId ?>">
 
     <?php if (empty($collections)): ?>
         <p>No collections found.</p>
@@ -18,6 +19,15 @@
                     <input type="checkbox" id="show-no-setting" />
                     Show tunes with no settings
                 </label>
+            </span>
+
+            <span class="filter-bar">
+                <label for="collection-visibility">Visibility: </label>
+                <select id="collection-visibility">
+                    <option value="all">All</option>
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                </select>
             </span>
 
             <span class="pagination-top">
@@ -40,7 +50,7 @@
             <?php foreach ($collections as $col): ?>
             <?php $collectionId = (int) $col['collection_id']; ?>
 
-            <h3 class="collection-header">
+            <h3 class="collection-header" data-shared="<?= $col['is_shared'] ? '1' : '0' ?>" data-owner-id="<?= (int) $col['user_id'] ?>">
                 <?php if ($col['cover_image']): ?>
                     <img class="collection-cover" src="<?= htmlspecialchars($col['cover_image']) ?>" alt="cover" />
                 <?php endif; ?>
@@ -124,7 +134,7 @@
 
                                         <td>
                                             <span class="<?= empty($t['setting_id']) ? 'dead_link' : 'show_abc' ?>" id="<?= $t['setting_id'] ?>">
-                                                <img class="music_note_icon<?= empty($t['setting_id']) ? ' no-setting-icon' : '' ?>" src="images/notes.gif" alt="show abc notation" />
+                                                <i class="fa-solid fa-magnifying-glass-music music_note_icon<?= empty($t['setting_id']) ? ' no-setting-icon' : '' ?>"></i>
                                             </span>
                                             <span class="tune_title" id="<?= $t['tune_id'] ?>">
                                                 <?= htmlspecialchars($t['tune_name']) ?>
@@ -134,7 +144,9 @@
                                         <td><?= htmlspecialchars($t['key_signature'] ?? 'N/A') ?></td>
 
                                         <td class="tune-favorite-col">
-                                            <span class="ui-icon ui-icon-star tune-favorite-icon" id="user-info" data-user-id="<?php echo $_SESSION['user_id']; ?>"></span>
+                                            <span class="favorite-toggle" data-user-id="<?= $_SESSION['user_id'] ?? 0 ?>">
+                                                <i class="fa-sharp fa-solid fa-plus favorite-icon"></i>
+                                            </span>
                                         </td>
 
                                     </tr>

@@ -13,10 +13,73 @@ class Tune {
      *
      * Used by tunes.php to build the tabbed tunebook view.
      */
-    public static function getAllGroupedByType(PDO $pdo): array {
+    public static function getAllGroupedByType(PDO $pdo, int $userId = 0): array {
         $sql  = file_get_contents(__DIR__ . '/../sql/show_tunebook.sql');
-        $stmt = $pdo->query($sql);
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':user_id' => $userId]);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $grouped   = [];
+        $typeNames = [];
+
+        foreach ($rows as $row) {
+            $typeId = $row['tune_type_id'];
+            if (!isset($grouped[$typeId])) {
+                $grouped[$typeId]   = [];
+                $typeNames[$typeId] = $row['tune_type_name'];
+            }
+            $grouped[$typeId][] = $row;
+        }
+
+        return [$grouped, $typeNames];
+    }
+
+    // ── User favorites ─────────────────────────────────────────────────────────
+
+    /**
+     * Fetch a user's favorited tunes with their top-voted setting, grouped by type.
+     *
+     * Returns the same structure as getAllGroupedByType():
+     *   [0] $grouped    — [ tune_type_id => [ ...tune rows ] ]
+     *   [1] $typeNames  — [ tune_type_id => type name string ]
+     */
+    public static function getFavoritesGroupedByType(PDO $pdo, int $userId): array {
+        $statement = $pdo->prepare("
+            WITH RankedSettings AS (
+                SELECT
+                    s.tune_id,
+                    s.setting_id,
+                    s.user_id,
+                    s.key_signature,
+                    s.time_signature,
+                    s.abc_transcription,
+                    COALESCE(SUM(v.vote_value), 0) AS net_score,
+                    ROW_NUMBER() OVER (
+                        PARTITION BY s.tune_id
+                        ORDER BY SUM(v.vote_value) DESC, s.setting_id ASC
+                    ) AS setting_rank
+                FROM setting s
+                LEFT JOIN setting_vote v ON s.setting_id = v.setting_id
+                GROUP BY s.setting_id
+            )
+            SELECT
+                t.tune_id,
+                rs.setting_id,
+                t.name AS tune_name,
+                tt.tune_type_id,
+                tt.name AS tune_type_name,
+                rs.key_signature,
+                rs.time_signature,
+                rs.abc_transcription
+            FROM tunebook tb
+            JOIN tune t ON t.tune_id = tb.tune_id
+            JOIN tune_type tt ON t.tune_type_id = tt.tune_type_id
+            LEFT JOIN RankedSettings rs ON t.tune_id = rs.tune_id AND rs.setting_rank = 1
+            WHERE tb.user_id = :user_id
+            ORDER BY t.name ASC
+        ");
+        $statement->execute([':user_id' => $userId]);
+        $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         $grouped   = [];
         $typeNames = [];

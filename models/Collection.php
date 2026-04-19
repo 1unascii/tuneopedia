@@ -43,6 +43,8 @@ class Collection {
                     'description'    => $row['description'],
                     'cover_image'    => $row['cover_image'],
                     'created_at'     => $row['created_at'],
+                    'is_shared'      => (int) $row['is_shared'],
+                    'user_id'        => $row['collection_user_id'],
                     'tunes'          => [],
                 ];
             }
@@ -92,16 +94,39 @@ class Collection {
     /**
      * Insert a new collection row and return its new collection_id.
      */
-    public static function create(PDO $pdo, string $name, string $author, string $description): int {
+    public static function create(PDO $pdo, string $name, string $author, string $description, bool $isShared = false, ?int $userId = null): int {
         $stmt = $pdo->prepare("
-            INSERT INTO collection (name, author, description, created_at)
-            VALUES (:name, :author, :description, NOW())
+            INSERT INTO collection (user_id, name, author, description, is_shared, created_at)
+            VALUES (:user_id, :name, :author, :description, :is_shared, NOW())
         ");
         $stmt->execute([
+            ':user_id'     => $userId,
             ':name'        => $name,
             ':author'      => $author,
             ':description' => $description,
+            ':is_shared'   => $isShared ? 1 : 0,
         ]);
         return (int)$pdo->lastInsertId();
+    }
+
+    // ── Link tunes ───────────────────────────────────────────────────────────
+
+    /**
+     * Link an array of tune IDs to a collection with sequential positions.
+     */
+    public static function addTunes(PDO $pdo, int $collectionId, array $tuneIds): void {
+        $statement = $pdo->prepare("
+            INSERT INTO collection_tune (collection_id, tune_id, position)
+            VALUES (:collection_id, :tune_id, :position)
+        ");
+        $position = 1;
+        foreach ($tuneIds as $tuneId) {
+            $statement->execute([
+                ':collection_id' => $collectionId,
+                ':tune_id'       => (int) $tuneId,
+                ':position'      => $position,
+            ]);
+            $position++;
+        }
     }
 }
