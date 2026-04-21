@@ -58,9 +58,9 @@ $(document).ready(function() {
         $.post(apiUrl, postData)
         .done(function() {
             if (isFavorited) {
-                $icon.removeClass('favorited fa-xmark').addClass('fa-plus');
+                $icon.removeClass('favorited fa-square-check fa-solid').addClass('fa-regular fa-square');
             } else {
-                $icon.removeClass('fa-plus').addClass('favorited fa-xmark');
+                $icon.removeClass('fa-regular fa-square').addClass('fa-solid favorited fa-square-check');
             }
             var message = isFavorited ? 'Removed from favorites.' : 'Added to favorites.';
             $('<div class="alert-box">' + message + '</div>')
@@ -79,12 +79,45 @@ $(document).ready(function() {
         });
     });
 
+    // ── Populate key filter dropdowns ────────────────────────────────────────
+
+    function populateKeyFilter() {
+        var $select = $('#key-filter');
+        if (!$select.length) return;
+
+        var keys = {};
+        $('.tune_data_row').each(function () {
+            var key = $(this).data('key');
+            if (key && key !== '') {
+                keys[key] = true;
+            }
+        });
+
+        var sorted = Object.keys(keys).sort();
+        $select.find('option:not(:first)').remove();
+        sorted.forEach(function (key) {
+            $select.append($('<option>').val(key).text(key));
+        });
+    }
+
+    function getKeyFilter() {
+        return $('#key-filter').val() || '';
+    }
+
     // ── Pagination ───────────────────────────────────────────────────────────
 
     function paginateTable(tableId, page) {
         var showNoSetting = $('#show-no-setting').is(':checked');
+        var keyFilter = getKeyFilter();
+        var filter = ($('#tune-filter').val() || '').toLowerCase();
         var $allRows = $('#' + tableId + ' tbody tr');
-        var $rows = showNoSetting ? $allRows : $allRows.not('.no-setting');
+        var $rows = $allRows.filter(function () {
+            var title = $(this).find('.tune_title').text().toLowerCase();
+            var matchesFilter = filter === '' || title.indexOf(filter) !== -1;
+            var matchesNoSetting = showNoSetting || !$(this).hasClass('no-setting');
+            var matchesKey = keyFilter === '' || $(this).data('key') === keyFilter;
+            return matchesFilter && matchesNoSetting && matchesKey;
+        });
         var total = $rows.length;
         var totalPages = Math.ceil(total / rowsPerPage);
         var start = (page - 1) * rowsPerPage;
@@ -108,20 +141,55 @@ $(document).ready(function() {
     }
 
     function paginateAll(page) {
-        $('#tabs table').each(function() {
+        $('#tabs table, #my-tunes-tabs table').each(function() {
             paginateTable($(this).attr('id'), page);
+        });
+        updateTabVisibility();
+    }
+
+    function updateTabVisibility() {
+        var $tabsWidget = $('#tabs, #my-tunes-tabs').filter(':has(.ui-tabs-nav)');
+        if (!$tabsWidget.length) return;
+
+        var filter = ($('#tune-filter').val() || '').toLowerCase();
+        var keyFilter = getKeyFilter();
+        var showNoSetting = $('#show-no-setting').is(':checked');
+        var hasActiveTab = false;
+
+        $tabsWidget.find('.ui-tabs-nav li').each(function () {
+            var $tab = $(this);
+            var href = $tab.find('a').attr('href');
+            var $panel = $(href);
+            var $rows = $panel.find('tbody tr');
+
+            var matchCount = $rows.filter(function () {
+                var title = $(this).find('.tune_title').text().toLowerCase();
+                var matchesFilter = filter === '' || title.indexOf(filter) !== -1;
+                var matchesNoSetting = showNoSetting || !$(this).hasClass('no-setting');
+                var matchesKey = keyFilter === '' || $(this).data('key') === keyFilter;
+                return matchesFilter && matchesNoSetting && matchesKey;
+            }).length;
+
+            if (matchCount > 0) {
+                $tab.show();
+                if (!hasActiveTab) hasActiveTab = true;
+            } else {
+                $tab.hide();
+            }
         });
     }
 
     function filterAndPaginate(tableId, filter, page) {
         var showNoSetting = $('#show-no-setting').is(':checked');
+        var keyFilter = getKeyFilter();
         var $allRows = $('#' + tableId + ' tbody tr');
 
         $allRows.each(function() {
             var title = $(this).find('.tune_title').text().toLowerCase();
             var matchesFilter = filter === '' || title.indexOf(filter) !== -1;
             var matchesNoSetting = showNoSetting || !$(this).hasClass('no-setting');
-            $(this).toggle(matchesFilter && matchesNoSetting);
+            var matchesKey = keyFilter === '' || $(this).data('key') === keyFilter;
+            $(this).toggle(matchesFilter && matchesNoSetting && matchesKey);
         });
 
         var $visibleRows = $('#' + tableId + ' tbody tr:visible');
@@ -174,24 +242,20 @@ $(document).ready(function() {
 
     window.initializeTunesPage = function() {
         sessionStorage.removeItem('lastViewedTuneId');
+        populateKeyFilter();
         paginateAll(1);
         $("#tabs").off("tabsactivate").on("tabsactivate", handleTabsActivate);
     };
 
     // ── Initialize ───────────────────────────────────────────────────────────
 
+    populateKeyFilter();
     paginateAll(1);
 
     $(document).on('change', '#per-page-select', function() {
         rowsPerPage = parseInt($(this).val());
-        var filter = $('#tune-filter').val().toLowerCase();
-        var tableId = $("#tabs .ui-tabs-panel:visible table").attr('id');
-
-        if (filter === '') {
-            paginateAll(1);
-        } else {
-            filterAndPaginate(tableId, filter, 1);
-        }
+        currentPages = {};
+        paginateAll(1);
     });
 
     $(document).on('click', '.page-link', function() {
@@ -209,15 +273,13 @@ $(document).ready(function() {
     });
 
     $(document).on('input', '#tune-filter', function() {
-        var filter = $(this).val().toLowerCase();
-        var tableId = $("#tabs .ui-tabs-panel:visible table").attr('id');
         currentPages = {};
+        paginateAll(1);
+    });
 
-        if (filter === '') {
-            paginateTable(tableId, 1);
-        } else {
-            filterAndPaginate(tableId, filter, 1);
-        }
+    $(document).on('change', '#key-filter', function() {
+        currentPages = {};
+        paginateAll(1);
     });
 
     $(document).on('change', '#show-no-setting', function() {

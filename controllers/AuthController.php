@@ -46,9 +46,29 @@ class AuthController {
         }
         $db = connect();
         if (!$db) { echo 'Database error'; return; }
-        $stmt = $db->prepare("DELETE FROM user WHERE user_name = :name");
+
+        $stmt = $db->prepare("SELECT user_id FROM user WHERE user_name = :name LIMIT 1");
         $stmt->execute([':name' => $username]);
-        echo $stmt->rowCount() ? 'Deleted' : 'User not found';
+        $userId = $stmt->fetchColumn();
+        if (!$userId) { echo 'User not found'; return; }
+
+        // Delete in order to avoid FK constraint violations
+        $collStmt = $db->prepare("SELECT collection_id FROM collection WHERE user_id = :uid");
+        $collStmt->execute([':uid' => $userId]);
+        $collectionIds = $collStmt->fetchAll(PDO::FETCH_COLUMN);
+        if (!empty($collectionIds)) {
+            $placeholders = implode(',', array_fill(0, count($collectionIds), '?'));
+            $db->prepare("DELETE FROM collection_tune WHERE collection_id IN ($placeholders)")->execute($collectionIds);
+            $db->prepare("DELETE FROM collection WHERE collection_id IN ($placeholders)")->execute($collectionIds);
+        }
+        $db->prepare("DELETE FROM tunebook WHERE user_id = :uid")->execute([':uid' => $userId]);
+        $db->prepare("DELETE FROM setting_vote WHERE user_id = :uid")->execute([':uid' => $userId]);
+        $db->prepare("DELETE FROM setting WHERE user_id = :uid")->execute([':uid' => $userId]);
+        $db->prepare("DELETE FROM post WHERE user_id = :uid")->execute([':uid' => $userId]);
+        $db->prepare("DELETE FROM discussion_thread WHERE user_id = :uid")->execute([':uid' => $userId]);
+        $db->prepare("DELETE FROM user WHERE user_id = :uid")->execute([':uid' => $userId]);
+
+        echo 'Deleted';
     }
 
     public function register() {

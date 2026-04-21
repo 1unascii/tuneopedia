@@ -166,7 +166,7 @@ class TuneController {
         }
 
         $tune_id = (int) $_POST['tune_id'];
-        $user_id = (int) $_POST['user_id'];
+        $user_id = (int) $_SESSION['user_id'];
 
         $db = connect();
         if (!$db) {

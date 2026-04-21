@@ -105,6 +105,29 @@ $(document).ready(function() {
         return ($('#collection-tune-filter-' + collectionId).val() || '').toLowerCase();
     }
 
+    function getCollectionKeyFilter(collectionId) {
+        return $('#collection-key-filter-' + collectionId).val() || '';
+    }
+
+    function populateCollectionKeyFilter(collectionId) {
+        var $select = $('#collection-key-filter-' + collectionId);
+        if (!$select.length) return;
+
+        var keys = {};
+        $('#collection-tabs-' + collectionId + ' .tune_data_row').each(function () {
+            var key = $(this).data('key');
+            if (key && key !== '') {
+                keys[key] = true;
+            }
+        });
+
+        var sorted = Object.keys(keys).sort();
+        $select.find('option:not(:first)').remove();
+        sorted.forEach(function (key) {
+            $select.append($('<option>').val(key).text(key));
+        });
+    }
+
     function getCollectionTuneRowsPerPage(collectionId) {
         return collectionTuneRowsPerPage[collectionId] || parseInt($('#collection-tunes-per-page-' + collectionId).val(), 10) || 10;
     }
@@ -148,6 +171,7 @@ $(document).ready(function() {
 
         var collectionId = $table.data('collection-id');
         var filter = getCollectionTuneFilter(collectionId);
+        var keyFilter = getCollectionKeyFilter(collectionId);
         var rowsPerPageForTable = getCollectionTuneRowsPerPage(collectionId);
         var showNoSetting = $('#show-no-setting').is(':checked');
         var $rows = $table.find('tbody tr');
@@ -155,7 +179,8 @@ $(document).ready(function() {
             var title = $(this).find('.tune_title').text().toLowerCase();
             var matchesFilter = filter === '' || title.indexOf(filter) !== -1;
             var matchesNoSetting = showNoSetting || !$(this).hasClass('no-setting');
-            return matchesFilter && matchesNoSetting;
+            var matchesKey = keyFilter === '' || $(this).data('key') === keyFilter;
+            return matchesFilter && matchesNoSetting && matchesKey;
         });
 
         var totalPages = Math.ceil($matchedRows.length / rowsPerPageForTable);
@@ -195,6 +220,38 @@ $(document).ready(function() {
             var page = collectionTunePages[tableId] || 1;
             filterAndPaginateCollectionTunes(tableId, page);
         });
+
+        updateCollectionTabVisibility(collectionId);
+    }
+
+    function updateCollectionTabVisibility(collectionId) {
+        var $tabsWidget = $('#collection-tabs-' + collectionId);
+        if (!$tabsWidget.length || !$tabsWidget.hasClass('ui-tabs')) return;
+
+        var filter = getCollectionTuneFilter(collectionId);
+        var keyFilter = getCollectionKeyFilter(collectionId);
+        var showNoSetting = $('#show-no-setting').is(':checked');
+
+        $tabsWidget.find('.ui-tabs-nav li').each(function () {
+            var $tab = $(this);
+            var href = $tab.find('a').attr('href');
+            var $panel = $(href);
+            var $rows = $panel.find('tbody tr');
+
+            var matchCount = $rows.filter(function () {
+                var title = $(this).find('.tune_title').text().toLowerCase();
+                var matchesFilter = filter === '' || title.indexOf(filter) !== -1;
+                var matchesNoSetting = showNoSetting || !$(this).hasClass('no-setting');
+                var matchesKey = keyFilter === '' || $(this).data('key') === keyFilter;
+                return matchesFilter && matchesNoSetting && matchesKey;
+            }).length;
+
+            if (matchCount > 0) {
+                $tab.show();
+            } else {
+                $tab.hide();
+            }
+        });
     }
 
     function initializeCollectionTabs(collectionId) {
@@ -203,6 +260,8 @@ $(document).ready(function() {
         if (!$tabs.length) {
             return;
         }
+
+        populateCollectionKeyFilter(collectionId);
 
         if ($tabs.hasClass('ui-tabs')) {
             $tabs.tabs('destroy');
@@ -296,6 +355,11 @@ $(document).ready(function() {
     });
 
     $(document).on('input', '.collection-tune-filter', function() {
+        var collectionId = $(this).data('collection-id');
+        paginateCollectionTunesForAllTabs(collectionId, true);
+    });
+
+    $(document).on('change', '.collection-key-filter', function() {
         var collectionId = $(this).data('collection-id');
         paginateCollectionTunesForAllTabs(collectionId, true);
     });

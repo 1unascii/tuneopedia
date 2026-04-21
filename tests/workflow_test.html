@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Workflow Test — Add Tunes, Favorites, Collections</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body { font-family: monospace; background: #1a1a1a; color: #ccc; padding: 20px; max-width: 1000px; }
+        .pass { color: #6c6; }
+        .fail { color: #c66; }
+        .running { color: #cc6; }
+        .info { color: #6af; }
+        .code { color: #aaa; background: #2a2a2a; padding: 2px 6px; border-radius: 3px; }
+        #results { white-space: pre-wrap; line-height: 1.8; }
+        h1 { color: #ddd; font-size: 1.2em; }
+        button { padding: 8px 20px; font-size: 1em; cursor: pointer; margin-bottom: 20px; }
+        hr { border-color: #333; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Workflow Test — Add Tunes, Favorites &amp; Collections</h1>
+    <button id="run-tests">Run Tests</button>
+    <div id="results"></div>
+
+    <script>
+    var BASE = '/tuneopedia/';
+    var timestamp = Date.now();
+    var testUser = {
+        first_name: 'Test',
+        last_name:  'Workflow',
+        email:      'testworkflow_' + timestamp + '@test.com',
+        user_name:  'testuser_' + timestamp,
+        password:   'TestPass123!',
+        register:   true
+    };
+
+    var testTunes = [
+        {
+            tune_title: 'Test Reel ' + timestamp,
+            tune_type:  'Reel',
+            composer:   'Traditional',
+            metre:      '4/4',
+            tune_key:   'Dmaj',
+            tune_body:  'ABCD EFGA|BAGF EDCB|ABCD EFGA|1BAGF EDC2:|2BAGF EDCB||'
+        },
+        {
+            tune_title: 'Test Jig ' + timestamp,
+            tune_type:  'Jig',
+            composer:   'Traditional',
+            metre:      '6/8',
+            tune_key:   'Gmaj',
+            tune_body:  'GAB dBG|AGA BGE|GAB dBG|ABA GED:|'
+        },
+        {
+            tune_title: 'Test Hornpipe ' + timestamp,
+            tune_type:  'Hornpipe',
+            composer:   'Traditional',
+            metre:      '4/4',
+            tune_key:   'Amaj',
+            tune_body:  'A2AB cBAc|BAGB AGEG|A2AB cBAc|1BAGA B2GB:|2BAGA B2Bc||'
+        }
+    ];
+
+    var collectionName = 'Test Collection ' + timestamp;
+    var passed = 0;
+    var failed = 0;
+    var tuneIds = [];
+    var userId = 0;
+
+    function log(msg, cls) {
+        $('#results').append('<div class="' + (cls || '') + '">' + msg + '</div>');
+    }
+
+    function code(snippet) {
+        return '<span class="code">' + snippet + '</span>';
+    }
+
+    function assert(label, condition) {
+        if (condition) {
+            log('  ✓ ' + label, 'pass');
+            passed++;
+        } else {
+            log('  ✗ ' + label, 'fail');
+            failed++;
+        }
+    }
+
+    function summary() {
+        log('');
+        log('════════════════════════════════════════════════════════');
+        var total = passed + failed;
+        if (failed === 0) {
+            log('All ' + total + ' assertions passed', 'pass');
+        } else {
+            log(passed + '/' + total + ' passed, ' + failed + ' failed', 'fail');
+        }
+    }
+
+    function runTests() {
+        $('#results').empty();
+        passed = 0;
+        failed = 0;
+        tuneIds = [];
+
+        log('═══════════════════════════════════════════════════════');
+        log('  WORKFLOW TEST: Tunes → Favorites → Collection');
+        log('═══════════════════════════════════════════════════════');
+        log('');
+        log('Test user: ' + testUser.user_name, 'info');
+        log('Test tunes: ' + testTunes.map(function(t) { return t.tune_title; }).join(', '), 'info');
+        log('Collection: ' + collectionName, 'info');
+        log('');
+
+        step1_register();
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // STEP 1: Register a test user
+    // ═══════════════════════════════════════════════════════════════
+    function step1_register() {
+        log('STEP 1: Register a new test user', 'running');
+        log('  → ' + code('$.post("api/register", { user_name: "' + testUser.user_name + '", ... })'));
+
+        $.post(BASE + 'api/register', testUser)
+        .done(function(data) {
+            assert('Registration successful: "' + data.trim() + '"', data.trim() === 'Thank you for signing up');
+            log('');
+            step2_login();
+        })
+        .fail(function() {
+            assert('Registration request succeeded', false);
+            summary();
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // STEP 2: Log in as the test user
+    // ═══════════════════════════════════════════════════════════════
+    function step2_login() {
+        log('STEP 2: Log in as test user', 'running');
+        log('  → ' + code('$.post("api/auth", { user_name: "' + testUser.user_name + '", password: "***", login: true })'));
+
+        $.post(BASE + 'api/auth', {
+            user_name: testUser.user_name,
+            password:  testUser.password,
+            login:     true
+        })
+        .done(function(data) {
+            assert('Login successful: "' + data.trim() + '"', data.trim() === 'Login successful!');
+            log('');
+            step3_addTunes(0);
+        })
+        .fail(function() {
+            assert('Login request succeeded', false);
+            summary();
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // STEP 3: Add 3 tunes (sequentially)
+    // ═══════════════════════════════════════════════════════════════
+    function step3_addTunes(index) {
+        if (index >= testTunes.length) {
+            log('');
+            step4_findTuneIds();
+            return;
+        }
+
+        var tune = testTunes[index];
+        log('STEP 3.' + (index + 1) + ': Add tune "' + tune.tune_title + '" (' + tune.tune_type + ', ' + tune.tune_key + ')', 'running');
+        log('  → ' + code('$.post("api/add-tune", { tune_title: "' + tune.tune_title + '", tune_type: "' + tune.tune_type + '", metre: "' + tune.metre + '", tune_key: "' + tune.tune_key + '", ... })'));
+        log('  → ABC body: ' + code(tune.tune_body.substring(0, 40) + '...'));
+
+        $.post(BASE + 'api/add-tune', tune)
+        .done(function(data) {
+            assert('Tune "' + tune.tune_title + '" created: "' + data.trim() + '"',
+                data.trim() === 'Thank you. Your tune was submitted');
+            log('');
+            step3_addTunes(index + 1);
+        })
+        .fail(function() {
+            assert('Add tune request succeeded', false);
+            step3_addTunes(index + 1);
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // STEP 4: Load tunes page and extract tune IDs
+    // ═══════════════════════════════════════════════════════════════
+    function step4_findTuneIds() {
+        log('STEP 4: Load tunes page and find our test tune IDs', 'running');
+        log('  → ' + code('$.get("page/tunes")') + ' then parse HTML for tune rows');
+
+        $.get(BASE + 'page/tunes')
+        .done(function(html) {
+            var $html = $(html);
+            tuneIds = [];
+
+            testTunes.forEach(function(tune) {
+                $html.find('.tune_title').each(function() {
+                    if ($(this).text().trim() === tune.tune_title) {
+                        var tuneId = $(this).attr('id');
+                        tuneIds.push(tuneId);
+                        log('  Found "' + tune.tune_title + '" → tune_id=' + tuneId, 'info');
+                    }
+                });
+            });
+
+            assert('Found all 3 test tunes on the page', tuneIds.length === 3);
+            log('  Tune IDs: [' + tuneIds.join(', ') + ']', 'info');
+            log('');
+            step5_addFavorites(0);
+        })
+        .fail(function() {
+            assert('Load tunes page succeeded', false);
+            summary();
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // STEP 5: Add all 3 tunes to favorites
+    // ═══════════════════════════════════════════════════════════════
+    function step5_addFavorites(index) {
+        if (index >= tuneIds.length) {
+            log('');
+            step6_verifyFavorites(3, 'after adding 3 tunes');
+            return;
+        }
+
+        var tuneId = tuneIds[index];
+        var tuneName = testTunes[index].tune_title;
+        log('STEP 5.' + (index + 1) + ': Add "' + tuneName + '" to favorites', 'running');
+        log('  → ' + code('$.post("api/favorite-tune", { tune_id: ' + tuneId + ', user_id: <session> })'));
+
+        $.post(BASE + 'api/favorite-tune', { tune_id: tuneId, user_id: 0 })
+        .done(function(data) {
+            assert('Tune ' + tuneId + ' favorited: response is "OK"', data.trim() === 'OK');
+            log('');
+            step5_addFavorites(index + 1);
+        })
+        .fail(function() {
+            assert('Favorite request succeeded', false);
+            step5_addFavorites(index + 1);
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // STEP 6: Verify favorites count
+    // ═══════════════════════════════════════════════════════════════
+    function step6_verifyFavorites(expectedCount, context) {
+        log('STEP 6: Verify favorites count ' + context, 'running');
+        log('  → ' + code('$.get("page/my-tunes")') + ' then count tune rows');
+
+        $.get(BASE + 'page/my-tunes')
+        .done(function(html) {
+            var $html = $(html);
+            var favoriteCount = $html.find('.tune_data_row').length;
+            log('  Favorites found: ' + favoriteCount, 'info');
+            assert('Favorites count is ' + expectedCount + ' (' + context + ')', favoriteCount === expectedCount);
+            log('');
+
+            if (context === 'after adding 3 tunes') {
+                step7_removeFavoriteFromTunesView();
+            } else if (context === 'after removing 1 from tunes view') {
+                step8_reAddFavorite();
+            } else if (context === 'after re-adding removed tune') {
+                step9_removeFavoriteFromFavoritesView();
+            } else if (context === 'after removing 1 from favorites view') {
+                step10_reAddFavoriteAgain();
+            } else if (context === 'after re-adding for collection test') {
+                step11_moveToCollection();
+            } else if (context === 'after moving to collection (remove_from_favorites=1)') {
+                step12_verifyCollection();
+            }
+        })
+        .fail(function() {
+            assert('Load favorites page succeeded', false);
+            summary();
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // STEP 7: Remove a favorite from the TUNES view (via favorite toggle)
+    // ═══════════════════════════════════════════════════════════════
+    function step7_removeFavoriteFromTunesView() {
+        var tuneId = tuneIds[0];
+        var tuneName = testTunes[0].tune_title;
+        log('STEP 7: Remove "' + tuneName + '" from favorites via TUNES view', 'running');
+        log('  This simulates clicking the orange X icon on the main tunes list', 'info');
+        log('  → ' + code('$.post("api/remove-favorite", { tune_id: ' + tuneId + ' })'));
+
+        $.post(BASE + 'api/remove-favorite', { tune_id: tuneId })
+        .done(function(data) {
+            assert('Remove favorite from tunes view: response is "OK"', data.trim() === 'OK');
+            log('');
+            step6_verifyFavorites(2, 'after removing 1 from tunes view');
+        })
+        .fail(function() {
+            assert('Remove favorite request succeeded', false);
+            summary();
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // STEP 8: Re-add the removed tune back to favorites
+    // ═══════════════════════════════════════════════════════════════
+    function step8_reAddFavorite() {
+        var tuneId = tuneIds[0];
+        var tuneName = testTunes[0].tune_title;
+        log('STEP 8: Re-add "' + tuneName + '" to favorites', 'running');
+        log('  → ' + code('$.post("api/favorite-tune", { tune_id: ' + tuneId + ' })'));
+
+        $.post(BASE + 'api/favorite-tune', { tune_id: tuneId, user_id: 0 })
+        .done(function(data) {
+            assert('Re-add favorite: response is "OK"', data.trim() === 'OK');
+            log('');
+            step6_verifyFavorites(3, 'after re-adding removed tune');
+        })
+        .fail(function() {
+            assert('Re-add favorite request succeeded', false);
+            summary();
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // STEP 9: Remove a favorite from the FAVORITES view
+    // ═══════════════════════════════════════════════════════════════
+    function step9_removeFavoriteFromFavoritesView() {
+        var tuneId = tuneIds[1];
+        var tuneName = testTunes[1].tune_title;
+        log('STEP 9: Remove "' + tuneName + '" from favorites via FAVORITES view', 'running');
+        log('  This simulates clicking the X icon on the My Tunes / Favorites page', 'info');
+        log('  → ' + code('$.post("api/remove-favorite", { tune_id: ' + tuneId + ' })'));
+
+        $.post(BASE + 'api/remove-favorite', { tune_id: tuneId })
+        .done(function(data) {
+            assert('Remove favorite from favorites view: response is "OK"', data.trim() === 'OK');
+            log('');
+            step6_verifyFavorites(2, 'after removing 1 from favorites view');
+        })
+        .fail(function() {
+            assert('Remove favorite request succeeded', false);
+            summary();
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // STEP 10: Re-add the tune so we have 3 for collection test
+    // ═══════════════════════════════════════════════════════════════
+    function step10_reAddFavoriteAgain() {
+        var tuneId = tuneIds[1];
+        var tuneName = testTunes[1].tune_title;
+        log('STEP 10: Re-add "' + tuneName + '" to favorites (prep for collection test)', 'running');
+        log('  → ' + code('$.post("api/favorite-tune", { tune_id: ' + tuneId + ' })'));
+
+        $.post(BASE + 'api/favorite-tune', { tune_id: tuneId, user_id: 0 })
+        .done(function(data) {
+            assert('Re-add favorite: response is "OK"', data.trim() === 'OK');
+            log('');
+            step6_verifyFavorites(3, 'after re-adding for collection test');
+        })
+        .fail(function() {
+            assert('Re-add favorite request succeeded', false);
+            summary();
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // STEP 11: Move all 3 favorites to a new collection
+    //          with remove_from_favorites checked
+    // ═══════════════════════════════════════════════════════════════
+    function step11_moveToCollection() {
+        log('STEP 11: Create collection "' + collectionName + '" from 3 favorites', 'running');
+        log('  remove_from_favorites = 1 (tunes should be removed after moving)', 'info');
+        log('  → ' + code('$.post("api/create-collection-from-favorites", {'));
+        log('        ' + code('collection_name: "' + collectionName + '",'));
+        log('        ' + code('tune_ids: ' + JSON.stringify(tuneIds) + ','));
+        log('        ' + code('remove_from_favorites: "1"'));
+        log('      ' + code('})'));
+
+        $.post(BASE + 'api/create-collection-from-favorites', {
+            collection_name: collectionName,
+            author: '',
+            description: 'Test collection created by workflow test',
+            is_shared: '1',
+            tune_ids: JSON.stringify(tuneIds),
+            remove_from_favorites: '1'
+        })
+        .done(function(response) {
+            var result = (typeof response === 'string') ? JSON.parse(response) : response;
+            assert('Collection created successfully', result.success === true);
+            assert('Collection contains ' + tuneIds.length + ' tunes', result.tune_count === tuneIds.length);
+            log('  Collection ID: ' + result.collection_id, 'info');
+            log('  Tune count: ' + result.tune_count, 'info');
+            log('');
+            step6_verifyFavorites(0, 'after moving to collection (remove_from_favorites=1)');
+        })
+        .fail(function(xhr) {
+            var err = xhr.responseJSON || {};
+            assert('Create collection request succeeded (error: ' + (err.error || 'unknown') + ')', false);
+            summary();
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // STEP 12: Verify the collection was created with tunes
+    // ═══════════════════════════════════════════════════════════════
+    function step12_verifyCollection() {
+        log('STEP 12: Verify collection exists on the collections page', 'running');
+        log('  → ' + code('$.get("page/collections")') + ' then search for "' + collectionName + '"');
+
+        $.get(BASE + 'page/collections')
+        .done(function(html) {
+            var $html = $(html);
+            var found = false;
+            var tuneCount = 0;
+
+            $html.find('.collection-title').each(function() {
+                if ($(this).text().trim() === collectionName) {
+                    found = true;
+                    var $body = $(this).closest('.collection-header').next('.collection-body');
+                    tuneCount = $body.find('.tune_data_row').length;
+                }
+            });
+
+            assert('Collection "' + collectionName + '" found on collections page', found);
+            assert('Collection contains ' + tuneIds.length + ' tunes', tuneCount === tuneIds.length);
+            log('  Tunes in collection: ' + tuneCount, 'info');
+            log('');
+
+            step13_cleanup();
+        })
+        .fail(function() {
+            assert('Load collections page succeeded', false);
+            step13_cleanup();
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // STEP 13: Cleanup — delete test user (cascades tunes, favorites, etc.)
+    // ═══════════════════════════════════════════════════════════════
+    function step13_cleanup() {
+        log('STEP 13: Cleanup — delete test user and cascade data', 'running');
+        log('  → ' + code('$.post("api/test-cleanup", { user_name: "' + testUser.user_name + '" })'));
+        log('  Note: CASCADE deletes will remove tunes, settings, favorites, and collection links', 'info');
+
+        $.post(BASE + 'api/test-cleanup', { user_name: testUser.user_name })
+        .done(function(data) {
+            log('  Cleanup result: ' + data.trim(), 'info');
+            log('');
+            summary();
+        })
+        .fail(function() {
+            log('  Cleanup endpoint not available (manual cleanup needed)', 'fail');
+            log('');
+            summary();
+        });
+    }
+
+    $('#run-tests').on('click', runTests);
+    </script>
+</body>
+</html>

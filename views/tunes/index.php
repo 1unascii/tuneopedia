@@ -16,6 +16,13 @@
     </span >
 
     <span class="filter-bar">
+        <label for="key-filter">Key: </label>
+        <select id="key-filter">
+            <option value="">All Keys</option>
+        </select>
+    </span>
+
+    <span class="filter-bar">
         <label for="show-no-setting">
             <input type="checkbox" id="show-no-setting" />
             Show tunes with no settings
@@ -58,7 +65,7 @@
     <tbody class="ui-state-default">
 
         <?php foreach ($categoryItems as $t): ?>
-        <tr class="tune_data_row<?= empty($t['setting_id']) ? ' no-setting' : '' ?>" id="<?= $t['tune_id'] ?>">
+        <tr class="tune_data_row<?= empty($t['setting_id']) ? ' no-setting' : '' ?>" id="<?= $t['tune_id'] ?>" data-key="<?= htmlspecialchars($t['key_signature'] ?? '') ?>">
 
             <td>
                 <span class="<?= empty($t['setting_id']) ? 'dead_link' : 'show_abc' ?>" id="<?php echo ($t['setting_id']) ?>">
@@ -75,7 +82,7 @@
 
             <td class="tune-favorite-col">
                 <span class="favorite-toggle" data-user-id="<?= $_SESSION['user_id'] ?? 0 ?>">
-                    <i class="fa-sharp fa-solid <?= !empty($t['is_favorited']) ? 'fa-xmark favorited' : 'fa-plus' ?> favorite-icon"></i>
+                    <i class="<?= !empty($t['is_favorited']) ? 'fa-solid fa-square-check favorited' : 'fa-regular fa-square' ?> favorite-icon"></i>
                 </span>
             </td>
 

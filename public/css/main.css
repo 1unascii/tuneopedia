@@ -74,6 +74,12 @@
   color: #e55;
 }
 
+.collection-tune-count {
+  font-size: 0.85em;
+  font-weight: normal;
+  color: #999;
+}
+
 .collection-select-icon {
   cursor: pointer;
 }

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Discussion Test — Threads &amp; Replies</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body { font-family: monospace; background: #1a1a1a; color: #ccc; padding: 20px; max-width: 1000px; }
+        .pass { color: #6c6; }
+        .fail { color: #c66; }
+        .running { color: #cc6; }
+        .info { color: #6af; }
+        .code { color: #aaa; background: #2a2a2a; padding: 2px 6px; border-radius: 3px; }
+        #results { white-space: pre-wrap; line-height: 1.8; }
+        h1 { color: #ddd; font-size: 1.2em; }
+        button { padding: 8px 20px; font-size: 1em; cursor: pointer; margin-bottom: 20px; }
+        hr { border-color: #333; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Discussion Test — Threads &amp; Replies</h1>
+    <button id="run-tests">Run Tests</button>
+    <div id="results"></div>
+
+    <script>
+    var BASE = '/tuneopedia/';
+    var timestamp = Date.now();
+    var passed = 0;
+    var failed = 0;
+
+    var users = [
+        {
+            first_name: 'Alice',
+            last_name:  'Test',
+            email:      'testuser_alice_' + timestamp + '@test.com',
+            user_name:  'testuser_' + timestamp + '_alice',
+            password:   'AlicePass123!',
+            register:   true,
+            threadId:   null,
+            threadTitle: 'Best reels for a session? (' + timestamp + ')',
+            threadBody:  'I\'m putting together a set list for an upcoming session. What are your go-to reels?'
+        },
+        {
+            first_name: 'Bob',
+            last_name:  'Test',
+            email:      'testuser_bob_' + timestamp + '@test.com',
+            user_name:  'testuser_' + timestamp + '_bob',
+            password:   'BobPass123!',
+            register:   true,
+            threadId:   null,
+            threadTitle: 'Learning slip jigs (' + timestamp + ')',
+            threadBody:  'I\'ve been playing mostly reels and jigs. Any tips for getting into slip jigs? The 9/8 time signature trips me up.'
+        },
+        {
+            first_name: 'Carol',
+            last_name:  'Test',
+            email:      'testuser_carol_' + timestamp + '@test.com',
+            user_name:  'testuser_' + timestamp + '_carol',
+            password:   'CarolPass123!',
+            register:   true,
+            threadId:   null,
+            threadTitle: 'Favorite tune collections? (' + timestamp + ')',
+            threadBody:  'What collections do you recommend for someone building their repertoire? I\'ve been working through O\'Neill\'s.'
+        }
+    ];
+
+    var replies = [
+        { fromUser: 0, toThread: 1, body: 'Start with "The Butterfly" - it\'s the classic slip jig everyone knows. Great for getting the feel of 9/8.' },
+        { fromUser: 1, toThread: 2, body: 'O\'Neill\'s is fantastic. I\'d also recommend "The Session" collections - they have great variety across all tune types.' },
+        { fromUser: 2, toThread: 0, body: 'You can\'t go wrong with "The Maid Behind the Bar" and "The Silver Spear". Both are session staples!' }
+    ];
+
+    function log(msg, cls) {
+        $('#results').append('<div class="' + (cls || '') + '">' + msg + '</div>');
+    }
+
+    function code(snippet) {
+        return '<span class="code">' + snippet + '</span>';
+    }
+
+    function assert(label, condition) {
+        if (condition) {
+            log('  ✓ ' + label, 'pass');
+            passed++;
+        } else {
+            log('  ✗ ' + label, 'fail');
+            failed++;
+        }
+    }
+
+    function summary() {
+        log('');
+        log('═══════════════════════════════════════════════════════════');
+
+        // Count totals
+        var totalThreads = users.filter(function(u) { return u.threadId !== null; }).length;
+        var totalPosts = totalThreads + replies.length;
+
+        log('');
+        log('SUMMARY OF DISCUSSION STATE:', 'info');
+        log('  Threads created:     ' + totalThreads, 'info');
+        log('  Opening posts:       ' + totalThreads + ' (one per thread)', 'info');
+        log('  Replies:             ' + replies.length, 'info');
+        log('  Total posts in DB:   ' + totalPosts, 'info');
+        log('');
+        log('  Thread breakdown:', 'info');
+        users.forEach(function(user, i) {
+            var replyCount = replies.filter(function(r) { return r.toThread === i; }).length;
+            log('    "' + user.threadTitle + '"', 'info');
+            log('      Created by: ' + user.user_name, 'info');
+            log('      Thread ID:  ' + user.threadId, 'info');
+            log('      Posts:      ' + (1 + replyCount) + ' (1 opening + ' + replyCount + ' reply)', 'info');
+        });
+
+        log('');
+        log('═══════════════════════════════════════════════════════════');
+        var total = passed + failed;
+        if (failed === 0) {
+            log('All ' + total + ' assertions passed', 'pass');
+        } else {
+            log(passed + '/' + total + ' passed, ' + failed + ' failed', 'fail');
+        }
+
+        log('');
+        log('Cleaning up...', 'running');
+        cleanupUser(0);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // Registration (sequential for all 3 users)
+    // ═══════════════════════════════════════════════════════════════
+    function registerUsers(index) {
+        if (index >= users.length) {
+            log('');
+            loginAndCreateThread(0);
+            return;
+        }
+
+        var user = users[index];
+        log('STEP 1.' + (index + 1) + ': Register user "' + user.user_name + '"', 'running');
+        log('  → ' + code('$.post("api/register", { user_name: "' + user.user_name + '", ... })'));
+
+        $.post(BASE + 'api/register', user)
+        .done(function(data) {
+            assert('Registered ' + user.first_name + ': "' + data.trim() + '"', data.trim() === 'Thank you for signing up');
+            log('');
+            registerUsers(index + 1);
+        })
+        .fail(function() {
+            assert('Registration request for ' + user.first_name + ' succeeded', false);
+            registerUsers(index + 1);
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // Login as each user and create their thread
+    // ═══════════════════════════════════════════════════════════════
+    function loginAndCreateThread(index) {
+        if (index >= users.length) {
+            log('');
+            loginAndReply(0);
+            return;
+        }
+
+        var user = users[index];
+
+        // Login
+        log('STEP 2.' + (index + 1) + 'a: Log in as "' + user.user_name + '"', 'running');
+        log('  → ' + code('$.post("api/auth", { user_name: "' + user.user_name + '", login: true })'));
+
+        $.post(BASE + 'api/auth', {
+            user_name: user.user_name,
+            password:  user.password,
+            login:     true
+        })
+        .done(function(data) {
+            assert(user.first_name + ' logged in: "' + data.trim() + '"', data.trim() === 'Login successful!');
+
+            // Create thread
+            log('');
+            log('STEP 2.' + (index + 1) + 'b: ' + user.first_name + ' creates thread "' + user.threadTitle + '"', 'running');
+            log('  → ' + code('$.post("api/create-thread", { title: "' + user.threadTitle + '", body: "..." })'));
+            log('  → Body: "' + user.threadBody.substring(0, 60) + '..."', 'info');
+
+            $.post(BASE + 'api/create-thread', {
+                title: user.threadTitle,
+                body:  user.threadBody
+            })
+            .done(function(response) {
+                var result = (typeof response === 'string') ? JSON.parse(response) : response;
+                assert(user.first_name + '\'s thread created (thread_id=' + result.thread_id + ')', result.success === true);
+                users[index].threadId = result.thread_id;
+                log('  Thread ID: ' + result.thread_id, 'info');
+                log('');
+                loginAndCreateThread(index + 1);
+            })
+            .fail(function(xhr) {
+                assert(user.first_name + '\'s thread creation succeeded', false);
+                loginAndCreateThread(index + 1);
+            });
+        })
+        .fail(function() {
+            assert(user.first_name + ' login succeeded', false);
+            loginAndCreateThread(index + 1);
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // Login as each user and reply to another user's thread
+    // ═══════════════════════════════════════════════════════════════
+    function loginAndReply(index) {
+        if (index >= replies.length) {
+            log('');
+            verifyThreads();
+            return;
+        }
+
+        var reply = replies[index];
+        var fromUser = users[reply.fromUser];
+        var toUser = users[reply.toThread];
+        var threadId = toUser.threadId;
+
+        // Login as the replying user
+        log('STEP 3.' + (index + 1) + 'a: Log in as "' + fromUser.user_name + '"', 'running');
+        log('  → ' + code('$.post("api/auth", { user_name: "' + fromUser.user_name + '", login: true })'));
+
+        $.post(BASE + 'api/auth', {
+            user_name: fromUser.user_name,
+            password:  fromUser.password,
+            login:     true
+        })
+        .done(function(data) {
+            assert(fromUser.first_name + ' logged in', data.trim() === 'Login successful!');
+
+            // Post reply
+            log('');
+            log('STEP 3.' + (index + 1) + 'b: ' + fromUser.first_name + ' replies to ' + toUser.first_name + '\'s thread (ID=' + threadId + ')', 'running');
+            log('  → ' + code('$.post("api/create-post", { thread_id: ' + threadId + ', body: "..." })'));
+            log('  → Thread: "' + toUser.threadTitle + '"', 'info');
+            log('  → Reply: "' + reply.body.substring(0, 60) + '..."', 'info');
+
+            $.post(BASE + 'api/create-post', {
+                thread_id: threadId,
+                body:      reply.body
+            })
+            .done(function(response) {
+                var result = (typeof response === 'string') ? JSON.parse(response) : response;
+                assert(fromUser.first_name + '\'s reply posted (post_id=' + result.post_id + ')', result.success === true);
+                log('  Post ID: ' + result.post_id, 'info');
+                log('');
+                loginAndReply(index + 1);
+            })
+            .fail(function(xhr) {
+                assert(fromUser.first_name + '\'s reply succeeded', false);
+                loginAndReply(index + 1);
+            });
+        })
+        .fail(function() {
+            assert(fromUser.first_name + ' login succeeded', false);
+            loginAndReply(index + 1);
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // Verify threads and post counts by loading the discussion page
+    // ═══════════════════════════════════════════════════════════════
+    function verifyThreads() {
+        log('STEP 4: Verify threads and post counts on the discussion page', 'running');
+        log('  → ' + code('$.get("page/discussion")') + ' then parse thread rows');
+
+        $.get(BASE + 'page/discussion')
+        .done(function(html) {
+            var $html = $(html);
+
+            users.forEach(function(user, i) {
+                var found = false;
+                var postCount = 0;
+
+                $html.find('.discussion-thread-row').each(function() {
+                    var $row = $(this);
+                    if (parseInt($row.data('thread-id')) === user.threadId) {
+                        found = true;
+                        postCount = parseInt($row.find('.discussion-post-count').text().trim());
+                    }
+                });
+
+                var expectedPosts = 1 + replies.filter(function(r) { return r.toThread === i; }).length;
+
+                assert('Thread "' + user.threadTitle + '" found on discussion page', found);
+                assert('Thread has ' + expectedPosts + ' post(s) (1 opening + ' + (expectedPosts - 1) + ' reply)', postCount === expectedPosts);
+                log('  ' + user.first_name + '\'s thread: ' + postCount + ' post(s)', 'info');
+            });
+
+            log('');
+            verifyThreadDetail(0);
+        })
+        .fail(function() {
+            assert('Load discussion page succeeded', false);
+            summary();
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // Verify each thread's detail page shows the correct posts
+    // ═══════════════════════════════════════════════════════════════
+    function verifyThreadDetail(index) {
+        if (index >= users.length) {
+            summary();
+            return;
+        }
+
+        var user = users[index];
+        var threadId = user.threadId;
+        var expectedReplies = replies.filter(function(r) { return r.toThread === index; });
+        var expectedPostCount = 1 + expectedReplies.length;
+
+        log('STEP 5.' + (index + 1) + ': Verify thread detail for "' + user.threadTitle + '"', 'running');
+        log('  → ' + code('$.get("page/discussion-thread?thread_id=' + threadId + '")'));
+
+        $.get(BASE + 'page/discussion-thread?thread_id=' + threadId)
+        .done(function(html) {
+            var $html = $(html);
+            var actualPosts = $html.find('.post-card').length;
+            var threadTitle = $html.find('#thread-detail h2').text().trim();
+
+            assert('Thread title matches: "' + threadTitle + '"', threadTitle === user.threadTitle);
+            assert('Thread detail shows ' + expectedPostCount + ' post(s)', actualPosts === expectedPostCount);
+
+            // Check that the opening post is from the thread author
+            var firstPostAuthor = $html.find('.post-card:first .post-author').text().trim();
+            assert('First post is by ' + user.user_name, firstPostAuthor === user.user_name);
+
+            // Check reply authors
+            if (expectedReplies.length > 0) {
+                var replyAuthor = $html.find('.post-card:last .post-author').text().trim();
+                var expectedAuthor = users[expectedReplies[0].fromUser].user_name;
+                assert('Reply is by ' + expectedAuthor, replyAuthor === expectedAuthor);
+            }
+
+            log('  Posts on detail page: ' + actualPosts, 'info');
+            log('');
+            verifyThreadDetail(index + 1);
+        })
+        .fail(function() {
+            assert('Load thread detail succeeded', false);
+            verifyThreadDetail(index + 1);
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // Cleanup — delete test users sequentially
+    // ═══════════════════════════════════════════════════════════════
+    function cleanupUser(index) {
+        if (index >= users.length) {
+            log('  Cleanup complete.', 'info');
+            return;
+        }
+
+        var user = users[index];
+        log('  Deleting ' + user.first_name + ' (' + user.user_name + ')...', 'info');
+        log('  → ' + code('$.post("api/test-cleanup", { user_name: "' + user.user_name + '" })'));
+
+        $.post(BASE + 'api/test-cleanup', { user_name: user.user_name })
+        .done(function(data) {
+            log('    Result: ' + data.trim(), 'info');
+            cleanupUser(index + 1);
+        })
+        .fail(function() {
+            log('    Cleanup failed for ' + user.user_name, 'fail');
+            cleanupUser(index + 1);
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // Run
+    // ═══════════════════════════════════════════════════════════════
+    function runTests() {
+        $('#results').empty();
+        passed = 0;
+        failed = 0;
+
+        log('═══════════════════════════════════════════════════════════');
+        log('  DISCUSSION TEST: 3 Users, 3 Threads, 3 Replies');
+        log('═══════════════════════════════════════════════════════════');
+        log('');
+        log('Users:', 'info');
+        users.forEach(function(u) {
+            log('  • ' + u.first_name + ' (' + u.user_name + ')', 'info');
+        });
+        log('');
+        log('Plan:', 'info');
+        log('  1. Register 3 users', 'info');
+        log('  2. Each user creates a thread', 'info');
+        log('  3. Each user replies to one other user\'s thread:', 'info');
+        log('     • Alice replies to Bob\'s thread', 'info');
+        log('     • Bob replies to Carol\'s thread', 'info');
+        log('     • Carol replies to Alice\'s thread', 'info');
+        log('  4. Verify thread list shows correct post counts', 'info');
+        log('  5. Verify each thread detail page shows correct posts', 'info');
+        log('');
+
+        registerUsers(0);
+    }
+
+    $('#run-tests').on('click', runTests);
+    </script>
+</body>
+</html>

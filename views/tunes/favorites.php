@@ -22,6 +22,13 @@
         <input type="text" id="tune-filter" placeholder="Filter tunes by title..." />
     </span>
 
+    <span class="filter-bar">
+        <label for="key-filter">Key: </label>
+        <select id="key-filter">
+            <option value="">All Keys</option>
+        </select>
+    </span>
+
     <span class="pagination-top">
         <label for="per-page-select">Tunes per page: </label>
         <select id="per-page-select">
@@ -59,6 +66,7 @@
 
         <?php foreach ($categoryItems as $tune): ?>
         <tr class="tune_data_row<?= empty($tune['setting_id']) ? ' no-setting' : '' ?>" id="<?= $tune['tune_id'] ?>"
+            data-key="<?= htmlspecialchars($tune['key_signature'] ?? '') ?>"
             data-tune-name="<?= htmlspecialchars($tune['tune_name']) ?>"
             data-key-signature="<?= htmlspecialchars($tune['key_signature'] ?? '') ?>"
             data-time-signature="<?= htmlspecialchars($tune['time_signature'] ?? '4/4') ?>"
@@ -79,7 +87,7 @@
             </td>
 
             <td class="collection-select-col">
-                <i class="fa-sharp fa-solid fa-plus collection-select-icon" title="Add to collection"></i>
+                <i class="fa-regular fa-square collection-select-icon" title="Add to collection"></i>
             </td>
 
             <td class="tune-favorite-col">

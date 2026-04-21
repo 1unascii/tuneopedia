@@ -73,7 +73,7 @@ $(document).ready(function() {
         if (selectedTunes[tuneId]) {
             delete selectedTunes[tuneId];
             $row.removeClass('collection-selected');
-            $(this).removeClass('collection-active fa-xmark').addClass('fa-plus');
+            $(this).removeClass('collection-active fa-square-check fa-solid').addClass('fa-regular fa-square');
         } else {
             selectedTunes[tuneId] = {
                 name: $row.data('tune-name'),
@@ -82,7 +82,7 @@ $(document).ready(function() {
                 abc: $row.data('abc')
             };
             $row.addClass('collection-selected');
-            $(this).addClass('collection-active').removeClass('fa-plus').addClass('fa-xmark');
+            $(this).addClass('collection-active').removeClass('fa-regular fa-square').addClass('fa-solid fa-square-check');
         }
         updateSelectionBar();
         if ($('#save-collection-form').is(':visible')) {

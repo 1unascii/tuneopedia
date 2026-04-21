@@ -19,10 +19,10 @@
 <script type="text/javascript" src="js/lib/jquery-turtle.min.js"></script>
 <script type="text/javascript" src="js/modules/users/auth_user.js?v=1"></script>
 <script type="text/javascript" src="js/modules/abc-editor.js?v=6"></script>
-<script type="text/javascript" src="js/modules/tunes/index.js?v=1"></script>
+<script type="text/javascript" src="js/modules/tunes/index.js?v=5"></script>
 <script type="text/javascript" src="js/modules/tunes/show.js?v=2"></script>
-<script type="text/javascript" src="js/modules/favorites/index.js?v=1"></script>
-<script type="text/javascript" src="js/modules/collections/index.js?v=1"></script>
+<script type="text/javascript" src="js/modules/favorites/index.js?v=3"></script>
+<script type="text/javascript" src="js/modules/collections/index.js?v=3"></script>
 <link href="css/discussion.css?v=3" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="js/modules/discussions/index.js?v=1"></script>
 <script type="text/javascript" src="js/modules/discussions/show.js?v=1"></script>
