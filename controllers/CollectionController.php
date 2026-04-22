@@ -10,7 +10,7 @@ class CollectionController {
         if (session_status() === PHP_SESSION_NONE) session_start();
         $pdo         = connect();
         $currentUserId = (int) ($_SESSION['user_id'] ?? 0);
-        $collections = Collection::getAllWithTunes($pdo);
+        $collections = Collection::getAllWithTunes($pdo, $currentUserId);
         include __DIR__ . '/../views/collections/index.php';
     }
 

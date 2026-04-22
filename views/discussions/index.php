@@ -1,6 +1,6 @@
 <div id="discussion-container">
     <div id="discussion-header">
-        <h2>Discussion</h2>
+        <h2>Discussions</h2>
 <?php if (!empty($_SESSION['Authenticated'])): ?>
         <button id="new-thread-btn" class="ui-button ui-widget ui-corner-all">New Thread</button>
 <?php endif; ?>

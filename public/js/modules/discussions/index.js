@@ -34,7 +34,7 @@ $(function () {
         $.post(apiBase + 'api/create-thread', { title: title, body: body }, function (response) {
             var result = (typeof response === 'string') ? JSON.parse(response) : response;
             if (result.success) {
-                loadDiscussionContent('page/discussion', 'discussion');
+                loadDiscussionContent('page/discussions', 'discussions');
             } else {
                 alert(result.error || 'Could not create thread.');
             }
@@ -50,7 +50,7 @@ $(function () {
         var threadId = $(this).data('thread-id');
         loadDiscussionContent(
             'page/discussion-thread?thread_id=' + threadId,
-            'discussion/' + threadId
+            'discussions/' + threadId
         );
     });
 

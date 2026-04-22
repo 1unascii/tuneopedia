@@ -32,7 +32,13 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost/tuneopedia/tune/js/modules/nav.js\")",
       "Bash(curl -s \"http://localhost/tuneopedia/tune/js/modules/nav.js\")",
       "Bash(grep -n \"shared\\\\|is_shared\\\\|isShared\" C:/xampp/htdocs/tuneopedia/controllers/*.php C:/xampp/htdocs/tuneopedia/models/*.php)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(read file:*)",
+      "Bash([ ! -f \"public/$file\" ])",
+      "Bash(grep -r \"set-tune-headers\" . --include=\"*.php\" --include=\"*.js\")",
+      "Bash(grep -r \"modules/nav\" . --include=\"*.php\")",
+      "Bash(grep -r \"collections/create\" . --include=\"*.php\")",
+      "Bash(grep -r \"users/create_user\" . --include=\"*.php\")"
     ]
   }
 }

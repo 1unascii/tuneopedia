@@ -1,10 +1,10 @@
 <!--link href="css/links.css" rel="stylesheet" type="text/css"/-->
-<script type="text/javascript" src="js/modules/nav.js?v=13"></script>
+<script type="text/javascript" src="js/modules/nav.js?v=16"></script>
     <div class="nav-container">
 
         <div class='nav' id='home_link'>Home</div>
         <div class='nav' id='tunes_link'>Tunes</div>
-        <div class='nav' id='discussion_link'>Discussion</div>
+        <div class='nav' id='discussion_link'>Discussions</div>
 <?php
     //IF LOGGED IN
     if(array_key_exists('Authenticated', $_SESSION)){ 
@@ -24,6 +24,9 @@
     }
 ?>
     <div class='nav' id='collections_link'>Collections</div>
-    
+
+    <div class='nav' id='theme-toggle' title="Toggle light/dark mode">
+        <i class="fa-solid fa-sun" id="theme-icon"></i>
+    </div>
     </div>
 

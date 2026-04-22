@@ -23,9 +23,10 @@ class Collection {
      *
      * Used by collections.php to build the accordion/tabs view.
      */
-    public static function getAllWithTunes(PDO $pdo): array {
+    public static function getAllWithTunes(PDO $pdo, int $userId = 0): array {
         $sql  = file_get_contents(__DIR__ . '/../sql/show_collections.sql');
-        $stmt = $pdo->query($sql);
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':user_id' => $userId]);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $collections = [];
@@ -72,6 +73,7 @@ class Collection {
                 'time_signature'    => $row['time_signature'],
                 'abc_transcription' => $row['abc_transcription'],
                 'position'          => $row['position'],
+                'is_favorited'      => (int) $row['is_favorited'],
             ];
         }
 

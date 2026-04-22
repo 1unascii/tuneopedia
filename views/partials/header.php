@@ -12,8 +12,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.3/jquery-ui.min.js"></script>
-<link href="css/themes/ui-darkness/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
-<link href="css/main.css?v=31" rel="stylesheet" type="text/css"/>
+<link id="jquery-ui-theme" href="css/themes/ui-darkness/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
+<link href="css/main.css?v=33" rel="stylesheet" type="text/css"/>
 <script src='js/lib/abcjs-basic.js' type='text/javascript'></script>
 <script type="text/javascript" src="js/lib/jquery.dataTables.js"></script>
 <script type="text/javascript" src="js/lib/jquery-turtle.min.js"></script>
@@ -24,8 +24,8 @@
 <script type="text/javascript" src="js/modules/favorites/index.js?v=3"></script>
 <script type="text/javascript" src="js/modules/collections/index.js?v=3"></script>
 <link href="css/discussion.css?v=3" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="js/modules/discussions/index.js?v=1"></script>
-<script type="text/javascript" src="js/modules/discussions/show.js?v=1"></script>
+<script type="text/javascript" src="js/modules/discussions/index.js?v=2"></script>
+<script type="text/javascript" src="js/modules/discussions/show.js?v=2"></script>
 <script src="https://kit.fontawesome.com/5c647e36cb.js" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,4 +40,14 @@
         <img id="logo" class='banner-image' src='images/music_scroll_4.png'/>
     </div>
 </div>
+<script>
+// Apply saved theme immediately to prevent flash of wrong theme
+(function() {
+    var saved = localStorage.getItem('tuneopedia-theme');
+    if (saved === 'light') {
+        document.body.classList.add('light-mode');
+        document.getElementById('jquery-ui-theme').href = 'css/themes/ui-lightness/jquery-ui.min.css';
+    }
+})();
+</script>
 

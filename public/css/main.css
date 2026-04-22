@@ -362,3 +362,141 @@ th {
 .no-setting-icon { opacity: 0.25; cursor: default; pointer-events: none; }
 
 .tune-back-btn { margin-bottom: 14px; cursor: pointer; }
+
+/* ── Theme toggle button ─────────────────────────────────────────────────── */
+
+#theme-toggle {
+    margin-left: auto;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: color 0.3s;
+}
+
+#theme-toggle:hover {
+    color: #ffc73d;
+}
+
+/* ── Light mode overrides ────────────────────────────────────────────────── */
+
+body.light-mode {
+    background-color: #f5f5f0;
+    color: #222;
+}
+
+.light-mode .nav-container {
+    background: rgba(240, 240, 235, 0.95);
+}
+
+.light-mode .nav {
+    color: #333;
+}
+
+.light-mode .nav:hover {
+    color: #0088aa;
+    text-shadow: none;
+}
+
+.light-mode .tabs {
+    background-color: #e8e8e0;
+    color: #0088aa;
+}
+
+.light-mode th {
+    background-color: #ddd;
+    color: #333;
+}
+
+.light-mode table {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.light-mode .tune_data_row,
+.light-mode .tune_data_row th {
+    background: #fff !important;
+}
+
+.light-mode .tune_data_row td {
+    background: transparent !important;
+    color: #222;
+}
+
+.light-mode .tune_data_row:hover td {
+    background: rgba(0, 136, 170, 0.05) !important;
+}
+
+.light-mode footer {
+    background: rgba(240, 240, 235, 0.98);
+    border-top-color: #0088aa;
+    color: #333;
+}
+
+.light-mode .footer-section h3 {
+    color: #c06000;
+}
+
+.light-mode .footer-section p,
+.light-mode .footer-section a {
+    color: #555;
+}
+
+.light-mode .footer-section a:hover {
+    color: #0088aa;
+    text-shadow: none;
+}
+
+.light-mode .alert-box {
+    background: rgba(255, 255, 255, 0.95);
+    color: #222;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.light-mode .page-link,
+.light-mode .collection-page-link,
+.light-mode .collection-tune-page-link {
+    color: #333;
+}
+
+.light-mode #discussion-container .thread-body,
+.light-mode #discussion-container .post-body {
+    color: #333;
+}
+
+.light-mode .post-card {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: #ddd;
+}
+
+.light-mode .discussion-thread-row:hover {
+    background: rgba(0, 136, 170, 0.05) !important;
+}
+
+.light-mode #new-thread-form,
+.light-mode #reply-form {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: #ddd;
+}
+
+.light-mode .form-group input[type="text"],
+.light-mode .form-group textarea {
+    background: #fff;
+    color: #222;
+    border-color: #ccc;
+}
+
+.light-mode #collection-selection-bar {
+    background: #eee;
+    border-top-color: #ccc;
+}
+
+.light-mode .collection-selected {
+    background: rgba(0, 136, 170, 0.1) !important;
+}
+
+.light-mode #theme-toggle {
+    color: #666;
+}
+
+.light-mode #theme-toggle:hover {
+    color: #ffc73d;
+}

@@ -40,7 +40,7 @@ class AuthController {
 
     public function testCleanup() {
         $username = $_POST['user_name'] ?? '';
-        if (!preg_match('/^testuser_\d+$/', $username)) {
+        if (!preg_match('/^testuser_\d+/', $username)) {
             echo 'Refused: only test users can be deleted';
             return;
         }
@@ -64,6 +64,8 @@ class AuthController {
         $db->prepare("DELETE FROM tunebook WHERE user_id = :uid")->execute([':uid' => $userId]);
         $db->prepare("DELETE FROM setting_vote WHERE user_id = :uid")->execute([':uid' => $userId]);
         $db->prepare("DELETE FROM setting WHERE user_id = :uid")->execute([':uid' => $userId]);
+        // Delete posts ON this user's threads (by any user), then posts BY this user
+        $db->prepare("DELETE FROM post WHERE thread_id IN (SELECT discussion_thread_id FROM discussion_thread WHERE user_id = :uid)")->execute([':uid' => $userId]);
         $db->prepare("DELETE FROM post WHERE user_id = :uid")->execute([':uid' => $userId]);
         $db->prepare("DELETE FROM discussion_thread WHERE user_id = :uid")->execute([':uid' => $userId]);
         $db->prepare("DELETE FROM user WHERE user_id = :uid")->execute([':uid' => $userId]);

@@ -1,4 +1,18 @@
 <?php
+// ══════════════════════════════════════════════════════════════════════════════
+// Front Controller — All requests are routed through this file via .htaccess
+//
+// The app has 4 types of routes, checked in this order:
+//   1. API routes    (api/*)         — AJAX endpoints, return JSON or plain text
+//   2. Fragment routes (fragment/*)  — partial HTML loaded into #content via $.load()
+//   3. Page routes   (page/*)       — content-only HTML loaded via $.load()
+//   4. Server routes (everything else) — full page render (header + nav + content + footer)
+//
+// If a route doesn't match any of these, a 404 is returned.
+// API 404s return JSON. Page/fragment 404s return HTML. Server 404s render
+// the full page layout with the 404 view inside #content.
+// ══════════════════════════════════════════════════════════════════════════════
+
 define('BASE_PATH', realpath(__DIR__ . '/..'));
 
 require_once(BASE_PATH . '/vendor/autoload.php');
@@ -11,6 +25,9 @@ require_once(BASE_PATH . '/controllers/SettingController.php');
 require_once(BASE_PATH . '/controllers/AuthController.php');
 require_once(BASE_PATH . '/controllers/DiscussionController.php');
 
+// ── Compute the base path and current route ─────────────────────────────────
+// $base is the app's root URL path (e.g. "/tuneopedia")
+// $route is the path after $base, trimmed of slashes (e.g. "api/auth", "tunes", "discussion/3")
 $scriptDir = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
 $base = preg_replace('#/public$#', '', $scriptDir);
 
@@ -19,7 +36,10 @@ $route = trim(
     '/'
 );
 
-// ── API endpoints (AJAX) ─────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+// 1. API ROUTES — Called via $.post() / $.get() from JavaScript
+//    Return JSON or plain text. No HTML layout.
+// ══════════════════════════════════════════════════════════════════════════════
 $apiRoutes = [
     'auth'           => ['AuthController',       'login'],
     'add-tune'       => ['TuneController',       'create'],
@@ -40,18 +60,29 @@ $apiRoutes = [
     'delete-post'    => ['DiscussionController',  'deletePost'],
 ];
 
+// Special case: logout uses GET with a query parameter
 if ($route === 'api/auth' && isset($_GET['logout'])) {
     (new AuthController)->logout();
     exit;
 }
 
-if (preg_match('#^api/(.+)$#', $route, $m) && isset($apiRoutes[$m[1]])) {
-    [$class, $method] = $apiRoutes[$m[1]];
-    (new $class)->$method();
+// Match api/* routes — if the endpoint exists, call it; otherwise return 404 JSON
+if (preg_match('#^api/(.+)$#', $route, $m)) {
+    if (isset($apiRoutes[$m[1]])) {
+        [$class, $method] = $apiRoutes[$m[1]];
+        (new $class)->$method();
+    } else {
+        http_response_code(404);
+        echo json_encode(['error' => 'Endpoint not found']);
+    }
     exit;
 }
 
-// ── Fragment endpoints (form views loaded via .load()) ───────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+// 2. FRAGMENT ROUTES — Partial HTML snippets loaded via $.load()
+//    Used for forms (login, register, add tune, add collection)
+//    These return raw HTML with no page layout wrapper.
+// ══════════════════════════════════════════════════════════════════════════════
 $fragmentRoutes = [
     'login'          => '/views/auth/login.php',
     'registration'   => '/views/auth/register.php',
@@ -62,6 +93,7 @@ $fragmentRoutes = [
 if (preg_match('#^fragment/(.+)$#', $route, $m)) {
     $fragKey = $m[1];
 
+    // Sub-route for ABC editor mode options (major, minor, dorian, mixolydian)
     if (preg_match('#^mode-options/(major|minor|dorian|mixolydian)$#', $fragKey, $mm)) {
         include BASE_PATH . '/views/mode_options/' . $mm[1] . '.php';
         exit;
@@ -77,58 +109,86 @@ if (preg_match('#^fragment/(.+)$#', $route, $m)) {
     exit;
 }
 
-// ── Page content (loaded via .load() or server-rendered) ─────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+// 3. PAGE ROUTES — Content loaded into #content via $.load()
+//    Called by nav.js when clicking nav links. Returns HTML without
+//    the header/nav/footer — just the page content that goes inside #content.
+// ══════════════════════════════════════════════════════════════════════════════
 $pageRoutes = [
-    'tunes'       => ['TuneController',       'index'],
-    'collections' => ['CollectionController',  'index'],
     'home'               => ['TuneController',       'home'],
+    'tunes'              => ['TuneController',       'index'],
     'tune-page'          => ['TuneController',       'show'],
     'my-tunes'           => ['TuneController',       'favorites'],
-    'discussion'         => ['DiscussionController',  'index'],
+    'collections'        => ['CollectionController',  'index'],
+    'discussions'        => ['DiscussionController',  'index'],
     'discussion-thread'  => ['DiscussionController',  'show'],
 ];
 
-if (preg_match('#^page/(.+)$#', $route, $m) && isset($pageRoutes[$m[1]])) {
-    [$class, $method] = $pageRoutes[$m[1]];
-    (new $class)->$method();
+// Match page/* routes — returns content HTML or 404 HTML
+if (preg_match('#^page/(.+)$#', $route, $m)) {
+    if (isset($pageRoutes[$m[1]])) {
+        [$class, $method] = $pageRoutes[$m[1]];
+        (new $class)->$method();
+    } else {
+        http_response_code(404);
+        include BASE_PATH . '/views/errors/404.php';
+    }
     exit;
 }
 
-// ── Full page rendering ──────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+// 4. SERVER ROUTES — Full page rendering (direct URL access)
+//    Used when a user navigates directly to a URL (e.g. typing it in the
+//    address bar, refreshing the page, or following a bookmark).
+//    Renders the complete page: header → nav → content → footer.
+// ══════════════════════════════════════════════════════════════════════════════
 $serverRoutes = [
-    ''            => ['TuneController',       'home'],
+    ''            => ['TuneController',       'home'],       // Landing page
     'home'        => ['TuneController',       'home'],
     'tunes'       => ['TuneController',       'index'],
     'collections' => ['CollectionController',  'index'],
-    'discussion'  => ['DiscussionController',  'index'],
+    'discussions'  => ['DiscussionController',  'index'],
 ];
 
+// Dynamic routes with parameters extracted from the URL path
 if (preg_match('#^tune/(\d+)$#', $route, $m)) {
     $_GET['tune_id'] = (int)$m[1];
     $contentAction = ['TuneController', 'show'];
-} elseif (preg_match('#^discussion/(\d+)$#', $route, $m)) {
+} elseif (preg_match('#^discussions/(\d+)$#', $route, $m)) {
     $_GET['thread_id'] = (int)$m[1];
     $contentAction = ['DiscussionController', 'show'];
 } else {
-    $contentAction = $serverRoutes[$route] ?? ['TuneController', 'index'];
+    // Look up the route in the server routes table
+    // If not found, $contentAction is null → triggers the 404 page
+    $contentAction = $serverRoutes[$route] ?? null;
 }
 
+// ── Render the full page layout ─────────────────────────────────────────────
 include_once(BASE_PATH . '/views/partials/header.php');
 include_once(BASE_PATH . '/config/database.php');
 include_once(BASE_PATH . '/helpers/tune_helpers.php');
 ?>
 
 <script>
+// APP_BASE: the URL path prefix for this app (e.g. "/tuneopedia")
+// INITIAL_SRC: tells nav.js what content was server-rendered so it doesn't re-load it
 var APP_BASE    = <?= json_encode($base) ?>;
-var INITIAL_SRC = <?= json_encode($route ?: 'tunes') ?>;
+var INITIAL_SRC = <?= json_encode($contentAction ? ($route ?: 'home') : 'home') ?>;
 </script>
 
 <?php include_once(BASE_PATH . '/views/partials/nav.php'); ?>
 
 <div id='content' class='main-content'>
 <?php
-    [$class, $method] = $contentAction;
-    (new $class)->$method();
+    if ($contentAction) {
+        // Valid route — render the controller action's view
+        [$class, $method] = $contentAction;
+        (new $class)->$method();
+    } else {
+        // No matching route — show the 404 error page inside the layout
+        http_response_code(404);
+        include BASE_PATH . '/views/errors/404.php';
+    }
 ?>
 </div>
 

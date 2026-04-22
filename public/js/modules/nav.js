@@ -11,7 +11,7 @@ $(document).ready(function () {
         'register'       : 'fragment/registration',
         'add-tune'       : 'fragment/abc-editor',
         'my-tunes'       : 'page/my-tunes',
-        'discussion'     : 'page/discussion',
+        'discussions'    : 'page/discussions',
         'add-collection' : 'fragment/add-collection',
     };
 
@@ -28,7 +28,7 @@ $(document).ready(function () {
 
     // Resolve the initial route to an AJAX-loadable URL
     var currentPath = window.location.pathname.replace(base, '').replace(/^\//, '');
-    var threadMatch = currentPath.match(/^discussion\/(\d+)$/);
+    var threadMatch = currentPath.match(/^discussions\/(\d+)$/);
     var initialRoute;
 
     if (threadMatch) {
@@ -83,7 +83,7 @@ $(document).ready(function () {
     });
 
     $('#discussion_link').on('click', function () {
-        loadContent('page/discussion', 'discussion', true);
+        loadContent('page/discussions', 'discussions', true);
     });
 
     $('#add_collection_link').on('click', function () {
@@ -104,6 +104,34 @@ $(document).ready(function () {
                     });
             }
         );
+    });
+
+    // ── Theme toggle ─────────────────────────────────────────────────────────
+
+    var darkThemeUrl = 'css/themes/ui-darkness/jquery-ui-1.10.3.custom.css';
+    var lightThemeUrl = 'css/themes/ui-lightness/jquery-ui.min.css';
+
+    function applyTheme(theme) {
+        if (theme === 'light') {
+            $('body').addClass('light-mode');
+            $('#jquery-ui-theme').attr('href', lightThemeUrl);
+            $('#theme-icon').attr('class', 'fa-solid fa-moon');
+        } else {
+            $('body').removeClass('light-mode');
+            $('#jquery-ui-theme').attr('href', darkThemeUrl);
+            $('#theme-icon').attr('class', 'fa-solid fa-sun');
+        }
+        localStorage.setItem('tuneopedia-theme', theme);
+    }
+
+    // Apply icon state on load (body class already applied by inline script in header)
+    if (localStorage.getItem('tuneopedia-theme') === 'light') {
+        $('#theme-icon').attr('class', 'fa-solid fa-moon');
+    }
+
+    $('#theme-toggle').on('click', function () {
+        var current = $('body').hasClass('light-mode') ? 'light' : 'dark';
+        applyTheme(current === 'light' ? 'dark' : 'light');
     });
 
 });

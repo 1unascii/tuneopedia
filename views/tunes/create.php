@@ -7,8 +7,6 @@
     $composers  = Tune::getAllComposers($pdo);
 ?>
 <link href="css/tune-page.css?v=6" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="js/modules/abc-editor.js"></script>
-<script src="js/lib/jquery-turtle.min.js" type="text/javascript"></script>
 
 <div id="form_wrapper">
 <form id="form_for_new_tune" class="edit-setting-form">

@@ -93,12 +93,21 @@ $(document).ready(function(){
                 },
                 function(data){
                   if(data == "Thank you for signing up"){
-                      alert(data);
-                      $('#content').load('fragment/login');
+                      $('<div class="alert-box">' + data + '</div>')
+                          .appendTo('#pop_up')
+                          .delay(1500)
+                          .fadeOut(300, function () {
+                              $(this).remove();
+                              $('#content').load('fragment/login');
+                          });
                   }else{
-                      alert(data);
+                      $('<div class="alert-box">' + data + '</div>')
+                          .appendTo('#pop_up')
+                          .delay(1500)
+                          .fadeOut(300, function () {
+                              $(this).remove();
+                          });
                   }
-                  
                 }
             );    
         }

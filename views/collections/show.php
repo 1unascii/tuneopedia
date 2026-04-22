@@ -92,7 +92,7 @@
 
                             <td class="tune-favorite-col">
                                 <span class="favorite-toggle" data-user-id="<?= $_SESSION['user_id'] ?? 0 ?>">
-                                    <i class="fa-regular fa-square favorite-icon"></i>
+                                    <i class="<?= !empty($t['is_favorited']) ? 'fa-solid fa-square-check favorited' : 'fa-regular fa-square' ?> favorite-icon"></i>
                                 </span>
                             </td>
 

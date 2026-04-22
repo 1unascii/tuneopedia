@@ -40,8 +40,8 @@ $(function () {
         $.post(apiBase + 'api/delete-thread', { thread_id: threadId }, function (response) {
             var result = (typeof response === 'string') ? JSON.parse(response) : response;
             if (result.success) {
-                $('#content').load(apiBase + 'page/discussion');
-                history.pushState({ src: 'page/discussion' }, '', base + '/discussion');
+                $('#content').load(apiBase + 'page/discussions');
+                history.pushState({ src: 'page/discussions' }, '', base + '/discussions');
             } else {
                 alert(result.error || 'Could not delete thread.');
             }
