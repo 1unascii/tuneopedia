@@ -15,14 +15,36 @@ $(document).ready(function () {
         'add-collection' : 'fragment/add-collection',
     };
 
+    // Map URL paths to their nav link IDs
+    var navLinkMap = {
+        'home':           '#home_link',
+        'tunes':          '#tunes_link',
+        'collections':    '#collections_link',
+        'discussions':    '#discussion_link',
+        'my-tunes':       '#my_tunes_link',
+        'login':          '#login_link',
+        'register':       '#register_link',
+        'add-tune':       '#add_tune_link',
+        'add-collection': '#add_collection_link',
+    };
+
+    function setActiveNav(urlPath) {
+        $('.nav').removeClass('nav-active');
+        var selector = navLinkMap[urlPath];
+        if (selector) {
+            $(selector).addClass('nav-active');
+        }
+    }
+
     function loadContent(src, urlPath, push) {
+        setActiveNav(urlPath);
         $('#content').fadeTo(300, 0, function () {
             $('#content').load(src, function () {
                 $('#content').fadeTo(300, 1);
             });
         });
         if (push) {
-            history.pushState({ src: src }, '', base + '/' + urlPath);
+            history.pushState({ src: src, urlPath: urlPath }, '', base + '/' + urlPath);
         }
     }
 
@@ -37,15 +59,20 @@ $(document).ready(function () {
         initialRoute = routes[initialSrc] || ('page/' + initialSrc);
     }
 
-    history.replaceState({ src: initialRoute }, '', window.location.pathname);
+    history.replaceState({ src: initialRoute, urlPath: initialSrc }, '', window.location.pathname);
+
+    // Set the active nav for the initial page
+    setActiveNav(currentPath || initialSrc);
 
     if (routes[currentPath] && currentPath !== initialSrc && currentPath !== '') {
+        setActiveNav(currentPath);
         $('#content').load(routes[currentPath]);
     }
 
     $(window).on('popstate', function (e) {
         var state = e.originalEvent.state;
         if (state && state.src) {
+            if (state.urlPath) setActiveNav(state.urlPath);
             $('#content').fadeTo(300, 0, function () {
                 $('#content').load(state.src, function () {
                     $('#content').fadeTo(300, 1);
@@ -109,7 +136,7 @@ $(document).ready(function () {
     // ── Theme toggle ─────────────────────────────────────────────────────────
 
     var darkThemeUrl = 'css/themes/ui-darkness/jquery-ui-1.10.3.custom.css';
-    var lightThemeUrl = 'css/themes/ui-lightness/jquery-ui.min.css';
+    var lightThemeUrl = 'css/themes/ui-smoothness/jquery-ui.min.css';
 
     function applyTheme(theme) {
         if (theme === 'light') {

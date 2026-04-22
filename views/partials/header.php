@@ -13,7 +13,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.3/jquery-ui.min.js"></script>
 <link id="jquery-ui-theme" href="css/themes/ui-darkness/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
-<link href="css/main.css?v=33" rel="stylesheet" type="text/css"/>
+<link href="css/main.css?v=34" rel="stylesheet" type="text/css"/>
 <script src='js/lib/abcjs-basic.js' type='text/javascript'></script>
 <script type="text/javascript" src="js/lib/jquery.dataTables.js"></script>
 <script type="text/javascript" src="js/lib/jquery-turtle.min.js"></script>
@@ -46,7 +46,7 @@
     var saved = localStorage.getItem('tuneopedia-theme');
     if (saved === 'light') {
         document.body.classList.add('light-mode');
-        document.getElementById('jquery-ui-theme').href = 'css/themes/ui-lightness/jquery-ui.min.css';
+        document.getElementById('jquery-ui-theme').href = 'css/themes/ui-smoothness/jquery-ui.min.css';
     }
 })();
 </script>

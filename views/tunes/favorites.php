@@ -10,7 +10,6 @@
     });
 </script>
 
-<h2>Favorites</h2>
 
 <?php if (empty($groupedTunes)): ?>
     <p class="discussion-empty">You haven't added any tunes to your favorites yet.</p>

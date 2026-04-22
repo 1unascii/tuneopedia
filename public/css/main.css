@@ -165,8 +165,13 @@ td                                      {
 }
 
 .nav:hover {
-    color: #00fff2; /* Neon teal from banner */
+    color: #00fff2;
     text-shadow: 0 0 10px #00fff2;
+}
+
+.nav.nav-active {
+    color: #ffc73d;
+    text-shadow: 0 0 8px rgba(255, 199, 61, 0.4);
 }
 
 
@@ -393,6 +398,11 @@ body.light-mode {
 
 .light-mode .nav:hover {
     color: #0088aa;
+    text-shadow: none;
+}
+
+.light-mode .nav.nav-active {
+    color: #c06000;
     text-shadow: none;
 }
 

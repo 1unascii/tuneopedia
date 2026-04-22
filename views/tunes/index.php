@@ -8,7 +8,6 @@
         }
     });
 </script>
-<h2>Tunes</h2>
 <div id="pagination-and-search">
     <span class="filter-bar">
         <label for="tune-filter">Search: </label>

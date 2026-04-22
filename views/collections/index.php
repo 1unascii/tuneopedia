@@ -1,7 +1,6 @@
 <link href="css/main.css" rel="stylesheet" type="text/css"/>
 <link href="css/tunes.css?v=3" rel="stylesheet" type="text/css"/>
 
-<h2>Collections</h2>
 <div id="collections-content" data-current-user-id="<?= $currentUserId ?>">
 
     <?php if (empty($collections)): ?>

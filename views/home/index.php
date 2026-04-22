@@ -1,5 +1,3 @@
-<h2>Home</h2>
-
 <div id="home-content">
     <p>Welcome to <strong>Tuneopedia</strong> &mdash; a collaborative encyclopedia for traditional music.</p>
 
