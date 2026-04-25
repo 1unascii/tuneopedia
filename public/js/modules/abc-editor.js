@@ -78,27 +78,15 @@ function keySpecificPlayback(key, keyPress) {
 
 $(document).ready(function(){
     // Guard: if the ABC editor form isn't present (e.g. this file is loaded by
-    // a test page), skip all DOM-dependent initialisation.
-    if (!document.getElementById('abc')) return;
+    // a test page), skip the static add-tune form initialisation.
+    // The delegated handlers below (keypress, click on #abc) will still be
+    // registered so they work for dynamically-loaded edit forms.
+    var hasStaticForm = !!document.getElementById('abc');
 
-    //var abc = false;  // unused
-    var editor1 = document.getElementById("abc");
-    editor1.spellcheck = false;
-    //var lastKey = $('#key').find("option:selected").attr("id");  // unused
-    //var lastKeyVal = '';                                          // unused
-    //var lastMode = $('#tune_mode_input').find("option:selected").attr("id");  // unused
-    //var lastModeVal = '';                                         // unused
-
-    var selection = ''; // for playing selections
-
-    //var available_notes = new Array(...);  // unused
-
-    // Note: the two lines below were previously preceded by duplicate declarations
-    // with initial values ["F","f"] and ["B","b"] — those are removed as they were
-    // immediately overwritten by these empty-array declarations.
+    // ── Shared state used by both static and delegated handlers ─────────────
+    var selection = '';
     var sharps = [];
     var flats  = [];
-
     var nineCharsAgo    = '';
     var eightCharsAgo   = '';
     var sevenCharsAgo   = '';
@@ -112,20 +100,9 @@ $(document).ready(function(){
     var charAfterNext   = '';
     var threeCharsAhead = '';
     var letters = /^[a-zA-Z]+$/;
-    var key = $('#key').val(); // current key signature
-
-    // Local key lookup tables — superseded by the Global arrays at the top of this file.
-    // Kept as comments for reference; all live code now uses sharpKeysArrayGlobal etc.
-    //
-    // var sharpsArray    = [ ... ];  // same data as sharpKeysArrayGlobal
-    // var flatsArray     = [ ... ];  // same data as flatKeysArrayGlobal
-    // var sharpKeysArray = [ ... ];  // same data as sharpKeysArrayGlobal
-    // var flatKeysArray  = [ ... ];  // same data as flatKeysArrayGlobal
-    // var flatsToPush    = [ ... ];  // same data as flatsToPushGlobal
-    // var sharpsToPush   = [ ... ];  // same data as sharpsToPushGlobal
+    var key = $('#key').val();
 
     // Builds the ABC header string that ABCJS needs to render sheet music.
-    // headers is an array of [prefix, value] pairs e.g. [["X:", 1], ["T:", "My Tune"]]
     function build_abc_hdr(headers){
         var hdr = "";
         for(i = 0; i < headers.length; i++){
@@ -159,6 +136,7 @@ $(document).ready(function(){
     // variables used by the keypress handler to assemble the correct note string to play.
     function findSurroundingChars() {
         var selector = document.getElementById("abc");
+        if (!selector) return;
         var caretPos = getCaretPosition(selector);
         nineCharsAgo    = returnChar(selector.value, caretPos - 9, caretPos - 8);
         eightCharsAgo   = returnChar(selector.value, caretPos - 8, caretPos - 7);
@@ -173,6 +151,12 @@ $(document).ready(function(){
         charAfterNext   = returnChar(selector.value, caretPos + 1, caretPos + 2);
         threeCharsAhead = returnChar(selector.value, caretPos + 2, caretPos + 3);
     }
+
+    // ── Static add-tune form initialisation ──────────────────────────────────
+    // Only runs when the add-tune form is present on page load.
+    if (hasStaticForm) {
+    var editor1 = document.getElementById("abc");
+    editor1.spellcheck = false;
 
     // The following three functions (letterCharsAgo, doubleAccidentalCharsAgo,
     // accidentalCharsAgo) were used by the old keyPress() function which has been
@@ -242,19 +226,11 @@ $(document).ready(function(){
     // options and re-render the notation.
     $('#tune_mode_input').change(function(){
         var id = $(this).find("option:selected").attr("id");
-        switch (id){
-            case "maj":
-                $('#key').load('fragment/mode-options/major?id=' + $('#key').find("option:selected").attr("id"), function(){$('#tune_mode_input').focus();});
-            break;
-            case "min":
-                $('#key').load('fragment/mode-options/minor?id=' + $('#key').find("option:selected").attr("id"), function(){$('#tune_mode_input').focus();});
-            break;
-            case "dor":
-                $('#key').load('fragment/mode-options/dorian?id=' + $('#key').find("option:selected").attr("id"), function(){$('#tune_mode_input').focus();});
-            break;
-            case "mix":
-                $('#key').load('fragment/mode-options/mixolydian?id=' + $('#key').find("option:selected").attr("id"), function(){$('#tune_mode_input').focus();});
-            break;
+        var staticBase = (typeof APP_BASE !== 'undefined') ? APP_BASE + '/' : '';
+        var modeMap = { 'maj': 'major', 'min': 'minor', 'dor': 'dorian', 'mix': 'mixolydian' };
+        var mode = modeMap[id];
+        if (mode) {
+            $('#key').load(staticBase + 'fragment/mode-options/' + mode + '?id=' + $('#key').find("option:selected").attr("id"), function(){$('#tune_mode_input').focus();});
         }
         if($('#play').length){
             $('#play').remove();
@@ -311,6 +287,8 @@ $(document).ready(function(){
         });
     });
 
+    } // end if (hasStaticForm)
+
     // ── Per-keystroke note playback ───────────────────────────────────────────
     // The old keyPress() function that previously handled the add-tune textarea
     // has been replaced by the delegated handler below, which uses the same logic
@@ -339,22 +317,19 @@ $(document).ready(function(){
     // Reload the key <select> when mode changes in a dynamically-loaded edit form.
     // The .edit-mode-select class distinguishes injected forms from the static one
     // (which is handled by the direct $('#tune_mode_input').change() above).
+    var editorBase = (typeof APP_BASE !== 'undefined') ? APP_BASE + '/' : '';
+
     $(document).on('change', '#tune_mode_input.edit-mode-select', function () {
         var id = $(this).find('option:selected').attr('id');
         var currentKeyId = $('#key').find('option:selected').attr('id') || '';
-        switch (id) {
-            case 'maj':
-                $('#key').load('fragment/mode-options/major?id=' + currentKeyId, function () { $('#tune_mode_input').focus(); });
-            break;
-            case 'min':
-                $('#key').load('fragment/mode-options/minor?id=' + currentKeyId, function () { $('#tune_mode_input').focus(); });
-            break;
-            case 'dor':
-                $('#key').load('fragment/mode-options/dorian?id=' + currentKeyId, function () { $('#tune_mode_input').focus(); });
-            break;
-            case 'mix':
-                $('#key').load('fragment/mode-options/mixolydian?id=' + currentKeyId, function () { $('#tune_mode_input').focus(); });
-            break;
+        var modeMap = { 'maj': 'major', 'min': 'minor', 'dor': 'dorian', 'mix': 'mixolydian' };
+        var mode = modeMap[id];
+        if (mode) {
+            $('#key').load(editorBase + 'fragment/mode-options/' + mode + '?id=' + currentKeyId, function () {
+                $('#tune_mode_input').focus();
+                // Trigger change on #key so the edit form re-renders notation
+                $('#key').trigger('change');
+            });
         }
     });
 

@@ -1,5 +1,5 @@
 <!--link href="css/links.css" rel="stylesheet" type="text/css"/-->
-<script type="text/javascript" src="js/modules/nav.js?v=18"></script>
+<script type="text/javascript" src="<?= $assetBase ?>js/modules/nav.js?v=21"></script>
     <div class="nav-container">
 
         <div class='nav' id='home_link'>Home</div>

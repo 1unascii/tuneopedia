@@ -1,5 +1,5 @@
 <link href="css/main.css" rel="stylesheet" type="text/css"/>
-<link href="css/tunes.css?v=3" rel="stylesheet" type="text/css"/>
+<link href="css/tunes.css?v=4" rel="stylesheet" type="text/css"/>
 
 <div id="collections-content" data-current-user-id="<?= $currentUserId ?>">
 

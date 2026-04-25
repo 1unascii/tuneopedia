@@ -1,0 +1,77 @@
+ABC Notation Header Fields Reference
+=====================================
+
+Field | Name                  | Location       | Description
+------+-----------------------+----------------+----------------------------------------------------
+A:    | Area                  | Header         | Geographic area (county, province, region)
+B:    | Book                  | Header         | Published source or book reference
+C:    | Composer              | Header         | Composer or author of the tune
+D:    | Discography           | Header         | Recording reference (album, artist, year)
+F:    | File URL              | Header         | URL of the original ABC file
+G:    | Group                 | Header         | Instrument group (e.g. flute, fiddle)
+H:    | History               | Header         | Historical background or notes about the tune
+I:    | Instruction           | Header         | Interpretation directives for software
+K:    | Key                   | Header (last)  | Key signature (required, must be last header field)
+L:    | Default Note Length   | Header         | Default note duration (e.g. 1/8, 1/4)
+M:    | Metre / Time Sig      | Header         | Time signature (e.g. 4/4, 6/8, 3/4, C, C|)
+m:    | Macro                 | Header         | User-defined macro expansion
+N:    | Notes                 | Header         | General notes or comments about the tune
+O:    | Origin                | Header         | Geographic origin (country or tradition)
+P:    | Parts                 | Header / Body  | Part sequence labels (e.g. AABB, AABBC)
+Q:    | Tempo                 | Header / Body  | Tempo marking (e.g. 1/4=120, "Allegro")
+R:    | Rhythm                | Header         | Rhythm type (reel, jig, hornpipe, waltz, etc.)
+r:    | Remark                | Header / Body  | Non-printing remark (ignored by software)
+S:    | Source                | Header         | Source of the tune (person, session, manuscript)
+T:    | Title                 | Header         | Tune title (multiple T: lines for alternate names)
+U:    | User Defined          | Header         | Shortcut symbol definitions
+V:    | Voice                 | Header / Body  | Voice/part definition for multi-voice arrangements
+W:    | Words (after body)    | After body     | Lyrics printed below the staff
+w:    | Words (inline)        | Body           | Lyrics aligned syllable-by-syllable with notes
+X:    | Reference Number      | Before header  | Tune index number (required, must be first field)
+Z:    | Transcription Credit  | Header         | Name of person who transcribed the ABC
+
+Special / Inline Fields
+-----------------------
+Field | Name                  | Location       | Description
+------+-----------------------+----------------+----------------------------------------------------
+%%    | Directive             | Anywhere       | Software-specific formatting directives
+%     | Comment               | Anywhere       | Comment line (ignored by parsers)
++:    | Continuation          | Header         | Continues the previous header field
+
+
+Field Location Notes
+--------------------
+- "Header" fields appear between X: and K: (inclusive)
+- "Body" fields appear after K: within the notation
+- "After body" fields appear after all notation lines
+- X: must be the first field of each tune
+- K: must be the last header field before the body begins
+- T: should immediately follow X:
+- Multiple T: lines create alternate titles / subtitles
+- W: (uppercase) prints lyrics below the staff after the tune
+- w: (lowercase) aligns lyrics inline with the notes above
+
+
+Database Mapping (setting table)
+--------------------------------
+ABC Field | DB Column             | Notes
+----------+-----------------------+----------------------------------------
+X:        | setting_id            | Auto-generated, not from ABC
+T:        | name                  | First T: line used as setting name
+M:        | time_signature        | Stored as string (e.g. "4/4")
+L:        | default_note_length   | Stored as string (e.g. "1/8")
+K:        | key_signature         | Stored as string (e.g. "Dmaj")
+(body)    | abc_transcription     | Everything after K: line
+S:        | source                | Source of the tune
+O:        | origin                | Geographic origin
+H:        | history               | Historical background
+B:        | book                  | Published source reference
+D:        | discography           | Recording reference
+Z:        | transcription_credit  | Transcriber name
+A:        | area                  | Specific geographic area
+P:        | parts                 | Part structure labels
+Q:        | tempo                 | Tempo marking
+W:        | lyrics                | Lyrics (when marked with W:)
+R:        | (tune_type table)     | Used to detect/assign tune type
+C:        | (composer table)      | Used to detect/assign composer
+N:        | (tune_note table)     | Stored as tune-level notes

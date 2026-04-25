@@ -3,11 +3,6 @@ $(function () {
     var base = (typeof APP_BASE !== 'undefined') ? APP_BASE : '';
     var apiBase = base + '/';
 
-    function loadDiscussionContent(src, urlPath) {
-        $('#content').load(apiBase + src);
-        history.pushState({ src: src }, '', base + '/' + urlPath);
-    }
-
     // ── Toggle new thread form ───────────────────────────────────────────────
 
     $(document).on('click', '#new-thread-btn', function () {
@@ -34,7 +29,7 @@ $(function () {
         $.post(apiBase + 'api/create-thread', { title: title, body: body }, function (response) {
             var result = (typeof response === 'string') ? JSON.parse(response) : response;
             if (result.success) {
-                loadDiscussionContent('page/discussions', 'discussions');
+                $('#discussion-container').load(apiBase + 'page/discussions #discussion-container > *');
             } else {
                 alert(result.error || 'Could not create thread.');
             }
@@ -44,20 +39,39 @@ $(function () {
         });
     });
 
-    // ── Navigate to thread detail ────────────────────────────────────────────
+    // ── Navigate to thread detail (inline, like tunes) ───────────────────────
 
     $(document).on('click', '.discussion-thread-row', function () {
         var threadId = $(this).data('thread-id');
-        loadDiscussionContent(
-            'page/discussion-thread?thread_id=' + threadId,
-            'discussions/' + threadId
-        );
+        var $container = $('#discussion-container');
+
+        // Save the current list HTML so the back button can restore it
+        $container.data('threadListState', $container.html());
+
+        history.pushState({ src: 'page/discussion-thread?thread_id=' + threadId, urlPath: 'discussions' }, '', base + '/discussions/' + threadId);
+
+        $container.load(apiBase + 'page/discussion-thread?thread_id=' + threadId, function () {
+            // The loaded content has its own #discussion-container wrapper,
+            // so unwrap it to avoid nesting
+            var $inner = $container.find('#discussion-container');
+            if ($inner.length) {
+                $container.html($inner.html());
+            }
+        });
     });
 
     // ── Back to thread list ──────────────────────────────────────────────────
 
     $(document).on('click', '#back-to-threads-btn', function () {
-        history.back();
+        var $container = $('#discussion-container');
+        var savedHtml = $container.data('threadListState');
+        if (savedHtml) {
+            $container.html(savedHtml);
+            $container.removeData('threadListState');
+        } else {
+            $container.load(apiBase + 'page/discussions #discussion-container > *');
+        }
+        history.pushState({ src: 'page/discussions', urlPath: 'discussions' }, '', base + '/discussions');
     });
 
 });

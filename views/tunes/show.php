@@ -1,4 +1,5 @@
-<link href="css/tune-page.css?v=6" rel="stylesheet" type="text/css"/>
+<?php $showAssetBase = preg_replace('#/public$#', '', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\')) . '/'; ?>
+<link href="<?= $showAssetBase ?>css/tune-page.css?v=6" rel="stylesheet" type="text/css"/>
 
 <div id="tune-page" data-tune-id="<?= $tune_id ?>" data-user-id="<?= $userId ?>">
 
@@ -90,3 +91,31 @@
     <?php endif; ?>
 
 </div>
+
+<script>
+$(function() {
+    var $page = $('#tune-page');
+    if (!$page.length) return;
+
+    var $primaryBlock = $page.find('.setting-block:first');
+    if ($primaryBlock.length) {
+        var $primaryAbc = $primaryBlock.find('.setting-abc-data');
+        if ($primaryAbc.length) {
+            try {
+                ABCJS.renderAbc('tune-notation', JSON.parse($primaryAbc[0].textContent));
+            } catch(e) {}
+        }
+    }
+
+    $page.find('.setting-block:not(:first-child)').each(function() {
+        var $block = $(this);
+        var $abcEl = $block.find('.setting-abc-data');
+        var $notDiv = $block.find('.setting-notation');
+        if ($abcEl.length && $notDiv.length) {
+            try {
+                ABCJS.renderAbc($notDiv.attr('id'), JSON.parse($abcEl[0].textContent));
+            } catch(e) {}
+        }
+    });
+});
+</script>

@@ -1,18 +1,27 @@
 RewriteEngine On
 RewriteBase /tuneopedia/
 
-# Block direct access to sensitive files and directories
+# ── Security: block direct access to sensitive files and directories ──────
+# These directories contain PHP source code that should never be served
+# directly to the browser. Returns 403 Forbidden.
 RewriteRule ^\.env$ - [F,L]
 RewriteRule ^composer\.(json|lock)$ - [F,L]
 RewriteRule ^(controllers|models|views|helpers|vendor|config)/ - [F,L]
 
-# If the request maps to a real file/dir inside public/, serve it
+# ── Static file passthrough ───────────────────────────────────────────────
+# If the request maps to a real file inside public/ (CSS, JS, images),
+# rewrite internally to serve it from the public/ directory.
+# Example: /tuneopedia/css/main.css → /tuneopedia/public/css/main.css
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{DOCUMENT_ROOT}/tuneopedia/public/$1 -f
 RewriteRule ^(.+)$ public/$1 [L]
 
-# If nothing matched a real file, route through the front controller
+# ── Front controller fallback ─────────────────────────────────────────────
+# Everything that isn't a real file or directory gets routed to the
+# front controller (public/index.php), which handles all dynamic routing.
+# Example: /tuneopedia/tunes → /tuneopedia/public/index.php
+# Example: /tuneopedia/api/auth → /tuneopedia/public/index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ public/index.php [QSA,L]

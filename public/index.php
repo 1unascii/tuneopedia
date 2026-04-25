@@ -151,7 +151,10 @@ $serverRoutes = [
 ];
 
 // Dynamic routes with parameters extracted from the URL path
-if (preg_match('#^tune/(\d+)$#', $route, $m)) {
+if (preg_match('#^tunes/(\d+)$#', $route, $m)) {
+    $_GET['tune_id'] = (int)$m[1];
+    $contentAction = ['TuneController', 'show'];
+} elseif (preg_match('#^tune/(\d+)$#', $route, $m)) {
     $_GET['tune_id'] = (int)$m[1];
     $contentAction = ['TuneController', 'show'];
 } elseif (preg_match('#^discussions/(\d+)$#', $route, $m)) {
@@ -173,7 +176,7 @@ include_once(BASE_PATH . '/helpers/tune_helpers.php');
 // APP_BASE: the URL path prefix for this app (e.g. "/tuneopedia")
 // INITIAL_SRC: tells nav.js what content was server-rendered so it doesn't re-load it
 var APP_BASE    = <?= json_encode($base) ?>;
-var INITIAL_SRC = <?= json_encode($contentAction ? ($route ?: 'home') : 'home') ?>;
+var INITIAL_SRC = <?= json_encode($contentAction ? (preg_replace('#/\d+$#', '', $route) ?: 'home') : 'home') ?>;
 </script>
 
 <?php include_once(BASE_PATH . '/views/partials/nav.php'); ?>

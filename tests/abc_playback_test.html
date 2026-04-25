@@ -2,119 +2,337 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>abc_editor.js — Key Playback Tests</title>
+    <title>ABC Playback Tests — All Contexts</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../public/js/modules/abc-editor.js"></script>
     <style>
         body { font-family: monospace; padding: 2em; background: #1e1e1e; color: #d4d4d4; }
         h1   { color: #9cdcfe; }
         h2   { color: #569cd6; margin-top: 2em; }
         .pass { color: #4ec9b0; }
         .fail { color: #f44747; }
+        .running { color: #cc6; }
+        .info { color: #6af; }
+        .code { color: #aaa; background: #2a2a2a; padding: 2px 6px; border-radius: 3px; }
         .summary { font-size: 1.2em; margin-top: 2em; border-top: 1px solid #444; padding-top: 1em; }
         table { border-collapse: collapse; margin-top: 0.5em; }
         td, th { padding: 0.3em 1.2em 0.3em 0; text-align: left; }
         th { color: #c586c0; }
+        #results { white-space: pre-wrap; line-height: 1.8; }
+        button { padding: 8px 20px; font-size: 1em; cursor: pointer; margin-bottom: 20px; }
     </style>
-
-    <!-- jQuery is required by abc_editor.js -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!--
-        Load abc_editor.js directly.  keySpecificPlayback() is defined at global
-        scope in that file so it can be called here without waiting for DOM ready.
-        The $(document).ready() block inside abc_editor.js exits early when #abc
-        is not present, so no DOM-related errors occur on this test page.
-    -->
-    <script src="../js/abc_editor.js"></script>
 </head>
 <body>
-<h1>abc_editor.js — Key Playback Tests</h1>
+<h1>ABC Playback Tests — All Contexts</h1>
+<button id="run-tests">Run All Tests</button>
+<div id="results"></div>
 
 <script>
 
-    // ── Test runner ───────────────────────────────────────────────────────────
-
+    var BASE = '/tuneopedia/';
+    var timestamp = Date.now();
     var passed = 0;
     var failed = 0;
-    var results = [];
+    var testUser = {
+        first_name: 'Test',
+        last_name:  'Playback',
+        email:      'testplayback_' + timestamp + '@test.com',
+        user_name:  'testuser_' + timestamp,
+        password:   'TestPass123!',
+        register:   true
+    };
 
-    function assertEquals(description, expected, actual) {
-        var ok = (expected === actual);
-        if (ok) { passed++; } else { failed++; }
-        results.push({ description: description, expected: expected, actual: actual, ok: ok });
+    function log(msg, cls) {
+        $('#results').append('<div class="' + (cls || '') + '">' + msg + '</div>');
     }
 
-    // ── Tests ─────────────────────────────────────────────────────────────────
-
-    // B Mixolydian: sharpKeysArrayGlobal index 4 — 4 sharps in order F C G D
-    assertEquals('B Mixolydian: F should be sharp',  '^F', keySpecificPlayback('B Mixolydian', 'F'));
-    assertEquals('B Mixolydian: C should be sharp',  '^C', keySpecificPlayback('B Mixolydian', 'C'));
-    assertEquals('B Mixolydian: G should be sharp',  '^G', keySpecificPlayback('B Mixolydian', 'G'));
-    assertEquals('B Mixolydian: D should be sharp',  '^D', keySpecificPlayback('B Mixolydian', 'D'));
-    assertEquals('B Mixolydian: A should be natural', 'A', keySpecificPlayback('B Mixolydian', 'A'));
-    assertEquals('B Mixolydian: E should be natural', 'E', keySpecificPlayback('B Mixolydian', 'E'));
-    assertEquals('B Mixolydian: B should be natural', 'B', keySpecificPlayback('B Mixolydian', 'B'));
-
-    // Ab Mixolydian: flatKeysArrayGlobal index 5 — 5 flats in order B E A D G
-    assertEquals('Ab Mixolydian: D should be flat',  '_D', keySpecificPlayback('Ab Mixolydian', 'D'));
-    assertEquals('Ab Mixolydian: B should be flat',  '_B', keySpecificPlayback('Ab Mixolydian', 'B'));
-    assertEquals('Ab Mixolydian: E should be flat',  '_E', keySpecificPlayback('Ab Mixolydian', 'E'));
-    assertEquals('Ab Mixolydian: A should be flat',  '_A', keySpecificPlayback('Ab Mixolydian', 'A'));
-    assertEquals('Ab Mixolydian: G should be flat',  '_G', keySpecificPlayback('Ab Mixolydian', 'G'));
-    assertEquals('Ab Mixolydian: C should be natural', 'C', keySpecificPlayback('Ab Mixolydian', 'C'));
-    assertEquals('Ab Mixolydian: F should be natural', 'F', keySpecificPlayback('Ab Mixolydian', 'F'));
-
-    // C major / D dorian / G Mixolydian / A minor — all natural (index 0, no accidentals)
-    assertEquals('C major: C should be natural',     'C',  keySpecificPlayback('C', 'C'));
-    assertEquals('C major: F should be natural',     'F',  keySpecificPlayback('C', 'F'));
-    assertEquals('D dorian: F should be natural',    'F',  keySpecificPlayback('D dorian', 'F'));
-    assertEquals('A minor: G should be natural',     'G',  keySpecificPlayback('A minor', 'G'));
-
-    // G major: one sharp (F)
-    assertEquals('G major: F should be sharp',       '^F', keySpecificPlayback('G', 'F'));
-    assertEquals('G major: f should be sharp',       '^f', keySpecificPlayback('G', 'f'));
-    assertEquals('G major: C should be natural',     'C',  keySpecificPlayback('G', 'C'));
-
-    // D major: two sharps (F C)
-    assertEquals('D major: F should be sharp',       '^F', keySpecificPlayback('D', 'F'));
-    assertEquals('D major: C should be sharp',       '^C', keySpecificPlayback('D', 'C'));
-    assertEquals('D major: G should be natural',     'G',  keySpecificPlayback('D', 'G'));
-
-    // Bb major: two flats (B E)
-    assertEquals('Bb major: B should be flat',       '_B', keySpecificPlayback('Bb', 'B'));
-    assertEquals('Bb major: E should be flat',       '_E', keySpecificPlayback('Bb', 'E'));
-    assertEquals('Bb major: F should be natural',    'F',  keySpecificPlayback('Bb', 'F'));
-
-    // F dorian: flatKeysArrayGlobal index 3 — 3 flats in order B E A
-    assertEquals('F dorian: B should be flat',       '_B', keySpecificPlayback('F dorian', 'B'));
-    assertEquals('F dorian: E should be flat',       '_E', keySpecificPlayback('F dorian', 'E'));
-    assertEquals('F dorian: A should be flat',       '_A', keySpecificPlayback('F dorian', 'A'));
-    assertEquals('F dorian: D should be natural',    'D',  keySpecificPlayback('F dorian', 'D'));
-    assertEquals('F dorian: G should be natural',    'G',  keySpecificPlayback('F dorian', 'G'));
-
-    // E dorian: sharpKeysArrayGlobal index 2 — 2 sharps (F C)
-    assertEquals('E dorian: F should be sharp',      '^F', keySpecificPlayback('E dorian', 'F'));
-    assertEquals('E dorian: C should be sharp',      '^C', keySpecificPlayback('E dorian', 'C'));
-    assertEquals('E dorian: G should be natural',    'G',  keySpecificPlayback('E dorian', 'G'));
-
-    // ── Render results ────────────────────────────────────────────────────────
-
-    var html = '<table><tr><th>Test</th><th>Expected</th><th>Actual</th><th>Result</th></tr>';
-    for (var i = 0; i < results.length; i++) {
-        var r = results[i];
-        var status = r.ok ? '<span class="pass">PASS</span>' : '<span class="fail">FAIL</span>';
-        html += '<tr>'
-            + '<td>' + r.description + '</td>'
-            + '<td>' + r.expected + '</td>'
-            + '<td>' + r.actual   + '</td>'
-            + '<td>' + status     + '</td>'
-            + '</tr>';
+    function code(snippet) {
+        return '<span class="code">' + snippet + '</span>';
     }
-    html += '</table>';
-    document.write(html);
 
-    var summaryClass = (failed === 0) ? 'pass' : 'fail';
-    document.write('<p class="summary ' + summaryClass + '">'
-        + passed + ' passed, ' + failed + ' failed'
-        + '</p>');
+    function assert(label, condition) {
+        if (condition) {
+            log('  ✓ ' + label, 'pass');
+            passed++;
+        } else {
+            log('  ✗ ' + label, 'fail');
+            failed++;
+        }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // PART 1: Unit tests for keySpecificPlayback (no DOM required)
+    // ══════════════════════════════════════════════════════════════════════════
+
+    function runUnitTests() {
+        log('══════════════════════════════════════════════════════════');
+        log('  PART 1: keySpecificPlayback() unit tests');
+        log('══════════════════════════════════════════════════════════');
+        log('');
+
+        var tests = [
+            // C major — no accidentals
+            ['C', 'C', 'C', 'C major: C natural'],
+            ['C', 'F', 'F', 'C major: F natural'],
+            ['C', 'G', 'G', 'C major: G natural'],
+
+            // G major — 1 sharp (F)
+            ['G', 'F', '^F', 'G major: F sharp'],
+            ['G', 'f', '^f', 'G major: f sharp (lowercase)'],
+            ['G', 'C', 'C',  'G major: C natural'],
+
+            // D major — 2 sharps (F C)
+            ['D', 'F', '^F', 'D major: F sharp'],
+            ['D', 'C', '^C', 'D major: C sharp'],
+            ['D', 'G', 'G',  'D major: G natural'],
+
+            // A major — 3 sharps (F C G)
+            ['A', 'F', '^F', 'A major: F sharp'],
+            ['A', 'G', '^G', 'A major: G sharp'],
+            ['A', 'D', 'D',  'A major: D natural'],
+
+            // Bb major — 2 flats (B E)
+            ['Bb', 'B', '_B', 'Bb major: B flat'],
+            ['Bb', 'E', '_E', 'Bb major: E flat'],
+            ['Bb', 'F', 'F',  'Bb major: F natural'],
+
+            // D dorian — no accidentals (same as C major)
+            ['D dorian', 'F', 'F', 'D dorian: F natural'],
+            ['D dorian', 'C', 'C', 'D dorian: C natural'],
+
+            // E dorian — 2 sharps (F C)
+            ['E dorian', 'F', '^F', 'E dorian: F sharp'],
+            ['E dorian', 'C', '^C', 'E dorian: C sharp'],
+
+            // A minor — no accidentals
+            ['A minor', 'G', 'G', 'A minor: G natural'],
+            ['A minor', 'F', 'F', 'A minor: F natural'],
+
+            // B Mixolydian — 4 sharps (F C G D)
+            ['B Mixolydian', 'F', '^F', 'B Mixolydian: F sharp'],
+            ['B Mixolydian', 'D', '^D', 'B Mixolydian: D sharp'],
+            ['B Mixolydian', 'A', 'A',  'B Mixolydian: A natural'],
+
+            // F dorian — 3 flats (B E A)
+            ['F dorian', 'B', '_B', 'F dorian: B flat'],
+            ['F dorian', 'A', '_A', 'F dorian: A flat'],
+            ['F dorian', 'D', 'D',  'F dorian: D natural'],
+        ];
+
+        var html = '<table><tr><th>Test</th><th>Key</th><th>Input</th><th>Expected</th><th>Actual</th><th>Result</th></tr>';
+        tests.forEach(function(t) {
+            var actual = keySpecificPlayback(t[0], t[1]);
+            var ok = (actual === t[2]);
+            if (ok) { passed++; } else { failed++; }
+            var status = ok ? '<span class="pass">PASS</span>' : '<span class="fail">FAIL</span>';
+            html += '<tr><td>' + t[3] + '</td><td>' + t[0] + '</td><td>' + t[1] + '</td><td>' + t[2] + '</td><td>' + actual + '</td><td>' + status + '</td></tr>';
+        });
+        html += '</table>';
+        $('#results').append(html);
+        log('');
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // PART 2: Integration tests — verify #abc textarea exists and has
+    // keystroke playback in each context
+    // ══════════════════════════════════════════════════════════════════════════
+
+    function post(url, data, cookie) {
+        return $.ajax({
+            url: url,
+            method: 'POST',
+            data: data,
+            xhrFields: { withCredentials: true }
+        });
+    }
+
+    function get(url) {
+        return $.ajax({
+            url: url,
+            method: 'GET',
+            xhrFields: { withCredentials: true }
+        });
+    }
+
+    function runIntegrationTests() {
+        log('══════════════════════════════════════════════════════════');
+        log('  PART 2: Integration tests — ABC textarea in each context');
+        log('══════════════════════════════════════════════════════════');
+        log('');
+
+        // Register and login
+        log('Setup: Register and login test user', 'running');
+        post(BASE + 'api/register', testUser)
+        .then(function(data) {
+            assert('Registered: ' + data.trim(), data.trim() === 'Thank you for signing up');
+            return post(BASE + 'api/auth', {
+                user_name: testUser.user_name,
+                password: testUser.password,
+                login: true
+            });
+        })
+        .then(function(data) {
+            assert('Logged in: ' + data.trim(), data.trim() === 'Login successful!');
+            log('');
+            return testContext1_AddTune();
+        })
+        .then(function() {
+            return testContext2_EditViaAjax();
+        })
+        .then(function() {
+            return testContext3_DirectUrl();
+        })
+        .then(function() {
+            log('');
+            cleanup();
+        })
+        .fail(function(err) {
+            log('  Integration test failed: ' + (err.responseText || err.statusText), 'fail');
+            failed++;
+            cleanup();
+        });
+    }
+
+    // ── Context 1: Add Tune form (fragment/abc-editor) ───────────────────────
+    function testContext1_AddTune() {
+        log('CONTEXT 1: Add Tune form (fragment/abc-editor)', 'running');
+        log('  → ' + code('$.get("fragment/abc-editor")') + ' — the static add-tune form');
+
+        return get(BASE + 'fragment/abc-editor').then(function(html) {
+            var $html = $('<div>').html(html);
+            var hasAbcTextarea = $html.find('#abc').length > 0;
+            var hasKeySelect = $html.find('#key').length > 0;
+
+            assert('Add Tune form has #abc textarea', hasAbcTextarea);
+            assert('Add Tune form has #key select', hasKeySelect);
+
+            log('  The delegated handler ' + code('$(document).on("keypress", "#abc", ...)') + ' in abc-editor.js', 'info');
+            log('  will fire on this textarea because it matches the #abc selector.', 'info');
+            log('  jquery-turtle\'s .play() method produces the audio output.', 'info');
+            log('');
+        });
+    }
+
+    // ── Context 2: Edit setting form loaded via AJAX (clicking through tunes) ─
+    function testContext2_EditViaAjax() {
+        log('CONTEXT 2: Edit setting form via AJAX (clicking through tune list)', 'running');
+        log('  → ' + code('$.get("page/tunes")') + ' — find a tune with a setting');
+
+        return get(BASE + 'page/tunes').then(function(html) {
+            var $html = $('<div>').html(html);
+            var $firstRow = $html.find('.tune_data_row:not(.no-setting):first');
+            var settingId = $firstRow.find('.show_abc').attr('id');
+
+            assert('Found a tune with a setting (setting_id=' + settingId + ')', !!settingId);
+
+            log('  → ' + code('$.get("api/edit-setting?setting_id=' + settingId + '")') + ' — load edit form');
+
+            return get(BASE + 'api/edit-setting?setting_id=' + settingId).then(function(editHtml) {
+                var $editHtml = $('<div>').html(editHtml);
+                var hasAbcTextarea = $editHtml.find('#abc').length > 0;
+                var hasKeySelect = $editHtml.find('#key').length > 0;
+
+                assert('Edit form has #abc textarea', hasAbcTextarea);
+                assert('Edit form has #key select', hasKeySelect);
+
+                log('  When this form is injected into the DOM via ' + code('$editArea.html(html)') + ',', 'info');
+                log('  the delegated ' + code('$(document).on("keypress", "#abc", ...)') + ' handler', 'info');
+                log('  automatically covers it — no re-binding needed.', 'info');
+                log('');
+            });
+        });
+    }
+
+    // ── Context 3: Edit setting form on direct URL (tunes/5) ─────────────────
+    function testContext3_DirectUrl() {
+        log('CONTEXT 3: Tune page via direct URL (tunes/{id})', 'running');
+
+        // Find a tune ID first
+        return get(BASE + 'page/tunes').then(function(html) {
+            var $html = $('<div>').html(html);
+            var $firstRow = $html.find('.tune_data_row:not(.no-setting):first');
+            var tuneId = $firstRow.attr('id');
+            var settingId = $firstRow.find('.show_abc').attr('id');
+
+            assert('Found tune_id=' + tuneId, !!tuneId);
+
+            log('  → ' + code('$.get("tunes/' + tuneId + '")') + ' — full page render with tune detail');
+
+            return get(BASE + 'tunes/' + tuneId).then(function(fullPage) {
+                var $page = $('<div>').html(fullPage);
+
+                // Check that abc-editor.js is loaded
+                var hasAbcEditorScript = false;
+                $page.find('script').each(function() {
+                    if ($(this).attr('src') && $(this).attr('src').indexOf('abc-editor.js') !== -1) {
+                        hasAbcEditorScript = true;
+                    }
+                });
+
+                // Check that jquery-turtle is loaded
+                var hasTurtleScript = false;
+                $page.find('script').each(function() {
+                    if ($(this).attr('src') && $(this).attr('src').indexOf('jquery-turtle') !== -1) {
+                        hasTurtleScript = true;
+                    }
+                });
+
+                // Check that edit buttons exist
+                var hasEditBtn = $page.find('.edit-setting-btn').length > 0;
+
+                assert('Full page includes abc-editor.js', hasAbcEditorScript);
+                assert('Full page includes jquery-turtle.js', hasTurtleScript);
+                assert('Tune page has edit button(s)', hasEditBtn);
+
+                log('  → ' + code('$.get("api/edit-setting?setting_id=' + settingId + '")') + ' — edit form from direct URL');
+
+                return get(BASE + 'api/edit-setting?setting_id=' + settingId).then(function(editHtml) {
+                    var $editHtml = $('<div>').html(editHtml);
+                    var hasAbcTextarea = $editHtml.find('#abc').length > 0;
+                    var hasKeySelect = $editHtml.find('#key').length > 0;
+
+                    assert('Edit form from direct URL has #abc textarea', hasAbcTextarea);
+                    assert('Edit form from direct URL has #key select', hasKeySelect);
+
+                    log('  On direct URL load (/tunes/' + tuneId + '), abc-editor.js runs with', 'info');
+                    log('  ' + code('hasStaticForm = false') + ' (no #abc on initial load).', 'info');
+                    log('  Static add-tune init is skipped, but the delegated handlers are', 'info');
+                    log('  still registered. When the user clicks Edit and the form with', 'info');
+                    log('  ' + code('#abc') + ' is injected, keypress playback works automatically.', 'info');
+                    log('');
+                });
+            });
+        });
+    }
+
+    function cleanup() {
+        log('Cleanup: deleting test user', 'running');
+        post(BASE + 'api/test-cleanup', { user_name: testUser.user_name })
+        .always(function(data) {
+            var result = (typeof data === 'string') ? data.trim() : (data.responseText || '').trim();
+            log('  ' + result, 'info');
+            log('');
+            showSummary();
+        });
+    }
+
+    function showSummary() {
+        log('══════════════════════════════════════════════════════════');
+        var total = passed + failed;
+        if (failed === 0) {
+            log('All ' + total + ' assertions passed', 'pass');
+        } else {
+            log(passed + '/' + total + ' passed, ' + failed + ' failed', 'fail');
+        }
+    }
+
+    $('#run-tests').on('click', function() {
+        $('#results').empty();
+        passed = 0;
+        failed = 0;
+        runUnitTests();
+        runIntegrationTests();
+    });
 
 </script>
 </body>

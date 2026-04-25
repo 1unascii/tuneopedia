@@ -1,21 +1,24 @@
 $(document).ready(function() {
 
     var collectionTunePages = window.collectionTunePages || {};
+    var base = (typeof APP_BASE !== 'undefined') ? APP_BASE : '';
 
-    // ── Navigate to tune detail ──────────────────────────────────────────────
+    // ── Open a tune detail view inside a tab panel ───────────────────────────
+    // This is the core function that loads the tune page into the panel,
+    // saves the panel state for the back button, and renders notation.
+    // Called by the .tune_title click handler and by auto-open on deep links.
+    window.openTuneInPanel = function(tuneId, $panel) {
+        if (!$panel || !$panel.length) return;
 
-    $(document).on('click', '.tune_title', function() {
-        var tuneId = $(this).attr('id');
         sessionStorage.setItem('lastViewedTuneId', tuneId);
-        var $panel = $(this).closest('.ui-tabs-panel');
-        if (!$panel.length) return;
 
         var $table = $panel.find('table');
         var tableId = $table.attr('id');
         var isCollectionTable = $table.hasClass('collection-tunes-table');
+        var currentPages = window.currentPages || {};
         var savedPage = isCollectionTable
             ? (collectionTunePages[tableId] || 1)
-            : 1;
+            : (currentPages[tableId] || 1);
 
         $('#paper').empty();
 
@@ -30,7 +33,7 @@ $(document).ready(function() {
 
         $('#select-tune-prompt').hide();
 
-        $panel.load('page/tune-page?tune_id=' + tuneId, function() {
+        $panel.load(base + '/page/tune-page?tune_id=' + tuneId, function() {
             var $backBtn = $('<button class="tune-back-btn">&#8592; Back</button>');
             $panel.prepend($backBtn);
 
@@ -59,6 +62,7 @@ $(document).ready(function() {
                 $panel.html(savedHtml);
                 $panel.removeData('tunePageState');
                 $('#select-tune-prompt').show();
+
                 if (tableId) {
                     if (isCollectionTable && typeof window.filterAndPaginateCollectionTunes === 'function') {
                         window.filterAndPaginateCollectionTunes(tableId, savedPage);
@@ -78,6 +82,13 @@ $(document).ready(function() {
                 }
             });
         });
+    };
+
+    // ── Click handler for tune titles ────────────────────────────────────────
+    $(document).on('click', '.tune_title', function() {
+        var tuneId = $(this).attr('id');
+        var $panel = $(this).closest('.ui-tabs-panel');
+        window.openTuneInPanel(tuneId, $panel);
     });
 
     // ── Notes expand/collapse ────────────────────────────────────────────────
@@ -114,10 +125,10 @@ $(document).ready(function() {
 
         $editArea.html('<p class="edit-loading">Loading...</p>').show();
 
-        $.get('api/edit-setting', { setting_id: settingId }, function (html) {
+        $.get(base + '/api/edit-setting', { setting_id: settingId }, function (html) {
             $editArea.html(html);
             renderFromForm($block);
-            $editArea.on('input change', 'input, select, textarea', function () {
+            $editArea.on('input change keyup', 'input, select, textarea', function () {
                 renderFromForm($block);
             });
         });
@@ -139,12 +150,16 @@ $(document).ready(function() {
         if (!$form.length) return;
 
         var settingId = $block.data('setting-id');
+        // Read key from #key select directly — after a mode change, the
+        // select's options are replaced via .load() and the name attribute
+        // lookup might return stale data.
+        var keyVal = $('#key').val() || $form.find('[name="key_signature"]').val() || '';
         var abcString =
             'X:' + settingId + '\n' +
             'T:' + ($form.find('[name="tune_name"]').val()           || '') + '\n' +
             'M:' + ($form.find('[name="time_signature"]').val()      || '4/4') + '\n' +
             'L:' + ($form.find('[name="default_note_length"]').val() || '1/8') + '\n' +
-            'K:' + ($form.find('[name="key_signature"]').val()       || '') + '\n' +
+            'K:' + keyVal + '\n' +
             ($form.find('[name="abc_transcription"]').val() || '');
 
         renderNotation($block, abcString);
@@ -178,7 +193,7 @@ $(document).ready(function() {
         var settingId = $form.data('setting-id');
         var $block    = $form.closest('.setting-block');
 
-        $.post('api/edit-setting', $form.serialize(), function (data) {
+        $.post(base + '/api/edit-setting', $form.serialize(), function (data) {
             if (data.error) {
                 $form.find('.edit-error').text(data.error);
                 return;
@@ -224,7 +239,7 @@ $(document).ready(function() {
             return;
         }
 
-        $.post('api/vote-setting', {
+        $.post(base + '/api/vote-setting', {
             setting_id: settingId,
             vote_value: voteValue
         }, function (data) {

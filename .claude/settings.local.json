@@ -38,7 +38,10 @@
       "Bash(grep -r \"set-tune-headers\" . --include=\"*.php\" --include=\"*.js\")",
       "Bash(grep -r \"modules/nav\" . --include=\"*.php\")",
       "Bash(grep -r \"collections/create\" . --include=\"*.php\")",
-      "Bash(grep -r \"users/create_user\" . --include=\"*.php\")"
+      "Bash(grep -r \"users/create_user\" . --include=\"*.php\")",
+      "Bash(curl -s \"http://localhost/tuneopedia/tunes/5\")",
+      "Bash(curl -s \"http://localhost/tuneopedia/tests/abc_playback_test.html\")",
+      "Bash(curl:*)"
     ]
   }
 }

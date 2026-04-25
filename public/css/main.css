@@ -148,13 +148,17 @@ footer                          {
 #home_link                              {
                                         padding-left: 1px;
                                         }   
+/* Unused — missing # prefix and overridden by .tune_data_row td styles
 td                                      {
                                         background-color: FFFFFF;
                                         }
+*/
+/* Unused — no element with id="abc_code" exists
 #abc_code                               {
                                         display: inline-block;
                                         color: beige;
                                         }
+*/
 
 /* Style the Navigation Links */
 .nav {
@@ -206,23 +210,6 @@ td                                      {
     box-sizing: border-box;
 }
 
-.site-title {
-    font-family: 'Rye', serif;
-    color: #fff; /* White text */
-    text-decoration: none;
-    font-size: 3rem;
-    display: block;
-    text-align: center;
-    padding: 15px 0;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    margin-bottom: 15px;
-    letter-spacing: 4px;
-}
-
-.site-title:hover {
-    color: #ff8c00; /* Campfire orange on hover */
-    transition: 0.3s;
-}
 table {
     background: rgba(255, 255, 255, 0.9); /* Soften the white */
     border-collapse: collapse;

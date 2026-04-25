@@ -3,6 +3,22 @@ $(function () {
     var base = (typeof APP_BASE !== 'undefined') ? APP_BASE : '';
     var apiBase = base + '/';
 
+    // Reloads the current thread detail inline within #discussion-container
+    function reloadThread(threadId) {
+        var $container = $('#discussion-container');
+        var savedState = $container.data('threadListState');
+        $container.load(apiBase + 'page/discussion-thread?thread_id=' + threadId, function () {
+            var $inner = $container.find('#discussion-container');
+            if ($inner.length) {
+                $container.html($inner.html());
+            }
+            // Preserve the saved list state so the back button still works
+            if (savedState) {
+                $container.data('threadListState', savedState);
+            }
+        });
+    }
+
     // ── Submit reply ─────────────────────────────────────────────────────────
 
     $(document).on('click', '#submit-reply-btn', function () {
@@ -17,7 +33,7 @@ $(function () {
         $.post(apiBase + 'api/create-post', { thread_id: threadId, body: body }, function (response) {
             var result = (typeof response === 'string') ? JSON.parse(response) : response;
             if (result.success) {
-                $('#content').load(apiBase + 'page/discussion-thread?thread_id=' + threadId);
+                reloadThread(threadId);
             } else {
                 alert(result.error || 'Could not post reply.');
             }
@@ -40,8 +56,10 @@ $(function () {
         $.post(apiBase + 'api/delete-thread', { thread_id: threadId }, function (response) {
             var result = (typeof response === 'string') ? JSON.parse(response) : response;
             if (result.success) {
-                $('#content').load(apiBase + 'page/discussions');
-                history.pushState({ src: 'page/discussions' }, '', base + '/discussions');
+                // Go back to the thread list by reloading discussions
+                var $container = $('#discussion-container');
+                $container.removeData('threadListState');
+                $container.load(apiBase + 'page/discussions #discussion-container > *');
             } else {
                 alert(result.error || 'Could not delete thread.');
             }
@@ -65,7 +83,7 @@ $(function () {
         $.post(apiBase + 'api/delete-post', { post_id: postId }, function (response) {
             var result = (typeof response === 'string') ? JSON.parse(response) : response;
             if (result.success) {
-                $('#content').load(apiBase + 'page/discussion-thread?thread_id=' + threadId);
+                reloadThread(threadId);
             } else {
                 alert(result.error || 'Could not delete post.');
             }

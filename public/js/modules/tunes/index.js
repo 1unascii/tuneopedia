@@ -4,6 +4,7 @@ $(document).ready(function() {
 
     var rowsPerPage = 10;
     var currentPages = {};
+    window.currentPages = currentPages;
 
     // ── Clear highlight on click/keydown ──────────────────────────────────────
 
