@@ -19,7 +19,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.3/jquery-ui.min.js"></script>
 <link id="jquery-ui-theme" href="<?= $assetBase ?>css/themes/ui-darkness/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css"/>
-<link href="<?= $assetBase ?>css/main.css?v=42" rel="stylesheet" type="text/css"/>
+<link href="<?= $assetBase ?>css/main.css?v=43" rel="stylesheet" type="text/css"/>
 <script src='<?= $assetBase ?>js/lib/abcjs-basic.js' type='text/javascript'></script>
 <script type="text/javascript" src="<?= $assetBase ?>js/lib/jquery.dataTables.js"></script>
 <script type="text/javascript" src="<?= $assetBase ?>js/lib/jquery-turtle.min.js"></script>
@@ -28,7 +28,7 @@
 <script type="text/javascript" src="<?= $assetBase ?>js/modules/abc-editor.js?v=14"></script>
 <script type="text/javascript" src="<?= $assetBase ?>js/modules/tunes/index.js?v=10"></script>
 <script type="text/javascript" src="<?= $assetBase ?>js/modules/tunes/show.js?v=7"></script>
-<script type="text/javascript" src="<?= $assetBase ?>js/modules/favorites/index.js?v=3"></script>
+<script type="text/javascript" src="<?= $assetBase ?>js/modules/favorites/index.js?v=5"></script>
 <script type="text/javascript" src="<?= $assetBase ?>js/modules/collections/index.js?v=3"></script>
 <link href="<?= $assetBase ?>css/discussion.css?v=4" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="<?= $assetBase ?>js/modules/discussions/index.js?v=6"></script>

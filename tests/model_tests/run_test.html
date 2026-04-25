@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Model Test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body { font-family: monospace; background: #1a1a1a; color: #ccc; padding: 20px; max-width: 1000px; }
+        .pass { color: #6c6; }
+        .fail { color: #c66; }
+        .running { color: #cc6; }
+        .info { color: #6af; }
+        #results { white-space: pre-wrap; line-height: 1.8; }
+        h1 { color: #ddd; font-size: 1.2em; }
+        button { padding: 8px 20px; font-size: 1em; cursor: pointer; margin-bottom: 20px; }
+        a { color: #59b4d4; }
+        .code { color: #aaa; background: #2a2a2a; padding: 2px 6px; border-radius: 3px; white-space: pre; }
+    </style>
+</head>
+<body>
+    <h1 id="title">Model Test</h1>
+    <p><a href="run_all.html">&larr; All Model Tests</a></p>
+    <button id="run-tests">Run Test</button>
+    <div id="results"></div>
+    <script>
+    var params = new URLSearchParams(window.location.search);
+    var testFile = params.get('test') || 'user_test.php';
+    var testName = testFile.replace('_test.php', '').replace(/_/g, ' ');
+    testName = testName.charAt(0).toUpperCase() + testName.slice(1);
+    $('#title').text('Model Test — ' + testName);
+    document.title = 'Model Test — ' + testName;
+
+    function log(msg, cls) { $('#results').append('<div class="' + (cls || '') + '">' + msg + '</div>'); }
+
+    $('#run-tests').on('click', function() {
+        $('#results').empty();
+        log('Running ' + testName + ' Model tests...', 'running');
+        $.get(testFile).done(function(data) {
+            var r = (typeof data === 'string') ? JSON.parse(data) : data;
+            $('#results').empty();
+            log('══ ' + r.name + ' ══', 'info');
+            log('');
+            r.results.forEach(function(t) {
+                if (t.type === 'section') {
+                    log('');
+                    log('  ── ' + t.label + ' ──', 'info');
+                    log('');
+                } else if (t.type === 'info' || t.type === 'data') {
+                    log('  ' + t.label, t.type === 'data' ? 'code' : 'info');
+                } else {
+                    log('  ' + (t.pass ? '✓' : '✗') + ' ' + t.label, t.pass ? 'pass' : 'fail');
+                }
+            });
+            log('');
+            if (r.failed === 0) {
+                log('  All ' + (r.passed + r.failed) + ' assertions passed.', 'pass');
+            } else {
+                log('  ' + r.passed + '/' + (r.passed + r.failed) + ' passed, ' + r.failed + ' FAILED.', 'fail');
+            }
+        }).fail(function(xhr) {
+            log('ERROR: ' + (xhr.responseText || xhr.statusText), 'fail');
+        });
+    });
+    </script>
+</body>
+</html>

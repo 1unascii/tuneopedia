@@ -2,6 +2,10 @@
 
 class User {
 
+    private static function sql(string $filename): string {
+        return file_get_contents(__DIR__ . '/sql/users/' . $filename);
+    }
+
     // ── Authentication ────────────────────────────────────────────────────────
 
     /**
@@ -15,9 +19,7 @@ class User {
      * hash — meaning any password worked for any user.
      */
     public static function authenticate(PDO $pdo, string $username, string $password): ?array {
-        $stmt = $pdo->prepare(
-            "SELECT * FROM user WHERE user_name = :username AND password = UNHEX(SHA1(:password))"
-        );
+        $stmt = $pdo->prepare(self::sql('authenticate.sql'));
         $stmt->execute([':username' => $username, ':password' => $password]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user ?: null;
@@ -29,7 +31,7 @@ class User {
      * Check whether a username is already taken.
      */
     public static function existsByUsername(PDO $pdo, string $username): bool {
-        $stmt = $pdo->prepare("SELECT 1 FROM user WHERE user_name = :username LIMIT 1");
+        $stmt = $pdo->prepare(self::sql('existsByUsername.sql'));
         $stmt->execute([':username' => $username]);
         return (bool) $stmt->fetchColumn();
     }
@@ -38,7 +40,7 @@ class User {
      * Check whether an e-mail address is already registered.
      */
     public static function existsByEmail(PDO $pdo, string $email): bool {
-        $stmt = $pdo->prepare("SELECT 1 FROM user WHERE email = :email LIMIT 1");
+        $stmt = $pdo->prepare(self::sql('existsByEmail.sql'));
         $stmt->execute([':email' => $email]);
         return (bool) $stmt->fetchColumn();
     }
@@ -66,10 +68,7 @@ class User {
             return ['success' => false, 'error' => 'email_taken', 'user_id' => null];
         }
 
-        $stmt = $pdo->prepare("
-            INSERT INTO user (first_name, last_name, user_name, email, password)
-            VALUES (:first_name, :last_name, :user_name, :email, UNHEX(SHA1(:password)))
-        ");
+        $stmt = $pdo->prepare(self::sql('register.sql'));
         $stmt->execute([
             ':first_name' => $firstName,
             ':last_name'  => $lastName,
@@ -87,7 +86,7 @@ class User {
      * Fetch a single user row by primary key. Returns null if not found.
      */
     public static function findById(PDO $pdo, int $userId): ?array {
-        $stmt = $pdo->prepare("SELECT * FROM user WHERE user_id = :user_id LIMIT 1");
+        $stmt = $pdo->prepare(self::sql('findById.sql'));
         $stmt->execute([':user_id' => $userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user ?: null;
@@ -101,9 +100,7 @@ class User {
      * Returns true on success, false on DB error.
      */
     public static function addFavorite(PDO $pdo, int $userId, int $tuneId): bool {
-        $stmt = $pdo->prepare(
-            "INSERT IGNORE INTO tunebook (user_id, tune_id) VALUES (:user_id, :tune_id)"
-        );
+        $stmt = $pdo->prepare(self::sql('addFavorite.sql'));
         return $stmt->execute([':user_id' => $userId, ':tune_id' => $tuneId]);
     }
 
@@ -111,9 +108,7 @@ class User {
      * Remove a tune from a user's tunebook.
      */
     public static function removeFavorite(PDO $pdo, int $userId, int $tuneId): bool {
-        $stmt = $pdo->prepare(
-            "DELETE FROM tunebook WHERE user_id = :user_id AND tune_id = :tune_id"
-        );
+        $stmt = $pdo->prepare(self::sql('removeFavorite.sql'));
         return $stmt->execute([':user_id' => $userId, ':tune_id' => $tuneId]);
     }
 
@@ -121,9 +116,7 @@ class User {
      * Check whether a tune is already in a user's tunebook.
      */
     public static function hasFavorite(PDO $pdo, int $userId, int $tuneId): bool {
-        $stmt = $pdo->prepare(
-            "SELECT 1 FROM tunebook WHERE user_id = :user_id AND tune_id = :tune_id LIMIT 1"
-        );
+        $stmt = $pdo->prepare(self::sql('hasFavorite.sql'));
         $stmt->execute([':user_id' => $userId, ':tune_id' => $tuneId]);
         return (bool) $stmt->fetchColumn();
     }

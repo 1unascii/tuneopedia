@@ -178,11 +178,15 @@ $(document).ready(function() {
                     });
             }
         }).fail(function (xhr) {
-            var errorResponse = (xhr.responseJSON) ? xhr.responseJSON : {};
-            $('<div class="alert-box">' + (errorResponse.error || 'Could not create collection.') + '</div>')
+            var errorMessage = 'Could not create collection.';
+            try {
+                var parsed = xhr.responseJSON || JSON.parse(xhr.responseText);
+                if (parsed && parsed.error) errorMessage = parsed.error;
+            } catch (e) {}
+            $('<div class="alert-box">' + errorMessage + '</div>')
                 .appendTo('#pop_up')
-                .delay(1500)
-                .fadeOut(300, function () {
+                .delay(1800)
+                .fadeOut(200, function () {
                     $(this).remove();
                 });
         });

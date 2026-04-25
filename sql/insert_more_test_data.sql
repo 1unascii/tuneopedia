@@ -46,7 +46,7 @@ INSERT INTO setting (tune_id, user_id, name, key_signature, abc_transcription) V
 (4, 1, 'High Octave', 'EDor', 'bee bee | afe d2f | gfe dBA | BAG FGA |'),
 (4, 2, 'Fast Session', 'EDor', '~E3 ~B3 | ~E3 AFD | GBG FAF | GFE FED |');
 
-INSERT INTO tunebook (user_id, tune_id) VALUES 
+INSERT INTO favorites (user_id, tune_id) VALUES 
 (1, 3), -- TradFan99 adds The Kesh Jig
 (1, 4); -- TradFan99 adds Morrison's Jig
 

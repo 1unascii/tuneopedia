@@ -61,7 +61,7 @@ class AuthController {
             $db->prepare("DELETE FROM collection_tune WHERE collection_id IN ($placeholders)")->execute($collectionIds);
             $db->prepare("DELETE FROM collection WHERE collection_id IN ($placeholders)")->execute($collectionIds);
         }
-        $db->prepare("DELETE FROM tunebook WHERE user_id = :uid")->execute([':uid' => $userId]);
+        $db->prepare("DELETE FROM favorites WHERE user_id = :uid")->execute([':uid' => $userId]);
         $db->prepare("DELETE FROM setting_vote WHERE user_id = :uid")->execute([':uid' => $userId]);
         $db->prepare("DELETE FROM setting WHERE user_id = :uid")->execute([':uid' => $userId]);
         // Delete posts ON this user's threads (by any user), then posts BY this user

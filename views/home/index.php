@@ -16,5 +16,5 @@
         <li><strong>Discuss</strong> &mdash; Join the discussion forum to talk about jams, sessions, festivals, and traditional music.</li>
     </ul>
 
-    <p>Create an account to start building your tunebook and contributing to the community.</p>
+    <p>Create an account to start building your favorites and contributing to the community.</p>
 </div>

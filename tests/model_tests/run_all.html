@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Model Tests — All Models</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body { font-family: monospace; background: #1a1a1a; color: #ccc; padding: 20px; max-width: 1000px; }
+        .pass { color: #6c6; }
+        .fail { color: #c66; }
+        .running { color: #cc6; }
+        .info { color: #6af; }
+        .code { color: #aaa; background: #2a2a2a; padding: 2px 6px; border-radius: 3px; }
+        #results { white-space: pre-wrap; line-height: 1.8; }
+        h1 { color: #ddd; font-size: 1.2em; }
+        button { padding: 8px 20px; font-size: 1em; cursor: pointer; margin-bottom: 20px; margin-right: 10px; }
+        .test-links { margin-bottom: 20px; }
+        .test-links a { color: #59b4d4; margin-right: 15px; text-decoration: none; }
+        .test-links a:hover { text-decoration: underline; }
+        .code { color: #aaa; background: #2a2a2a; padding: 2px 6px; border-radius: 3px; white-space: pre; }
+    </style>
+</head>
+<body>
+    <h1>Model Tests — All Models</h1>
+    <div class="test-links">
+        Run individually:
+        <a href="run_test.html?test=user_test.php">User</a>
+        <a href="run_test.html?test=tune_test.php">Tune</a>
+        <a href="run_test.html?test=setting_test.php">Setting</a>
+        <a href="run_test.html?test=collection_test.php">Collection</a>
+        <a href="run_test.html?test=discussion_test.php">Discussion</a>
+    </div>
+    <button id="run-tests">Run All Model Tests</button>
+    <div id="results"></div>
+
+    <script>
+    var BASE = '/tuneopedia/tests/model_tests/';
+    var passed = 0;
+    var failed = 0;
+
+    function log(msg, cls) {
+        $('#results').append('<div class="' + (cls || '') + '">' + msg + '</div>');
+    }
+
+    function runSuite(name, file) {
+        return $.get(BASE + file).then(function(data) {
+            var result = (typeof data === 'string') ? JSON.parse(data) : data;
+            log('');
+            log('══ ' + name + ' ══', 'info');
+            log('');
+            result.results.forEach(function(r) {
+                if (r.type === 'section') {
+                    log('');
+                    log('  ── ' + r.label + ' ──', 'info');
+                    log('');
+                } else if (r.type === 'info' || r.type === 'data') {
+                    log('  ' + r.label, r.type === 'data' ? 'code' : 'info');
+                } else {
+                    var icon = r.pass ? '✓' : '✗';
+                    var cls = r.pass ? 'pass' : 'fail';
+                    log('  ' + icon + ' ' + r.label, cls);
+                    if (r.pass) { passed++; } else { failed++; }
+                }
+            });
+            log('');
+            if (result.failed === 0) {
+                log('  All ' + (result.passed + result.failed) + ' assertions passed.', 'pass');
+            } else {
+                log('  ' + result.passed + '/' + (result.passed + result.failed) + ' passed, ' + result.failed + ' FAILED.', 'fail');
+            }
+        }).fail(function(xhr) {
+            log('');
+            log('══ ' + name + ' ══', 'info');
+            log('  ERROR: ' + (xhr.responseText || xhr.statusText), 'fail');
+            failed++;
+        });
+    }
+
+    $('#run-tests').on('click', function() {
+        $('#results').empty();
+        passed = 0;
+        failed = 0;
+
+        log('═══════════════════════════════════════════════════════════');
+        log('  MODEL TESTS — Running all model test suites');
+        log('═══════════════════════════════════════════════════════════');
+
+        runSuite('User Model', 'user_test.php')
+        .then(function() { return runSuite('Tune Model', 'tune_test.php'); })
+        .then(function() { return runSuite('Setting Model', 'setting_test.php'); })
+        .then(function() { return runSuite('Collection Model', 'collection_test.php'); })
+        .then(function() { return runSuite('Discussion Model', 'discussion_test.php'); })
+        .then(function() {
+            log('');
+            log('═══════════════════════════════════════════════════════════');
+            log('  AGGREGATE RESULTS');
+            log('═══════════════════════════════════════════════════════════');
+            log('');
+            var total = passed + failed;
+            if (failed === 0) {
+                log('  All ' + total + ' assertions passed across all models.', 'pass');
+            } else {
+                log('  ' + passed + '/' + total + ' passed, ' + failed + ' FAILED.', 'fail');
+            }
+        });
+    });
+    </script>
+</body>
+</html>

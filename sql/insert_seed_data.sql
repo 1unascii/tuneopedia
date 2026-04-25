@@ -439,7 +439,7 @@ INSERT INTO tune_track (tune_id, track_id) VALUES (@t_drowsy, @trk_drowsy);
 -- =====================
 -- 7. TUNEBOOK
 -- =====================
-INSERT INTO tunebook (user_id, tune_id) VALUES
+INSERT INTO favorites (user_id, tune_id) VALUES
 (@u1, @t_kesh),
 (@u1, @t_morrison),
 (@u2, @t_drowsy),

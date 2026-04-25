@@ -2,6 +2,10 @@
 
 class Collection {
 
+    private static function sql(string $filename): string {
+        return file_get_contents(__DIR__ . '/sql/collections/' . $filename);
+    }
+
     // ── Listing ───────────────────────────────────────────────────────────────
 
     /**
@@ -24,7 +28,7 @@ class Collection {
      * Used by collections.php to build the accordion/tabs view.
      */
     public static function getAllWithTunes(PDO $pdo, int $userId = 0): array {
-        $sql  = file_get_contents(__DIR__ . '/../sql/show_collections.sql');
+        $sql  = self::sql('getAllWithTunes.sql');
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':user_id' => $userId]);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -86,9 +90,7 @@ class Collection {
      * Check whether a collection with this exact name already exists.
      */
     public static function existsByName(PDO $pdo, string $name): bool {
-        $stmt = $pdo->prepare(
-            "SELECT collection_id FROM collection WHERE name = :name LIMIT 1"
-        );
+        $stmt = $pdo->prepare(self::sql('existsByName.sql'));
         $stmt->execute([':name' => $name]);
         return (bool)$stmt->fetch();
     }
@@ -97,10 +99,7 @@ class Collection {
      * Insert a new collection row and return its new collection_id.
      */
     public static function create(PDO $pdo, string $name, string $author, string $description, bool $isShared = false, ?int $userId = null): int {
-        $stmt = $pdo->prepare("
-            INSERT INTO collection (user_id, name, author, description, is_shared, created_at)
-            VALUES (:user_id, :name, :author, :description, :is_shared, NOW())
-        ");
+        $stmt = $pdo->prepare(self::sql('create.sql'));
         $stmt->execute([
             ':user_id'     => $userId,
             ':name'        => $name,
@@ -117,10 +116,7 @@ class Collection {
      * Link an array of tune IDs to a collection with sequential positions.
      */
     public static function addTunes(PDO $pdo, int $collectionId, array $tuneIds): void {
-        $statement = $pdo->prepare("
-            INSERT INTO collection_tune (collection_id, tune_id, position)
-            VALUES (:collection_id, :tune_id, :position)
-        ");
+        $statement = $pdo->prepare(self::sql('addTune.sql'));
         $position = 1;
         foreach ($tuneIds as $tuneId) {
             $statement->execute([

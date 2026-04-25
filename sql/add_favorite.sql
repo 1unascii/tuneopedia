@@ -1,1 +1,1 @@
-INSERT IGNORE INTO tunebook (user_id, tune_id) VALUES (%d, %d);
+INSERT IGNORE INTO favorites (user_id, tune_id) VALUES (%d, %d);

@@ -290,17 +290,17 @@ footer {
     opacity: 0.6;
 }
 .alert-box {
-  position: absolute;
-  top: 20%;
+  position: fixed;
+  top: 40%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Centers it perfectly */
-  z-index: 100; /* Ensures it stays on top of the image */
-  font-size: 30px;
-  /* Your other styles */
-  background: rgba(0, 0, 0, 0.8);
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  font-size: 24px;
+  background: rgba(0, 0, 0, 0.85);
   color: white;
-  padding: 20px;
+  padding: 20px 30px;
   border-radius: 5px;
+  text-align: center;
 }
 .pagination-top {
     margin: 5px 0 10px 0;

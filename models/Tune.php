@@ -2,6 +2,10 @@
 
 class Tune {
 
+    private static function sql(string $filename): string {
+        return file_get_contents(__DIR__ . '/sql/tunes/' . $filename);
+    }
+
     // ── Tunebook listing ──────────────────────────────────────────────────────
 
     /**
@@ -14,7 +18,7 @@ class Tune {
      * Used by tunes.php to build the tabbed tunebook view.
      */
     public static function getAllGroupedByType(PDO $pdo, int $userId = 0): array {
-        $sql  = file_get_contents(__DIR__ . '/../sql/show_tunebook.sql');
+        $sql  = self::sql('getAllGroupedByType.sql');
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':user_id' => $userId]);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -44,40 +48,7 @@ class Tune {
      *   [1] $typeNames  — [ tune_type_id => type name string ]
      */
     public static function getFavoritesGroupedByType(PDO $pdo, int $userId): array {
-        $statement = $pdo->prepare("
-            WITH RankedSettings AS (
-                SELECT
-                    s.tune_id,
-                    s.setting_id,
-                    s.user_id,
-                    s.key_signature,
-                    s.time_signature,
-                    s.abc_transcription,
-                    COALESCE(SUM(v.vote_value), 0) AS net_score,
-                    ROW_NUMBER() OVER (
-                        PARTITION BY s.tune_id
-                        ORDER BY SUM(v.vote_value) DESC, s.setting_id ASC
-                    ) AS setting_rank
-                FROM setting s
-                LEFT JOIN setting_vote v ON s.setting_id = v.setting_id
-                GROUP BY s.setting_id
-            )
-            SELECT
-                t.tune_id,
-                rs.setting_id,
-                t.name AS tune_name,
-                tt.tune_type_id,
-                tt.name AS tune_type_name,
-                rs.key_signature,
-                rs.time_signature,
-                rs.abc_transcription
-            FROM tunebook tb
-            JOIN tune t ON t.tune_id = tb.tune_id
-            JOIN tune_type tt ON t.tune_type_id = tt.tune_type_id
-            LEFT JOIN RankedSettings rs ON t.tune_id = rs.tune_id AND rs.setting_rank = 1
-            WHERE tb.user_id = :user_id
-            ORDER BY t.name ASC
-        ");
+        $statement = $pdo->prepare(self::sql('getFavoritesGroupedByType.sql'));
         $statement->execute([':user_id' => $userId]);
         $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -102,7 +73,7 @@ class Tune {
      * Fetch the display name of a tune. Returns null if the tune_id doesn't exist.
      */
     public static function getName(PDO $pdo, int $tuneId): ?string {
-        $stmt = $pdo->prepare("SELECT name FROM tune WHERE tune_id = :tune_id");
+        $stmt = $pdo->prepare(self::sql('getName.sql'));
         $stmt->execute([':tune_id' => $tuneId]);
         $name = $stmt->fetchColumn();
         return $name !== false ? $name : null;
@@ -115,7 +86,7 @@ class Tune {
      * to include the current user's own vote direction (user_vote: 1, -1, null).
      */
     public static function getSettings(PDO $pdo, int $tuneId, int $userId): array {
-        $sql  = file_get_contents(__DIR__ . '/../sql/get_tune_settings.sql');
+        $sql  = self::sql('getSettings.sql');
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':tune_id' => $tuneId, ':user_id' => $userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -127,7 +98,7 @@ class Tune {
      */
     public static function getNotes(PDO $pdo, int $tuneId): array {
         try {
-            $stmt = $pdo->prepare("SELECT note FROM tune_note WHERE tune_id = :tune_id");
+            $stmt = $pdo->prepare(self::sql('getNotes.sql'));
             $stmt->execute([':tune_id' => $tuneId]);
             return $stmt->fetchAll(PDO::FETCH_COLUMN);
         } catch (Exception $e) {
@@ -138,30 +109,30 @@ class Tune {
     // ── Lookups ───────────────────────────────────────────────────────────────
 
     public static function getAllTypes(PDO $pdo): array {
-        return $pdo->query("SELECT * FROM tune_type ORDER BY name")->fetchAll(PDO::FETCH_ASSOC);
+        return $pdo->query(self::sql('getAllTypes.sql'))->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function getAllComposers(PDO $pdo): array {
-        return $pdo->query("SELECT * FROM composer ORDER BY name")->fetchAll(PDO::FETCH_ASSOC);
+        return $pdo->query(self::sql('getAllComposers.sql'))->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function getOrCreateType(PDO $pdo, string $name): int {
-        $stmt = $pdo->prepare("SELECT tune_type_id FROM tune_type WHERE name = :name LIMIT 1");
+        $stmt = $pdo->prepare(self::sql('findTypeByName.sql'));
         $stmt->execute([':name' => $name]);
         $id = $stmt->fetchColumn();
         if ($id) return (int) $id;
 
-        $pdo->prepare("INSERT INTO tune_type (name) VALUES (:name)")->execute([':name' => $name]);
+        $pdo->prepare(self::sql('createType.sql'))->execute([':name' => $name]);
         return (int) $pdo->lastInsertId();
     }
 
     public static function getOrCreateComposer(PDO $pdo, string $name): int {
-        $stmt = $pdo->prepare("SELECT composer_id FROM composer WHERE name = :name LIMIT 1");
+        $stmt = $pdo->prepare(self::sql('findComposerByName.sql'));
         $stmt->execute([':name' => $name]);
         $id = $stmt->fetchColumn();
         if ($id) return (int) $id;
 
-        $pdo->prepare("INSERT INTO composer (name) VALUES (:name)")->execute([':name' => $name]);
+        $pdo->prepare(self::sql('createComposer.sql'))->execute([':name' => $name]);
         return (int) $pdo->lastInsertId();
     }
 
@@ -174,10 +145,7 @@ class Tune {
         $tuneTypeId = self::getOrCreateType($pdo, $tuneType);
         $composerId = self::getOrCreateComposer($pdo, $composer ?: 'Traditional');
 
-        $stmt = $pdo->prepare("
-            INSERT INTO tune (name, tune_type_id, composer_id)
-            VALUES (:name, :tune_type_id, :composer_id)
-        ");
+        $stmt = $pdo->prepare(self::sql('createTune.sql'));
         $stmt->execute([
             ':name'         => $name,
             ':tune_type_id' => $tuneTypeId,
@@ -185,10 +153,7 @@ class Tune {
         ]);
         $tuneId = (int) $pdo->lastInsertId();
 
-        $pdo->prepare("
-            INSERT INTO setting (tune_id, user_id, name, time_signature, key_signature, abc_transcription)
-            VALUES (:tune_id, :user_id, :name, :time_signature, :key_signature, :abc_transcription)
-        ")->execute([
+        $pdo->prepare(self::sql('createSetting.sql'))->execute([
             ':tune_id'           => $tuneId,
             ':user_id'           => $userId,
             ':name'              => $name,
@@ -201,7 +166,14 @@ class Tune {
     }
 
     public static function delete(PDO $pdo, int $tuneId, int $userId): bool {
-        $stmt = $pdo->prepare("DELETE FROM tune WHERE tune_id = :tune_id");
-        return $stmt->execute([':tune_id' => $tuneId]);
+        // Delete related data first (no CASCADE on FKs)
+        $pdo->prepare(self::sql('deleteTuneNotes.sql'))->execute([':id' => $tuneId]);
+        $pdo->prepare(self::sql('deleteFavorites.sql'))->execute([':id' => $tuneId]);
+        $pdo->prepare(self::sql('deleteCollectionTunes.sql'))->execute([':id' => $tuneId]);
+        $pdo->prepare(self::sql('deleteSettingVotes.sql'))->execute([':id' => $tuneId]);
+        $pdo->prepare(self::sql('deleteSettings.sql'))->execute([':id' => $tuneId]);
+        $stmt = $pdo->prepare(self::sql('deleteTune.sql'));
+        $stmt->execute([':id' => $tuneId]);
+        return $stmt->rowCount() > 0;
     }
 }
