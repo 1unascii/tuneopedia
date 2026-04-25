@@ -51,6 +51,7 @@ $apiRoutes = [
     'vote-setting'   => ['SettingController',     'vote'],
     'register'       => ['AuthController',        'register'],
     'test-cleanup'   => ['AuthController',        'testCleanup'],
+    'test-reset-ids' => ['AuthController',        'resetAutoIncrements'],
     'add-collection'            => ['CollectionController',  'create'],
     'create-collection-from-favorites' => ['CollectionController',  'createFromFavorites'],
     'add-to-existing-collection'       => ['CollectionController',  'addToExisting'],

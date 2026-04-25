@@ -40,7 +40,7 @@ class AuthController {
 
     public function testCleanup() {
         $username = $_POST['user_name'] ?? '';
-        if (!preg_match('/^testuser_\d+/', $username)) {
+        if (!preg_match('/^testuser_/', $username)) {
             echo 'Refused: only test users can be deleted';
             return;
         }
@@ -71,6 +71,29 @@ class AuthController {
         $db->prepare("DELETE FROM user WHERE user_id = :uid")->execute([':uid' => $userId]);
 
         echo 'Deleted';
+    }
+
+    public function resetAutoIncrements() {
+        $db = connect();
+        if (!$db) { echo 'Database error'; return; }
+
+        $tables = [
+            'artist_album', 'collection_tune', 'setting_vote', 'tune_alias',
+            'tune_track', 'tune_video', 'favorites', 'post', 'discussion_thread',
+            'relationship', 'track', 'album', 'artist', 'setting', 'collection',
+            'tune', 'user'
+        ];
+
+        $db->exec('SET FOREIGN_KEY_CHECKS = 0');
+        foreach ($tables as $table) {
+            try {
+                $db->exec("ALTER TABLE $table AUTO_INCREMENT = 1");
+            } catch (Exception $e) {
+                // Table might not exist, skip
+            }
+        }
+        $db->exec('SET FOREIGN_KEY_CHECKS = 1');
+        echo 'Auto-increments reset';
     }
 
     public function register() {

@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Populate Test Data</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body { font-family: monospace; background: #1a1a1a; color: #ccc; padding: 20px; max-width: 1000px; }
+        .pass { color: #6c6; }
+        .fail { color: #c66; }
+        .running { color: #cc6; }
+        .info { color: #6af; }
+        .code { color: #aaa; background: #2a2a2a; padding: 2px 6px; border-radius: 3px; }
+        #results { white-space: pre-wrap; line-height: 1.8; }
+        h1 { color: #ddd; font-size: 1.2em; }
+        button { padding: 10px 25px; font-size: 1em; cursor: pointer; margin-bottom: 20px; margin-right: 10px; }
+        #create-btn { background: #3a5a3a; color: #cec; border: 1px solid #6a6; }
+        #create-btn:hover { background: #4a6a4a; }
+        #delete-btn { background: #5a3a3a; color: #ecc; border: 1px solid #a66; }
+        #delete-btn:hover { background: #6a4a4a; }
+    </style>
+</head>
+<body>
+    <h1>Populate / Clear Test Data</h1>
+    <p class="info">Creates 6 users, 24+ tunes (Irish &amp; American with alternate settings), favorites, 4 collections, 6 discussion threads with replies, and votes.</p>
+    <button id="create-btn">Create Test Data</button>
+    <button id="delete-btn">Delete All Test Data</button>
+    <div id="results"></div>
+
+    <script>
+    var BASE = '/tuneopedia/';
+    var TAG = 'seedtest';
+    var cookies = {};
+
+    function log(msg, cls) {
+        $('#results').append('<div class="' + (cls || '') + '">' + msg + '</div>');
+    }
+
+    function post(url, data) {
+        return $.ajax({ url: BASE + url, method: 'POST', data: data, xhrFields: { withCredentials: true } });
+    }
+
+    function get(url) {
+        return $.ajax({ url: BASE + url, method: 'GET', xhrFields: { withCredentials: true } });
+    }
+
+    // Login as a specific user (sets session cookie)
+    function loginAs(user) {
+        return post('api/auth', { user_name: user.user_name, password: user.password, login: true });
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // TEST DATA DEFINITIONS
+    // ══════════════════════════════════════════════════════════════════════════
+
+    var users = [
+        { first_name: 'Paddy',   last_name: 'Murphy',    user_name: 'testuser_' + TAG + '_paddy',   email: TAG + '_paddy@test.com',   password: 'PaddyPass123!' },
+        { first_name: 'Siobhan', last_name: 'OBrien',    user_name: 'testuser_' + TAG + '_siobhan', email: TAG + '_siobhan@test.com', password: 'SiobhanPass123!' },
+        { first_name: 'Liam',    last_name: 'Gallagher', user_name: 'testuser_' + TAG + '_liam',    email: TAG + '_liam@test.com',    password: 'LiamPass123!' },
+        { first_name: 'Maeve',   last_name: 'Brennan',   user_name: 'testuser_' + TAG + '_maeve',   email: TAG + '_maeve@test.com',   password: 'MaevePass123!' },
+        { first_name: 'Earl',    last_name: 'Scruggs',   user_name: 'testuser_' + TAG + '_earl',    email: TAG + '_earl@test.com',    password: 'EarlPass123!' },
+        { first_name: 'Martha',  last_name: 'Scanlan',   user_name: 'testuser_' + TAG + '_martha',  email: TAG + '_martha@test.com',  password: 'MarthaPass123!' },
+    ];
+
+    // Tunes array — each entry is the FIRST setting.
+    // altSettings adds additional settings for existing tunes (submitted by different users).
+    var tunes = [
+        // ── Irish ────────────────────────────────────────────────────────────
+        { tune_title: 'The Maid Behind the Bar',    tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'A2AB AFED|FGAB cABc|d2fd ceAc|BGAF GFED|A2AB AFED|FGAB cABc|d2fd ceAc|BGAF G2GE:|', userIdx: 0 },
+        { tune_title: 'The Silver Spear',            tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'FGAB cABc|dBcA BGAF|GABG AGEG|FGAB cdef|g2ge fded|Bgfg eBgB|ABGA BGEG|1 FGAB cdef:|2 FGAB c2cB||', userIdx: 0 },
+        { tune_title: 'The Kesh',                    tune_type: 'Jig',      composer: 'Traditional', metre: '6/8', tune_key: 'Gmaj', tune_body: 'GAG GAB|ABA ABd|ede gdB|ABA ABd|GAG GAB|ABA ABd|ede gdB|1 AGF G2D:|2 AGF G2A||', userIdx: 0 },
+        { tune_title: 'Morrison\'s Jig',             tune_type: 'Jig',      composer: 'Traditional', metre: '6/8', tune_key: 'Emin', tune_body: 'E3 B3|EBE AFD|E3 B3|dBd AFD|E3 B3|EBE AFD|GFG AFD|FED AFD:|', userIdx: 1 },
+        { tune_title: 'The Butterfly',               tune_type: 'Slip Jig', composer: 'Traditional', metre: '9/8', tune_key: 'Emin', tune_body: 'B2E G2E F3|B2E G2E FED|B2E G2E F3|AFD FED FED:|', userIdx: 1 },
+        { tune_title: 'Harvest Home',                tune_type: 'Hornpipe', composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'A2dA BAFA|A2dA BAFG|A2dA BAFA|1 GBAF GFED:|2 GBAF G2Bc||', userIdx: 1 },
+        { tune_title: 'Si Bheag Si Mhor',            tune_type: 'Waltz',    composer: 'Turlough O\'Carolan', metre: '3/4', tune_key: 'Dmaj', tune_body: 'D3 EFG|A3 BAG|A3 GAB|d3 BAG|A3 GFG|A3 d3|e3 dBA|1 B3 A2G:|2 B3 A3||', userIdx: 2 },
+        { tune_title: 'Drowsy Maggie',               tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Emin', tune_body: 'B2eB dBAB|B2eB dBAG|B2eB d2de|fedB dBAG|B2eB dBAB|B2eB dBA2|defg afge|fedB dBAG:|', userIdx: 2 },
+
+        // ── American Fiddle Tunes ────────────────────────────────────────────
+        { tune_title: 'Old Joe Clark',               tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amix', tune_body: 'A2AA ABAG|A2AA B2AG|A2AA ABAc|BAGB A2AG:|e2ee efed|e2ee f2ed|e2ee efeg|aged c2cB:|', userIdx: 4 },
+        { tune_title: 'Soldier\'s Joy',              tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'D2DE FGAB|A2FA GFED|D2DE FGAB|AFGE FDD2:|d2dd d2AB|A2FA GFED|d2dd d2de|fdec d2D2:|', userIdx: 4 },
+        { tune_title: 'Arkansas Traveler',           tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'D2FA d2cA|BAGF GFED|D2FA d2de|fdec d2D2:|A2AB AFED|A2AB A2de|fdAd fdAd|fdec d2D2:|', userIdx: 4 },
+        { tune_title: 'Turkey in the Straw',         tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Gmaj', tune_body: 'D2|GABG ABGA|BGAB d2Bd|gabg abga|bgaf g2D2:|G2Bd g2fg|edBd edBG|G2Bd g2fg|edBd G2D2:|', userIdx: 5 },
+        { tune_title: 'Cripple Creek',               tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amaj', tune_body: 'A,CEA, CEA,C|EAAB cBAE|A,CEA, CEA,C|1 EAAB A,2A,2:|2 EAAB A,2ce||a2ab a2ge|a2ab agea|a2ab a2ge|aged c2ce:|', userIdx: 5 },
+        { tune_title: 'Devil\'s Dream',              tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amaj', tune_body: 'eA~A2 eAfA|eA~A2 Bcde|fBBB fBgB|fBBB Bcde|eAAA eAfA|eAAA Bcde|fBBB fBgB|1 ABce a2ge:|2 ABce a4||', userIdx: 4 },
+        { tune_title: 'Bile Them Cabbage Down',      tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Gmaj', tune_body: 'G2GA B2BA|G2GA B2d2|G2GA B2BA|GABG A2D2:|g2gf g2d2|e2ef g2d2|g2gf g2d2|edBd G2D2:|', userIdx: 5 },
+        { tune_title: 'Blackberry Blossom',          tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Gmaj', tune_body: 'BGDG BGDG|BGDG ABcA|BGDG BGDG|1 cABG A2GA:|2 cABG A2Bc||d2Bd g2fg|edBd edBd|d2Bd g2fg|edBd e2Bc:|', userIdx: 4 },
+        { tune_title: 'Whiskey Before Breakfast',    tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'D2DE FGAB|AFDF A2FA|BAGF EFGA|BdAF GFED|D2DE FGAB|AFDF A2FA|BAGF EFGE|FDD2 D4:|d2fd Adfd|c2ec Acec|d2fd Adfa|bgaf gfed|d2fd Adfd|c2ec Acec|dcBA GFGE|FDD2 D4:|', userIdx: 5 },
+        { tune_title: 'Salt Creek',                  tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amix', tune_body: 'A2eA cAeA|A2eA cABc|A2eA cAeA|1 cABG A4:|2 cABG A2Bc||eaab a2ga|eaab aged|eaab a2ga|edBd e2Bc:|', userIdx: 4 },
+        { tune_title: 'Fisher\'s Hornpipe',          tune_type: 'Hornpipe', composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'D2(3DEF G2AB|AFDF A2df|gfed cdef|edcB AGFE|D2(3DEF G2AB|AFDF A2df|gfed ceAc|d2f2 d4:|d2fd Adfd|c2ec Acec|d2fd Adfd|ceAc e2fe|d2fd Adfd|c2ec Acec|dcBA GFGE|FDFA d4:|', userIdx: 5 },
+        { tune_title: 'Red Haired Boy',              tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amix', tune_body: 'A2eA cAeA|A2eA BAGB|A2eA cAeA|1 GEDE GABc:|2 GEDE G2Bc||eaag a2ba|geeg edBc|eaag a2bg|aged cABc:|', userIdx: 4 },
+        { tune_title: 'Angeline the Baker',          tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'D2FA dAFA|D2FA GFED|D2FA dAFG|Adde d2D2:|d2de fded|cAcA cAGF|d2de fded|cAGF D2D2:|', userIdx: 5 },
+        { tune_title: 'June Apple',                  tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amix', tune_body: 'A2AB cBcA|GABG ABcA|A2AB cBcA|GEDE G2AB:|cdef g2fg|edef g2ed|cdef g2fg|aged cABG:|', userIdx: 4 },
+        { tune_title: 'Forked Deer',                 tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'DEFG ABcA|dAcA BAFG|DEFG ABcA|1 dcBA GFED:|2 dcBA G2Bc||d2fd ceAc|d2fd ceAB|d2fd ceAc|dcBA GFED:|', userIdx: 5 },
+    ];
+
+    // Alternate settings — submitted by different users as X:2 for existing tunes
+    // Each references tuneTitle to find the tune_id after creation
+    var altSettings = [
+        { tuneTitle: 'Old Joe Clark',           tune_key: 'Amaj', metre: '4/4', tune_body: 'A2AB cBAG|A2AB c2BG|A2AB cBce|aged cABG:|e2ef e2dc|e2ef e2dc|e2ef e2eg|aged c2BG:|', userIdx: 2 },
+        { tuneTitle: 'Soldier\'s Joy',          tune_key: 'Dmaj', metre: '4/4', tune_body: 'FGAB AFDF|FGAB AFED|FGAB AFDF|1 AFGE FDD2:|2 AFGE FDde||f2fd f2AB|AFDF AFED|f2fd f2de|fdec d2D2:|', userIdx: 3 },
+        { tuneTitle: 'Blackberry Blossom',      tune_key: 'Gmaj', metre: '4/4', tune_body: 'BdBG dGBd|BdBG ABcA|BdBG dGBd|1 cABG AGEG:|2 cABG A2Bc||dBgB dBgB|edBd edBG|dBgB dBgB|edBd e2Bc:|', userIdx: 5 },
+        { tuneTitle: 'Cripple Creek',           tune_key: 'Amaj', metre: '4/4', tune_body: 'EAAB cBAE|EAAB cBAc|EAAB cBce|1 aged c2A2:|2 aged c2ce||a2ab agea|a2ab aged|a2ab agea|edcA c2ce:|', userIdx: 3 },
+        { tuneTitle: 'The Maid Behind the Bar', tune_key: 'Gmaj', metre: '4/4', tune_body: 'D2DE DCBA|BCDE FDEF|G2AG FEDF|ECBD CBAG:|d2Bd cABc|d2Bd cBA2|d2Bd cABc|AGFE D4:|', userIdx: 3 },
+        { tuneTitle: 'Drowsy Maggie',           tune_key: 'Emin', metre: '4/4', tune_body: 'BEED BEED|BEED BAAG|BEED BEED|fddB dBAG|BEED BEED|BEED BAA2|defg afge|fddB dBAG:|', userIdx: 4 },
+        { tuneTitle: 'Red Haired Boy',          tune_key: 'Amix', metre: '4/4', tune_body: 'ceAc eAce|ceAc BAGB|ceAc eAce|1 GEDE GABc:|2 GEDE G2Bc||ea~a2 abba|ge~e2 edBc|ea~a2 abbg|aged cABc:|', userIdx: 2 },
+        { tuneTitle: 'Whiskey Before Breakfast', tune_key: 'Dmaj', metre: '4/4', tune_body: 'FGAB AFDF|FGAB AFDF|BAGF EFGA|BdAF GFED|FGAB AFDF|FGAB AFDF|BAGF EFGE|FDD2 D4:|dfaf dfaf|ceac ceac|dfaf dfag|fdef gfed|dfaf dfaf|ceac ceac|dcBA GFGE|FDD2 D4:|', userIdx: 2 },
+        { tuneTitle: 'Salt Creek',              tune_key: 'Amix', metre: '4/4', tune_body: 'ceAe ceAe|ceAe cABc|ceAe ceAe|1 cABG A4:|2 cABG A2Bc||ea~a2 a2ga|ea~a2 aged|ea~a2 a2ga|edBd e2Bc:|', userIdx: 3 },
+        { tuneTitle: 'Fisher\'s Hornpipe',      tune_key: 'Dmaj', metre: '4/4', tune_body: 'FGAB AFDF|FGAB AFdf|gfed cdef|edcB AGFE|FGAB AFDF|FGAB AFdf|gfed ceAc|d2f2 d4:|dfaf Adfd|cecA Acec|dfaf Adfd|ceAc e2fe|dfaf Adfd|cecA Acec|dcBA GFGE|FDFA d4:|', userIdx: 5 },
+    ];
+
+    var threads = [
+        { title: 'Best tunes for a slow session?', body: 'We\'re starting a new slow session at the pub on Tuesdays. What tunes work well at a relaxed tempo? Looking for reels that don\'t fall apart when played slowly.', userIdx: 0 },
+        { title: 'Fiddle vs. tin whistle for beginners?', body: 'My daughter wants to learn traditional music. She\'s 10 years old. Would you recommend starting with fiddle or tin whistle? We have access to both.', userIdx: 1 },
+        { title: 'O\'Carolan — overrated or genius?', body: 'Hot take: while Turlough O\'Carolan was clearly talented, I think his compositions are overplayed at sessions. They\'re beautiful but they\'re not really session tunes. Change my mind!', userIdx: 2 },
+        { title: 'American fiddle tunes with Irish roots?', body: 'I\'ve been playing Old Joe Clark and Soldier\'s Joy lately and I swear some of these American tunes have Irish DNA in them. Does anyone know which American fiddle tunes descended directly from Irish or Scottish tunes?', userIdx: 4 },
+        { title: 'Old-time vs. Irish session etiquette', body: 'I come from the American old-time tradition and just moved to Dublin. The session etiquette here is really different — they play in unison, follow a leader, and there\'s a strong hierarchy. In old-time we just all jump in together. Any tips for fitting in?', userIdx: 5 },
+        { title: 'Tunes that work in BOTH traditions', body: 'What tunes do you play at sessions that work for both Irish and American old-time players? I want to build a crossover set list for a mixed session we\'re starting.', userIdx: 3 },
+    ];
+
+    var replies = [
+        // Slow session
+        { threadIdx: 0, userIdx: 1, body: 'The Maid Behind the Bar works great slow! Also try The Silver Spear at half tempo — it sounds gorgeous.' },
+        { threadIdx: 0, userIdx: 2, body: 'Morrison\'s Jig is perfect for a relaxed pace. The melody really shines when you don\'t rush it.' },
+        { threadIdx: 0, userIdx: 3, body: 'We do a slow session in Cork every Wednesday. Our go-to set is Drowsy Maggie into The Kesh. Both work well at 80% tempo.' },
+        // Beginner instrument
+        { threadIdx: 1, userIdx: 0, body: 'Tin whistle all the way! It\'s cheap, portable, and the fingering transfers directly to flute later on. My kids all started on whistle.' },
+        { threadIdx: 1, userIdx: 3, body: 'I\'d say fiddle. It\'s harder to start but the ear training is invaluable. And at 10 she\'s not too young for it.' },
+        // O'Carolan
+        { threadIdx: 2, userIdx: 1, body: 'Genius, no question. Si Bheag Si Mhor is one of the most beautiful melodies ever written. It transcends the session format.' },
+        { threadIdx: 2, userIdx: 4, body: 'From an American perspective, O\'Carolan\'s tunes remind me of some of the old Appalachian airs. There\'s definitely a shared lineage there.' },
+        { threadIdx: 2, userIdx: 0, body: 'Overplayed ≠ overrated. The compositions themselves are brilliant. It\'s just that every beginner learns Planxty Irwin first.' },
+        // American-Irish roots
+        { threadIdx: 3, userIdx: 0, body: 'Red Haired Boy is almost certainly Irish in origin — it\'s very close to "The Jolly Beggarman" which is in O\'Neill\'s. The mixolydian mode is a dead giveaway.' },
+        { threadIdx: 3, userIdx: 1, body: 'Soldier\'s Joy has been traced back to Scotland at least as far as 1782. It crossed the Atlantic and became THE American fiddle tune.' },
+        { threadIdx: 3, userIdx: 3, body: 'Devil\'s Dream is another one — it appears in Scottish collections from the late 1700s. The Americans sped it up and added more ornamentation.' },
+        { threadIdx: 3, userIdx: 5, body: 'Fisher\'s Hornpipe is English originally but it\'s played in all three traditions now. The American version is usually played faster with more slides.' },
+        { threadIdx: 3, userIdx: 2, body: 'Harvest Home is played on both sides of the Atlantic almost identically. It\'s one of those tunes that just traveled intact.' },
+        // Session etiquette
+        { threadIdx: 4, userIdx: 0, body: 'The biggest difference is that in Irish sessions, someone starts the tune and others join in. Don\'t start a tune unless you\'re invited to. In old-time it\'s more democratic.' },
+        { threadIdx: 4, userIdx: 2, body: 'Learn to play backup quietly when you don\'t know a tune. In Irish sessions, sitting out gracefully is better than noodling along.' },
+        { threadIdx: 4, userIdx: 3, body: 'Buy rounds! Seriously though, the social aspect matters as much as the music. Get to know the players before you try to lead sets.' },
+        { threadIdx: 4, userIdx: 4, body: 'I made the same transition. The key insight: Irish session tunes are played in specific keys and modes. Old-time is more flexible about retuning. Don\'t try to cappo in an Irish session.' },
+        // Crossover tunes
+        { threadIdx: 5, userIdx: 4, body: 'Old Joe Clark works in both traditions. In Irish sessions I play it in A mixolydian and it fits right in. Same with Salt Creek.' },
+        { threadIdx: 5, userIdx: 5, body: 'Blackberry Blossom is great for crossover — it has that Celtic feel but it\'s firmly American. The B part especially sounds like it could be an Irish reel.' },
+        { threadIdx: 5, userIdx: 0, body: 'Whiskey Before Breakfast is Canadian but it gets played at both Irish and old-time sessions here. The D major version works everywhere.' },
+        { threadIdx: 5, userIdx: 1, body: 'Red Haired Boy into Drowsy Maggie — trust me. One is "American" and one is Irish but they share the same modal feel and they flow together perfectly.' },
+        { threadIdx: 5, userIdx: 2, body: 'Fisher\'s Hornpipe is the ultimate crossover tune. English origin, played in Irish sessions, American contests, and Scottish ceilidhs. Everyone knows it.' },
+    ];
+
+    // Which tunes each user favorites (by tune index — max index is tunes.length-1 = 22)
+    var favorites = [
+        [0, 2, 4, 6, 8, 10, 16, 20],    // Paddy
+        [1, 3, 5, 7, 9, 11, 17, 21],    // Siobhan
+        [0, 1, 2, 3, 12, 13, 18, 22],   // Liam
+        [4, 5, 6, 7, 14, 15, 19, 22],   // Maeve
+        [8, 9, 10, 11, 12, 13, 14, 15], // Earl (American tunes)
+        [0, 1, 8, 9, 16, 17, 20, 21],   // Martha (crossover)
+    ];
+
+    var collections = [
+        { name: 'Session Reels (Test)', author: 'Paddy Murphy', description: 'A set of reels for the Tuesday session', is_shared: '1', tuneIdxs: [0, 1, 7], userIdx: 0 },
+        { name: 'Beginner Jigs (Test)', author: 'Siobhan OBrien', description: 'Easy jigs for learners', is_shared: '1', tuneIdxs: [2, 3, 4], userIdx: 1 },
+        { name: 'American Fiddle Classics (Test)', author: 'Earl Scruggs', description: 'Essential old-time fiddle tunes from the American tradition, many with roots in Irish and Scottish music', is_shared: '1', tuneIdxs: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], userIdx: 4 },
+        { name: 'Celtic-American Crossover (Test)', author: 'Martha Scanlan', description: 'Tunes that work in both Irish and American old-time sessions', is_shared: '1', tuneIdxs: [0, 7, 8, 15, 16, 19, 20], userIdx: 5 },
+    ];
+
+    // Votes: [userIdx, tuneIdx (to find setting), value — max tuneIdx is 22]
+    var votes = [
+        [0, 0, 1], [0, 2, 1], [0, 6, 1], [0, 8, 1], [0, 20, 1],
+        [1, 1, 1], [1, 3, 1], [1, 5, -1], [1, 9, 1], [1, 21, 1],
+        [2, 0, 1], [2, 1, 1], [2, 7, 1], [2, 12, 1], [2, 18, 1],
+        [3, 4, 1], [3, 6, 1], [3, 7, -1], [3, 14, 1], [3, 19, 1],
+        [4, 8, 1], [4, 9, 1], [4, 10, 1], [4, 11, 1], [4, 12, 1], [4, 13, 1], [4, 16, 1],
+        [5, 0, 1], [5, 8, 1], [5, 15, 1], [5, 16, 1], [5, 20, 1], [5, 21, 1],
+    ];
+
+    var tuneIds = [];
+    var settingIds = [];
+    var threadIds = [];
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // CREATE
+    // ══════════════════════════════════════════════════════════════════════════
+
+    function createAll() {
+        $('#results').empty();
+        log('══════════════════════════════════════════════════════════');
+        log('  CLEANING UP PREVIOUS DATA FIRST');
+        log('══════════════════════════════════════════════════════════');
+        log('');
+
+        // Delete any leftover test data before creating fresh data
+        ensureAuth().then(function() {
+            deleteTestTunesQuiet(function() {
+                deleteTestUsersQuiet(0, function() {
+                    log('');
+                    log('══════════════════════════════════════════════════════════');
+                    log('  CREATING TEST DATA');
+                    log('══════════════════════════════════════════════════════════');
+                    log('');
+                    registerUsers(0);
+                });
+            });
+        }).fail(function() {
+            // No previous data to clean, just create
+            log('');
+            log('══════════════════════════════════════════════════════════');
+            log('  CREATING TEST DATA');
+            log('══════════════════════════════════════════════════════════');
+            log('');
+            registerUsers(0);
+        });
+    }
+
+    function deleteTestTunesQuiet(callback) {
+        get('page/tunes').done(function(html) {
+            var $html = $('<div>').html(html);
+            var ids = [];
+            tunes.forEach(function(t) {
+                $html.find('.tune_title').each(function() {
+                    if ($(this).text().trim() === t.tune_title) {
+                        ids.push($(this).attr('id'));
+                    }
+                });
+            });
+            if (ids.length === 0) { log('  No previous tunes found', 'info'); callback(); return; }
+            log('  Deleting ' + ids.length + ' previous tunes...', 'info');
+            var deleted = 0;
+            function next(i) {
+                if (i >= ids.length) { log('  Done (' + deleted + ' deleted)', 'info'); callback(); return; }
+                ensureAuth().then(function() {
+                    post('api/remove-tune', { tune_id: ids[i] })
+                    .done(function() { deleted++; next(i + 1); })
+                    .fail(function() { next(i + 1); });
+                });
+            }
+            next(0);
+        }).fail(function() { callback(); });
+    }
+
+    function deleteTestUsersQuiet(i, callback) {
+        if (i >= users.length) { callback(); return; }
+        post('api/test-cleanup', { user_name: users[i].user_name })
+        .always(function() { deleteTestUsersQuiet(i + 1, callback); });
+    }
+
+    function registerUsers(i) {
+        if (i >= users.length) { log(''); loginAndCreateTunes(0); return; }
+        var u = users[i];
+        log('Registering ' + u.first_name + ' (' + u.user_name + ')...', 'running');
+        post('api/register', $.extend({}, u, { register: true }))
+        .done(function(d) { log('  ' + d.trim(), 'pass'); registerUsers(i + 1); })
+        .fail(function() { log('  Failed', 'fail'); registerUsers(i + 1); });
+    }
+
+    function loginAndCreateTunes(i) {
+        if (i >= tunes.length) { log(''); findTuneIds(); return; }
+        var t = tunes[i];
+        var userIdx = t.userIdx || 0;
+        loginAs(users[userIdx]).done(function() {
+            log('Adding tune: ' + t.tune_title + ' (' + t.tune_type + ', ' + t.tune_key + ') by ' + users[userIdx].first_name, 'running');
+            post('api/add-tune', t)
+            .done(function(d) { log('  ' + d.trim(), 'pass'); loginAndCreateTunes(i + 1); })
+            .fail(function() { log('  Failed', 'fail'); loginAndCreateTunes(i + 1); });
+        });
+    }
+
+    function findTuneIds() {
+        log('Finding tune IDs...', 'running');
+        get('page/tunes').done(function(html) {
+            var $html = $('<div>').html(html);
+            tuneIds = [];
+            settingIds = [];
+            tunes.forEach(function(t) {
+                $html.find('.tune_title').each(function() {
+                    if ($(this).text().trim() === t.tune_title) {
+                        tuneIds.push($(this).attr('id'));
+                        var sid = $(this).closest('tr').find('.show_abc').attr('id');
+                        settingIds.push(sid);
+                    }
+                });
+            });
+            log('  Found ' + tuneIds.length + ' tunes: [' + tuneIds.join(', ') + ']', 'info');
+            log('');
+            addAltSettings(0);
+        });
+    }
+
+    function addAltSettings(i) {
+        if (i >= altSettings.length) { log(''); addFavorites(0, 0); return; }
+        var alt = altSettings[i];
+        // Find the tune_id for this alternate setting
+        var tuneIdx = -1;
+        for (var j = 0; j < tunes.length; j++) {
+            if (tunes[j].tune_title === alt.tuneTitle) { tuneIdx = j; break; }
+        }
+        if (tuneIdx === -1 || !tuneIds[tuneIdx]) { addAltSettings(i + 1); return; }
+
+        loginAs(users[alt.userIdx]).done(function() {
+            log('Adding alt setting for "' + alt.tuneTitle + '" in ' + alt.tune_key + ' by ' + users[alt.userIdx].first_name, 'running');
+            post('api/add-tune', {
+                tune_title: alt.tuneTitle,
+                tune_type: tunes[tuneIdx].tune_type,
+                composer: tunes[tuneIdx].composer,
+                metre: alt.metre,
+                tune_key: alt.tune_key,
+                tune_body: alt.tune_body
+            })
+            .done(function(d) { log('  ' + d.trim(), 'pass'); addAltSettings(i + 1); })
+            .fail(function() { log('  Failed', 'fail'); addAltSettings(i + 1); });
+        });
+    }
+
+    function addFavorites(userIdx, tuneIdx) {
+        if (userIdx >= users.length) { log(''); createCollections(0); return; }
+        if (tuneIdx >= favorites[userIdx].length) { addFavorites(userIdx + 1, 0); return; }
+
+        var tidx = favorites[userIdx][tuneIdx];
+        loginAs(users[userIdx]).done(function() {
+            var tuneId = tuneIds[tidx];
+            if (tuneIdx === 0) log(users[userIdx].first_name + ' favoriting tunes...', 'running');
+            post('api/favorite-tune', { tune_id: tuneId })
+            .done(function() {
+                if (tuneIdx === favorites[userIdx].length - 1) log('  Added ' + favorites[userIdx].length + ' favorites', 'pass');
+                addFavorites(userIdx, tuneIdx + 1);
+            })
+            .fail(function() { addFavorites(userIdx, tuneIdx + 1); });
+        });
+    }
+
+    function createCollections(i) {
+        if (i >= collections.length) { log(''); createThreads(0); return; }
+        var c = collections[i];
+        loginAs(users[c.userIdx]).done(function() {
+            var cTuneIds = c.tuneIdxs.map(function(idx) { return tuneIds[idx]; }).filter(function(id) { return !!id; });
+            log('Creating collection: ' + c.name + ' (' + cTuneIds.length + ' tunes)', 'running');
+            post('api/create-collection-from-favorites', {
+                collection_name: c.name, author: c.author, description: c.description,
+                is_shared: c.is_shared, tune_ids: JSON.stringify(cTuneIds), remove_from_favorites: '0'
+            })
+            .done(function(r) {
+                var result = (typeof r === 'string') ? JSON.parse(r) : r;
+                log('  Created (id=' + result.collection_id + ')', 'pass');
+                createCollections(i + 1);
+            })
+            .fail(function(xhr) {
+                var errMsg = 'Unknown error (HTTP ' + xhr.status + ')';
+                try {
+                    var err = xhr.responseJSON || JSON.parse(xhr.responseText);
+                    errMsg = err.error || errMsg;
+                } catch(e) {}
+                if (errMsg.indexOf('already exists') !== -1) {
+                    log('  Already exists, skipping', 'info');
+                } else {
+                    log('  Failed: ' + errMsg, 'fail');
+                }
+                createCollections(i + 1);
+            });
+        });
+    }
+
+    function createThreads(i) {
+        if (i >= threads.length) { log(''); createReplies(0); return; }
+        var threadUserIdx = threads[i].userIdx !== undefined ? threads[i].userIdx : i;
+        loginAs(users[threadUserIdx]).done(function() {
+            log('Creating thread: "' + threads[i].title + '" by ' + users[threadUserIdx].first_name, 'running');
+            post('api/create-thread', { title: threads[i].title, body: threads[i].body })
+            .done(function(r) {
+                var result = (typeof r === 'string') ? JSON.parse(r) : r;
+                threadIds.push(result.thread_id);
+                log('  Created (thread_id=' + result.thread_id + ')', 'pass');
+                createThreads(i + 1);
+            })
+            .fail(function() { log('  Failed', 'fail'); createThreads(i + 1); });
+        });
+    }
+
+    function createReplies(i) {
+        if (i >= replies.length) { log(''); castVotes(0); return; }
+        var r = replies[i];
+        var threadId = threadIds[r.threadIdx];
+        if (!threadId) {
+            log(users[r.userIdx].first_name + ' replies to thread ' + r.threadIdx + ' — thread_id missing, skipping', 'fail');
+            createReplies(i + 1);
+            return;
+        }
+        loginAs(users[r.userIdx]).done(function(loginData) {
+            log(users[r.userIdx].first_name + ' replies to "' + threads[r.threadIdx].title.substring(0, 30) + '..."', 'running');
+            post('api/create-post', { thread_id: threadId, body: r.body })
+            .done(function() { log('  Posted', 'pass'); createReplies(i + 1); })
+            .fail(function(xhr) {
+                var err = '';
+                try { err = ': ' + (xhr.responseJSON || JSON.parse(xhr.responseText)).error; } catch(e) { err = ' (HTTP ' + xhr.status + ')'; }
+                log('  Failed' + err, 'fail');
+                createReplies(i + 1);
+            });
+        }).fail(function() {
+            log(users[r.userIdx].first_name + ' — login failed', 'fail');
+            createReplies(i + 1);
+        });
+    }
+
+    function castVotes(i) {
+        if (i >= votes.length) { log(''); finishCreate(); return; }
+        var v = votes[i];
+        loginAs(users[v[0]]).done(function() {
+            var sid = settingIds[v[1]];
+            if (!sid) { castVotes(i + 1); return; }
+            var dir = v[2] > 0 ? 'upvotes' : 'downvotes';
+            log(users[v[0]].first_name + ' ' + dir + ' "' + tunes[v[1]].tune_title + '"', 'running');
+            post('api/vote-setting', { setting_id: sid, vote_value: v[2] })
+            .done(function() { log('  Voted', 'pass'); castVotes(i + 1); })
+            .fail(function() { log('  Failed', 'fail'); castVotes(i + 1); });
+        });
+    }
+
+    function finishCreate() {
+        log('══════════════════════════════════════════════════════════');
+        log('  DONE — Test data created!', 'pass');
+        log('══════════════════════════════════════════════════════════');
+        log('');
+        log('  Users:          ' + users.length, 'info');
+        log('  Tunes:          ' + tunes.length, 'info');
+        log('  Alt Settings:   ' + altSettings.length, 'info');
+        log('  Favorites:      ' + favorites.reduce(function(a, b) { return a + b.length; }, 0), 'info');
+        log('  Collections:    ' + collections.length, 'info');
+        log('  Threads:        ' + threads.length, 'info');
+        log('  Replies:        ' + replies.length, 'info');
+        log('  Votes:          ' + votes.length, 'info');
+        log('');
+        log('  Login as any test user to browse:', 'info');
+        users.forEach(function(u) {
+            log('    ' + u.first_name + ': ' + u.user_name + ' / ' + u.password, 'info');
+        });
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // DELETE
+    // ══════════════════════════════════════════════════════════════════════════
+
+    function deleteAll() {
+        $('#results').empty();
+        log('══════════════════════════════════════════════════════════');
+        log('  DELETING TEST DATA');
+        log('══════════════════════════════════════════════════════════');
+        log('');
+
+        // We need a logged-in user to perform deletions.
+        // Try logging in as the first test user; if they're already deleted, register a temp one.
+        ensureAuth().then(function() {
+            deleteTestCollections(0);
+        });
+    }
+
+    function ensureAuth() {
+        return loginAs(users[0]).then(null, function() {
+            // User doesn't exist — register a temp one
+            return post('api/register', $.extend({}, users[0], { register: true }))
+                .then(function() { return loginAs(users[0]); });
+        });
+    }
+
+    function deleteTestCollections(i) {
+        if (i >= collections.length) {
+            log('');
+            deleteTestTunes();
+            return;
+        }
+        var collName = collections[i].name;
+        log('Deleting collection "' + collName + '"...', 'running');
+        // Use a server-side call to find and delete the collection by name
+        get('page/collections').done(function(html) {
+            var $html = $('<div>').html(html);
+            // The collection cleanup is handled by the user cascade,
+            // but we need to remove collection_tune links first for tunes owned by other users.
+            // We'll handle this after deleting users.
+            log('  Marked for cleanup', 'info');
+            deleteTestCollections(i + 1);
+        }).fail(function() {
+            deleteTestCollections(i + 1);
+        });
+    }
+
+    function deleteTestTunes() {
+        log('Finding test tunes to delete...', 'running');
+        get('page/tunes').done(function(html) {
+            var $html = $('<div>').html(html);
+            var tuneIdsToDelete = [];
+            tunes.forEach(function(t) {
+                $html.find('.tune_title').each(function() {
+                    if ($(this).text().trim() === t.tune_title) {
+                        tuneIdsToDelete.push($(this).attr('id'));
+                    }
+                });
+            });
+
+            if (tuneIdsToDelete.length === 0) {
+                log('  No test tunes found', 'pass');
+                log('');
+                deleteTestUsers(0);
+                return;
+            }
+
+            log('  Found ' + tuneIdsToDelete.length + ' test tunes, deleting...', 'info');
+            deleteTestTune(tuneIdsToDelete, 0);
+        }).fail(function() {
+            log('  Could not load tunes page', 'fail');
+            deleteTestUsers(0);
+        });
+    }
+
+    function deleteTestTune(ids, i) {
+        if (i >= ids.length) {
+            log('  Deleted ' + ids.length + ' test tunes', 'pass');
+            log('');
+            deleteTestUsers(0);
+            return;
+        }
+        // Re-auth before each delete to prevent session expiry
+        ensureAuth().then(function() {
+            post('api/remove-tune', { tune_id: ids[i] })
+            .always(function() { deleteTestTune(ids, i + 1); });
+        });
+    }
+
+    function deleteTestUsers(i) {
+        if (i >= users.length) {
+            // Final pass: verify collections are gone
+            log('');
+            verifyCleanup();
+            return;
+        }
+        var u = users[i];
+        log('Deleting user ' + u.first_name + '...', 'running');
+        post('api/test-cleanup', { user_name: u.user_name })
+        .done(function(d) { log('  ' + d.trim(), 'pass'); deleteTestUsers(i + 1); })
+        .fail(function() { log('  Not found (already deleted)', 'info'); deleteTestUsers(i + 1); });
+    }
+
+    function verifyCleanup() {
+        log('Verifying cleanup...', 'running');
+        get('page/collections').done(function(html) {
+            var $html = $('<div>').html(html);
+            var remaining = [];
+            collections.forEach(function(c) {
+                $html.find('.collection-title').each(function() {
+                    if ($(this).text().trim() === c.name) {
+                        remaining.push(c.name);
+                    }
+                });
+            });
+            if (remaining.length === 0) {
+                log('  All test collections removed', 'pass');
+            } else {
+                log('  ' + remaining.length + ' test collection(s) still remain: ' + remaining.join(', '), 'fail');
+            }
+
+            get('page/tunes').done(function(html2) {
+                var $html2 = $('<div>').html(html2);
+                var remainingTunes = [];
+                tunes.forEach(function(t) {
+                    $html2.find('.tune_title').each(function() {
+                        if ($(this).text().trim() === t.tune_title) {
+                            remainingTunes.push(t.tune_title);
+                        }
+                    });
+                });
+                if (remainingTunes.length === 0) {
+                    log('  All test tunes removed', 'pass');
+                } else {
+                    log('  ' + remainingTunes.length + ' test tune(s) still remain', 'fail');
+                }
+                log('');
+                finishDelete();
+            }).fail(function() { finishDelete(); });
+        }).fail(function() { finishDelete(); });
+    }
+
+    function finishDelete() {
+        log('Resetting auto-increment counters...', 'running');
+        post('api/test-reset-ids', {})
+        .done(function(d) {
+            log('  ' + d.trim(), 'pass');
+        })
+        .fail(function() {
+            log('  Failed to reset auto-increments', 'fail');
+        })
+        .always(function() {
+            log('');
+            log('══════════════════════════════════════════════════════════');
+            log('  DONE — Test data deleted!', 'pass');
+            log('══════════════════════════════════════════════════════════');
+        });
+    }
+
+    $('#create-btn').on('click', createAll);
+    $('#delete-btn').on('click', deleteAll);
+
+    </script>
+</body>
+</html>
