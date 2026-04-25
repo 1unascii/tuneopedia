@@ -114,6 +114,8 @@ $modeLabels  = ['maj' => 'Major/Ionian', 'min' => 'Minor', 'dor' => 'Dorian', 'm
                   rows="10"><?= htmlspecialchars($setting['abc_transcription']) ?></textarea>
     </div>
 
+    <?php include __DIR__ . '/../partials/playback_controls.php'; ?>
+
     <div class="edit-form-actions">
         <button type="submit" class="edit-save-btn">Save</button>
         <button type="button" class="edit-cancel-btn">Cancel</button>

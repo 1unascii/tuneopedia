@@ -351,6 +351,55 @@ th {
     margin: 5px 0 10px 0;
 }
 
+/* ── Playback controls ────────────────────────────────────────────────────── */
+
+.playback-controls-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px 20px;
+    margin-top: 6px;
+    align-items: flex-start;
+}
+
+.playback-knob {
+    text-align: center;
+}
+
+.playback-knob label,
+.playback-select label {
+    font-size: 0.8em;
+    color: #aaa;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.playback-select select {
+    width: 100%;
+    background: #2a2a1e;
+    border: 1px solid #555;
+    color: #ddd;
+    padding: 4px 6px;
+    border-radius: 3px;
+    font-family: inherit;
+}
+
+.playback-select {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.light-mode .playback-knob label,
+.light-mode .playback-select label {
+    color: #666;
+}
+
+.light-mode .playback-select select {
+    background: #fff;
+    color: #222;
+    border-color: #ccc;
+}
+
 .no-setting-icon { opacity: 0.25; cursor: default; pointer-events: none; }
 
 .tune-back-btn { margin-bottom: 14px; cursor: pointer; }

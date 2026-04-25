@@ -14,6 +14,8 @@ class Setting {
         $stmt = $pdo->prepare("
             SELECT s.setting_id, s.time_signature, s.key_signature,
                    s.default_note_length, s.abc_transcription,
+                   s.source, s.origin, s.history, s.book, s.discography,
+                   s.transcription_credit, s.area, s.parts, s.tempo, s.lyrics,
                    t.name AS tune_name, tt.name AS tune_type_name
             FROM   setting    s
             JOIN   tune       t  ON  t.tune_id       = s.tune_id
@@ -64,13 +66,33 @@ class Setting {
             SET time_signature      = :time_signature,
                 key_signature       = :key_signature,
                 default_note_length = :default_note_length,
-                abc_transcription   = :abc_transcription
+                abc_transcription   = :abc_transcription,
+                source              = :source,
+                origin              = :origin,
+                history             = :history,
+                book                = :book,
+                discography         = :discography,
+                transcription_credit = :transcription_credit,
+                area                = :area,
+                parts               = :parts,
+                tempo               = :tempo,
+                lyrics              = :lyrics
             WHERE setting_id = :setting_id
         ")->execute([
             ':time_signature'      => $data['time_signature']      ?? '4/4',
             ':key_signature'       => $data['key_signature']       ?? '',
             ':default_note_length' => $data['default_note_length'] ?? '1/8',
             ':abc_transcription'   => $data['abc_transcription']   ?? '',
+            ':source'              => $data['source']              ?: null,
+            ':origin'              => $data['origin']              ?: null,
+            ':history'             => $data['history']             ?: null,
+            ':book'                => $data['book']                ?: null,
+            ':discography'         => $data['discography']         ?: null,
+            ':transcription_credit' => $data['transcription_credit'] ?: null,
+            ':area'                => $data['area']                ?: null,
+            ':parts'               => $data['parts']              ?: null,
+            ':tempo'               => $data['tempo']              ?: null,
+            ':lyrics'              => $data['lyrics']             ?: null,
             ':setting_id'          => $settingId,
         ]);
 
@@ -78,6 +100,8 @@ class Setting {
         $stmt = $pdo->prepare("
             SELECT s.setting_id, s.time_signature, s.key_signature,
                    s.default_note_length, s.abc_transcription,
+                   s.source, s.origin, s.history, s.book, s.discography,
+                   s.transcription_credit, s.area, s.parts, s.tempo, s.lyrics,
                    t.name AS tune_name
             FROM setting s
             JOIN tune t ON t.tune_id = s.tune_id

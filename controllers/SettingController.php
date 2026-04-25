@@ -27,6 +27,16 @@ class SettingController {
                 'key_signature'       => trim($_POST['key_signature']       ?? ''),
                 'default_note_length' => trim($_POST['default_note_length'] ?? '1/8'),
                 'abc_transcription'   => trim($_POST['abc_transcription']   ?? ''),
+                'source'              => trim($_POST['source']              ?? ''),
+                'origin'              => trim($_POST['origin']              ?? ''),
+                'history'             => trim($_POST['history']             ?? ''),
+                'book'                => trim($_POST['book']                ?? ''),
+                'discography'         => trim($_POST['discography']         ?? ''),
+                'transcription_credit' => trim($_POST['transcription_credit'] ?? ''),
+                'area'                => trim($_POST['area']                ?? ''),
+                'parts'               => trim($_POST['parts']              ?? ''),
+                'tempo'               => trim($_POST['tempo']              ?? ''),
+                'lyrics'              => trim($_POST['lyrics']             ?? ''),
             ]);
 
             if (!$updated) {

@@ -152,26 +152,8 @@ $(document).ready(function(){
         threeCharsAhead = returnChar(selector.value, caretPos + 2, caretPos + 3);
     }
 
-    // ── Static add-tune form initialisation ──────────────────────────────────
-    // Only runs when the add-tune form is present on page load.
-    if (hasStaticForm) {
-    var editor1 = document.getElementById("abc");
-    editor1.spellcheck = false;
+    // ── Play Selection helpers (shared by both static and dynamic forms) ────
 
-    // The following three functions (letterCharsAgo, doubleAccidentalCharsAgo,
-    // accidentalCharsAgo) were used by the old keyPress() function which has been
-    // replaced by the delegated keypress handler below.  Kept here for reference.
-    //
-    // function letterCharsAgo(chars, key) { ... }
-    // function doubleAccidentalCharsAgo(chars) { ... }
-    // function accidentalCharsAgo(charsAgo) { ... }
-
-    // ── Play Selection feature ────────────────────────────────────────────────
-
-    // Processes a selected ABC string for playback by running each note letter
-    // through keySpecificPlayback, which applies the current key's accidentals.
-    // Characters that already have an explicit accidental prefix (^, _, =) are
-    // passed through unchanged so the user's manual accidentals are preserved.
     function applyKeyToSelection(abcString, key) {
         var chars  = abcString.split('');
         var result = '';
@@ -186,11 +168,6 @@ $(document).ready(function(){
         return result;
     }
 
-    // The old applyKeyToAbc + playBack functions have been replaced by applyKeyToSelection above.
-    // function applyKeyToAbc(key, accidentalArray, abcArray, accidentalChar, sharpsOrFlatsToPush){ ... }
-    // function playBack(key, keys, accidentals, splitArray, modifier){ ... }
-
-    // Returns the currently selected text in the page, or false if nothing is selected.
     function getSelectionText() {
         var text = "";
         if (window.getSelection) {
@@ -201,24 +178,11 @@ $(document).ready(function(){
         return text !== "" ? text : false;
     }
 
-    // When the user selects text in the ABC textarea, show a Play Selection button.
-    // Clicking it plays the selection with the current key's accidentals applied.
-    $('#abc').on('select keyup', function(){
-        key = $('#key').val();
-        selection = getSelectionText();
-        if(selection){
-            $('#play_selection').html("<input type='button' id='play' value='Play Selection'/>");
-        }
-        $('#play').on("click", function(){
-            if(selection){
-                key = $('#key').val();
-                $('#abc').play(applyKeyToSelection(selection, key));
-                $('#play').fadeOut(250);
-            } else {
-                alert("unexpected error: selection was not found");
-            }
-        });
-    });
+    // ── Static add-tune form initialisation ──────────────────────────────────
+    // Only runs when the add-tune form is present on page load.
+    if (hasStaticForm) {
+    var editor1 = document.getElementById("abc");
+    editor1.spellcheck = false;
 
     // ── Mode and key change handlers ──────────────────────────────────────────
 
@@ -289,6 +253,30 @@ $(document).ready(function(){
 
     } // end if (hasStaticForm)
 
+    // ── Play Selection (works on both add-tune and edit forms) ───────────────
+
+    $(document).on('select keyup mouseup', '#abc', function () {
+        key = $('#key').val();
+        selection = getSelectionText();
+        if (selection) {
+            if (!$('#play').length) {
+                $('#play_selection').html("<input type='button' id='play' value='Play Selection'/>");
+            }
+        } else {
+            $('#play_selection').empty();
+        }
+    });
+
+    $(document).on('click', '#play', function () {
+        if (selection) {
+            key = $('#key').val();
+            $('#abc').play(getPlaybackOptions(), applyKeyToSelection(selection, key));
+            $('#play').fadeOut(250, function () {
+                $(this).remove();
+            });
+        }
+    });
+
     // ── Per-keystroke note playback ───────────────────────────────────────────
     // The old keyPress() function that previously handled the add-tune textarea
     // has been replaced by the delegated handler below, which uses the same logic
@@ -308,6 +296,32 @@ $(document).ready(function(){
             return octave ? (lastChar + keyPress) : keyPress;
         }
     }
+
+    // ── Playback controls ──────────────────────────────────────────────────────
+
+    // Returns the options object for jquery-turtle's .play() based on the
+    // current values of the playback control sliders and dropdown.
+    function getPlaybackOptions() {
+        var opts = {};
+        var $tempo = $('#playback-tempo');
+        if ($tempo.length) opts.tempo = parseInt($tempo.val()) || 120;
+        var $volume = $('#playback-volume');
+        if ($volume.length) opts.volume = (parseInt($volume.val()) || 50) / 100;
+        var $waveform = $('#playback-waveform');
+        if ($waveform.length) opts.type = [$waveform.val()];
+        var $attack = $('#playback-attack');
+        if ($attack.length) {
+            opts.envelope = {
+                a: (parseInt($('#playback-attack').val()) || 1) / 100,
+                d: (parseInt($('#playback-decay').val()) || 20) / 100,
+                s: (parseInt($('#playback-sustain').val()) || 10) / 100,
+                r: (parseInt($('#playback-release').val()) || 10) / 100
+            };
+        }
+        return opts;
+    }
+
+    // jQuery Knob displays its own value — no manual update handlers needed.
 
     // ── Delegated handlers (cover both static add-tune and dynamic edit forms) ─
     // Selector #abc matches both the static textarea in abc_editor.php and any
@@ -345,30 +359,30 @@ $(document).ready(function(){
         if (keyPress == '^' || keyPress == '_' || keyPress == '=') {
             // Double accidental with octave modifier (e.g. ^^G,)
             if (nextChar == keyPress && (threeCharsAhead == ',' || threeCharsAhead == '\'')) {
-                $(this).play(keyPress + nextChar + charAfterNext + threeCharsAhead);
+                $(this).play(getPlaybackOptions(),keyPress + nextChar + charAfterNext + threeCharsAhead);
             // Double accidental without octave modifier (e.g. ^^G)
             } else if (nextChar == keyPress) {
-                $(this).play(keyPress + nextChar + charAfterNext);
+                $(this).play(getPlaybackOptions(),keyPress + nextChar + charAfterNext);
             // Accidental typed between an existing accidental and a note that has an octave modifier
             } else if ((lastChar == '^' || lastChar == '_') && nextChar.match(letters) && (charAfterNext == ',' || charAfterNext == '\'')) {
-                $(this).play(lastChar + keyPress + nextChar + charAfterNext);
+                $(this).play(getPlaybackOptions(),lastChar + keyPress + nextChar + charAfterNext);
             // Accidental typed between an existing accidental and a plain note
             } else if ((lastChar == '^' || lastChar == '_') && nextChar.match(letters)) {
-                $(this).play(lastChar + keyPress + nextChar);
+                $(this).play(getPlaybackOptions(),lastChar + keyPress + nextChar);
             // Accidental typed before a note that already has an octave modifier
             } else if (nextChar.match(letters) && (charAfterNext == ',' || charAfterNext == '\'')) {
-                $(this).play(keyPress + nextChar + charAfterNext);
+                $(this).play(getPlaybackOptions(),keyPress + nextChar + charAfterNext);
             // Accidental typed before a plain note
             } else if (nextChar.match(letters)) {
-                $(this).play(keyPress + nextChar);
+                $(this).play(getPlaybackOptions(),keyPress + nextChar);
             }
 
         } else if (lastChar == '^' || lastChar == '_') {
             // Note letter typed immediately after an accidental prefix
             if (charBeforeLast == lastChar) {
-                $(this).play(charBeforeLast + lastChar + keyPress); // double accidental
+                $(this).play(getPlaybackOptions(),charBeforeLast + lastChar + keyPress); // double accidental
             } else {
-                $(this).play(lastChar + keyPress); // single accidental note
+                $(this).play(getPlaybackOptions(),lastChar + keyPress); // single accidental note
             }
 
         } else if (keyPress == ',' || keyPress == '\'') {
@@ -384,13 +398,13 @@ $(document).ready(function(){
                 if (threeCharsAgo == charBeforeLast) {
                     // Double accidental (e.g. ^^G,)
                     if (nextChar == ',' || nextChar == '\'') {
-                        $(this).play(threeCharsAgo + charBeforeLast + lastChar + keyPress + nextChar);
+                        $(this).play(getPlaybackOptions(),threeCharsAgo + charBeforeLast + lastChar + keyPress + nextChar);
                     } else {
-                        $(this).play(threeCharsAgo + charBeforeLast + lastChar + keyPress);
+                        $(this).play(getPlaybackOptions(),threeCharsAgo + charBeforeLast + lastChar + keyPress);
                     }
                 } else {
                     // Single accidental (e.g. ^G,)
-                    $(this).play(charBeforeLast + lastChar + keyPress);
+                    $(this).play(getPlaybackOptions(),charBeforeLast + lastChar + keyPress);
                 }
 
             } else if (lastChar == ',' || lastChar == '\'') {
@@ -398,16 +412,16 @@ $(document).ready(function(){
                 // Walk far enough back to pick up any leading accidental prefix.
                 if (sixCharsAgo == fiveCharsAgo) {
                     if (sixCharsAgo == '^' || sixCharsAgo == '_' || sixCharsAgo == '=') {
-                        $(this).play(sixCharsAgo + fiveCharsAgo + fourCharsAgo + threeCharsAgo + charBeforeLast + lastChar + keyPress);
+                        $(this).play(getPlaybackOptions(),sixCharsAgo + fiveCharsAgo + fourCharsAgo + threeCharsAgo + charBeforeLast + lastChar + keyPress);
                     }
                 }
                 if (fiveCharsAgo == fourCharsAgo) {
                     if (fiveCharsAgo == '^' || fiveCharsAgo == '_' || fiveCharsAgo == '=') {
-                        $(this).play(fiveCharsAgo + fourCharsAgo + threeCharsAgo + charBeforeLast + lastChar + keyPress);
+                        $(this).play(getPlaybackOptions(),fiveCharsAgo + fourCharsAgo + threeCharsAgo + charBeforeLast + lastChar + keyPress);
                     }
                 } else if (fourCharsAgo == threeCharsAgo) {
                     if (fourCharsAgo == '^' || fourCharsAgo == '_' || fourCharsAgo == '=') {
-                        $(this).play(fourCharsAgo + threeCharsAgo + charBeforeLast + lastChar + keyPress);
+                        $(this).play(getPlaybackOptions(),fourCharsAgo + threeCharsAgo + charBeforeLast + lastChar + keyPress);
                     }
                 }
 
@@ -421,13 +435,13 @@ $(document).ready(function(){
                         sharps.push(sharpsToPushGlobal[sharpDegree]);
                     }
                 }
-                $(this).play(accidentalNotes(sharps, '^', lastChar + keyPress));
+                $(this).play(getPlaybackOptions(),accidentalNotes(sharps, '^', lastChar + keyPress));
             }
 
         } else {
             // Plain note letter — delegate to keySpecificPlayback which applies
             // the key signature accidentals.
-            $(this).play(keySpecificPlayback(key, keyPress));
+            $(this).play(getPlaybackOptions(),keySpecificPlayback(key, keyPress));
         }
     });
 

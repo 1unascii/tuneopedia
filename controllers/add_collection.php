@@ -213,6 +213,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $bodyLines           = [];
                 $fieldNotes          = [];
                 $inBody              = false;
+                $abcSource           = null;
+                $abcOrigin           = null;
+                $abcHistory          = null;
+                $abcBook             = null;
+                $abcDiscography      = null;
+                $abcTranscriber      = null;
+                $abcArea             = null;
+                $abcParts            = null;
+                $abcTempo            = null;
+                $abcLyrics           = [];
 
                 // ── Extract headers ───────────────────────────────────────────
                 foreach ($lines as $line) {
@@ -229,8 +239,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     } elseif (preg_match('/^K:\s*(.+)/', $line, $m)) {
                         $keySignature = trim($m[1]);
                         $inBody = true;
-                    } elseif (preg_match('/^[ZSN]:\s*(.+)/', $line, $m)) {
+                    } elseif (preg_match('/^S:\s*(.+)/', $line, $m)) {
+                        $abcSource = trim($m[1]);
                         $fieldNotes[] = trim($m[1]);
+                    } elseif (preg_match('/^O:\s*(.+)/', $line, $m)) {
+                        $abcOrigin = trim($m[1]);
+                    } elseif (preg_match('/^H:\s*(.+)/', $line, $m)) {
+                        $abcHistory = trim($m[1]);
+                    } elseif (preg_match('/^B:\s*(.+)/', $line, $m)) {
+                        $abcBook = trim($m[1]);
+                    } elseif (preg_match('/^D:\s*(.+)/', $line, $m)) {
+                        $abcDiscography = trim($m[1]);
+                    } elseif (preg_match('/^Z:\s*(.+)/', $line, $m)) {
+                        $abcTranscriber = trim($m[1]);
+                        $fieldNotes[] = trim($m[1]);
+                    } elseif (preg_match('/^A:\s*(.+)/', $line, $m)) {
+                        $abcArea = trim($m[1]);
+                    } elseif (preg_match('/^P:\s*(.+)/', $line, $m) && !$inBody) {
+                        $abcParts = trim($m[1]);
+                    } elseif (preg_match('/^Q:\s*(.+)/', $line, $m) && !$inBody) {
+                        $abcTempo = trim($m[1]);
+                    } elseif (preg_match('/^N:\s*(.+)/', $line, $m)) {
+                        $fieldNotes[] = trim($m[1]);
+                    } elseif (preg_match('/^W:\s*(.+)/', $line, $m)) {
+                        $abcLyrics[] = trim($m[1]);
                     } elseif ($inBody) {
                         if (empty($line)) continue;
                         // Stop collecting body lines when we hit an annotation title.
@@ -327,8 +359,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $tuneId = $lastTuneId;
                     $settingName = $tuneName ?: $lastTuneName;
                     $stmt = $pdo->prepare("
-                        INSERT INTO setting (tune_id, user_id, name, default_note_length, time_signature, key_signature, abc_transcription)
-                        VALUES (:tune_id, :user_id, :name, :default_note_length, :time_signature, :key_signature, :abc_transcription)
+                        INSERT INTO setting (tune_id, user_id, name, default_note_length, time_signature, key_signature, abc_transcription, source, origin, history, book, discography, transcription_credit, area, parts, tempo, lyrics)
+                        VALUES (:tune_id, :user_id, :name, :default_note_length, :time_signature, :key_signature, :abc_transcription, :source, :origin, :history, :book, :discography, :transcription_credit, :area, :parts, :tempo, :lyrics)
                     ");
                     $stmt->execute([
                         ':tune_id'             => $tuneId,
@@ -337,7 +369,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ':default_note_length' => $default_note_length,
                         ':time_signature'      => $timeSignature,
                         ':key_signature'       => $keySignature,
-                        ':abc_transcription'   => $abcBody
+                        ':abc_transcription'   => $abcBody,
+                        ':source'              => $abcSource,
+                        ':origin'              => $abcOrigin,
+                        ':history'             => $abcHistory,
+                        ':book'                => $abcBook,
+                        ':discography'         => $abcDiscography,
+                        ':transcription_credit' => $abcTranscriber,
+                        ':area'                => $abcArea,
+                        ':parts'               => $abcParts,
+                        ':tempo'               => $abcTempo,
+                        ':lyrics'              => !empty($abcLyrics) ? implode("\n", $abcLyrics) : null,
                     ]);
                     $results[] = ['status' => 'additional_setting', 'tune' => $settingName, 'tune_id' => $tuneId];
                     continue;
@@ -351,8 +393,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($existingTune) {
                     $tuneId = $existingTune['tune_id'];
                     $stmt = $pdo->prepare("
-                        INSERT INTO setting (tune_id, user_id, name, default_note_length, time_signature, key_signature, abc_transcription)
-                        VALUES (:tune_id, :user_id, :name, :default_note_length, :time_signature, :key_signature, :abc_transcription)
+                        INSERT INTO setting (tune_id, user_id, name, default_note_length, time_signature, key_signature, abc_transcription, source, origin, history, book, discography, transcription_credit, area, parts, tempo, lyrics)
+                        VALUES (:tune_id, :user_id, :name, :default_note_length, :time_signature, :key_signature, :abc_transcription, :source, :origin, :history, :book, :discography, :transcription_credit, :area, :parts, :tempo, :lyrics)
                     ");
                     $stmt->execute([
                         ':tune_id'             => $tuneId,
@@ -361,7 +403,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ':default_note_length' => $default_note_length,
                         ':time_signature'      => $timeSignature,
                         ':key_signature'       => $keySignature,
-                        ':abc_transcription'   => $abcBody
+                        ':abc_transcription'   => $abcBody,
+                        ':source'              => $abcSource,
+                        ':origin'              => $abcOrigin,
+                        ':history'             => $abcHistory,
+                        ':book'                => $abcBook,
+                        ':discography'         => $abcDiscography,
+                        ':transcription_credit' => $abcTranscriber,
+                        ':area'                => $abcArea,
+                        ':parts'               => $abcParts,
+                        ':tempo'               => $abcTempo,
+                        ':lyrics'              => !empty($abcLyrics) ? implode("\n", $abcLyrics) : null,
                     ]);
                     $settingId = $pdo->lastInsertId();
                     $results[] = ['status' => 'existing_tune', 'tune' => $tuneName, 'tune_id' => $tuneId, 'setting_id' => $settingId];
@@ -375,8 +427,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $tuneId = $pdo->lastInsertId();
 
                     $stmt = $pdo->prepare("
-                        INSERT INTO setting (tune_id, user_id, name, default_note_length, time_signature, key_signature, abc_transcription)
-                        VALUES (:tune_id, :user_id, :name, :default_note_length, :time_signature, :key_signature, :abc_transcription)
+                        INSERT INTO setting (tune_id, user_id, name, default_note_length, time_signature, key_signature, abc_transcription, source, origin, history, book, discography, transcription_credit, area, parts, tempo, lyrics)
+                        VALUES (:tune_id, :user_id, :name, :default_note_length, :time_signature, :key_signature, :abc_transcription, :source, :origin, :history, :book, :discography, :transcription_credit, :area, :parts, :tempo, :lyrics)
                     ");
                     $stmt->execute([
                         ':tune_id'             => $tuneId,
@@ -385,7 +437,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ':default_note_length' => $default_note_length,
                         ':time_signature'      => $timeSignature,
                         ':key_signature'       => $keySignature,
-                        ':abc_transcription'   => $abcBody
+                        ':abc_transcription'   => $abcBody,
+                        ':source'              => $abcSource,
+                        ':origin'              => $abcOrigin,
+                        ':history'             => $abcHistory,
+                        ':book'                => $abcBook,
+                        ':discography'         => $abcDiscography,
+                        ':transcription_credit' => $abcTranscriber,
+                        ':area'                => $abcArea,
+                        ':parts'               => $abcParts,
+                        ':tempo'               => $abcTempo,
+                        ':lyrics'              => !empty($abcLyrics) ? implode("\n", $abcLyrics) : null,
                     ]);
                     $settingId = $pdo->lastInsertId();
                     $results[] = ['status' => 'inserted', 'tune' => $tuneName, 'tune_id' => $tuneId, 'setting_id' => $settingId];

@@ -78,13 +78,14 @@
             <option id="gb">Gb</option>
             <option id="cb">Cb</option>
         </select>
-        <span id="play_selection"></span>
     </div>
 
     <div class="edit-field edit-field-wide" id="abc_editor">
         <label>ABC</label>
         <textarea id="abc" rows="10" name="tune_body"></textarea>
     </div>
+
+    <?php include __DIR__ . '/../partials/playback_controls.php'; ?>
 
     <div class="edit-form-actions">
         <div id="save_or_login">
