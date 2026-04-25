@@ -152,6 +152,13 @@
 .delete-post-btn                  {
                                   cursor: pointer;
                                   display: inline-block;
+                                  font-size: 0.85em;
+                                  color: #888;
+                                  }
+
+.delete-thread-btn:hover,
+.delete-post-btn:hover            {
+                                  color: #e55;
                                   }
 
 /* ── Misc ───────────────────────────────────────────────────────────────── */

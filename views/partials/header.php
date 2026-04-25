@@ -30,7 +30,7 @@
 <script type="text/javascript" src="<?= $assetBase ?>js/modules/tunes/show.js?v=7"></script>
 <script type="text/javascript" src="<?= $assetBase ?>js/modules/favorites/index.js?v=3"></script>
 <script type="text/javascript" src="<?= $assetBase ?>js/modules/collections/index.js?v=3"></script>
-<link href="<?= $assetBase ?>css/discussion.css?v=3" rel="stylesheet" type="text/css"/>
+<link href="<?= $assetBase ?>css/discussion.css?v=4" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="<?= $assetBase ?>js/modules/discussions/index.js?v=6"></script>
 <script type="text/javascript" src="<?= $assetBase ?>js/modules/discussions/show.js?v=3"></script>
 <script src="https://kit.fontawesome.com/5c647e36cb.js" crossorigin="anonymous"></script>
