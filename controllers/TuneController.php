@@ -76,14 +76,51 @@ class TuneController {
         $metre        = trim($_POST['metre'] ?? '4/4');
         $tuneKey      = trim($_POST['tune_key'] ?? '');
         $tuneBody     = trim($_POST['tune_body'] ?? '');
+        $tempo        = isset($_POST['tempo']) && $_POST['tempo'] !== '' ? (int) $_POST['tempo'] : null;
         $userId       = (int) $_SESSION['user_id'];
 
         $tuneBody = str_replace('<br />', "\n", $tuneBody);
         $tuneBody = str_replace('<br>', "\n", $tuneBody);
 
-        Tune::create($pdo, $tuneName, $tuneType, $composer, $metre, $tuneKey, $tuneBody, $userId);
+        Tune::create($pdo, $tuneName, $tuneType, $composer, $metre, $tuneKey, $tuneBody, $userId, $tempo);
 
         echo 'Thank you. Your tune was submitted';
+    }
+
+    public function addSetting() {
+        session_start();
+        if (!isset($_SESSION['user_id'])) {
+            http_response_code(401);
+            echo json_encode(['error' => 'Unauthorized']);
+            return;
+        }
+
+        $pdo = connect();
+        $tuneId  = (int) ($_POST['tune_id'] ?? 0);
+        $metre   = trim($_POST['metre'] ?? '4/4');
+        $tuneKey = trim($_POST['tune_key'] ?? '');
+        $body    = trim($_POST['tune_body'] ?? '');
+        $tempo   = isset($_POST['tempo']) && $_POST['tempo'] !== '' ? (int) $_POST['tempo'] : null;
+        $userId  = (int) $_SESSION['user_id'];
+
+        if (!$tuneId) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Missing tune_id']);
+            return;
+        }
+
+        $name = Tune::getName($pdo, $tuneId);
+        if ($name === null) {
+            http_response_code(404);
+            echo json_encode(['error' => 'Tune not found']);
+            return;
+        }
+
+        $body = str_replace('<br />', "\n", $body);
+        $body = str_replace('<br>', "\n", $body);
+
+        $settingId = Tune::addSetting($pdo, $tuneId, $userId, $name, $metre, $tuneKey, $body, $tempo);
+        echo json_encode(['setting_id' => $settingId, 'tune_id' => $tuneId]);
     }
 
     public function delete() {

@@ -43,6 +43,7 @@ $route = trim(
 $apiRoutes = [
     'auth'           => ['AuthController',       'login'],
     'add-tune'       => ['TuneController',       'create'],
+    'add-setting'    => ['TuneController',       'addSetting'],
     'remove-tune'    => ['TuneController',       'delete'],
     'get-tune-body'  => ['TuneController',       'getBody'],
     'favorite-tune'   => ['TuneController',       'toggleFavorite'],

@@ -58,6 +58,7 @@
         <tr>
             <th>Title</th>
             <th>Key</th>
+            <th>Settings</th>
             <th>Add Favorite</th>
         </tr>
     </thead>
@@ -77,6 +78,10 @@
 
             <td>
                 <?= htmlspecialchars($t['key_signature'] ?? 'N/A') ?>
+            </td>
+
+            <td class="tune-settings-count-col">
+                <?= (int)($t['settings_count'] ?? 0) ?>
             </td>
 
             <td class="tune-favorite-col">

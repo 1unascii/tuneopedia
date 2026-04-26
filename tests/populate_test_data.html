@@ -45,8 +45,13 @@
     }
 
     // Login as a specific user (sets session cookie)
+    var currentLoggedInUser = null;
     function loginAs(user) {
-        return post('api/auth', { user_name: user.user_name, password: user.password, login: true });
+        if (currentLoggedInUser === user.user_name) {
+            return $.Deferred().resolve('Already logged in').promise();
+        }
+        return post('api/auth', { user_name: user.user_name, password: user.password, login: true })
+            .done(function() { currentLoggedInUser = user.user_name; });
     }
 
     // ══════════════════════════════════════════════════════════════════════════
@@ -66,46 +71,46 @@
     // altSettings adds additional settings for existing tunes (submitted by different users).
     var tunes = [
         // ── Irish ────────────────────────────────────────────────────────────
-        { tune_title: 'The Maid Behind the Bar',    tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'A2AB AFED|FGAB cABc|d2fd ceAc|BGAF GFED|A2AB AFED|FGAB cABc|d2fd ceAc|BGAF G2GE:|', userIdx: 0 },
-        { tune_title: 'The Silver Spear',            tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'FGAB cABc|dBcA BGAF|GABG AGEG|FGAB cdef|g2ge fded|Bgfg eBgB|ABGA BGEG|1 FGAB cdef:|2 FGAB c2cB||', userIdx: 0 },
-        { tune_title: 'The Kesh',                    tune_type: 'Jig',      composer: 'Traditional', metre: '6/8', tune_key: 'Gmaj', tune_body: 'GAG GAB|ABA ABd|ede gdB|ABA ABd|GAG GAB|ABA ABd|ede gdB|1 AGF G2D:|2 AGF G2A||', userIdx: 0 },
-        { tune_title: 'Morrison\'s Jig',             tune_type: 'Jig',      composer: 'Traditional', metre: '6/8', tune_key: 'Emin', tune_body: 'E3 B3|EBE AFD|E3 B3|dBd AFD|E3 B3|EBE AFD|GFG AFD|FED AFD:|', userIdx: 1 },
-        { tune_title: 'The Butterfly',               tune_type: 'Slip Jig', composer: 'Traditional', metre: '9/8', tune_key: 'Emin', tune_body: 'B2E G2E F3|B2E G2E FED|B2E G2E F3|AFD FED FED:|', userIdx: 1 },
-        { tune_title: 'Harvest Home',                tune_type: 'Hornpipe', composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'A2dA BAFA|A2dA BAFG|A2dA BAFA|1 GBAF GFED:|2 GBAF G2Bc||', userIdx: 1 },
-        { tune_title: 'Si Bheag Si Mhor',            tune_type: 'Waltz',    composer: 'Turlough O\'Carolan', metre: '3/4', tune_key: 'Dmaj', tune_body: 'D3 EFG|A3 BAG|A3 GAB|d3 BAG|A3 GFG|A3 d3|e3 dBA|1 B3 A2G:|2 B3 A3||', userIdx: 2 },
-        { tune_title: 'Drowsy Maggie',               tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Emin', tune_body: 'B2eB dBAB|B2eB dBAG|B2eB d2de|fedB dBAG|B2eB dBAB|B2eB dBA2|defg afge|fedB dBAG:|', userIdx: 2 },
+        { tune_title: 'The Maid Behind the Bar',    tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tempo: 120, tune_body: 'A2AB AFED|FGAB cABc|d2fd ceAc|BGAF GFED|A2AB AFED|FGAB cABc|d2fd ceAc|BGAF G2GE:|', userIdx: 0 },
+        { tune_title: 'The Silver Spear',            tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tempo: 125, tune_body: 'FGAB cABc|dBcA BGAF|GABG AGEG|FGAB cdef|g2ge fded|Bgfg eBgB|ABGA BGEG|1 FGAB cdef:|2 FGAB c2cB||', userIdx: 0 },
+        { tune_title: 'The Kesh',                    tune_type: 'Jig',      composer: 'Traditional', metre: '6/8', tune_key: 'Gmaj', tempo: 130, tune_body: 'GAG GAB|ABA ABd|ede gdB|ABA ABd|GAG GAB|ABA ABd|ede gdB|1 AGF G2D:|2 AGF G2A||', userIdx: 0 },
+        { tune_title: 'Morrison\'s Jig',             tune_type: 'Jig',      composer: 'Traditional', metre: '6/8', tune_key: 'Emin', tempo: 125, tune_body: 'E3 B3|EBE AFD|E3 B3|dBd AFD|E3 B3|EBE AFD|GFG AFD|FED AFD:|', userIdx: 1 },
+        { tune_title: 'The Butterfly',               tune_type: 'Slip Jig', composer: 'Traditional', metre: '9/8', tune_key: 'Emin', tempo: 115, tune_body: 'B2E G2E F3|B2E G2E FED|B2E G2E F3|AFD FED FED:|', userIdx: 1 },
+        { tune_title: 'Harvest Home',                tune_type: 'Hornpipe', composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tempo: 95, tune_body: 'A2dA BAFA|A2dA BAFG|A2dA BAFA|1 GBAF GFED:|2 GBAF G2Bc||', userIdx: 1 },
+        { tune_title: 'Si Bheag Si Mhor',            tune_type: 'Waltz',    composer: 'Turlough O\'Carolan', metre: '3/4', tune_key: 'Dmaj', tempo: 80, tune_body: 'D3 EFG|A3 BAG|A3 GAB|d3 BAG|A3 GFG|A3 d3|e3 dBA|1 B3 A2G:|2 B3 A3||', userIdx: 2 },
+        { tune_title: 'Drowsy Maggie',               tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Emin', tempo: 130, tune_body: 'B2eB dBAB|B2eB dBAG|B2eB d2de|fedB dBAG|B2eB dBAB|B2eB dBA2|defg afge|fedB dBAG:|', userIdx: 2 },
 
         // ── American Fiddle Tunes ────────────────────────────────────────────
-        { tune_title: 'Old Joe Clark',               tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amix', tune_body: 'A2AA ABAG|A2AA B2AG|A2AA ABAc|BAGB A2AG:|e2ee efed|e2ee f2ed|e2ee efeg|aged c2cB:|', userIdx: 4 },
-        { tune_title: 'Soldier\'s Joy',              tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'D2DE FGAB|A2FA GFED|D2DE FGAB|AFGE FDD2:|d2dd d2AB|A2FA GFED|d2dd d2de|fdec d2D2:|', userIdx: 4 },
-        { tune_title: 'Arkansas Traveler',           tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'D2FA d2cA|BAGF GFED|D2FA d2de|fdec d2D2:|A2AB AFED|A2AB A2de|fdAd fdAd|fdec d2D2:|', userIdx: 4 },
-        { tune_title: 'Turkey in the Straw',         tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Gmaj', tune_body: 'D2|GABG ABGA|BGAB d2Bd|gabg abga|bgaf g2D2:|G2Bd g2fg|edBd edBG|G2Bd g2fg|edBd G2D2:|', userIdx: 5 },
-        { tune_title: 'Cripple Creek',               tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amaj', tune_body: 'A,CEA, CEA,C|EAAB cBAE|A,CEA, CEA,C|1 EAAB A,2A,2:|2 EAAB A,2ce||a2ab a2ge|a2ab agea|a2ab a2ge|aged c2ce:|', userIdx: 5 },
-        { tune_title: 'Devil\'s Dream',              tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amaj', tune_body: 'eA~A2 eAfA|eA~A2 Bcde|fBBB fBgB|fBBB Bcde|eAAA eAfA|eAAA Bcde|fBBB fBgB|1 ABce a2ge:|2 ABce a4||', userIdx: 4 },
-        { tune_title: 'Bile Them Cabbage Down',      tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Gmaj', tune_body: 'G2GA B2BA|G2GA B2d2|G2GA B2BA|GABG A2D2:|g2gf g2d2|e2ef g2d2|g2gf g2d2|edBd G2D2:|', userIdx: 5 },
-        { tune_title: 'Blackberry Blossom',          tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Gmaj', tune_body: 'BGDG BGDG|BGDG ABcA|BGDG BGDG|1 cABG A2GA:|2 cABG A2Bc||d2Bd g2fg|edBd edBd|d2Bd g2fg|edBd e2Bc:|', userIdx: 4 },
-        { tune_title: 'Whiskey Before Breakfast',    tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'D2DE FGAB|AFDF A2FA|BAGF EFGA|BdAF GFED|D2DE FGAB|AFDF A2FA|BAGF EFGE|FDD2 D4:|d2fd Adfd|c2ec Acec|d2fd Adfa|bgaf gfed|d2fd Adfd|c2ec Acec|dcBA GFGE|FDD2 D4:|', userIdx: 5 },
-        { tune_title: 'Salt Creek',                  tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amix', tune_body: 'A2eA cAeA|A2eA cABc|A2eA cAeA|1 cABG A4:|2 cABG A2Bc||eaab a2ga|eaab aged|eaab a2ga|edBd e2Bc:|', userIdx: 4 },
-        { tune_title: 'Fisher\'s Hornpipe',          tune_type: 'Hornpipe', composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'D2(3DEF G2AB|AFDF A2df|gfed cdef|edcB AGFE|D2(3DEF G2AB|AFDF A2df|gfed ceAc|d2f2 d4:|d2fd Adfd|c2ec Acec|d2fd Adfd|ceAc e2fe|d2fd Adfd|c2ec Acec|dcBA GFGE|FDFA d4:|', userIdx: 5 },
-        { tune_title: 'Red Haired Boy',              tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amix', tune_body: 'A2eA cAeA|A2eA BAGB|A2eA cAeA|1 GEDE GABc:|2 GEDE G2Bc||eaag a2ba|geeg edBc|eaag a2bg|aged cABc:|', userIdx: 4 },
-        { tune_title: 'Angeline the Baker',          tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'D2FA dAFA|D2FA GFED|D2FA dAFG|Adde d2D2:|d2de fded|cAcA cAGF|d2de fded|cAGF D2D2:|', userIdx: 5 },
-        { tune_title: 'June Apple',                  tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amix', tune_body: 'A2AB cBcA|GABG ABcA|A2AB cBcA|GEDE G2AB:|cdef g2fg|edef g2ed|cdef g2fg|aged cABG:|', userIdx: 4 },
-        { tune_title: 'Forked Deer',                 tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tune_body: 'DEFG ABcA|dAcA BAFG|DEFG ABcA|1 dcBA GFED:|2 dcBA G2Bc||d2fd ceAc|d2fd ceAB|d2fd ceAc|dcBA GFED:|', userIdx: 5 },
+        { tune_title: 'Old Joe Clark',               tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amix', tempo: 135, tune_body: 'A2AA ABAG|A2AA B2AG|A2AA ABAc|BAGB A2AG:|e2ee efed|e2ee f2ed|e2ee efeg|aged c2cB:|', userIdx: 4 },
+        { tune_title: 'Soldier\'s Joy',              tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tempo: 130, tune_body: 'D2DE FGAB|A2FA GFED|D2DE FGAB|AFGE FDD2:|d2dd d2AB|A2FA GFED|d2dd d2de|fdec d2D2:|', userIdx: 4 },
+        { tune_title: 'Arkansas Traveler',           tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tempo: 125, tune_body: 'D2FA d2cA|BAGF GFED|D2FA d2de|fdec d2D2:|A2AB AFED|A2AB A2de|fdAd fdAd|fdec d2D2:|', userIdx: 4 },
+        { tune_title: 'Turkey in the Straw',         tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Gmaj', tempo: 140, tune_body: 'D2|GABG ABGA|BGAB d2Bd|gabg abga|bgaf g2D2:|G2Bd g2fg|edBd edBG|G2Bd g2fg|edBd G2D2:|', userIdx: 5 },
+        { tune_title: 'Cripple Creek',               tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amaj', tempo: 140, tune_body: 'A,CEA, CEA,C|EAAB cBAE|A,CEA, CEA,C|1 EAAB A,2A,2:|2 EAAB A,2ce||a2ab a2ge|a2ab agea|a2ab a2ge|aged c2ce:|', userIdx: 5 },
+        { tune_title: 'Devil\'s Dream',              tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amaj', tempo: 135, tune_body: 'eA~A2 eAfA|eA~A2 Bcde|fBBB fBgB|fBBB Bcde|eAAA eAfA|eAAA Bcde|fBBB fBgB|1 ABce a2ge:|2 ABce a4||', userIdx: 4 },
+        { tune_title: 'Bile Them Cabbage Down',      tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Gmaj', tempo: 120, tune_body: 'G2GA B2BA|G2GA B2d2|G2GA B2BA|GABG A2D2:|g2gf g2d2|e2ef g2d2|g2gf g2d2|edBd G2D2:|', userIdx: 5 },
+        { tune_title: 'Blackberry Blossom',          tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Gmaj', tempo: 130, tune_body: 'BGDG BGDG|BGDG ABcA|BGDG BGDG|1 cABG A2GA:|2 cABG A2Bc||d2Bd g2fg|edBd edBd|d2Bd g2fg|edBd e2Bc:|', userIdx: 4 },
+        { tune_title: 'Whiskey Before Breakfast',    tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tempo: 130, tune_body: 'D2DE FGAB|AFDF A2FA|BAGF EFGA|BdAF GFED|D2DE FGAB|AFDF A2FA|BAGF EFGE|FDD2 D4:|d2fd Adfd|c2ec Acec|d2fd Adfa|bgaf gfed|d2fd Adfd|c2ec Acec|dcBA GFGE|FDD2 D4:|', userIdx: 5 },
+        { tune_title: 'Salt Creek',                  tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amix', tempo: 135, tune_body: 'A2eA cAeA|A2eA cABc|A2eA cAeA|1 cABG A4:|2 cABG A2Bc||eaab a2ga|eaab aged|eaab a2ga|edBd e2Bc:|', userIdx: 4 },
+        { tune_title: 'Fisher\'s Hornpipe',          tune_type: 'Hornpipe', composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tempo: 100, tune_body: 'D2(3DEF G2AB|AFDF A2df|gfed cdef|edcB AGFE|D2(3DEF G2AB|AFDF A2df|gfed ceAc|d2f2 d4:|d2fd Adfd|c2ec Acec|d2fd Adfd|ceAc e2fe|d2fd Adfd|c2ec Acec|dcBA GFGE|FDFA d4:|', userIdx: 5 },
+        { tune_title: 'Red Haired Boy',              tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amix', tempo: 125, tune_body: 'A2eA cAeA|A2eA BAGB|A2eA cAeA|1 GEDE GABc:|2 GEDE G2Bc||eaag a2ba|geeg edBc|eaag a2bg|aged cABc:|', userIdx: 4 },
+        { tune_title: 'Angeline the Baker',          tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tempo: 130, tune_body: 'D2FA dAFA|D2FA GFED|D2FA dAFG|Adde d2D2:|d2de fded|cAcA cAGF|d2de fded|cAGF D2D2:|', userIdx: 5 },
+        { tune_title: 'June Apple',                  tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Amix', tempo: 125, tune_body: 'A2AB cBcA|GABG ABcA|A2AB cBcA|GEDE G2AB:|cdef g2fg|edef g2ed|cdef g2fg|aged cABG:|', userIdx: 4 },
+        { tune_title: 'Forked Deer',                 tune_type: 'Reel',     composer: 'Traditional', metre: '4/4', tune_key: 'Dmaj', tempo: 130, tune_body: 'DEFG ABcA|dAcA BAFG|DEFG ABcA|1 dcBA GFED:|2 dcBA G2Bc||d2fd ceAc|d2fd ceAB|d2fd ceAc|dcBA GFED:|', userIdx: 5 },
     ];
 
     // Alternate settings — submitted by different users as X:2 for existing tunes
     // Each references tuneTitle to find the tune_id after creation
     var altSettings = [
-        { tuneTitle: 'Old Joe Clark',           tune_key: 'Amaj', metre: '4/4', tune_body: 'A2AB cBAG|A2AB c2BG|A2AB cBce|aged cABG:|e2ef e2dc|e2ef e2dc|e2ef e2eg|aged c2BG:|', userIdx: 2 },
-        { tuneTitle: 'Soldier\'s Joy',          tune_key: 'Dmaj', metre: '4/4', tune_body: 'FGAB AFDF|FGAB AFED|FGAB AFDF|1 AFGE FDD2:|2 AFGE FDde||f2fd f2AB|AFDF AFED|f2fd f2de|fdec d2D2:|', userIdx: 3 },
-        { tuneTitle: 'Blackberry Blossom',      tune_key: 'Gmaj', metre: '4/4', tune_body: 'BdBG dGBd|BdBG ABcA|BdBG dGBd|1 cABG AGEG:|2 cABG A2Bc||dBgB dBgB|edBd edBG|dBgB dBgB|edBd e2Bc:|', userIdx: 5 },
-        { tuneTitle: 'Cripple Creek',           tune_key: 'Amaj', metre: '4/4', tune_body: 'EAAB cBAE|EAAB cBAc|EAAB cBce|1 aged c2A2:|2 aged c2ce||a2ab agea|a2ab aged|a2ab agea|edcA c2ce:|', userIdx: 3 },
-        { tuneTitle: 'The Maid Behind the Bar', tune_key: 'Gmaj', metre: '4/4', tune_body: 'D2DE DCBA|BCDE FDEF|G2AG FEDF|ECBD CBAG:|d2Bd cABc|d2Bd cBA2|d2Bd cABc|AGFE D4:|', userIdx: 3 },
-        { tuneTitle: 'Drowsy Maggie',           tune_key: 'Emin', metre: '4/4', tune_body: 'BEED BEED|BEED BAAG|BEED BEED|fddB dBAG|BEED BEED|BEED BAA2|defg afge|fddB dBAG:|', userIdx: 4 },
-        { tuneTitle: 'Red Haired Boy',          tune_key: 'Amix', metre: '4/4', tune_body: 'ceAc eAce|ceAc BAGB|ceAc eAce|1 GEDE GABc:|2 GEDE G2Bc||ea~a2 abba|ge~e2 edBc|ea~a2 abbg|aged cABc:|', userIdx: 2 },
-        { tuneTitle: 'Whiskey Before Breakfast', tune_key: 'Dmaj', metre: '4/4', tune_body: 'FGAB AFDF|FGAB AFDF|BAGF EFGA|BdAF GFED|FGAB AFDF|FGAB AFDF|BAGF EFGE|FDD2 D4:|dfaf dfaf|ceac ceac|dfaf dfag|fdef gfed|dfaf dfaf|ceac ceac|dcBA GFGE|FDD2 D4:|', userIdx: 2 },
-        { tuneTitle: 'Salt Creek',              tune_key: 'Amix', metre: '4/4', tune_body: 'ceAe ceAe|ceAe cABc|ceAe ceAe|1 cABG A4:|2 cABG A2Bc||ea~a2 a2ga|ea~a2 aged|ea~a2 a2ga|edBd e2Bc:|', userIdx: 3 },
-        { tuneTitle: 'Fisher\'s Hornpipe',      tune_key: 'Dmaj', metre: '4/4', tune_body: 'FGAB AFDF|FGAB AFdf|gfed cdef|edcB AGFE|FGAB AFDF|FGAB AFdf|gfed ceAc|d2f2 d4:|dfaf Adfd|cecA Acec|dfaf Adfd|ceAc e2fe|dfaf Adfd|cecA Acec|dcBA GFGE|FDFA d4:|', userIdx: 5 },
+        { tuneTitle: 'Old Joe Clark',           tune_key: 'Amaj', metre: '4/4', tempo: 130, tune_body: 'A2AB cBAG|A2AB c2BG|A2AB cBce|aged cABG:|e2ef e2dc|e2ef e2dc|e2ef e2eg|aged c2BG:|', userIdx: 2 },
+        { tuneTitle: 'Soldier\'s Joy',          tune_key: 'Dmaj', metre: '4/4', tempo: 125, tune_body: 'FGAB AFDF|FGAB AFED|FGAB AFDF|1 AFGE FDD2:|2 AFGE FDde||f2fd f2AB|AFDF AFED|f2fd f2de|fdec d2D2:|', userIdx: 3 },
+        { tuneTitle: 'Blackberry Blossom',      tune_key: 'Gmaj', metre: '4/4', tempo: 125, tune_body: 'BdBG dGBd|BdBG ABcA|BdBG dGBd|1 cABG AGEG:|2 cABG A2Bc||dBgB dBgB|edBd edBG|dBgB dBgB|edBd e2Bc:|', userIdx: 5 },
+        { tuneTitle: 'Cripple Creek',           tune_key: 'Amaj', metre: '4/4', tempo: 135, tune_body: 'EAAB cBAE|EAAB cBAc|EAAB cBce|1 aged c2A2:|2 aged c2ce||a2ab agea|a2ab aged|a2ab agea|edcA c2ce:|', userIdx: 3 },
+        { tuneTitle: 'The Maid Behind the Bar', tune_key: 'Gmaj', metre: '4/4', tempo: 115, tune_body: 'D2DE DCBA|BCDE FDEF|G2AG FEDF|ECBD CBAG:|d2Bd cABc|d2Bd cBA2|d2Bd cABc|AGFE D4:|', userIdx: 3 },
+        { tuneTitle: 'Drowsy Maggie',           tune_key: 'Emin', metre: '4/4', tempo: 125, tune_body: 'BEED BEED|BEED BAAG|BEED BEED|fddB dBAG|BEED BEED|BEED BAA2|defg afge|fddB dBAG:|', userIdx: 4 },
+        { tuneTitle: 'Red Haired Boy',          tune_key: 'Amix', metre: '4/4', tempo: 120, tune_body: 'ceAc eAce|ceAc BAGB|ceAc eAce|1 GEDE GABc:|2 GEDE G2Bc||ea~a2 abba|ge~e2 edBc|ea~a2 abbg|aged cABc:|', userIdx: 2 },
+        { tuneTitle: 'Whiskey Before Breakfast', tune_key: 'Dmaj', metre: '4/4', tempo: 120, tune_body: 'FGAB AFDF|FGAB AFDF|BAGF EFGA|BdAF GFED|FGAB AFDF|FGAB AFDF|BAGF EFGE|FDD2 D4:|dfaf dfaf|ceac ceac|dfaf dfag|fdef gfed|dfaf dfaf|ceac ceac|dcBA GFGE|FDD2 D4:|', userIdx: 2 },
+        { tuneTitle: 'Salt Creek',              tune_key: 'Amix', metre: '4/4', tempo: 130, tune_body: 'ceAe ceAe|ceAe cABc|ceAe ceAe|1 cABG A4:|2 cABG A2Bc||ea~a2 a2ga|ea~a2 aged|ea~a2 a2ga|edBd e2Bc:|', userIdx: 3 },
+        { tuneTitle: 'Fisher\'s Hornpipe',      tune_key: 'Dmaj', metre: '4/4', tempo: 105, tune_body: 'FGAB AFDF|FGAB AFdf|gfed cdef|edcB AGFE|FGAB AFDF|FGAB AFdf|gfed ceAc|d2f2 d4:|dfaf Adfd|cecA Acec|dfaf Adfd|ceAc e2fe|dfaf Adfd|cecA Acec|dcBA GFGE|FDFA d4:|', userIdx: 5 },
     ];
 
     var threads = [
@@ -185,6 +190,10 @@
 
     function createAll() {
         $('#results').empty();
+        tuneIds = [];
+        settingIds = [];
+        threadIds = [];
+        currentLoggedInUser = null;
         log('══════════════════════════════════════════════════════════');
         log('  CLEANING UP PREVIOUS DATA FIRST');
         log('══════════════════════════════════════════════════════════');
@@ -299,15 +308,14 @@
 
         loginAs(users[alt.userIdx]).done(function() {
             log('Adding alt setting for "' + alt.tuneTitle + '" in ' + alt.tune_key + ' by ' + users[alt.userIdx].first_name, 'running');
-            post('api/add-tune', {
-                tune_title: alt.tuneTitle,
-                tune_type: tunes[tuneIdx].tune_type,
-                composer: tunes[tuneIdx].composer,
+            post('api/add-setting', {
+                tune_id: tuneIds[tuneIdx],
                 metre: alt.metre,
                 tune_key: alt.tune_key,
+                tempo: alt.tempo,
                 tune_body: alt.tune_body
             })
-            .done(function(d) { log('  ' + d.trim(), 'pass'); addAltSettings(i + 1); })
+            .done(function(d) { log('  Setting added (tune_id=' + tuneIds[tuneIdx] + ')', 'pass'); addAltSettings(i + 1); })
             .fail(function() { log('  Failed', 'fail'); addAltSettings(i + 1); });
         });
     }
@@ -386,7 +394,7 @@
             return;
         }
         loginAs(users[r.userIdx]).done(function(loginData) {
-            log(users[r.userIdx].first_name + ' replies to "' + threads[r.threadIdx].title.substring(0, 30) + '..."', 'running');
+            log(users[r.userIdx].first_name + ' replies to "' + threads[r.threadIdx].title.substring(0, 30) + '..." (thread_id=' + threadId + ')', 'running');
             post('api/create-post', { thread_id: threadId, body: r.body })
             .done(function() { log('  Posted', 'pass'); createReplies(i + 1); })
             .fail(function(xhr) {

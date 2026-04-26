@@ -6,8 +6,5 @@
         "phpunit/phpunit": "^10"
     },
     "autoload": {
-        "files": [
-            "forms/add_collection.php"
-        ]
     }
 }

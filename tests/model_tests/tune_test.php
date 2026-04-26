@@ -32,6 +32,26 @@ assert_greater_than('getSettings returns at least 1 setting', 0, count($settings
 assert_equals('Setting has correct key', 'Dmaj', $settings[0]['key_signature']);
 assert_equals('Setting has correct time sig', '4/4', $settings[0]['time_signature']);
 
+// ── Add Setting ─────────────────────────────────────────────────────────────
+log_section('Add Setting');
+$secondUser = create_test_user($pdo, '_tunetest2');
+$secondUserId = $secondUser['user_id'];
+$newSettingId = Tune::addSetting($pdo, $tuneId, $secondUserId, $tuneData['name'], '6/8', 'Gmaj', 'GAB dBG|AGA BGE|');
+log_data('New setting_id', $newSettingId);
+assert_greater_than('addSetting returns valid setting ID', 0, $newSettingId);
+
+$settingsAfter = Tune::getSettings($pdo, $tuneId, $userId);
+log_data('Settings count after addSetting', count($settingsAfter));
+assert_equals('Tune now has 2 settings', 2, count($settingsAfter));
+
+$newSetting = null;
+foreach ($settingsAfter as $s) {
+    if ((int)$s['setting_id'] === $newSettingId) { $newSetting = $s; break; }
+}
+assert_not_null('New setting found in getSettings', $newSetting);
+assert_equals('New setting has correct key', 'Gmaj', $newSetting['key_signature']);
+assert_equals('New setting has correct time sig', '6/8', $newSetting['time_signature']);
+
 // ── Show (getNotes) ─────────────────────────────────────────────────────────
 log_section('Show (getNotes)');
 $notes = Tune::getNotes($pdo, $tuneId);
@@ -99,5 +119,6 @@ assert_true('Tune deleted successfully', $deleted);
 assert_null('Tune no longer exists after delete', Tune::getName($pdo, $tuneId));
 
 $pdo->prepare("DELETE FROM tune_type WHERE name = ?")->execute([$newTypeName]);
+cleanup_test_user($pdo, $secondUserId);
 cleanup_test_user($pdo, $userId);
 print_results('Tune Model Tests');

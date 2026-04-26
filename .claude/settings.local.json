@@ -41,7 +41,10 @@
       "Bash(grep -r \"users/create_user\" . --include=\"*.php\")",
       "Bash(curl -s \"http://localhost/tuneopedia/tunes/5\")",
       "Bash(curl -s \"http://localhost/tuneopedia/tests/abc_playback_test.html\")",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(composer dump-autoload:*)",
+      "Read(//c/xampp/php/logs/**)",
+      "Read(//c/xampp/php/**)"
     ]
   }
 }

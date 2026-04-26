@@ -1,5 +1,5 @@
 <div class="edit-field edit-field-wide playback-controls">
-    <label>Playback Settings</label>
+    <label>Keypress Playback Settings</label>
     <div class="playback-controls-grid">
 
         <div class="playback-select">
@@ -14,7 +14,7 @@
 
         <div class="playback-knob">
             <label>Tempo</label>
-            <input type="text" id="playback-tempo" class="playback-dial" value="120"
+            <input type="text" id="playback-tempo" class="playback-dial" value="<?= (int)(!empty($setting['tempo']) ? $setting['tempo'] : 120) ?>"
                    data-min="40" data-max="300" data-step="5"
                    data-width="60" data-height="60"
                    data-fgColor="#59b4d4" data-bgColor="#333"

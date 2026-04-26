@@ -24,6 +24,7 @@ SELECT
     tt.name AS tune_type_name,
     rs.key_signature,
     rs.abc_transcription,
+    COALESCE(sc.settings_count, 0) AS settings_count,
     
     -- Added the username join here
     rs.user_id AS user_id,
@@ -33,6 +34,11 @@ SELECT
 FROM tune t
 JOIN tune_type tt ON t.tune_type_id = tt.tune_type_id
 LEFT JOIN RankedSettings rs ON t.tune_id = rs.tune_id AND rs.setting_rank = 1
+LEFT JOIN (
+    SELECT tune_id, COUNT(*) AS settings_count
+    FROM setting
+    GROUP BY tune_id
+) sc ON sc.tune_id = t.tune_id
 -- Link to the user table to get the name
 LEFT JOIN user u ON rs.user_id = u.user_id
 LEFT JOIN favorites tb ON t.tune_id = tb.tune_id AND tb.user_id = :user_id

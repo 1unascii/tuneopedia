@@ -138,9 +138,17 @@ class Tune {
 
     // ── Create / Delete ──────────────────────────────────────────────────────
 
+    public static function findByName(PDO $pdo, string $name): ?int {
+        $stmt = $pdo->prepare(self::sql('findByName.sql'));
+        $stmt->execute([':name' => $name]);
+        $id = $stmt->fetchColumn();
+        return $id !== false ? (int) $id : null;
+    }
+
     public static function create(
         PDO $pdo, string $name, string $tuneType, string $composer,
-        string $metre, string $key, string $body, int $userId
+        string $metre, string $key, string $body, int $userId,
+        ?int $tempo = null
     ): int {
         $tuneTypeId = self::getOrCreateType($pdo, $tuneType);
         $composerId = self::getOrCreateComposer($pdo, $composer ?: 'Traditional');
@@ -153,6 +161,15 @@ class Tune {
         ]);
         $tuneId = (int) $pdo->lastInsertId();
 
+        self::addSetting($pdo, $tuneId, $userId, $name, $metre, $key, $body, $tempo);
+
+        return $tuneId;
+    }
+
+    public static function addSetting(
+        PDO $pdo, int $tuneId, int $userId, string $name,
+        string $metre, string $key, string $body, ?int $tempo = null
+    ): int {
         $pdo->prepare(self::sql('createSetting.sql'))->execute([
             ':tune_id'           => $tuneId,
             ':user_id'           => $userId,
@@ -160,9 +177,9 @@ class Tune {
             ':time_signature'    => $metre,
             ':key_signature'     => $key,
             ':abc_transcription' => $body,
+            ':tempo'             => $tempo,
         ]);
-
-        return $tuneId;
+        return (int) $pdo->lastInsertId();
     }
 
     public static function delete(PDO $pdo, int $tuneId, int $userId): bool {
