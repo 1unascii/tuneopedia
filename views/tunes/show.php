@@ -1,5 +1,5 @@
 <?php $showAssetBase = preg_replace('#/public$#', '', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\')) . '/'; ?>
-<link href="<?= $showAssetBase ?>css/tune-page.css?v=6" rel="stylesheet" type="text/css"/>
+<link href="<?= $showAssetBase ?>css/tune-page.css?v=7" rel="stylesheet" type="text/css"/>
 
 <div id="tune-page" data-tune-id="<?= $tune_id ?>" data-user-id="<?= $userId ?>">
 
@@ -19,6 +19,43 @@
         <button class="tune-page-notes-toggle" type="button">Show more</button>
     </div>
     <?php endif; ?>
+
+    <div class="tablature-select-row">
+        <label for="tablature-instrument">Tablature</label>
+        <select id="tablature-instrument">
+            <option value="">None</option>
+            <optgroup label="Fiddle Family">
+                <option value="fiddle">Fiddle / Violin (GDAE)</option>
+                <option value="mandolin">Mandolin (GDAE)</option>
+            </optgroup>
+            <optgroup label="Guitar">
+                <option value="guitar">Guitar - Standard (EADGBE)</option>
+                <option value="guitar-dadgad">Guitar - DADGAD</option>
+                <option value="guitar-open-d">Guitar - Open D (DADF#Ad)</option>
+                <option value="guitar-open-g">Guitar - Open G (DGDGBD)</option>
+            </optgroup>
+            <optgroup label="5-String Banjo">
+                <option value="banjo-open-g">Open G / Standard (gDGBD)</option>
+                <option value="banjo-double-c">Double C (gCGCD)</option>
+                <option value="banjo-sawmill">G Modal / Sawmill (gDGCD)</option>
+                <option value="banjo-drop-c">Drop C (gCGBD)</option>
+                <option value="banjo-open-d">Open D / Graveyard (f#DF#AD)</option>
+                <option value="banjo-g-minor">G Minor (gDGBbD)</option>
+                <option value="banjo-a-scale">A-Scale (aEAC#E)</option>
+                <option value="banjo-long-neck">Long Neck / Open E (eBEG#B)</option>
+            </optgroup>
+            <optgroup label="4-String Banjo">
+                <option value="banjo-tenor-standard">Standard Tenor (CGDA)</option>
+                <option value="banjo-tenor-irish">Irish Tenor (GDAE)</option>
+                <option value="banjo-chicago">Chicago (DGBE)</option>
+                <option value="banjo-plectrum">Plectrum (CGBD)</option>
+            </optgroup>
+            <optgroup label="Specialty Banjo">
+                <option value="banjo-6string">6-String Guitanjo (EADGBE)</option>
+                <option value="banjo-ukulele">Banjo Ukulele (GCEA)</option>
+            </optgroup>
+        </select>
+    </div>
 
     <?php if (!empty($settings) && !empty($settings[0]['abc_transcription'])): ?>
     <div id="tune-notation"></div>
@@ -93,29 +130,78 @@
 </div>
 
 <script>
+window.tablaturePresets = {
+    // Fiddle family
+    'fiddle':            { instrument: 'fiddle' },
+    'mandolin':          { instrument: 'mandolin' },
+    // Guitar
+    'guitar':            { instrument: 'guitar' },
+    'guitar-dadgad':     { instrument: 'guitar', tuning: ['D,', 'A,', 'D', 'G', 'A', 'd'], label: 'Guitar DADGAD %T' },
+    'guitar-open-d':     { instrument: 'guitar', tuning: ['D,', 'A,', 'D', '^F', 'A', 'd'], label: 'Guitar Open D %T' },
+    'guitar-open-g':     { instrument: 'guitar', tuning: ['D,', 'G,', 'D', 'G', 'B', 'd'], label: 'Guitar Open G %T' },
+    // 5-string banjo (ascending pitch; strOrder [4,0,1,2,3] puts drone on bottom)
+    'banjo-open-g':      { instrument: 'banjo', tuning: ['D', 'G', 'B', 'd', 'g'], label: 'Banjo Open G (gDGBD)' },
+    'banjo-double-c':    { instrument: 'banjo', tuning: ['C', 'G', 'c', 'd', 'g'], label: 'Banjo Double C (gCGCD)' },
+    'banjo-sawmill':     { instrument: 'banjo', tuning: ['D', 'G', 'c', 'd', 'g'], label: 'Banjo Sawmill (gDGCD)' },
+    'banjo-drop-c':      { instrument: 'banjo', tuning: ['C', 'G', 'B', 'd', 'g'], label: 'Banjo Drop C (gCGBD)' },
+    'banjo-open-d':      { instrument: 'banjo', tuning: ['D', '^F', 'A', 'd', '^f'], label: 'Banjo Open D (f#DF#AD)' },
+    'banjo-g-minor':     { instrument: 'banjo', tuning: ['D', 'G', '_B', 'd', 'g'], label: 'Banjo G Minor (gDGBbD)' },
+    'banjo-a-scale':     { instrument: 'banjo', tuning: ['E', 'A', '^c', 'e', 'a'], label: 'Banjo A-Scale (aEAC#E)' },
+    'banjo-long-neck':   { instrument: 'banjo', tuning: ['B,', 'E', '^G', 'B', 'e'], label: 'Banjo Long Neck (eBEG#B)' },
+    // 4-string banjo
+    'banjo-tenor-standard': { instrument: 'fiddle', tuning: ['C', 'G', 'd', 'a'], label: 'Tenor Standard %T' },
+    'banjo-tenor-irish': { instrument: 'fiddle', tuning: ['G,', 'D', 'A', 'e'], label: 'Tenor Irish %T' },
+    'banjo-chicago':     { instrument: 'fiddle', tuning: ['D', 'G', 'B', 'e'], label: 'Chicago %T' },
+    'banjo-plectrum':    { instrument: 'fiddle', tuning: ['C', 'G', 'B', 'd'], label: 'Plectrum %T' },
+    // Specialty
+    'banjo-6string':     { instrument: 'guitar', label: '6-String Guitanjo %T' },
+    'banjo-ukulele':     { instrument: 'fiddle', tuning: ['c', 'e', 'g', 'a'], label: 'Banjo Ukulele %T' },
+};
+</script>
+
+<script>
 $(function() {
     var $page = $('#tune-page');
     if (!$page.length) return;
 
-    var $primaryBlock = $page.find('.setting-block:first');
-    if ($primaryBlock.length) {
-        var $primaryAbc = $primaryBlock.find('.setting-abc-data');
-        if ($primaryAbc.length) {
-            try {
-                ABCJS.renderAbc('tune-notation', JSON.parse($primaryAbc[0].textContent));
-            } catch(e) {}
-        }
+    function getTablatureParams() {
+        var val = $('#tablature-instrument').val();
+        if (!val) return {};
+        var tab = window.tablaturePresets[val];
+        if (!tab) return {};
+        var entry = { instrument: tab.instrument };
+        if (tab.tuning) entry.tuning = tab.tuning;
+        if (tab.label) entry.label = tab.label;
+        return { tablature: [entry], visualTranspose: 0 };
     }
 
-    $page.find('.setting-block:not(:first-child)').each(function() {
-        var $block = $(this);
-        var $abcEl = $block.find('.setting-abc-data');
-        var $notDiv = $block.find('.setting-notation');
-        if ($abcEl.length && $notDiv.length) {
-            try {
-                ABCJS.renderAbc($notDiv.attr('id'), JSON.parse($abcEl[0].textContent));
-            } catch(e) {}
+    function renderAllSettings() {
+        var params = getTablatureParams();
+
+        var $primaryBlock = $page.find('.setting-block:first');
+        if ($primaryBlock.length) {
+            var $primaryAbc = $primaryBlock.find('.setting-abc-data');
+            if ($primaryAbc.length) {
+                try {
+                    ABCJS.renderAbc('tune-notation', JSON.parse($primaryAbc[0].textContent), params);
+                } catch(e) {}
+            }
         }
-    });
+
+        $page.find('.setting-block:not(:first-child)').each(function() {
+            var $block = $(this);
+            var $abcEl = $block.find('.setting-abc-data');
+            var $notDiv = $block.find('.setting-notation');
+            if ($abcEl.length && $notDiv.length) {
+                try {
+                    ABCJS.renderAbc($notDiv.attr('id'), JSON.parse($abcEl[0].textContent), params);
+                } catch(e) {}
+            }
+        });
+    }
+
+    renderAllSettings();
+
+    $('#tablature-instrument').on('change', renderAllSettings);
 });
 </script>

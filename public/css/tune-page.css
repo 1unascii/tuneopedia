@@ -55,6 +55,23 @@
     color: #ddd;
 }
 
+.tablature-select-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.tablature-select-row label {
+    font-size: 0.85em;
+    color: #aaa;
+}
+
+.tablature-select-row select {
+    padding: 3px 6px;
+    font-size: 0.85em;
+}
+
 #tune-notation {
     margin-top: 20px;
 }

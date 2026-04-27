@@ -37,12 +37,14 @@ $(document).ready(function() {
             var $backBtn = $('<button class="tune-back-btn">&#8592; Back</button>');
             $panel.prepend($backBtn);
 
+            var params = getTablatureParams();
+
             var $primaryBlock = $panel.find('.setting-block:first');
             if ($primaryBlock.length) {
                 var $primaryAbc = $primaryBlock.find('.setting-abc-data');
                 if ($primaryAbc.length) {
                     try {
-                        ABCJS.renderAbc('tune-notation', JSON.parse($primaryAbc[0].textContent));
+                        ABCJS.renderAbc('tune-notation', JSON.parse($primaryAbc[0].textContent), params);
                     } catch(e) {}
                 }
             }
@@ -53,7 +55,7 @@ $(document).ready(function() {
                 var $notDiv = $block.find('.setting-notation');
                 if ($abcEl.length && $notDiv.length) {
                     try {
-                        ABCJS.renderAbc($notDiv.attr('id'), JSON.parse($abcEl[0].textContent));
+                        ABCJS.renderAbc($notDiv.attr('id'), JSON.parse($abcEl[0].textContent), params);
                     } catch(e) {}
                 }
             });
@@ -89,6 +91,35 @@ $(document).ready(function() {
         var tuneId = $(this).attr('id');
         var $panel = $(this).closest('.ui-tabs-panel');
         window.openTuneInPanel(tuneId, $panel);
+    });
+
+    // ── Tablature instrument change ─────────────────────────────────────────
+
+    $(document).on('change', '#tablature-instrument', function () {
+        var $page = $(this).closest('#tune-page');
+        if (!$page.length) return;
+        var params = getTablatureParams();
+
+        var $primaryBlock = $page.find('.setting-block:first');
+        if ($primaryBlock.length) {
+            var $primaryAbc = $primaryBlock.find('.setting-abc-data');
+            if ($primaryAbc.length) {
+                try {
+                    ABCJS.renderAbc('tune-notation', JSON.parse($primaryAbc[0].textContent), params);
+                } catch(e) {}
+            }
+        }
+
+        $page.find('.setting-block:not(:first-child)').each(function() {
+            var $block = $(this);
+            var $abcEl = $block.find('.setting-abc-data');
+            var $notDiv = $block.find('.setting-notation');
+            if ($abcEl.length && $notDiv.length) {
+                try {
+                    ABCJS.renderAbc($notDiv.attr('id'), JSON.parse($abcEl[0].textContent), params);
+                } catch(e) {}
+            }
+        });
     });
 
     // ── Notes expand/collapse ────────────────────────────────────────────────
@@ -175,6 +206,21 @@ $(document).ready(function() {
         } catch (e) {}
     }
 
+    // ── Tablature params ────────────────────────────────────────────────────
+
+    function getTablatureParams() {
+        var val = $('#tablature-instrument').val();
+        if (!val) return {};
+        var tab = window.tablaturePresets[val];
+        if (!tab) return {};
+        var entry = { instrument: tab.instrument };
+        if (tab.tuning) entry.tuning = tab.tuning;
+        if (tab.label) entry.label = tab.label;
+        return { tablature: [entry], visualTranspose: 0 };
+    }
+
+
+
     // ── Render ABC into the correct notation div ─────────────────────────────
 
     function renderNotation($block, abcString) {
@@ -182,7 +228,7 @@ $(document).ready(function() {
         var targetId  = $block.hasClass('primary-setting')
             ? 'tune-notation'
             : 'setting-notation-' + settingId;
-        ABCJS.renderAbc(targetId, abcString);
+        ABCJS.renderAbc(targetId, abcString, getTablatureParams());
     }
 
     // ── Save edit ────────────────────────────────────────────────────────────
@@ -215,11 +261,12 @@ $(document).ready(function() {
             $block.find('.setting-abc-data').text(JSON.stringify(newAbc));
 
             var isPrimary = $block.hasClass('primary-setting');
+            var saveParams = getTablatureParams();
             if (isPrimary) {
-                ABCJS.renderAbc('tune-notation', newAbc);
+                ABCJS.renderAbc('tune-notation', newAbc, saveParams);
             } else {
                 var notationId = 'setting-notation-' + s.setting_id;
-                ABCJS.renderAbc(notationId, newAbc);
+                ABCJS.renderAbc(notationId, newAbc, saveParams);
             }
 
             $block.find('.setting-edit-area').hide().empty();
@@ -279,10 +326,11 @@ $(document).ready(function() {
             var $newPrimary = $container.find('.setting-block[data-setting-id="' + newPrimaryId + '"]');
             var $oldPrimary = $container.find('.setting-block[data-setting-id="' + currentPrimaryId + '"]');
 
+            var reorderParams = getTablatureParams();
             var $newAbc = $newPrimary.find('.setting-abc-data');
             if ($newAbc.length) {
                 try {
-                    ABCJS.renderAbc('tune-notation', JSON.parse($newAbc[0].textContent));
+                    ABCJS.renderAbc('tune-notation', JSON.parse($newAbc[0].textContent), reorderParams);
                 } catch (e) {}
             }
 
@@ -291,7 +339,7 @@ $(document).ready(function() {
                 var $oldAbc = $oldPrimary.find('.setting-abc-data');
                 if ($oldAbc.length) {
                     try {
-                        ABCJS.renderAbc($oldNotDiv.attr('id'), JSON.parse($oldAbc[0].textContent));
+                        ABCJS.renderAbc($oldNotDiv.attr('id'), JSON.parse($oldAbc[0].textContent), reorderParams);
                     } catch (e) {}
                 }
                 $oldNotDiv.show();

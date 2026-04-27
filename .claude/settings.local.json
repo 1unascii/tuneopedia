@@ -44,7 +44,10 @@
       "Bash(curl:*)",
       "Bash(composer dump-autoload:*)",
       "Read(//c/xampp/php/logs/**)",
-      "Read(//c/xampp/php/**)"
+      "Read(//c/xampp/php/**)",
+      "Bash(node:*)",
+      "Bash(git checkout:*)",
+      "Bash(gh pr:*)"
     ]
   }
 }

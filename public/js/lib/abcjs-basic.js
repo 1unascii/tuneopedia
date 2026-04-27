@@ -16809,6 +16809,13 @@ var pluginTab = {
     defaultTuning: ['C,', 'G,', 'D', 'A', 'e'],
     isTabBig: false,
     tabSymbolOffset: -.95
+  },
+  'banjo': {
+    name: 'StringTab',
+    defaultTuning: ['D', 'G', 'B', 'd', 'g'],
+    strOrder: [4, 0, 1, 2, 3],
+    isTabBig: true,
+    tabSymbolOffset: -.95
   }
 };
 var abcTablatures = {
@@ -17230,6 +17237,7 @@ function StringPatterns(plugin) {
     this.capo = parseInt(capo, 10);
   }
   this.transpose = plugin.transpose ? plugin.transpose : 0;
+  this.strOrder = plugin.strOrder || null;
   this.tuning = tuning;
   this.stringPitches = [];
   for (var i = 0; i < this.tuning.length; i++) {
@@ -17623,6 +17631,7 @@ Plugin.prototype.init = function (abcTune, tuneNumber, params, tabSettings) {
     tuning = tabSettings.defaultTuning;
   }
   this.tuning = tuning;
+  this.strOrder = params.strOrder || tabSettings.strOrder || null;
   this.semantics = new StringPatterns(this);
 };
 Plugin.prototype.setError = function (error) {
@@ -17768,11 +17777,15 @@ function getInitialStaffSize(staffGroup) {
 function buildRelativeTabNote(plugin, relX, def, curNote, isGrace) {
   var strNote = curNote.num;
   if (curNote.note.quarter != null) {
-    // add tab quarter => needs to string conversion then 
+    // add tab quarter => needs to string conversion then
     strNote = strNote.toString();
     strNote += curNote.note.quarter;
   }
-  var pitch = plugin.semantics.stringToPitch(curNote.str);
+  var displayStr = curNote.str;
+  if (plugin.semantics.strOrder) {
+    displayStr = plugin.semantics.strOrder[curNote.str];
+  }
+  var pitch = plugin.semantics.stringToPitch(displayStr);
   def.notes.push({
     num: strNote,
     str: curNote.str,
