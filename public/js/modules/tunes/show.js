@@ -93,9 +93,95 @@ $(document).ready(function() {
         window.openTuneInPanel(tuneId, $panel);
     });
 
+    // ── Custom tuning ───────────────────────────────────────────────────────
+
+    function parseCustomTuning(input) {
+        // Parses tuning like "DAdea", "D,AdF#a", "gDGBd"
+        // Returns an array of ABC note strings
+        var tuning = [];
+        var i = 0;
+        while (i < input.length) {
+            var ch = input[i];
+            if (!/[A-Ga-g]/.test(ch)) { i++; continue; }
+            var note = ch;
+            i++;
+            // Check for # or b after the note letter
+            if (i < input.length && input[i] === '#') {
+                note = '^' + ch;
+                i++;
+            } else if (i < input.length && input[i] === 'b' && /[A-G]/.test(ch)) {
+                note = '_' + ch;
+                i++;
+            }
+            // Check for octave modifiers , or '
+            while (i < input.length && (input[i] === ',' || input[i] === "'")) {
+                note += input[i];
+                i++;
+            }
+            tuning.push(note);
+        }
+        return tuning;
+    }
+
+
+
+    function applyCustomTuning() {
+        var instrument = $('#custom-instrument').val();
+        var numStrings = parseInt($('#custom-strings').val());
+        var input = $('#custom-tuning-input').val().trim();
+        if (!input) return;
+
+        var tuning = parseCustomTuning(input);
+        if (tuning.length !== numStrings) {
+            alert('Expected ' + numStrings + ' strings but got ' + tuning.length + ' from "' + input + '"');
+            return;
+        }
+
+        window.tablaturePresets['custom'] = {
+            instrument: instrument,
+            tuning: tuning,
+            label: 'Custom (' + input + ')'
+        };
+
+        // Render all settings with the custom tuning
+        var $page = $('#tune-page');
+        if (!$page.length) return;
+        var params = getTablatureParams();
+
+        $page.find('.setting-block').each(function() {
+            var $block = $(this);
+            var $editArea = $block.find('.setting-edit-area');
+            if ($editArea.children().length && $editArea.css('display') !== 'none') {
+                renderFromForm($block);
+            } else {
+                var $abcEl = $block.find('.setting-abc-data');
+                if ($abcEl.length) {
+                    var targetId = $block.hasClass('primary-setting')
+                        ? 'tune-notation'
+                        : 'setting-notation-' + $block.data('setting-id');
+                    var $notDiv = $block.find('.setting-notation');
+                    if ($block.hasClass('primary-setting') || $notDiv.length) {
+                        try {
+                            ABCJS.renderAbc(targetId, JSON.parse($abcEl[0].textContent), params);
+                        } catch(e) {}
+                    }
+                }
+            }
+        });
+    }
+
+    $(document).on('click', '#custom-tuning-apply', applyCustomTuning);
+
     // ── Tablature instrument change ─────────────────────────────────────────
 
     $(document).on('change', '#tablature-instrument', function () {
+        var val = $(this).val();
+        if (val === 'custom') {
+            $('#custom-tuning-controls').show();
+            return;
+        }
+        $('#custom-tuning-controls').hide();
+
         var $page = $(this).closest('#tune-page');
         if (!$page.length) return;
         var params = getTablatureParams();

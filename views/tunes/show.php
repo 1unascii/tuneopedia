@@ -54,7 +54,32 @@
                 <option value="banjo-6string">6-String Guitanjo (EADGBE)</option>
                 <option value="banjo-ukulele">Banjo Ukulele (GCEA)</option>
             </optgroup>
+            <option value="custom">Custom Tuning...</option>
         </select>
+    </div>
+    <div id="custom-tuning-controls" style="display:none">
+            <div class="custom-tuning-row">
+                <label for="custom-instrument">Instrument</label>
+                <select id="custom-instrument">
+                    <option value="fiddle">Fiddle</option>
+                    <option value="mandolin">Mandolin</option>
+                    <option value="guitar">Guitar</option>
+                    <option value="banjo">Banjo</option>
+                </select>
+            </div>
+            <div class="custom-tuning-row">
+                <label for="custom-strings">Strings</label>
+                <select id="custom-strings">
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
+            <div class="custom-tuning-row">
+                <label for="custom-tuning-input">Tuning</label>
+                <input type="text" id="custom-tuning-input" placeholder="e.g. DAdea" />
+            </div>
+            <button type="button" id="custom-tuning-apply">Apply</button>
     </div>
 
     <?php if (!empty($settings) && !empty($settings[0]['abc_transcription'])): ?>

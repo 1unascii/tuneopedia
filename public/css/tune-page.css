@@ -72,6 +72,41 @@
     font-size: 0.85em;
 }
 
+#custom-tuning-controls {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.custom-tuning-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.custom-tuning-row label {
+    font-size: 0.85em;
+    color: #aaa;
+}
+
+.custom-tuning-row select,
+.custom-tuning-row input {
+    padding: 3px 6px;
+    font-size: 0.85em;
+}
+
+#custom-tuning-input {
+    width: 100px;
+}
+
+#custom-tuning-apply {
+    padding: 3px 10px;
+    font-size: 0.85em;
+    cursor: pointer;
+}
+
 #tune-notation {
     margin-top: 20px;
 }
