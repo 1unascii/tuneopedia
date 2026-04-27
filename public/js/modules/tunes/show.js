@@ -39,13 +39,15 @@ $(document).ready(function() {
             $panel.prepend($backBtn);
 
             var params = getTablatureParams();
+            params.add_classes = true;
 
             var $primaryBlock = $panel.find('.setting-block:first');
             if ($primaryBlock.length) {
                 var $primaryAbc = $primaryBlock.find('.setting-abc-data');
                 if ($primaryAbc.length) {
                     try {
-                        ABCJS.renderAbc('tune-notation', JSON.parse($primaryAbc[0].textContent), params);
+                        var vis = ABCJS.renderAbc('tune-notation', JSON.parse($primaryAbc[0].textContent), params);
+                        if (vis && vis[0]) $primaryBlock.data('visualObj', vis[0]);
                     } catch(e) {}
                 }
             }
@@ -56,7 +58,8 @@ $(document).ready(function() {
                 var $notDiv = $block.find('.setting-notation');
                 if ($abcEl.length && $notDiv.length) {
                     try {
-                        ABCJS.renderAbc($notDiv.attr('id'), JSON.parse($abcEl[0].textContent), params);
+                        var vis = ABCJS.renderAbc($notDiv.attr('id'), JSON.parse($abcEl[0].textContent), params);
+                        if (vis && vis[0]) $block.data('visualObj', vis[0]);
                     } catch(e) {}
                 }
             });
@@ -128,6 +131,7 @@ $(document).ready(function() {
 
 
     function applyCustomTuning() {
+        stopAllMidiPlayers();
         var instrument = $('#custom-instrument').val();
         var numStrings = parseInt($('#custom-strings').val());
         var input = $('#custom-tuning-input').val().trim();
@@ -184,9 +188,12 @@ $(document).ready(function() {
         }
         $('#custom-tuning-controls').hide();
 
+        stopAllMidiPlayers();
+
         var $page = $(this).closest('#tune-page');
         if (!$page.length) return;
         var params = getTablatureParams();
+        params.add_classes = true;
 
         $page.find('.setting-block').each(function() {
             var $block = $(this);
@@ -194,6 +201,8 @@ $(document).ready(function() {
 
             if ($editArea.children().length && $editArea.css('display') !== 'none') {
                 renderFromForm($block);
+                var editVis = $block.data('visualObj');
+                if (editVis) setMidiTune($block, editVis, true);
             } else {
                 var $abcEl = $block.find('.setting-abc-data');
                 if ($abcEl.length) {
@@ -203,7 +212,11 @@ $(document).ready(function() {
                     var $notDiv = $block.find('.setting-notation');
                     if ($block.hasClass('primary-setting') || $notDiv.length) {
                         try {
-                            ABCJS.renderAbc(targetId, JSON.parse($abcEl[0].textContent), params);
+                            var vis = ABCJS.renderAbc(targetId, JSON.parse($abcEl[0].textContent), params);
+                            if (vis && vis[0]) {
+                                $block.data('visualObj', vis[0]);
+                                setMidiTune($block, vis[0], true);
+                            }
                         } catch(e) {}
                     }
                 }
@@ -327,15 +340,24 @@ $(document).ready(function() {
 
     // ── Render ABC into the correct notation div ─────────────────────────────
 
-    function renderNotation($block, abcString) {
-        var settingId = $block.data('setting-id');
-        var targetId  = $block.hasClass('primary-setting')
+    function getNotationTargetId($block) {
+        return $block.hasClass('primary-setting')
             ? 'tune-notation'
-            : 'setting-notation-' + settingId;
-        ABCJS.renderAbc(targetId, abcString, getTablatureParams());
+            : 'setting-notation-' + $block.data('setting-id');
     }
 
-    // ── MIDI player ────────────────────────────────────────────────��────────
+    function renderNotation($block, abcString) {
+        var targetId = getNotationTargetId($block);
+        var params = getTablatureParams();
+        params.add_classes = true;
+        var visualObj = ABCJS.renderAbc(targetId, abcString, params);
+        if (visualObj && visualObj[0]) {
+            $block.data('visualObj', visualObj[0]);
+            setMidiTune($block, visualObj[0]);
+        }
+    }
+
+    // ── MIDI player ─────────────────────────────────────────────────────────
 
     var synthControllers = {};
 
@@ -343,15 +365,10 @@ $(document).ready(function() {
         for (var id in synthControllers) {
             if (exceptId && id == exceptId) continue;
             var sc = synthControllers[id];
-            try {
-                if (sc.isStarted) {
-                    sc.pause();
-                    sc.isStarted = false;
-                }
-                if (sc.midiBuffer) {
-                    sc.midiBuffer.stop();
-                }
-            } catch(e) {}
+            try { sc.pause(); } catch(e) {}
+            try { if (sc.midiBuffer) sc.midiBuffer.stop(); } catch(e) {}
+            try { sc.isStarted = false; } catch(e) {}
+            try { if (sc.control) sc.control.pushPlay(false); } catch(e) {}
         }
     }
 
@@ -361,28 +378,68 @@ $(document).ready(function() {
         stopAllMidiPlayers(settingId);
     });
 
-    function getAbcForBlock($block) {
-        var $editArea = $block.find('.setting-edit-area');
-        if ($editArea.children().length && $editArea.css('display') !== 'none') {
-            var $form = $block.find('.edit-setting-form');
-            if ($form.length) {
-                var settingId = $block.data('setting-id');
-                var keyVal = $form.find('[name="key_signature"]').val() || '';
-                var tempo = parseInt($block.find('#playback-tempo').val()) || parseInt($block.data('tempo')) || 120;
-                return 'X:' + settingId + '\n' +
-                    'T:' + ($form.find('[name="tune_name"]').val() || '') + '\n' +
-                    'M:' + ($form.find('[name="time_signature"]').val() || '4/4') + '\n' +
-                    'L:' + ($form.find('[name="default_note_length"]').val() || '1/8') + '\n' +
-                    'Q:1/4=' + tempo + '\n' +
-                    'K:' + keyVal + '\n' +
-                    ($form.find('[name="abc_transcription"]').val() || '');
+    function CursorControl(notationId) {
+        var self = this;
+        self.notationId = notationId;
+
+        self.onStart = function () {
+            var svg = document.querySelector('#' + self.notationId + ' svg');
+            if (!svg) return;
+            var cursor = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            cursor.setAttribute('class', 'abcjs-cursor');
+            cursor.setAttributeNS(null, 'x1', 0);
+            cursor.setAttributeNS(null, 'y1', 0);
+            cursor.setAttributeNS(null, 'x2', 0);
+            cursor.setAttributeNS(null, 'y2', 0);
+            svg.appendChild(cursor);
+        };
+
+        self.onEvent = function (ev) {
+            if (ev.measureStart && ev.left === null) return;
+
+            var lastSelection = document.querySelectorAll('svg .highlight');
+            for (var k = 0; k < lastSelection.length; k++)
+                lastSelection[k].classList.remove('highlight');
+
+            var showHighlight = document.getElementById('playback-highlight');
+            if (!showHighlight || showHighlight.checked) {
+                for (var i = 0; i < ev.elements.length; i++) {
+                    var note = ev.elements[i];
+                    for (var j = 0; j < note.length; j++) {
+                        note[j].classList.add('highlight');
+                    }
+                }
             }
-        }
-        var $abcEl = $block.find('.setting-abc-data');
-        if ($abcEl.length) {
-            try { return JSON.parse($abcEl[0].textContent); } catch(e) {}
-        }
-        return null;
+
+            var showCursor = document.getElementById('playback-cursor');
+            var cursor = document.querySelector('#' + self.notationId + ' svg .abcjs-cursor');
+            if (cursor) {
+                if (!showCursor || showCursor.checked) {
+                    cursor.setAttribute('x1', ev.left - 2);
+                    cursor.setAttribute('x2', ev.left - 2);
+                    cursor.setAttribute('y1', ev.top);
+                    cursor.setAttribute('y2', ev.top + ev.height);
+                } else {
+                    cursor.setAttribute('x1', 0);
+                    cursor.setAttribute('x2', 0);
+                    cursor.setAttribute('y1', 0);
+                    cursor.setAttribute('y2', 0);
+                }
+            }
+        };
+
+        self.onFinished = function () {
+            var els = document.querySelectorAll('svg .highlight');
+            for (var i = 0; i < els.length; i++)
+                els[i].classList.remove('highlight');
+            var cursor = document.querySelector('#' + self.notationId + ' svg .abcjs-cursor');
+            if (cursor) {
+                cursor.setAttribute('x1', 0);
+                cursor.setAttribute('x2', 0);
+                cursor.setAttribute('y1', 0);
+                cursor.setAttribute('y2', 0);
+            }
+        };
     }
 
     function initMidiPlayer($block) {
@@ -391,53 +448,58 @@ $(document).ready(function() {
         var $player = $('#' + playerId);
         if (!$player.length) return;
 
-        // Always create a fresh controller — the DOM element is new after AJAX reload
         if (synthControllers[settingId]) {
             delete synthControllers[settingId];
             $player.empty();
         }
 
+        var notationId = getNotationTargetId($block);
+        var cursor = new CursorControl(notationId);
         var synthControl = new ABCJS.synth.SynthController();
-        synthControl.load('#' + playerId, null, {
+        synthControl.load('#' + playerId, cursor, {
+            displayLoop: true,
+            displayRestart: true,
             displayPlay: true,
             displayProgress: true,
             displayWarp: true
         });
         synthControllers[settingId] = synthControl;
-        loadMidiPlayer($block);
     }
 
-    function loadMidiPlayer($block) {
+    function setMidiTune($block, visualObj, reinit) {
         var settingId = $block.data('setting-id');
+        if (!visualObj) return;
+
+        if (reinit) {
+            initMidiPlayer($block);
+        }
+
         var synthControl = synthControllers[settingId];
         if (!synthControl) return;
 
-        var abcString = getAbcForBlock($block);
-        if (!abcString) return;
+        synthControl.setTune(visualObj, false).then(function () {
+        }).catch(function (err) {
+            console.warn('MIDI load error:', err);
+        });
+    }
 
-        var visualObj = ABCJS.renderAbc('*', abcString);
-        if (visualObj && visualObj[0]) {
-            synthControl.setTune(visualObj[0], false).then(function () {
-            }).catch(function (err) {
-                console.warn('MIDI load error:', err);
-            });
+    function loadMidiPlayer($block) {
+        var visualObj = $block.data('visualObj');
+        if (visualObj) {
+            setMidiTune($block, visualObj);
         }
     }
 
-    // Initialize players for all settings on page load
     window.initAllMidiPlayers = function() {
         $('.setting-block').each(function () {
             initMidiPlayer($(this));
         });
     };
 
-    // Re-load MIDI when edit form content changes
-    $(document).on('input change', '.edit-setting-form textarea, .edit-setting-form select, .edit-setting-form input', function () {
-        var $block = $(this).closest('.setting-block');
-        if ($block.length) {
-            loadMidiPlayer($block);
-        }
-    });
+    window.setMidiTune = function($block, visualObj) {
+        setMidiTune($block, visualObj);
+    };
+
 
     // ── Save edit ────────────────────────────────────────────────────────────
 

@@ -55,6 +55,22 @@
     color: #ddd;
 }
 
+.playback-options-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+    font-size: 0.85em;
+    color: #aaa;
+}
+
+.playback-options-row label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
 .tablature-select-row {
     display: flex;
     align-items: center;
@@ -109,6 +125,16 @@
 
 #tune-notation {
     margin-top: 20px;
+}
+
+.highlight {
+    fill: #0a9ecc;
+    stroke: #0a9ecc;
+}
+
+.abcjs-cursor {
+    stroke: red;
+    stroke-width: 2;
 }
 
 .setting-midi-player {

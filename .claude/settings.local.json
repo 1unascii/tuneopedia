@@ -47,7 +47,10 @@
       "Read(//c/xampp/php/**)",
       "Bash(node:*)",
       "Bash(git checkout:*)",
-      "Bash(gh pr:*)"
+      "Bash(gh pr:*)",
+      "WebFetch(domain:paulrosen.github.io)",
+      "WebFetch(domain:docs.abcjs.net)",
+      "WebFetch(domain:examples.abcjs.net)"
     ]
   }
 }

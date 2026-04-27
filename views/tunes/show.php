@@ -20,6 +20,11 @@
     </div>
     <?php endif; ?>
 
+    <div class="playback-options-row">
+        <label><input type="checkbox" id="playback-highlight" checked /> Highlight Notes</label>
+        <label><input type="checkbox" id="playback-cursor" checked /> Show Cursor</label>
+    </div>
+
     <div class="tablature-select-row">
         <label for="tablature-instrument">Tablature</label>
         <select id="tablature-instrument">
@@ -216,13 +221,15 @@ $(function() {
 
     function renderAllSettings() {
         var params = getTablatureParams();
+        params.add_classes = true;
 
         var $primaryBlock = $page.find('.setting-block:first');
         if ($primaryBlock.length) {
             var $primaryAbc = $primaryBlock.find('.setting-abc-data');
             if ($primaryAbc.length) {
                 try {
-                    ABCJS.renderAbc('tune-notation', JSON.parse($primaryAbc[0].textContent), params);
+                    var vis = ABCJS.renderAbc('tune-notation', JSON.parse($primaryAbc[0].textContent), params);
+                    if (vis && vis[0]) $primaryBlock.data('visualObj', vis[0]);
                 } catch(e) {}
             }
         }
@@ -233,13 +240,21 @@ $(function() {
             var $notDiv = $block.find('.setting-notation');
             if ($abcEl.length && $notDiv.length) {
                 try {
-                    ABCJS.renderAbc($notDiv.attr('id'), JSON.parse($abcEl[0].textContent), params);
+                    var vis = ABCJS.renderAbc($notDiv.attr('id'), JSON.parse($abcEl[0].textContent), params);
+                    if (vis && vis[0]) $block.data('visualObj', vis[0]);
                 } catch(e) {}
             }
         });
     }
 
     renderAllSettings();
-    if (typeof initAllMidiPlayers === 'function') initAllMidiPlayers();
+    if (typeof initAllMidiPlayers === 'function') {
+        initAllMidiPlayers();
+        $page.find('.setting-block').each(function() {
+            var $block = $(this);
+            var vis = $block.data('visualObj');
+            if (vis && typeof setMidiTune === 'function') setMidiTune($block, vis);
+        });
+    }
 });
 </script>
