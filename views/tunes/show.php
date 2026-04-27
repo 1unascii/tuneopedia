@@ -109,9 +109,11 @@
                 <button class="vote-btn vote-down<?= $userVote === -1 ? ' vote-active' : '' ?>"
                         data-setting-id="<?= (int)$s['setting_id'] ?>"
                         title="Downvote">&#9660;</button>
+                <?php if ($userId && (int)$s['user_id'] === $userId): ?>
                 <button class="edit-setting-btn"
                         data-setting-id="<?= (int)$s['setting_id'] ?>"
                         title="Edit this setting">Edit</button>
+                <?php endif; ?>
             </div>
 
             <div class="setting-edit-area" style="display:none"></div>
@@ -124,6 +126,13 @@
 
         </div>
         <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+
+    <?php if ($userId): ?>
+    <div class="add-setting-section">
+        <button class="add-setting-btn" data-tune-id="<?= $tune_id ?>">Add Setting</button>
+        <div class="add-setting-area" style="display:none"></div>
     </div>
     <?php endif; ?>
 
@@ -201,7 +210,5 @@ $(function() {
     }
 
     renderAllSettings();
-
-    $('#tablature-instrument').on('change', renderAllSettings);
 });
 </script>

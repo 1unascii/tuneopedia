@@ -76,6 +76,23 @@
     margin-top: 20px;
 }
 
+.add-setting-section {
+    margin-top: 16px;
+}
+
+.add-setting-btn {
+    padding: 6px 14px;
+    cursor: pointer;
+}
+
+.add-setting-area {
+    margin-top: 12px;
+}
+
+.add-setting-preview {
+    margin-bottom: 12px;
+}
+
 .tune-page-no-notation {
     color: #999;
     font-style: italic;

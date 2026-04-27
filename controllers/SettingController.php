@@ -64,6 +64,29 @@ class SettingController {
         include __DIR__ . '/../views/settings/edit.php';
     }
 
+    public function addForm() {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        if (empty($_SESSION['user_id'])) {
+            echo '<p class="error-message">Please log in to add a setting.</p>';
+            return;
+        }
+
+        $tuneId = intval($_GET['tune_id'] ?? 0);
+        if (!$tuneId) {
+            echo '<p class="error-message">Invalid tune.</p>';
+            return;
+        }
+
+        $pdo = connect();
+        $tuneName = Tune::getName($pdo, $tuneId);
+        if (!$tuneName) {
+            echo '<p class="error-message">Tune not found.</p>';
+            return;
+        }
+
+        include __DIR__ . '/../views/settings/add.php';
+    }
+
     public function vote() {
         if (session_status() === PHP_SESSION_NONE) session_start();
         header('Content-Type: application/json');

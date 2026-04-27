@@ -49,6 +49,7 @@ $apiRoutes = [
     'favorite-tune'   => ['TuneController',       'toggleFavorite'],
     'remove-favorite' => ['TuneController',       'removeFavorite'],
     'edit-setting'   => ['SettingController',     'edit'],
+    'add-setting-form' => ['SettingController',   'addForm'],
     'vote-setting'   => ['SettingController',     'vote'],
     'register'       => ['AuthController',        'register'],
     'test-cleanup'   => ['AuthController',        'testCleanup'],

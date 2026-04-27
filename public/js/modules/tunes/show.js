@@ -100,24 +100,25 @@ $(document).ready(function() {
         if (!$page.length) return;
         var params = getTablatureParams();
 
-        var $primaryBlock = $page.find('.setting-block:first');
-        if ($primaryBlock.length) {
-            var $primaryAbc = $primaryBlock.find('.setting-abc-data');
-            if ($primaryAbc.length) {
-                try {
-                    ABCJS.renderAbc('tune-notation', JSON.parse($primaryAbc[0].textContent), params);
-                } catch(e) {}
-            }
-        }
-
-        $page.find('.setting-block:not(:first-child)').each(function() {
+        $page.find('.setting-block').each(function() {
             var $block = $(this);
-            var $abcEl = $block.find('.setting-abc-data');
-            var $notDiv = $block.find('.setting-notation');
-            if ($abcEl.length && $notDiv.length) {
-                try {
-                    ABCJS.renderAbc($notDiv.attr('id'), JSON.parse($abcEl[0].textContent), params);
-                } catch(e) {}
+            var $editArea = $block.find('.setting-edit-area');
+
+            if ($editArea.children().length && $editArea.css('display') !== 'none') {
+                renderFromForm($block);
+            } else {
+                var $abcEl = $block.find('.setting-abc-data');
+                if ($abcEl.length) {
+                    var targetId = $block.hasClass('primary-setting')
+                        ? 'tune-notation'
+                        : 'setting-notation-' + $block.data('setting-id');
+                    var $notDiv = $block.find('.setting-notation');
+                    if ($block.hasClass('primary-setting') || $notDiv.length) {
+                        try {
+                            ABCJS.renderAbc(targetId, JSON.parse($abcEl[0].textContent), params);
+                        } catch(e) {}
+                    }
+                }
             }
         });
     });
@@ -154,6 +155,21 @@ $(document).ready(function() {
             return;
         }
 
+        // Close any other open edit forms
+        $('.setting-edit-area:visible').each(function () {
+            var $otherArea = $(this);
+            var $otherBlock = $otherArea.closest('.setting-block');
+            restoreNotation($otherBlock);
+            $otherArea.hide().empty();
+        });
+
+        // Close add-setting form if open
+        $('.add-setting-area').each(function () {
+            if ($(this).children().length) {
+                $(this).hide().empty();
+            }
+        });
+
         $editArea.html('<p class="edit-loading">Loading...</p>').show();
 
         $.get(base + '/api/edit-setting', { setting_id: settingId }, function (html) {
@@ -181,9 +197,6 @@ $(document).ready(function() {
         if (!$form.length) return;
 
         var settingId = $block.data('setting-id');
-        // Read key from #key select directly — after a mode change, the
-        // select's options are replaced via .load() and the name attribute
-        // lookup might return stale data.
         var keyVal = $('#key').val() || $form.find('[name="key_signature"]').val() || '';
         var abcString =
             'X:' + settingId + '\n' +
@@ -270,6 +283,94 @@ $(document).ready(function() {
             }
 
             $block.find('.setting-edit-area').hide().empty();
+        }, 'json');
+    });
+
+    // ── Add setting: load form ──────────────────────────────────────────────
+
+    $(document).on('click', '.add-setting-btn', function () {
+        var $btn     = $(this);
+        var tuneId   = $btn.data('tune-id');
+        var $area    = $btn.siblings('.add-setting-area');
+
+        if ($area.is(':visible')) {
+            $area.hide().empty();
+            return;
+        }
+
+        // Close any open edit forms
+        $('.setting-edit-area:visible').each(function () {
+            var $otherArea = $(this);
+            var $otherBlock = $otherArea.closest('.setting-block');
+            restoreNotation($otherBlock);
+            $otherArea.hide().empty();
+        });
+
+        $area.html('<p class="edit-loading">Loading...</p>').show();
+
+        $.get(base + '/api/add-setting-form', { tune_id: tuneId }, function (html) {
+            $area.html(html);
+            // Init knob dials
+            $area.find('.playback-dial').knob({
+                'release': function(v) {}
+            });
+            // Live notation preview
+            $area.on('input change keyup', 'input, select, textarea', function () {
+                var $form = $area.find('.add-setting-form');
+                if (!$form.length) return;
+                var keyVal = $area.find('#key').val() || '';
+                var abcString =
+                    'X:1\n' +
+                    'M:' + ($form.find('[name="metre"]').val() || '4/4') + '\n' +
+                    'L:1/8\n' +
+                    'K:' + keyVal + '\n' +
+                    ($form.find('[name="tune_body"]').val() || '');
+                var $preview = $area.find('.add-setting-preview');
+                if (!$preview.length) {
+                    $preview = $('<div class="add-setting-preview"></div>');
+                    $form.before($preview);
+                }
+                try {
+                    ABCJS.renderAbc($preview[0], abcString, getTablatureParams());
+                } catch(e) {}
+            });
+        });
+    });
+
+    // ── Add setting: cancel ─────────────────────────────────────────────────
+
+    $(document).on('click', '.add-setting-cancel-btn', function () {
+        var $area = $(this).closest('.add-setting-area');
+        $area.hide().empty();
+    });
+
+    // ── Add setting: submit ─────────────────────────────────────────────────
+
+    $(document).on('submit', '.add-setting-form', function (e) {
+        e.preventDefault();
+        var $form  = $(this);
+        var tuneId = $form.data('tune-id');
+
+        var postData = {
+            tune_id:  tuneId,
+            metre:    $form.find('[name="metre"]').val(),
+            tune_key: $form.find('[name="tune_key"]').val(),
+            tune_body: $form.find('[name="tune_body"]').val(),
+            tempo:    $form.find('#playback-tempo').val()
+        };
+
+        $.post(base + '/api/add-setting', postData, function (data) {
+            if (data.error) {
+                $form.find('.edit-error').text(data.error);
+                return;
+            }
+            // Reload the tune page to show the new setting
+            var $panel = $form.closest('.ui-tabs-panel');
+            if ($panel.length) {
+                window.openTuneInPanel(tuneId, $panel);
+            } else {
+                location.reload();
+            }
         }, 'json');
     });
 
