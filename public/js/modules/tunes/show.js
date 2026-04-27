@@ -365,7 +365,13 @@ $(document).ready(function() {
         var visualObj = ABCJS.renderAbc(targetId, abcString, params);
         if (visualObj && visualObj[0]) {
             $block.data('visualObj', visualObj[0]);
-            setMidiTune($block, visualObj[0]);
+            stopAllMidiPlayers();
+            initMidiPlayer($block);
+            var settingId = $block.data('setting-id');
+            var sc = synthControllers[settingId];
+            if (sc) {
+                sc.setTune(visualObj[0], false).catch(function(e) {});
+            }
         }
     }
 
@@ -461,6 +467,11 @@ $(document).ready(function() {
         if (!$player.length) return;
 
         if (synthControllers[settingId]) {
+            var old = synthControllers[settingId];
+            try { old.pause(); } catch(e) {}
+            try { if (old.midiBuffer) old.midiBuffer.stop(); } catch(e) {}
+            try { old.isStarted = false; } catch(e) {}
+            try { if (old.control) old.control.pushPlay(false); } catch(e) {}
             delete synthControllers[settingId];
             $player.empty();
         }
