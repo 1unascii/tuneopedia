@@ -111,6 +111,10 @@
     margin-top: 20px;
 }
 
+.setting-midi-player {
+    margin: 8px 0;
+}
+
 .add-setting-section {
     margin-top: 16px;
 }

@@ -9,6 +9,7 @@ $(document).ready(function() {
     // Called by the .tune_title click handler and by auto-open on deep links.
     window.openTuneInPanel = function(tuneId, $panel) {
         if (!$panel || !$panel.length) return;
+        stopAllMidiPlayers();
 
         sessionStorage.setItem('lastViewedTuneId', tuneId);
 
@@ -61,6 +62,7 @@ $(document).ready(function() {
             });
 
             $backBtn.one('click', function() {
+                stopAllMidiPlayers();
                 $panel.html(savedHtml);
                 $panel.removeData('tunePageState');
                 $('#select-tune-prompt').show();
@@ -140,7 +142,7 @@ $(document).ready(function() {
         window.tablaturePresets['custom'] = {
             instrument: instrument,
             tuning: tuning,
-            label: 'Custom (' + input + ')'
+            label: $('#custom-instrument option:selected').text() + ' (' + input + ')'
         };
 
         // Render all settings with the custom tuning
@@ -274,6 +276,7 @@ $(document).ready(function() {
         var $editArea = $(this).closest('.setting-edit-area');
         restoreNotation($block);
         $editArea.hide().empty();
+        loadMidiPlayer($block);
     });
 
     // ── Build ABC from form fields and render ────────────────────────────────
@@ -284,11 +287,13 @@ $(document).ready(function() {
 
         var settingId = $block.data('setting-id');
         var keyVal = $('#key').val() || $form.find('[name="key_signature"]').val() || '';
+        var tempo = parseInt($form.closest('.setting-block').find('#playback-tempo').val()) || parseInt($block.data('tempo')) || 120;
         var abcString =
             'X:' + settingId + '\n' +
             'T:' + ($form.find('[name="tune_name"]').val()           || '') + '\n' +
             'M:' + ($form.find('[name="time_signature"]').val()      || '4/4') + '\n' +
             'L:' + ($form.find('[name="default_note_length"]').val() || '1/8') + '\n' +
+            'Q:1/4=' + tempo + '\n' +
             'K:' + keyVal + '\n' +
             ($form.find('[name="abc_transcription"]').val() || '');
 
@@ -330,6 +335,110 @@ $(document).ready(function() {
         ABCJS.renderAbc(targetId, abcString, getTablatureParams());
     }
 
+    // ── MIDI player ────────────────────────────────────────────────��────────
+
+    var synthControllers = {};
+
+    function stopAllMidiPlayers(exceptId) {
+        for (var id in synthControllers) {
+            if (exceptId && id == exceptId) continue;
+            var sc = synthControllers[id];
+            try {
+                if (sc.isStarted) {
+                    sc.pause();
+                    sc.isStarted = false;
+                }
+                if (sc.midiBuffer) {
+                    sc.midiBuffer.stop();
+                }
+            } catch(e) {}
+        }
+    }
+
+    $(document).on('click', '.abcjs-midi-start', function () {
+        var $block = $(this).closest('.setting-block');
+        var settingId = $block.length ? $block.data('setting-id') : null;
+        stopAllMidiPlayers(settingId);
+    });
+
+    function getAbcForBlock($block) {
+        var $editArea = $block.find('.setting-edit-area');
+        if ($editArea.children().length && $editArea.css('display') !== 'none') {
+            var $form = $block.find('.edit-setting-form');
+            if ($form.length) {
+                var settingId = $block.data('setting-id');
+                var keyVal = $form.find('[name="key_signature"]').val() || '';
+                var tempo = parseInt($block.find('#playback-tempo').val()) || parseInt($block.data('tempo')) || 120;
+                return 'X:' + settingId + '\n' +
+                    'T:' + ($form.find('[name="tune_name"]').val() || '') + '\n' +
+                    'M:' + ($form.find('[name="time_signature"]').val() || '4/4') + '\n' +
+                    'L:' + ($form.find('[name="default_note_length"]').val() || '1/8') + '\n' +
+                    'Q:1/4=' + tempo + '\n' +
+                    'K:' + keyVal + '\n' +
+                    ($form.find('[name="abc_transcription"]').val() || '');
+            }
+        }
+        var $abcEl = $block.find('.setting-abc-data');
+        if ($abcEl.length) {
+            try { return JSON.parse($abcEl[0].textContent); } catch(e) {}
+        }
+        return null;
+    }
+
+    function initMidiPlayer($block) {
+        var settingId = $block.data('setting-id');
+        var playerId = 'midi-player-' + settingId;
+        var $player = $('#' + playerId);
+        if (!$player.length) return;
+
+        // Always create a fresh controller — the DOM element is new after AJAX reload
+        if (synthControllers[settingId]) {
+            delete synthControllers[settingId];
+            $player.empty();
+        }
+
+        var synthControl = new ABCJS.synth.SynthController();
+        synthControl.load('#' + playerId, null, {
+            displayPlay: true,
+            displayProgress: true,
+            displayWarp: true
+        });
+        synthControllers[settingId] = synthControl;
+        loadMidiPlayer($block);
+    }
+
+    function loadMidiPlayer($block) {
+        var settingId = $block.data('setting-id');
+        var synthControl = synthControllers[settingId];
+        if (!synthControl) return;
+
+        var abcString = getAbcForBlock($block);
+        if (!abcString) return;
+
+        var visualObj = ABCJS.renderAbc('*', abcString);
+        if (visualObj && visualObj[0]) {
+            synthControl.setTune(visualObj[0], false).then(function () {
+            }).catch(function (err) {
+                console.warn('MIDI load error:', err);
+            });
+        }
+    }
+
+    // Initialize players for all settings on page load
+    window.initAllMidiPlayers = function() {
+        $('.setting-block').each(function () {
+            initMidiPlayer($(this));
+        });
+    };
+
+    // Re-load MIDI when edit form content changes
+    $(document).on('input change', '.edit-setting-form textarea, .edit-setting-form select, .edit-setting-form input', function () {
+        var $block = $(this).closest('.setting-block');
+        if ($block.length) {
+            loadMidiPlayer($block);
+        }
+    });
+
     // ── Save edit ────────────────────────────────────────────────────────────
 
     $(document).on('submit', '.edit-setting-form', function (e) {
@@ -349,11 +458,14 @@ $(document).ready(function() {
             $block.find('.setting-key').text(s.key_signature);
             $block.find('.setting-time').text(s.time_signature);
 
+            var savedTempo = parseInt(s.tempo) || parseInt($block.data('tempo')) || 120;
+            $block.data('tempo', savedTempo);
             var newAbc =
                 'X:' + s.setting_id + '\n' +
                 'T:' + s.tune_name  + '\n' +
                 'M:' + s.time_signature + '\n' +
                 'L:' + s.default_note_length + '\n' +
+                'Q:1/4=' + savedTempo + '\n' +
                 'K:' + s.key_signature + '\n' +
                 s.abc_transcription;
 
@@ -369,6 +481,7 @@ $(document).ready(function() {
             }
 
             $block.find('.setting-edit-area').hide().empty();
+            loadMidiPlayer($block);
         }, 'json');
     });
 

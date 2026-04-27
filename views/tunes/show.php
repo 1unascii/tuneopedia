@@ -93,11 +93,13 @@
         <?php foreach ($settings as $i => $s):
             $isPrimary = ($i === 0);
 
+            $tempo = !empty($s['tempo']) ? (int)$s['tempo'] : 120;
             $abcStr =
                 "X:" . intval($s['setting_id']) . "\n" .
                 "T:" . $tuneName . "\n" .
                 "M:" . $s['time_signature'] . "\n" .
                 "L:" . ($s['default_note_length'] ?? '1/8') . "\n" .
+                "Q:1/4=" . $tempo . "\n" .
                 "K:" . $s['key_signature'] . "\n" .
                 $s['abc_transcription'];
 
@@ -105,7 +107,8 @@
         ?>
         <div class="setting-block<?= $isPrimary ? ' primary-setting' : '' ?>"
              data-setting-id="<?= (int)$s['setting_id'] ?>"
-             data-vote-score="<?= (int)$s['vote_score'] ?>">
+             data-vote-score="<?= (int)$s['vote_score'] ?>"
+             data-tempo="<?= (int)($s['tempo'] ?? 120) ?>">
 
             <script class="setting-abc-data"
                     data-setting-id="<?= (int)$s['setting_id'] ?>"
@@ -140,6 +143,8 @@
                         title="Edit this setting">Edit</button>
                 <?php endif; ?>
             </div>
+
+            <div class="setting-midi-player" id="midi-player-<?= (int)$s['setting_id'] ?>"></div>
 
             <div class="setting-edit-area" style="display:none"></div>
 
@@ -235,5 +240,6 @@ $(function() {
     }
 
     renderAllSettings();
+    if (typeof initAllMidiPlayers === 'function') initAllMidiPlayers();
 });
 </script>
