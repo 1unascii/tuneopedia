@@ -16814,6 +16814,7 @@ var pluginTab = {
     name: 'StringTab',
     defaultTuning: ['D', 'G', 'B', 'd', 'g'],
     strOrder: [4, 0, 1, 2, 3],
+    droneOpen: true,
     isTabBig: true,
     tabSymbolOffset: -.95
   }
@@ -17101,10 +17102,13 @@ function toNumber(self, note) {
     if (note.pitch + note.pitchAltered >= self.stringPitches[i]) {
       var num = note.pitch + note.pitchAltered - self.stringPitches[i];
       if (note.quarter === '^') num -= 0.5;else if (note.quarter === "v") num += 0.5;
+      // Drone string (highest pitch): only allow open (fret 0)
+      if (self.droneOpen && i === self.stringPitches.length - 1 && Math.round(num) > 0) {
+        continue;
+      }
       return {
         num: Math.round(num),
         str: self.stringPitches.length - 1 - i,
-        // reverse the strings because string 0 is on the bottom
         note: note
       };
     }
@@ -17238,6 +17242,7 @@ function StringPatterns(plugin) {
   }
   this.transpose = plugin.transpose ? plugin.transpose : 0;
   this.strOrder = plugin.strOrder || null;
+  this.droneOpen = plugin.droneOpen || false;
   this.tuning = tuning;
   this.stringPitches = [];
   for (var i = 0; i < this.tuning.length; i++) {
@@ -17632,6 +17637,7 @@ Plugin.prototype.init = function (abcTune, tuneNumber, params, tabSettings) {
   }
   this.tuning = tuning;
   this.strOrder = params.strOrder || tabSettings.strOrder || null;
+  this.droneOpen = params.droneOpen || tabSettings.droneOpen || false;
   this.semantics = new StringPatterns(this);
 };
 Plugin.prototype.setError = function (error) {

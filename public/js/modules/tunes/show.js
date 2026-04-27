@@ -143,6 +143,11 @@ $(document).ready(function() {
             return;
         }
 
+        // For banjo, move the first string (drone) to the end
+        if (instrument === 'banjo') {
+            tuning.push(tuning.shift());
+        }
+
         window.tablaturePresets['custom'] = {
             instrument: instrument,
             tuning: tuning,
@@ -153,12 +158,15 @@ $(document).ready(function() {
         var $page = $('#tune-page');
         if (!$page.length) return;
         var params = getTablatureParams();
+        params.add_classes = true;
 
         $page.find('.setting-block').each(function() {
             var $block = $(this);
             var $editArea = $block.find('.setting-edit-area');
             if ($editArea.children().length && $editArea.css('display') !== 'none') {
                 renderFromForm($block);
+                var editVis = $block.data('visualObj');
+                if (editVis) setMidiTune($block, editVis, true);
             } else {
                 var $abcEl = $block.find('.setting-abc-data');
                 if ($abcEl.length) {
@@ -168,7 +176,11 @@ $(document).ready(function() {
                     var $notDiv = $block.find('.setting-notation');
                     if ($block.hasClass('primary-setting') || $notDiv.length) {
                         try {
-                            ABCJS.renderAbc(targetId, JSON.parse($abcEl[0].textContent), params);
+                            var vis = ABCJS.renderAbc(targetId, JSON.parse($abcEl[0].textContent), params);
+                            if (vis && vis[0]) {
+                                $block.data('visualObj', vis[0]);
+                                setMidiTune($block, vis[0], true);
+                            }
                         } catch(e) {}
                     }
                 }
