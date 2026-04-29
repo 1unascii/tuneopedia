@@ -203,6 +203,7 @@
         ensureAuth().then(function() {
             deleteTestTunesQuiet(function() {
                 deleteTestUsersQuiet(0, function() {
+                    currentLoggedInUser = null;
                     log('');
                     log('══════════════════════════════════════════════════════════');
                     log('  CREATING TEST DATA');
