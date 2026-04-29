@@ -285,7 +285,7 @@ $(document).ready(function() {
 
         $editArea.html('<p class="edit-loading">Loading...</p>').show();
 
-        $.get(base + '/api/edit-setting', { setting_id: settingId }, function (html) {
+        $.get(base + '/fragment/settings/' + settingId + '/edit', function (html) {
             $editArea.html(html);
             renderFromForm($block);
             $editArea.on('input change keyup', 'input, select, textarea', function () {
@@ -526,13 +526,13 @@ $(document).ready(function() {
 
     // ── Save edit ────────────────────────────────────────────────────────────
 
-    $(document).on('submit', '.edit-setting-form', function (e) {
+    $(document).on('submit', '.edit-setting-form[data-setting-id]', function (e) {
         e.preventDefault();
         var $form     = $(this);
         var settingId = $form.data('setting-id');
         var $block    = $form.closest('.setting-block');
 
-        $.post(base + '/api/edit-setting', $form.serialize(), function (data) {
+        $.post(base + '/api/settings/' + settingId, $form.serialize() + '&_method=PUT', function (data) {
             if (data.error) {
                 $form.find('.edit-error').text(data.error);
                 return;
@@ -592,7 +592,7 @@ $(document).ready(function() {
 
         $area.html('<p class="edit-loading">Loading...</p>').show();
 
-        $.get(base + '/api/add-setting-form', { tune_id: tuneId }, function (html) {
+        $.get(base + '/fragment/tunes/' + tuneId + '/add-setting', function (html) {
             $area.html(html);
             // Init knob dials
             $area.find('.playback-dial').knob({
@@ -636,14 +636,13 @@ $(document).ready(function() {
         var tuneId = $form.data('tune-id');
 
         var postData = {
-            tune_id:  tuneId,
             metre:    $form.find('[name="metre"]').val(),
             tune_key: $form.find('[name="tune_key"]').val(),
             tune_body: $form.find('[name="tune_body"]').val(),
             tempo:    $form.find('#playback-tempo').val()
         };
 
-        $.post(base + '/api/add-setting', postData, function (data) {
+        $.post(base + '/api/tunes/' + tuneId + '/settings', postData, function (data) {
             if (data.error) {
                 $form.find('.edit-error').text(data.error);
                 return;
@@ -671,8 +670,7 @@ $(document).ready(function() {
             return;
         }
 
-        $.post(base + '/api/vote-setting', {
-            setting_id: settingId,
+        $.post(base + '/api/settings/' + settingId + '/vote', {
             vote_value: voteValue
         }, function (data) {
             if (data.error) return;

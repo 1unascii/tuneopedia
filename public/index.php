@@ -24,6 +24,7 @@ require_once(BASE_PATH . '/controllers/CollectionController.php');
 require_once(BASE_PATH . '/controllers/SettingController.php');
 require_once(BASE_PATH . '/controllers/AuthController.php');
 require_once(BASE_PATH . '/controllers/DiscussionController.php');
+require_once(BASE_PATH . '/controllers/TestController.php');
 
 // ── Compute the base path and current route ─────────────────────────────────
 // $base is the app's root URL path (e.g. "/tuneopedia")
@@ -37,44 +38,65 @@ $route = trim(
 );
 
 // ══════════════════════════════════════════════════════════════════════════════
-// 1. API ROUTES — Called via $.post() / $.get() from JavaScript
+// 1. API ROUTES — RESTful endpoints called from JavaScript
 //    Return JSON or plain text. No HTML layout.
+//    Format: [HTTP_METHOD, url_pattern, ControllerClass, method]
+//    URL params captured by regex groups are passed as method arguments.
 // ══════════════════════════════════════════════════════════════════════════════
 $apiRoutes = [
-    'auth'           => ['AuthController',       'login'],
-    'add-tune'       => ['TuneController',       'create'],
-    'add-setting'    => ['TuneController',       'addSetting'],
-    'remove-tune'    => ['TuneController',       'delete'],
-    'get-tune-body'  => ['TuneController',       'getBody'],
-    'favorite-tune'   => ['TuneController',       'toggleFavorite'],
-    'remove-favorite' => ['TuneController',       'removeFavorite'],
-    'edit-setting'   => ['SettingController',     'edit'],
-    'add-setting-form' => ['SettingController',   'addForm'],
-    'vote-setting'   => ['SettingController',     'vote'],
-    'register'       => ['AuthController',        'register'],
-    'test-cleanup'   => ['TestController',         'cleanup'],
-    'test-reset-ids' => ['TestController',         'resetIds'],
-    'add-collection'            => ['CollectionController',  'create'],
-    'create-collection-from-favorites' => ['CollectionController',  'createFromFavorites'],
-    'add-to-existing-collection'       => ['CollectionController',  'addToExisting'],
-    'create-thread'  => ['DiscussionController',  'createThread'],
-    'create-post'    => ['DiscussionController',  'createPost'],
-    'delete-thread'  => ['DiscussionController',  'deleteThread'],
-    'delete-post'    => ['DiscussionController',  'deletePost'],
+    // Auth
+    ['POST',   'auth/login',                'AuthController',       'login'],
+    ['POST',   'auth/logout',               'AuthController',       'logout'],
+    ['POST',   'users',                     'AuthController',       'register'],
+
+    // Tunes
+    ['POST',   'tunes',                     'TuneController',       'create'],
+    ['DELETE', 'tunes/(\d+)',               'TuneController',       'delete'],
+    ['POST',   'tunes/(\d+)/favorite',      'TuneController',       'toggleFavorite'],
+    ['DELETE', 'tunes/(\d+)/favorite',      'TuneController',       'removeFavorite'],
+    ['POST',   'tunes/(\d+)/settings',      'TuneController',       'addSetting'],
+
+    // Settings
+    ['GET',    'settings/(\d+)',            'TuneController',       'getBody'],
+    ['PUT',    'settings/(\d+)',            'SettingController',     'update'],
+    ['POST',   'settings/(\d+)/vote',       'SettingController',     'vote'],
+
+    // Collections
+    ['POST',   'collections',               'CollectionController',  'create'],
+    ['POST',   'collections/from-favorites','CollectionController',  'createFromFavorites'],
+    ['POST',   'collections/(\d+)/tunes',   'CollectionController',  'addToExisting'],
+
+    // Threads / Posts
+    ['POST',   'threads',                   'DiscussionController',  'createThread'],
+    ['DELETE', 'threads/(\d+)',             'DiscussionController',  'deleteThread'],
+    ['POST',   'threads/(\d+)/posts',       'DiscussionController',  'createPost'],
+    ['DELETE', 'posts/(\d+)',               'DiscussionController',  'deletePost'],
+
+    // Test
+    ['POST',   'test/cleanup',              'TestController',        'cleanup'],
+    ['POST',   'test/reset-ids',            'TestController',        'resetIds'],
 ];
 
-// Special case: logout uses GET with a query parameter
-if ($route === 'api/auth' && isset($_GET['logout'])) {
-    (new AuthController)->logout();
-    exit;
-}
+if (preg_match('#^api/(.+)$#', $route, $apiMatch)) {
+    $apiPath = $apiMatch[1];
+    $httpMethod = $_SERVER['REQUEST_METHOD'];
 
-// Match api/* routes — if the endpoint exists, call it; otherwise return 404 JSON
-if (preg_match('#^api/(.+)$#', $route, $m)) {
-    if (isset($apiRoutes[$m[1]])) {
-        [$class, $method] = $apiRoutes[$m[1]];
-        (new $class)->$method();
-    } else {
+    // Support PUT/DELETE from jQuery via _method override
+    if ($httpMethod === 'POST' && !empty($_POST['_method'])) {
+        $httpMethod = strtoupper($_POST['_method']);
+    }
+
+    $matched = false;
+    foreach ($apiRoutes as [$routeMethod, $pattern, $class, $action]) {
+        if ($httpMethod === $routeMethod && preg_match('#^' . $pattern . '$#', $apiPath, $params)) {
+            array_shift($params);
+            (new $class)->$action(...$params);
+            $matched = true;
+            break;
+        }
+    }
+
+    if (!$matched) {
         http_response_code(404);
         echo json_encode(['error' => 'Endpoint not found']);
     }
@@ -99,6 +121,18 @@ if (preg_match('#^fragment/(.+)$#', $route, $m)) {
     // Sub-route for ABC editor mode options (major, minor, dorian, mixolydian)
     if (preg_match('#^mode-options/(major|minor|dorian|mixolydian)$#', $fragKey, $mm)) {
         include BASE_PATH . '/views/mode_options/' . $mm[1] . '.php';
+        exit;
+    }
+
+    // Dynamic fragment routes for settings
+    if (preg_match('#^settings/(\d+)/edit$#', $fragKey, $fm)) {
+        $_GET['setting_id'] = (int)$fm[1];
+        (new SettingController)->edit();
+        exit;
+    }
+    if (preg_match('#^tunes/(\d+)/add-setting$#', $fragKey, $fm)) {
+        $_GET['tune_id'] = (int)$fm[1];
+        (new SettingController)->addForm();
         exit;
     }
 

@@ -6,30 +6,33 @@ $(document).ready(function() {
         var $row   = $(this).closest('tr');
         var tuneId = $row.attr('id');
 
-        $.post('api/remove-favorite', { tune_id: tuneId })
-        .done(function() {
-            delete selectedTunes[tuneId];
-            updateSelectionBar();
-            if ($('#save-collection-form').is(':visible')) {
-                $('#fav-abc-text').val(buildAbcFromSelection());
+        $.ajax({
+            url: 'api/tunes/' + tuneId + '/favorite',
+            method: 'DELETE',
+            success: function() {
+                delete selectedTunes[tuneId];
+                updateSelectionBar();
+                if ($('#save-collection-form').is(':visible')) {
+                    $('#fav-abc-text').val(buildAbcFromSelection());
+                }
+                $row.fadeOut(300, function () {
+                    $(this).remove();
+                });
+                $('<div class="alert-box">Removed from favorites.</div>')
+                    .appendTo('#pop_up')
+                    .delay(600)
+                    .fadeOut(150, function () {
+                        $(this).remove();
+                    });
+            },
+            error: function(xhr) {
+                $('<div class="alert-box">' + (xhr.responseText || 'Could not remove favorite.') + '</div>')
+                    .appendTo('#pop_up')
+                    .delay(1500)
+                    .fadeOut(300, function () {
+                        $(this).remove();
+                    });
             }
-            $row.fadeOut(300, function () {
-                $(this).remove();
-            });
-            $('<div class="alert-box">Removed from favorites.</div>')
-                .appendTo('#pop_up')
-                .delay(600)
-                .fadeOut(150, function () {
-                    $(this).remove();
-                });
-        })
-        .fail(function(xhr) {
-            $('<div class="alert-box">' + (xhr.responseText || 'Could not remove favorite.') + '</div>')
-                .appendTo('#pop_up')
-                .delay(1500)
-                .fadeOut(300, function () {
-                    $(this).remove();
-                });
         });
     });
 
@@ -136,10 +139,10 @@ $(document).ready(function() {
 
         if (mode === 'new') {
             formData = $form.serialize() + '&tune_ids=' + encodeURIComponent(JSON.stringify(tuneIds)) + '&remove_from_favorites=' + removeFromFavorites;
-            apiUrl = 'api/create-collection-from-favorites';
+            apiUrl = 'api/collections/from-favorites';
         } else {
-            formData = 'collection_id=' + mode + '&tune_ids=' + encodeURIComponent(JSON.stringify(tuneIds)) + '&remove_from_favorites=' + removeFromFavorites;
-            apiUrl = 'api/add-to-existing-collection';
+            formData = 'tune_ids=' + encodeURIComponent(JSON.stringify(tuneIds)) + '&remove_from_favorites=' + removeFromFavorites;
+            apiUrl = 'api/collections/' + mode + '/tunes';
         }
 
         $.post(apiUrl, formData, function (response) {

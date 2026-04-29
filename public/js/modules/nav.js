@@ -184,9 +184,9 @@ $(document).ready(function () {
     // Logout is special — it hits the API, shows an alert, then does a full
     // page reload (not an AJAX content swap) to clear the session state
     $('#logout_link').on('click', function () {
-        $.get(
-            'api/auth',
-            { logout: true },
+        $.post(
+            'api/auth/logout',
+            {},
             function (data) {
                 $('<div class="alert-box">' + data + '</div>')
                     .appendTo('#pop_up')

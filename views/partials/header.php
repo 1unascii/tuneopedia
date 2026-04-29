@@ -25,15 +25,15 @@
 <script type="text/javascript" src="<?= $assetBase ?>js/lib/jquery.dataTables.js"></script>
 <script type="text/javascript" src="<?= $assetBase ?>js/lib/jquery-turtle.min.js"></script>
 <script type="text/javascript" src="<?= $assetBase ?>js/lib/jquery.knob.min.js"></script>
-<script type="text/javascript" src="<?= $assetBase ?>js/modules/users/auth_user.js?v=1"></script>
-<script type="text/javascript" src="<?= $assetBase ?>js/modules/abc-editor.js?v=14"></script>
-<script type="text/javascript" src="<?= $assetBase ?>js/modules/tunes/index.js?v=10"></script>
-<script type="text/javascript" src="<?= $assetBase ?>js/modules/tunes/show.js?v=35"></script>
-<script type="text/javascript" src="<?= $assetBase ?>js/modules/favorites/index.js?v=5"></script>
-<script type="text/javascript" src="<?= $assetBase ?>js/modules/collections/index.js?v=3"></script>
+<script type="text/javascript" src="<?= $assetBase ?>js/modules/users/auth_user.js?v=3"></script>
+<script type="text/javascript" src="<?= $assetBase ?>js/modules/abc-editor.js?v=17"></script>
+<script type="text/javascript" src="<?= $assetBase ?>js/modules/tunes/index.js?v=11"></script>
+<script type="text/javascript" src="<?= $assetBase ?>js/modules/tunes/show.js?v=37"></script>
+<script type="text/javascript" src="<?= $assetBase ?>js/modules/favorites/index.js?v=6"></script>
+<script type="text/javascript" src="<?= $assetBase ?>js/modules/collections/index.js?v=4"></script>
 <link href="<?= $assetBase ?>css/discussion.css?v=4" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="<?= $assetBase ?>js/modules/discussions/index.js?v=6"></script>
-<script type="text/javascript" src="<?= $assetBase ?>js/modules/discussions/show.js?v=3"></script>
+<script type="text/javascript" src="<?= $assetBase ?>js/modules/discussions/index.js?v=7"></script>
+<script type="text/javascript" src="<?= $assetBase ?>js/modules/discussions/show.js?v=4"></script>
 <script src="https://kit.fontawesome.com/5c647e36cb.js" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

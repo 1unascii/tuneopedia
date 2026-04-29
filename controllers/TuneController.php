@@ -87,7 +87,7 @@ class TuneController {
         echo 'Thank you. Your tune was submitted';
     }
 
-    public function addSetting() {
+    public function addSetting($tuneId = null) {
         session_start();
         if (!isset($_SESSION['user_id'])) {
             http_response_code(401);
@@ -96,7 +96,7 @@ class TuneController {
         }
 
         $pdo = connect();
-        $tuneId  = (int) ($_POST['tune_id'] ?? 0);
+        $tuneId  = (int) ($tuneId ?: ($_POST['tune_id'] ?? 0));
         $metre   = trim($_POST['metre'] ?? '4/4');
         $tuneKey = trim($_POST['tune_key'] ?? '');
         $body    = trim($_POST['tune_body'] ?? '');
@@ -123,13 +123,13 @@ class TuneController {
         echo json_encode(['setting_id' => $settingId, 'tune_id' => $tuneId]);
     }
 
-    public function delete() {
+    public function delete($tuneId = null) {
         session_start();
         if (!array_key_exists('Authenticated', $_SESSION) || empty($_SESSION['Authenticated']) || !isset($_SESSION['user_id'])) {
             die("Unauthorized");
         }
 
-        $tune_id = (int) $_POST['tune_id'];
+        $tune_id = (int) ($tuneId ?: ($_POST['tune_id'] ?? 0));
         $user_id = (int) $_SESSION['user_id'];
 
         $pdo = connect();
@@ -144,16 +144,16 @@ class TuneController {
         }
     }
 
-    public function getBody() {
+    public function getBody($settingId = null) {
         session_start();
-        if (!isset($_POST['setting_id'])) {
+        $settingId = (int) ($settingId ?: ($_POST['setting_id'] ?? $_GET['setting_id'] ?? 0));
+        if (!$settingId) {
             http_response_code(400);
             echo json_encode(['error' => 'Missing setting_id']);
             return;
         }
 
-        $pdo       = connect();
-        $settingId = intval($_POST['setting_id']);
+        $pdo = connect();
         $setting   = Setting::findById($pdo, $settingId);
 
         if ($setting) {
@@ -164,7 +164,7 @@ class TuneController {
         }
     }
 
-    public function removeFavorite() {
+    public function removeFavorite($tuneId = null) {
         session_start();
         header('Content-Type: text/plain; charset=utf-8');
 
@@ -174,7 +174,7 @@ class TuneController {
             return;
         }
 
-        $tuneId = (int) $_POST['tune_id'];
+        $tuneId = (int) ($tuneId ?: ($_POST['tune_id'] ?? 0));
         $userId = (int) $_SESSION['user_id'];
 
         $pdo = connect();
@@ -192,7 +192,7 @@ class TuneController {
         }
     }
 
-    public function toggleFavorite() {
+    public function toggleFavorite($tuneId = null) {
         session_start();
         header('Content-Type: text/plain; charset=utf-8');
 
@@ -202,7 +202,7 @@ class TuneController {
             return;
         }
 
-        $tune_id = (int) $_POST['tune_id'];
+        $tune_id = (int) ($tuneId ?: ($_POST['tune_id'] ?? 0));
         $user_id = (int) $_SESSION['user_id'];
 
         $db = connect();

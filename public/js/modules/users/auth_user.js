@@ -3,7 +3,7 @@
 
 $(document).on('click', '#login_btn', function () {
     $.post(
-        'api/auth',
+        'api/auth/login',
         {
             user_name: $('#user_name').val(),
             password:  $('#password').val(),
@@ -15,7 +15,9 @@ $(document).on('click', '#login_btn', function () {
                 .delay(1500)
                 .fadeOut(300, function () {
                     $(this).remove();
-                    window.location.href = '.';
+                    if (data === 'Login successful!') {
+                        window.location.href = '.';
+                    }
                 });
         }
     );

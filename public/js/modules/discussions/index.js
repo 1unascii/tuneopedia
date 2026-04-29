@@ -26,7 +26,7 @@ $(function () {
             return;
         }
 
-        $.post(apiBase + 'api/create-thread', { title: title, body: body }, function (response) {
+        $.post(apiBase + 'api/threads', { title: title, body: body }, function (response) {
             var result = (typeof response === 'string') ? JSON.parse(response) : response;
             if (result.success) {
                 $('#discussion-container').load(apiBase + 'page/discussions #discussion-container > *');

@@ -58,7 +58,7 @@ class DiscussionController {
         echo json_encode(['success' => true, 'thread_id' => $threadId]);
     }
 
-    public function createPost() {
+    public function createPost($threadId = null) {
         if (session_status() === PHP_SESSION_NONE) session_start();
         header('Content-Type: application/json; charset=utf-8');
 
@@ -68,7 +68,7 @@ class DiscussionController {
             return;
         }
 
-        $threadId = intval($_POST['thread_id'] ?? 0);
+        $threadId = (int) ($threadId ?: ($_POST['thread_id'] ?? 0));
         $body     = trim($_POST['body'] ?? '');
 
         if (!$threadId || $body === '') {
@@ -91,7 +91,7 @@ class DiscussionController {
         echo json_encode(['success' => true, 'post_id' => $postId]);
     }
 
-    public function deleteThread() {
+    public function deleteThread($threadId = null) {
         if (session_status() === PHP_SESSION_NONE) session_start();
         header('Content-Type: application/json; charset=utf-8');
 
@@ -101,7 +101,7 @@ class DiscussionController {
             return;
         }
 
-        $threadId = intval($_POST['thread_id'] ?? 0);
+        $threadId = (int) ($threadId ?: ($_POST['thread_id'] ?? 0));
         $userId   = (int) $_SESSION['user_id'];
         $pdo      = connect();
 
@@ -113,7 +113,7 @@ class DiscussionController {
         }
     }
 
-    public function deletePost() {
+    public function deletePost($postId = null) {
         if (session_status() === PHP_SESSION_NONE) session_start();
         header('Content-Type: application/json; charset=utf-8');
 
@@ -123,7 +123,7 @@ class DiscussionController {
             return;
         }
 
-        $postId = intval($_POST['post_id'] ?? 0);
+        $postId = (int) ($postId ?: ($_POST['post_id'] ?? 0));
         $userId = (int) $_SESSION['user_id'];
         $pdo    = connect();
 

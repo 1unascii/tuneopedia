@@ -233,9 +233,13 @@ $(document).ready(function(){
 
     // ── Save ──────────────────────────────────────────────────────────────────
 
-    $('#save').on('click', function(){
+    } // end if (hasStaticForm)
+
+    // ── Save (delegated so it works for dynamically loaded forms) ─────────────
+
+    $(document).on('click', '#save', function(){
         var tune_body = $('#abc').val().replace(/\n/g, '<br />');
-        $.post("api/add-tune", {
+        $.post("api/tunes", {
             "tune_title":    $("#tune_title").val(),
             "tune_type":     $("#tune_type").val(),
             "composer":      $("#composer").val(),
@@ -244,14 +248,17 @@ $(document).ready(function(){
             "tune_key":      $('#key').val(),
             "tune_body":     tune_body
         }, function(data){
-            alert(data);
-            if(data == "Thank you. Your tune was submitted"){
-                location.reload();
-            }
+            $('<div class="alert-box">' + data + '</div>')
+                .appendTo('#pop_up')
+                .delay(1500)
+                .fadeOut(300, function () {
+                    $(this).remove();
+                    if (data === 'Thank you. Your tune was submitted') {
+                        location.reload();
+                    }
+                });
         });
     });
-
-    } // end if (hasStaticForm)
 
     // ── Play Selection (works on both add-tune and edit forms) ───────────────
 

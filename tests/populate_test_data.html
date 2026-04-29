@@ -44,13 +44,17 @@
         return $.ajax({ url: BASE + url, method: 'GET', xhrFields: { withCredentials: true } });
     }
 
+    function del(url) {
+        return $.ajax({ url: BASE + url, method: 'DELETE', xhrFields: { withCredentials: true } });
+    }
+
     // Login as a specific user (sets session cookie)
     var currentLoggedInUser = null;
     function loginAs(user) {
         if (currentLoggedInUser === user.user_name) {
             return $.Deferred().resolve('Already logged in').promise();
         }
-        return post('api/auth', { user_name: user.user_name, password: user.password, login: true })
+        return post('api/auth/login', { user_name: user.user_name, password: user.password, login: true })
             .done(function() { currentLoggedInUser = user.user_name; });
     }
 
@@ -240,7 +244,7 @@
             function next(i) {
                 if (i >= ids.length) { log('  Done (' + deleted + ' deleted)', 'info'); callback(); return; }
                 ensureAuth().then(function() {
-                    post('api/remove-tune', { tune_id: ids[i] })
+                    del('api/tunes/' + ids[i])
                     .done(function() { deleted++; next(i + 1); })
                     .fail(function() { next(i + 1); });
                 });
@@ -251,7 +255,7 @@
 
     function deleteTestUsersQuiet(i, callback) {
         if (i >= users.length) { callback(); return; }
-        post('api/test-cleanup', { user_name: users[i].user_name })
+        post('api/test/cleanup', { user_name: users[i].user_name })
         .always(function() { deleteTestUsersQuiet(i + 1, callback); });
     }
 
@@ -259,7 +263,7 @@
         if (i >= users.length) { log(''); loginAndCreateTunes(0); return; }
         var u = users[i];
         log('Registering ' + u.first_name + ' (' + u.user_name + ')...', 'running');
-        post('api/register', $.extend({}, u, { register: true }))
+        post('api/users', $.extend({}, u, { register: true }))
         .done(function(d) { log('  ' + d.trim(), 'pass'); registerUsers(i + 1); })
         .fail(function() { log('  Failed', 'fail'); registerUsers(i + 1); });
     }
@@ -270,7 +274,7 @@
         var userIdx = t.userIdx || 0;
         loginAs(users[userIdx]).done(function() {
             log('Adding tune: ' + t.tune_title + ' (' + t.tune_type + ', ' + t.tune_key + ') by ' + users[userIdx].first_name, 'running');
-            post('api/add-tune', t)
+            post('api/tunes', t)
             .done(function(d) { log('  ' + d.trim(), 'pass'); loginAndCreateTunes(i + 1); })
             .fail(function() { log('  Failed', 'fail'); loginAndCreateTunes(i + 1); });
         });
@@ -309,8 +313,7 @@
 
         loginAs(users[alt.userIdx]).done(function() {
             log('Adding alt setting for "' + alt.tuneTitle + '" in ' + alt.tune_key + ' by ' + users[alt.userIdx].first_name, 'running');
-            post('api/add-setting', {
-                tune_id: tuneIds[tuneIdx],
+            post('api/tunes/' + tuneIds[tuneIdx] + '/settings', {
                 metre: alt.metre,
                 tune_key: alt.tune_key,
                 tempo: alt.tempo,
@@ -329,7 +332,7 @@
         loginAs(users[userIdx]).done(function() {
             var tuneId = tuneIds[tidx];
             if (tuneIdx === 0) log(users[userIdx].first_name + ' favoriting tunes...', 'running');
-            post('api/favorite-tune', { tune_id: tuneId })
+            post('api/tunes/' + tuneId + '/favorite', {})
             .done(function() {
                 if (tuneIdx === favorites[userIdx].length - 1) log('  Added ' + favorites[userIdx].length + ' favorites', 'pass');
                 addFavorites(userIdx, tuneIdx + 1);
@@ -344,7 +347,7 @@
         loginAs(users[c.userIdx]).done(function() {
             var cTuneIds = c.tuneIdxs.map(function(idx) { return tuneIds[idx]; }).filter(function(id) { return !!id; });
             log('Creating collection: ' + c.name + ' (' + cTuneIds.length + ' tunes)', 'running');
-            post('api/create-collection-from-favorites', {
+            post('api/collections/from-favorites', {
                 collection_name: c.name, author: c.author, description: c.description,
                 is_shared: c.is_shared, tune_ids: JSON.stringify(cTuneIds), remove_from_favorites: '0'
             })
@@ -374,7 +377,7 @@
         var threadUserIdx = threads[i].userIdx !== undefined ? threads[i].userIdx : i;
         loginAs(users[threadUserIdx]).done(function() {
             log('Creating thread: "' + threads[i].title + '" by ' + users[threadUserIdx].first_name, 'running');
-            post('api/create-thread', { title: threads[i].title, body: threads[i].body })
+            post('api/threads', { title: threads[i].title, body: threads[i].body })
             .done(function(r) {
                 var result = (typeof r === 'string') ? JSON.parse(r) : r;
                 threadIds.push(result.thread_id);
@@ -396,7 +399,7 @@
         }
         loginAs(users[r.userIdx]).done(function(loginData) {
             log(users[r.userIdx].first_name + ' replies to "' + threads[r.threadIdx].title.substring(0, 30) + '..." (thread_id=' + threadId + ')', 'running');
-            post('api/create-post', { thread_id: threadId, body: r.body })
+            post('api/threads/' + threadId + '/posts', { body: r.body })
             .done(function() { log('  Posted', 'pass'); createReplies(i + 1); })
             .fail(function(xhr) {
                 var err = '';
@@ -418,7 +421,7 @@
             if (!sid) { castVotes(i + 1); return; }
             var dir = v[2] > 0 ? 'upvotes' : 'downvotes';
             log(users[v[0]].first_name + ' ' + dir + ' "' + tunes[v[1]].tune_title + '"', 'running');
-            post('api/vote-setting', { setting_id: sid, vote_value: v[2] })
+            post('api/settings/' + sid + '/vote', { vote_value: v[2] })
             .done(function() { log('  Voted', 'pass'); castVotes(i + 1); })
             .fail(function() { log('  Failed', 'fail'); castVotes(i + 1); });
         });
@@ -465,7 +468,7 @@
     function ensureAuth() {
         return loginAs(users[0]).then(null, function() {
             // User doesn't exist — register a temp one
-            return post('api/register', $.extend({}, users[0], { register: true }))
+            return post('api/users', $.extend({}, users[0], { register: true }))
                 .then(function() { return loginAs(users[0]); });
         });
     }
@@ -528,7 +531,7 @@
         }
         // Re-auth before each delete to prevent session expiry
         ensureAuth().then(function() {
-            post('api/remove-tune', { tune_id: ids[i] })
+            del('api/tunes/' + ids[i])
             .always(function() { deleteTestTune(ids, i + 1); });
         });
     }
@@ -542,7 +545,7 @@
         }
         var u = users[i];
         log('Deleting user ' + u.first_name + '...', 'running');
-        post('api/test-cleanup', { user_name: u.user_name })
+        post('api/test/cleanup', { user_name: u.user_name })
         .done(function(d) { log('  ' + d.trim(), 'pass'); deleteTestUsers(i + 1); })
         .fail(function() { log('  Not found (already deleted)', 'info'); deleteTestUsers(i + 1); });
     }
@@ -588,7 +591,7 @@
 
     function finishDelete() {
         log('Resetting auto-increment counters...', 'running');
-        post('api/test-reset-ids', {})
+        post('api/test/reset-ids', {})
         .done(function(d) {
             log('  ' + d.trim(), 'pass');
         })

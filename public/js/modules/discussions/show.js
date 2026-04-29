@@ -30,7 +30,7 @@ $(function () {
             return;
         }
 
-        $.post(apiBase + 'api/create-post', { thread_id: threadId, body: body }, function (response) {
+        $.post(apiBase + 'api/threads/' + threadId + '/posts', { body: body }, function (response) {
             var result = (typeof response === 'string') ? JSON.parse(response) : response;
             if (result.success) {
                 reloadThread(threadId);
@@ -53,19 +53,24 @@ $(function () {
 
         var threadId = $('#thread-detail').data('thread-id');
 
-        $.post(apiBase + 'api/delete-thread', { thread_id: threadId }, function (response) {
-            var result = (typeof response === 'string') ? JSON.parse(response) : response;
-            if (result.success) {
-                // Go back to the thread list by reloading discussions
-                var $container = $('#discussion-container');
-                $container.removeData('threadListState');
-                $container.load(apiBase + 'page/discussions #discussion-container > *');
-            } else {
-                alert(result.error || 'Could not delete thread.');
+        $.ajax({
+            url: apiBase + 'api/threads/' + threadId,
+            method: 'DELETE',
+            success: function (response) {
+                var result = (typeof response === 'string') ? JSON.parse(response) : response;
+                if (result.success) {
+                    // Go back to the thread list by reloading discussions
+                    var $container = $('#discussion-container');
+                    $container.removeData('threadListState');
+                    $container.load(apiBase + 'page/discussions #discussion-container > *');
+                } else {
+                    alert(result.error || 'Could not delete thread.');
+                }
+            },
+            error: function (xhr) {
+                var errorResponse = xhr.responseJSON || {};
+                alert(errorResponse.error || 'Could not delete thread.');
             }
-        }).fail(function (xhr) {
-            var errorResponse = xhr.responseJSON || {};
-            alert(errorResponse.error || 'Could not delete thread.');
         });
     });
 
@@ -80,16 +85,21 @@ $(function () {
         var postId   = $(this).closest('.post-card').data('post-id');
         var threadId = $('#thread-detail').data('thread-id');
 
-        $.post(apiBase + 'api/delete-post', { post_id: postId }, function (response) {
-            var result = (typeof response === 'string') ? JSON.parse(response) : response;
-            if (result.success) {
-                reloadThread(threadId);
-            } else {
-                alert(result.error || 'Could not delete post.');
+        $.ajax({
+            url: apiBase + 'api/posts/' + postId,
+            method: 'DELETE',
+            success: function (response) {
+                var result = (typeof response === 'string') ? JSON.parse(response) : response;
+                if (result.success) {
+                    reloadThread(threadId);
+                } else {
+                    alert(result.error || 'Could not delete post.');
+                }
+            },
+            error: function (xhr) {
+                var errorResponse = xhr.responseJSON || {};
+                alert(errorResponse.error || 'Could not delete post.');
             }
-        }).fail(function (xhr) {
-            var errorResponse = xhr.responseJSON || {};
-            alert(errorResponse.error || 'Could not delete post.');
         });
     });
 

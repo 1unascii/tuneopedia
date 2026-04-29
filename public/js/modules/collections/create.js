@@ -39,7 +39,7 @@ $(document).on('submit', '#add-collection-form', function(e) {
         formData.append('abc_files[]', file);
     });
     $.ajax({
-        url: 'api/add-collection',
+        url: 'api/collections',
         method: 'POST',
         data: formData,
         processData: false,

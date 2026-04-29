@@ -82,7 +82,7 @@ $(document).ready(function(){
 	    
         if(error == false && password_err_bool == false && password_strength_err == false){
             $.post(
-                "api/register",
+                "api/users",
                 {
                 "first_name":$("#first_name").val(),
                 "last_name":$("#last_name").val(),

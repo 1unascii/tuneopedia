@@ -27,7 +27,7 @@ $(document).ready(function() {
 
         $('.music_note_icon.active-notation').removeClass('active-notation');
 
-        $.post("api/get-tune-body", { "setting_id": settingId }, function(data) {
+        $.get("api/settings/" + settingId, function(data) {
             if (data) {
                 var tune = jQuery.parseJSON(data);
                 ABCJS.renderAbc("paper",
@@ -51,12 +51,12 @@ $(document).ready(function() {
         var userId  = $toggle.data('user-id');
         var tuneId  = $toggle.closest('tr').attr('id');
         var isFavorited = $icon.hasClass('favorited');
-        var apiUrl = isFavorited ? 'api/remove-favorite' : 'api/favorite-tune';
-        var postData = isFavorited
-            ? { tune_id: tuneId }
-            : { tune_id: tuneId, user_id: userId };
 
-        $.post(apiUrl, postData)
+        var ajaxOptions = isFavorited
+            ? { url: 'api/tunes/' + tuneId + '/favorite', method: 'DELETE' }
+            : { url: 'api/tunes/' + tuneId + '/favorite', method: 'POST', data: { user_id: userId } };
+
+        $.ajax(ajaxOptions)
         .done(function() {
             if (isFavorited) {
                 $icon.removeClass('favorited fa-square-check fa-solid').addClass('fa-regular fa-square');

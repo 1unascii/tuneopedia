@@ -1,5 +1,5 @@
 <link href="css/tune-page.css?v=6" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="js/modules/collections/create.js?v=2"></script>
+<script type="text/javascript" src="js/modules/collections/create.js?v=3"></script>
 
 <div id="form_wrapper">
 

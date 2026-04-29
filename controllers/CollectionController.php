@@ -71,7 +71,7 @@ class CollectionController {
         echo json_encode(['success' => true, 'collection_id' => $collectionId, 'tune_count' => count($tuneIds)]);
     }
 
-    public function addToExisting() {
+    public function addToExisting($collectionId = null) {
         if (session_status() === PHP_SESSION_NONE) session_start();
         header('Content-Type: application/json; charset=utf-8');
 
@@ -81,7 +81,7 @@ class CollectionController {
             return;
         }
 
-        $collectionId = intval($_POST['collection_id'] ?? 0);
+        $collectionId = (int) ($collectionId ?: ($_POST['collection_id'] ?? 0));
         $tuneIds      = json_decode($_POST['tune_ids'] ?? '[]', true);
 
         if (!$collectionId || empty($tuneIds)) {
