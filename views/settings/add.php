@@ -17,8 +17,8 @@
     <div class="edit-field">
         <label>Mode</label>
         <select id="tune_mode_input" class="edit-mode-select">
-            <option id="maj">Major/Ionian</option>
-            <option id="min">Minor/Aeolian (natural minor)</option>
+            <option id="maj">Major</option>
+            <option id="min">Minor</option>
             <option id="dor">Dorian</option>
             <option id="mix">Mixolydian</option>
         </select>
@@ -40,8 +40,6 @@
             <option id="eb">Eb</option>
             <option id="ab">Ab</option>
             <option id="db">Db</option>
-            <option id="gb">Gb</option>
-            <option id="cb">Cb</option>
         </select>
     </div>
 

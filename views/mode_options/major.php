@@ -11,8 +11,6 @@
 <option id="eb" <?php if($_GET['id'] == 'eb'){echo "selected=selected";}?>>Eb</option>
 <option id="ab" <?php if($_GET['id'] == 'ab'){echo "selected=selected";}?>>Ab</option>
 <option id="db" <?php if($_GET['id'] == 'db'){echo "selected=selected";}?>>Db</option>
-<option id="gb" <?php if($_GET['id'] == 'gb'){echo "selected=selected";}?>>Gb</option>
-<option id="cb" <?php if($_GET['id'] == 'cb'){echo "selected=selected";}?>>Cb</option>                
 
 
 

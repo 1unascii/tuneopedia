@@ -75,8 +75,6 @@
             <option id="eb">Eb</option>
             <option id="ab">Ab</option>
             <option id="db">Db</option>
-            <option id="gb">Gb</option>
-            <option id="cb">Cb</option>
         </select>
     </div>
 

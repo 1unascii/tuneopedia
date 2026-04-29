@@ -25,14 +25,14 @@ function editFormParseKey($keySig) {
 // Option text matches what abc_playback.js's sharpKeysArray / flatKeysArray expect.
 function editFormKeyOptions($mode, $selectedDisplay) {
     $keys = [
-        'maj' => ['F','C','G','D','A','E','B','F#','C#','Bb','Eb','Ab','Db','Gb','Cb'],
+        'maj' => ['F','C','G','D','A','E','B','F#','C#','Bb','Eb','Ab','Db'],
         'min' => ['F','C','G','D','A','E','B','F#','C#','Bb','Eb','Ab'],
         'dor' => ['F','C','G','D','A','E','B','F#','C#','Bb','Eb','Ab','Db'],
         'mix' => ['F','C','G','D','A','E','B','F#','C#','Bb','Eb','Ab','Db','Gb'],
     ];
     $suffix = ['maj' => '', 'min' => ' minor', 'dor' => ' dorian', 'mix' => ' Mixolydian'];
     $idMap  = ['F#'=>'fsharp','C#'=>'csharp','Bb'=>'bb','Eb'=>'eb',
-               'Ab'=>'ab','Db'=>'db','Gb'=>'gb','Cb'=>'cb'];
+               'Ab'=>'ab', 'Db'=>'db', 'Gb'=>'gb'];
 
     $html = '';
     foreach ($keys[$mode] as $base) {
