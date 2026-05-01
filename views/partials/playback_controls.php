@@ -3,18 +3,33 @@
     <div class="playback-controls-grid">
 
         <div class="playback-select">
-            <label for="playback-waveform">Waveform</label>
-            <select id="playback-waveform">
-                <option value="sine">Sine</option>
-                <option value="square">Square</option>
-                <option value="sawtooth">Sawtooth</option>
-                <option value="triangle" selected>Triangle</option>
+            <label for="playback-instrument">Instrument</label>
+            <select id="playback-instrument">
+                <option value="0" selected>Piano</option>
+                <option value="24">Nylon Guitar</option>
+                <option value="25">Steel Guitar</option>
+                <option value="105">Banjo</option>
+                <option value="40">Violin</option>
+                <option value="110">Fiddle</option>
+                <option value="41">Viola</option>
+                <option value="42">Cello</option>
+                <option value="22">Harmonica</option>
+                <option value="21">Accordion</option>
+                <option value="73">Flute</option>
+                <option value="72">Piccolo</option>
+                <option value="74">Recorder</option>
+                <option value="78">Whistle</option>
+                <option value="71">Clarinet</option>
+                <option value="109">Bagpipe</option>
+                <option value="46">Harp</option>
+                <option value="15">Dulcimer</option>
+                <option value="79">Ocarina</option>
             </select>
         </div>
 
         <div class="playback-knob">
             <label>Tempo</label>
-            <input type="text" id="playback-tempo" class="playback-dial" value="<?= (int)(!empty($setting['tempo']) ? $setting['tempo'] : 120) ?>"
+            <input type="text" id="playback-tempo" name="tempo" class="playback-dial" value="<?= (int)(!empty($setting['tempo']) ? $setting['tempo'] : 120) ?>"
                    data-min="40" data-max="300" data-step="5"
                    data-width="60" data-height="60"
                    data-fgColor="#59b4d4" data-bgColor="#333"
@@ -28,46 +43,6 @@
                    data-min="0" data-max="100" data-step="1"
                    data-width="60" data-height="60"
                    data-fgColor="#59b4d4" data-bgColor="#333"
-                   data-inputColor="#ddd" data-font="monospace"
-                   data-thickness=".3" />
-        </div>
-
-        <div class="playback-knob">
-            <label>Attack</label>
-            <input type="text" id="playback-attack" class="playback-dial" value="1"
-                   data-min="0" data-max="100" data-step="1"
-                   data-width="60" data-height="60"
-                   data-fgColor="#ffc73d" data-bgColor="#333"
-                   data-inputColor="#ddd" data-font="monospace"
-                   data-thickness=".3" />
-        </div>
-
-        <div class="playback-knob">
-            <label>Decay</label>
-            <input type="text" id="playback-decay" class="playback-dial" value="20"
-                   data-min="0" data-max="100" data-step="1"
-                   data-width="60" data-height="60"
-                   data-fgColor="#ffc73d" data-bgColor="#333"
-                   data-inputColor="#ddd" data-font="monospace"
-                   data-thickness=".3" />
-        </div>
-
-        <div class="playback-knob">
-            <label>Sustain</label>
-            <input type="text" id="playback-sustain" class="playback-dial" value="10"
-                   data-min="0" data-max="100" data-step="1"
-                   data-width="60" data-height="60"
-                   data-fgColor="#ffc73d" data-bgColor="#333"
-                   data-inputColor="#ddd" data-font="monospace"
-                   data-thickness=".3" />
-        </div>
-
-        <div class="playback-knob">
-            <label>Release</label>
-            <input type="text" id="playback-release" class="playback-dial" value="10"
-                   data-min="0" data-max="100" data-step="1"
-                   data-width="60" data-height="60"
-                   data-fgColor="#ffc73d" data-bgColor="#333"
                    data-inputColor="#ddd" data-font="monospace"
                    data-thickness=".3" />
         </div>

@@ -277,7 +277,19 @@ $(document).ready(function(){
     $(document).on('click', '#play', function () {
         if (selection) {
             key = $('#key').val();
-            $('#abc').play(getPlaybackOptions(), applyKeyToSelection(selection, key));
+            var metre = $('#metre').val() || '4/4';
+            var tempo = parseInt($('#playback-tempo').val()) || 120;
+            var selectionAbc = 'X:1\nM:' + metre + '\nL:1/8\nQ:1/4=' + tempo + '\nK:' + key + '\n' + selection;
+            var visualObj = ABCJS.renderAbc('*', selectionAbc);
+            if (visualObj && visualObj[0]) {
+                var volume = ((parseInt($('#playback-volume').val()) || 50) / 100) * 3;
+                var synth = new ABCJS.synth.CreateSynth();
+                synth.init({ visualObj: visualObj[0], options: { soundFontVolumeMultiplier: volume } }).then(function () {
+                    return synth.prime();
+                }).then(function () {
+                    synth.start();
+                });
+            }
             $('#play').fadeOut(250, function () {
                 $(this).remove();
             });
@@ -306,26 +318,54 @@ $(document).ready(function(){
 
     // ── Playback controls ──────────────────────────────────────────────────────
 
-    // Returns the options object for jquery-turtle's .play() based on the
-    // current values of the playback control sliders and dropdown.
-    function getPlaybackOptions() {
-        var opts = {};
-        var $tempo = $('#playback-tempo');
-        if ($tempo.length) opts.tempo = parseInt($tempo.val()) || 120;
-        var $volume = $('#playback-volume');
-        if ($volume.length) opts.volume = (parseInt($volume.val()) || 50) / 100;
-        var $waveform = $('#playback-waveform');
-        if ($waveform.length) opts.type = [$waveform.val()];
-        var $attack = $('#playback-attack');
-        if ($attack.length) {
-            opts.envelope = {
-                a: (parseInt($('#playback-attack').val()) || 1) / 100,
-                d: (parseInt($('#playback-decay').val()) || 20) / 100,
-                s: (parseInt($('#playback-sustain').val()) || 10) / 100,
-                r: (parseInt($('#playback-release').val()) || 10) / 100
-            };
+    // Converts an ABC note string (e.g. '^F', 'd,', '=G', '^^c') to a MIDI pitch number.
+    // ABC octave convention: C=48, D=50 ... B=59, c=60, d=62 ... b=71
+    // Comma lowers by 12, apostrophe raises by 12.
+    function abcToMidi(abc) {
+        var noteMap = { 'C': 48, 'D': 50, 'E': 52, 'F': 53, 'G': 55, 'A': 57, 'B': 59 };
+        var i = 0;
+        var acc = 0;
+        while (i < abc.length) {
+            if (abc[i] === '^') { acc++; i++; }
+            else if (abc[i] === '_') { acc--; i++; }
+            else if (abc[i] === '=') { i++; }
+            else { break; }
         }
-        return opts;
+        if (i >= abc.length) return 60; // fallback to middle C
+        var noteCh = abc[i];
+        var isLower = (noteCh === noteCh.toLowerCase());
+        var base = noteMap[noteCh.toUpperCase()];
+        if (base === undefined) return 60;
+        var pitch = isLower ? base + 12 : base;
+        pitch += acc;
+        i++;
+        while (i < abc.length) {
+            if (abc[i] === ',') { pitch -= 12; i++; }
+            else if (abc[i] === "'") { pitch += 12; i++; }
+            else { break; }
+        }
+        return pitch;
+    }
+
+    // Plays a single ABC note string using abcjs synth.
+    function playNote(abcNoteStr) {
+        if (!abcNoteStr || !ABCJS || !ABCJS.synth || !ABCJS.synth.playEvent) return;
+        var pitch = abcToMidi(abcNoteStr);
+        var volume = 80;
+        var $vol = $('#playback-volume');
+        if ($vol.length) volume = Math.round((parseInt($vol.val()) || 50) * 1.27); // 0-100 → 0-127
+        var tempo = 120;
+        var $tempo = $('#playback-tempo');
+        if ($tempo.length) tempo = parseInt($tempo.val()) || 120;
+        var instrument = 0;
+        var $inst = $('#playback-instrument');
+        if ($inst.length) instrument = parseInt($inst.val()) || 0;
+        var millisecondsPerMeasure = (60 / tempo) * 4 * 1000;
+        ABCJS.synth.playEvent(
+            [{ pitch: pitch, duration: 0.25, volume: volume, instrument: instrument }],
+            null,
+            millisecondsPerMeasure
+        );
     }
 
     // jQuery Knob displays its own value — no manual update handlers needed.
@@ -366,30 +406,30 @@ $(document).ready(function(){
         if (keyPress == '^' || keyPress == '_' || keyPress == '=') {
             // Double accidental with octave modifier (e.g. ^^G,)
             if (nextChar == keyPress && (threeCharsAhead == ',' || threeCharsAhead == '\'')) {
-                $(this).play(getPlaybackOptions(),keyPress + nextChar + charAfterNext + threeCharsAhead);
+                playNote(keyPress + nextChar + charAfterNext + threeCharsAhead);
             // Double accidental without octave modifier (e.g. ^^G)
             } else if (nextChar == keyPress) {
-                $(this).play(getPlaybackOptions(),keyPress + nextChar + charAfterNext);
+                playNote(keyPress + nextChar + charAfterNext);
             // Accidental typed between an existing accidental and a note that has an octave modifier
             } else if ((lastChar == '^' || lastChar == '_') && nextChar.match(letters) && (charAfterNext == ',' || charAfterNext == '\'')) {
-                $(this).play(getPlaybackOptions(),lastChar + keyPress + nextChar + charAfterNext);
+                playNote(lastChar + keyPress + nextChar + charAfterNext);
             // Accidental typed between an existing accidental and a plain note
             } else if ((lastChar == '^' || lastChar == '_') && nextChar.match(letters)) {
-                $(this).play(getPlaybackOptions(),lastChar + keyPress + nextChar);
+                playNote(lastChar + keyPress + nextChar);
             // Accidental typed before a note that already has an octave modifier
             } else if (nextChar.match(letters) && (charAfterNext == ',' || charAfterNext == '\'')) {
-                $(this).play(getPlaybackOptions(),keyPress + nextChar + charAfterNext);
+                playNote(keyPress + nextChar + charAfterNext);
             // Accidental typed before a plain note
             } else if (nextChar.match(letters)) {
-                $(this).play(getPlaybackOptions(),keyPress + nextChar);
+                playNote(keyPress + nextChar);
             }
 
         } else if (lastChar == '^' || lastChar == '_') {
             // Note letter typed immediately after an accidental prefix
             if (charBeforeLast == lastChar) {
-                $(this).play(getPlaybackOptions(),charBeforeLast + lastChar + keyPress); // double accidental
+                playNote(charBeforeLast + lastChar + keyPress); // double accidental
             } else {
-                $(this).play(getPlaybackOptions(),lastChar + keyPress); // single accidental note
+                playNote(lastChar + keyPress); // single accidental note
             }
 
         } else if (keyPress == ',' || keyPress == '\'') {
@@ -405,13 +445,13 @@ $(document).ready(function(){
                 if (threeCharsAgo == charBeforeLast) {
                     // Double accidental (e.g. ^^G,)
                     if (nextChar == ',' || nextChar == '\'') {
-                        $(this).play(getPlaybackOptions(),threeCharsAgo + charBeforeLast + lastChar + keyPress + nextChar);
+                        playNote(threeCharsAgo + charBeforeLast + lastChar + keyPress + nextChar);
                     } else {
-                        $(this).play(getPlaybackOptions(),threeCharsAgo + charBeforeLast + lastChar + keyPress);
+                        playNote(threeCharsAgo + charBeforeLast + lastChar + keyPress);
                     }
                 } else {
                     // Single accidental (e.g. ^G,)
-                    $(this).play(getPlaybackOptions(),charBeforeLast + lastChar + keyPress);
+                    playNote(charBeforeLast + lastChar + keyPress);
                 }
 
             } else if (lastChar == ',' || lastChar == '\'') {
@@ -419,16 +459,16 @@ $(document).ready(function(){
                 // Walk far enough back to pick up any leading accidental prefix.
                 if (sixCharsAgo == fiveCharsAgo) {
                     if (sixCharsAgo == '^' || sixCharsAgo == '_' || sixCharsAgo == '=') {
-                        $(this).play(getPlaybackOptions(),sixCharsAgo + fiveCharsAgo + fourCharsAgo + threeCharsAgo + charBeforeLast + lastChar + keyPress);
+                        playNote(sixCharsAgo + fiveCharsAgo + fourCharsAgo + threeCharsAgo + charBeforeLast + lastChar + keyPress);
                     }
                 }
                 if (fiveCharsAgo == fourCharsAgo) {
                     if (fiveCharsAgo == '^' || fiveCharsAgo == '_' || fiveCharsAgo == '=') {
-                        $(this).play(getPlaybackOptions(),fiveCharsAgo + fourCharsAgo + threeCharsAgo + charBeforeLast + lastChar + keyPress);
+                        playNote(fiveCharsAgo + fourCharsAgo + threeCharsAgo + charBeforeLast + lastChar + keyPress);
                     }
                 } else if (fourCharsAgo == threeCharsAgo) {
                     if (fourCharsAgo == '^' || fourCharsAgo == '_' || fourCharsAgo == '=') {
-                        $(this).play(getPlaybackOptions(),fourCharsAgo + threeCharsAgo + charBeforeLast + lastChar + keyPress);
+                        playNote(fourCharsAgo + threeCharsAgo + charBeforeLast + lastChar + keyPress);
                     }
                 }
 
@@ -442,13 +482,13 @@ $(document).ready(function(){
                         sharps.push(sharpsToPushGlobal[sharpDegree]);
                     }
                 }
-                $(this).play(getPlaybackOptions(),accidentalNotes(sharps, '^', lastChar + keyPress));
+                playNote(accidentalNotes(sharps, '^', lastChar + keyPress));
             }
 
         } else {
             // Plain note letter — delegate to keySpecificPlayback which applies
             // the key signature accidentals.
-            $(this).play(getPlaybackOptions(),keySpecificPlayback(key, keyPress));
+            playNote(keySpecificPlayback(key, keyPress));
         }
     });
 
