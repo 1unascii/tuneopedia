@@ -1,8 +1,9 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../controllers/CollectionParserHelper.php';
 
-require_once __DIR__ . '/../helpers/tune_helpers.php';
+use PHPUnit\Framework\TestCase;
 
 class AbcFormatterTest extends TestCase {
 

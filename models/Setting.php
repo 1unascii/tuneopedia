@@ -70,6 +70,7 @@ class Setting {
             ':parts'               => $data['parts']              ?: null,
             ':tempo'               => $data['tempo']              ?: null,
             ':lyrics'              => $data['lyrics']             ?: null,
+            ':instrument_id'       => $data['instrument_id']      ?? null,
             ':setting_id'          => $settingId,
         ]);
 

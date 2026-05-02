@@ -283,8 +283,9 @@ $(document).ready(function(){
             var visualObj = ABCJS.renderAbc('*', selectionAbc);
             if (visualObj && visualObj[0]) {
                 var volume = ((parseInt($('#playback-volume').val()) || 50) / 100) * 3;
+                var instrument = parseInt($('#playback-instrument').find(':selected').data('midi')) || 0;
                 var synth = new ABCJS.synth.CreateSynth();
-                synth.init({ visualObj: visualObj[0], options: { soundFontVolumeMultiplier: volume } }).then(function () {
+                synth.init({ visualObj: visualObj[0], options: { soundFontVolumeMultiplier: volume, program: instrument } }).then(function () {
                     return synth.prime();
                 }).then(function () {
                     synth.start();
@@ -359,7 +360,7 @@ $(document).ready(function(){
         if ($tempo.length) tempo = parseInt($tempo.val()) || 120;
         var instrument = 0;
         var $inst = $('#playback-instrument');
-        if ($inst.length) instrument = parseInt($inst.val()) || 0;
+        if ($inst.length) instrument = parseInt($inst.find(':selected').data('midi')) || 0;
         var millisecondsPerMeasure = (60 / tempo) * 4 * 1000;
         ABCJS.synth.playEvent(
             [{ pitch: pitch, duration: 0.25, volume: volume, instrument: instrument }],

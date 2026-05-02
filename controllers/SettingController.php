@@ -1,7 +1,6 @@
 <?php
 
 require_once(__DIR__ . '/../config/database.php');
-require_once(__DIR__ . '/../helpers/tune_helpers.php');
 require_once(__DIR__ . '/../models/Setting.php');
 require_once(__DIR__ . '/../models/Tune.php');
 
@@ -55,6 +54,7 @@ class SettingController {
             'parts'               => trim($_POST['parts']              ?? ''),
             'tempo'               => trim($_POST['tempo']              ?? ''),
             'lyrics'              => trim($_POST['lyrics']             ?? ''),
+            'instrument_id'       => !empty($_POST['instrument_id']) ? (int)$_POST['instrument_id'] : null,
         ]);
 
         if (!$updated) {

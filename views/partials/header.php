@@ -25,7 +25,7 @@
 <script type="text/javascript" src="<?= $assetBase ?>js/lib/jquery.dataTables.js"></script>
 <script type="text/javascript" src="<?= $assetBase ?>js/lib/jquery.knob.min.js"></script>
 <script type="text/javascript" src="<?= $assetBase ?>js/modules/users/auth_user.js?v=3"></script>
-<script type="text/javascript" src="<?= $assetBase ?>js/modules/abc-editor.js?v=22"></script>
+<script type="text/javascript" src="<?= $assetBase ?>js/modules/abc-editor.js?v=24"></script>
 <script type="text/javascript" src="<?= $assetBase ?>js/modules/tunes/index.js?v=11"></script>
 <script type="text/javascript" src="<?= $assetBase ?>js/modules/tunes/show.js?v=37"></script>
 <script type="text/javascript" src="<?= $assetBase ?>js/modules/favorites/index.js?v=6"></script>

@@ -206,7 +206,6 @@ if (preg_match('#^tunes/(\d+)$#', $route, $m)) {
 // ── Render the full page layout ─────────────────────────────────────────────
 include_once(BASE_PATH . '/views/partials/header.php');
 include_once(BASE_PATH . '/config/database.php');
-include_once(BASE_PATH . '/helpers/tune_helpers.php');
 ?>
 
 <script>

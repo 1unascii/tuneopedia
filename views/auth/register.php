@@ -1,10 +1,7 @@
-<link href="css/tune-page.css?v=6" rel="stylesheet" type="text/css"/>
+<link href="css/tune-page.css?v=8" rel="stylesheet" type="text/css"/>
 <link href="css/registration.css?v=2" rel="stylesheet" type="text/css"/>
 <link href="js/lib/src/jquery.password.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="js/lib/src/jquery.password.js"></script>
-<?php
-    include_once(__DIR__ . '/../../helpers/tune_helpers.php')
-?>
 <script type="text/javascript" src="js/modules/users/create_user.js?v=2"></script>
 
 <div id="form_wrapper">

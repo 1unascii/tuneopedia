@@ -6,7 +6,7 @@
     $tune_types = Tune::getAllTypes($pdo);
     $composers  = Tune::getAllComposers($pdo);
 ?>
-<link href="css/tune-page.css?v=6" rel="stylesheet" type="text/css"/>
+<link href="css/tune-page.css?v=8" rel="stylesheet" type="text/css"/>
 
 <div id="form_wrapper">
 <form id="form_for_new_tune" class="edit-setting-form">

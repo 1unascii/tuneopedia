@@ -29,6 +29,7 @@
         <a href="run_test.html?test=setting_test.php">Setting</a>
         <a href="run_test.html?test=collection_test.php">Collection</a>
         <a href="run_test.html?test=discussion_test.php">Discussion</a>
+        <a href="run_test.html?test=abc_formatter_test.php">ABC Formatter</a>
     </div>
     <button id="run-tests">Run All Model Tests</button>
     <div id="results"></div>
@@ -90,6 +91,7 @@
         .then(function() { return runSuite('Setting Model', 'setting_test.php'); })
         .then(function() { return runSuite('Collection Model', 'collection_test.php'); })
         .then(function() { return runSuite('Discussion Model', 'discussion_test.php'); })
+        .then(function() { return runSuite('ABC Formatter', 'abc_formatter_test.php'); })
         .then(function() {
             log('');
             log('═══════════════════════════════════════════════════════════');

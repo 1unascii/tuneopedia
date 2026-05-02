@@ -430,3 +430,25 @@
     color: #c88;
     font-size: 0.88em;
 }
+
+.success-message {
+    color: #000;
+}
+
+.collection-results-table {
+    color: #000;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.collection-results-table th,
+.collection-results-table td {
+    padding: 6px 10px;
+    border: 1px solid #555;
+    text-align: left;
+}
+
+.collection-results-table th {
+    background: rgba(255, 255, 255, 0.05);
+}

@@ -1,6 +1,6 @@
 <?php
 
-include_once(__DIR__ . '/../helpers/tune_helpers.php');
+include_once(__DIR__ . '/CollectionParserHelper.php');
 require_once(__DIR__ . '/../models/Collection.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -199,11 +199,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $rawTune = trim($rawTune);
                 if (empty($rawTune)) continue;
 
-                $xNumber = 1;
-                if (preg_match('/^\s*X:\s*(\d+)/m', $rawTune, $xm)) {
-                    $xNumber = (int)$xm[1];
+                // Peek at the title to detect additional settings
+                $peekTitle = '';
+                if (preg_match('/^T:\s*(.+)/m', $rawTune, $peekM)) {
+                    $peekTitle = trim(preg_replace('/\s*\[\d+\]/', '', trim($peekM[1])));
                 }
-                $isAdditionalSetting = ($xNumber > 1 && $lastTuneId !== null);
+                // An additional setting has no title (inherits previous) or same title as previous tune
+                $isAdditionalSetting = ($lastTuneId !== null && ($peekTitle === '' || $peekTitle === $lastTuneName));
 
                 $tuneName            = '';
                 $keySignature        = '';

@@ -1,5 +1,5 @@
 <?php $showAssetBase = preg_replace('#/public$#', '', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\')) . '/'; ?>
-<link href="<?= $showAssetBase ?>css/tune-page.css?v=7" rel="stylesheet" type="text/css"/>
+<link href="<?= $showAssetBase ?>css/tune-page.css?v=8" rel="stylesheet" type="text/css"/>
 
 <div id="tune-page" data-tune-id="<?= $tune_id ?>" data-user-id="<?= $userId ?>">
 

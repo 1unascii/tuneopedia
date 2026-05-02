@@ -1,7 +1,6 @@
 <?php
 
 require_once(__DIR__ . '/../config/database.php');
-require_once(__DIR__ . '/../helpers/tune_helpers.php');
 require_once(__DIR__ . '/../models/Collection.php');
 
 class CollectionController {
@@ -16,7 +15,7 @@ class CollectionController {
 
     public function create() {
         if (session_status() === PHP_SESSION_NONE) session_start();
-        include __DIR__ . '/../controllers/add_collection.php';
+        include __DIR__ . '/../controllers/CollectionParser.php';
     }
 
     public function createFromFavorites() {

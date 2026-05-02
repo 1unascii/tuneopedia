@@ -12,5 +12,6 @@ SET time_signature      = :time_signature,
     area                = :area,
     parts               = :parts,
     tempo               = :tempo,
-    lyrics              = :lyrics
+    lyrics              = :lyrics,
+    instrument_id       = :instrument_id
 WHERE setting_id = :setting_id

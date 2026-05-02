@@ -38,7 +38,6 @@ class TuneController {
 
     public function show() {
         if (session_status() === PHP_SESSION_NONE) session_start();
-        include_once(__DIR__ . '/../helpers/tune_helpers.php');
 
         $tune_id = intval($_GET['tune_id'] ?? 0);
         if (!$tune_id) {

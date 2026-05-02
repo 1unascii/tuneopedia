@@ -4,26 +4,19 @@
 
         <div class="playback-select">
             <label for="playback-instrument">Instrument</label>
-            <select id="playback-instrument">
-                <option value="0" selected>Piano</option>
-                <option value="24">Nylon Guitar</option>
-                <option value="25">Steel Guitar</option>
-                <option value="105">Banjo</option>
-                <option value="40">Violin</option>
-                <option value="110">Fiddle</option>
-                <option value="41">Viola</option>
-                <option value="42">Cello</option>
-                <option value="22">Harmonica</option>
-                <option value="21">Accordion</option>
-                <option value="73">Flute</option>
-                <option value="72">Piccolo</option>
-                <option value="74">Recorder</option>
-                <option value="78">Whistle</option>
-                <option value="71">Clarinet</option>
-                <option value="109">Bagpipe</option>
-                <option value="46">Harp</option>
-                <option value="15">Dulcimer</option>
-                <option value="79">Ocarina</option>
+            <?php
+                $instrumentPdo = connect();
+                $instruments = $instrumentPdo->query('SELECT instrument_id, name, midi_program FROM instrument ORDER BY sort_order, name')->fetchAll(PDO::FETCH_ASSOC);
+                $selectedId = !empty($setting['instrument_id']) ? (int)$setting['instrument_id'] : null;
+            ?>
+            <select id="playback-instrument" name="instrument_id">
+                <?php foreach ($instruments as $inst): ?>
+                    <option value="<?= (int)$inst['instrument_id'] ?>"
+                            data-midi="<?= (int)$inst['midi_program'] ?>"
+                            <?= $selectedId === (int)$inst['instrument_id'] ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($inst['name']) ?>
+                    </option>
+                <?php endforeach; ?>
             </select>
         </div>
 
