@@ -57,8 +57,7 @@ function formatAbcBody($abcBody, $timeSignature, $default_note_length = '1/8', $
     if (empty($bars)) return $abcBody;
 
     // Detect anacrusis
-    $firstBarBeats = countBeats($bars[0]['content'], $default_note_length);
-    $isAnacrusis   = ($firstBarBeats < $beatsPerMeasure * 0.75);
+    $isAnacrusis = detectAnacrusis($bars[0]['content'], $beatsPerMeasure, $default_note_length);
 
     $lines       = [];
     $currentLine = '';
@@ -204,6 +203,11 @@ function formatAbcBody($abcBody, $timeSignature, $default_note_length = '1/8', $
     return implode("\n", $lines);
 }
 // DETECT ANACRUSIS — count note units in first bar
+function detectAnacrusis($barContent, $beatsPerMeasure, $default_note_length) {
+    $beats = countBeats($barContent, $default_note_length);
+    return $beats < $beatsPerMeasure * 0.75;
+}
+
 function countBeats($content, $default_note_length = '1/8') {
     // How many eighth notes is one L: unit worth?
     $multiplier = 1; // default L:1/8 = 1 eighth note

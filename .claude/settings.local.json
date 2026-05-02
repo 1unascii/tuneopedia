@@ -50,7 +50,15 @@
       "Bash(gh pr:*)",
       "WebFetch(domain:paulrosen.github.io)",
       "WebFetch(domain:docs.abcjs.net)",
-      "WebFetch(domain:examples.abcjs.net)"
+      "WebFetch(domain:examples.abcjs.net)",
+      "WebFetch(domain:tunearch.org)",
+      "Bash(python3 -m json.tool)",
+      "Bash(mv fiddlers_companion_a.abc fiddlers_companion/)",
+      "Bash(mv fiddlers_companion_barn_bb.abc fiddlers_companion/)",
+      "Bash(mv fiddlers_companion_cait_camer.abc fiddlers_companion/)",
+      "Bash(mv fiddlers_companion_roa_rob.abc fiddlers_companion/)",
+      "Bash(mv fiddlers_companion_w.abc fiddlers_companion/)",
+      "Bash(xxd)"
     ]
   }
 }

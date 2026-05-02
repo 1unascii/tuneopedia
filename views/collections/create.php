@@ -1,6 +1,84 @@
 <link href="css/tune-page.css?v=8" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="js/modules/collections/create.js?v=3"></script>
 
+<?php if (!empty($success)): ?>
+<!--RESULTS-->
+<div id="add-collection-wrapper">
+    <h2>Add Collection from ABC</h2>
+
+    <?php
+        $newTunes = array_filter($results, fn($r) => $r['status'] === 'inserted');
+        $existingTunes = array_filter($results, fn($r) => $r['status'] === 'existing_tune');
+        $additionalSettings = array_filter($results, fn($r) => $r['status'] === 'additional_setting');
+        $skipped = array_filter($results, fn($r) => $r['status'] === 'skipped');
+
+        $multiSettingTunes = [];
+        foreach ($results as $r) {
+            if ($r['status'] === 'additional_setting' && isset($r['tune_id'])) {
+                $multiSettingTunes[$r['tune_id']][] = $r['tune'];
+            }
+        }
+    ?>
+    <div class="success-message">
+        <p>Collection <strong><?= htmlspecialchars($collectionName) ?></strong> created.</p>
+        <ul>
+            <li><?= count($newTunes) ?> new tune(s) added</li>
+            <?php if (!empty($additionalSettings)): ?>
+            <li><?= count($multiSettingTunes) ?> tune(s) with multiple settings (<?= count($additionalSettings) ?> additional setting(s) total)</li>
+            <?php endif; ?>
+            <?php if (!empty($existingTunes)): ?>
+            <li><?= count($existingTunes) ?> existing tune(s) — new setting added:
+                <ul>
+                    <?php foreach ($existingTunes as $et): ?>
+                    <li><?= htmlspecialchars($et['tune']) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </li>
+            <?php endif; ?>
+            <?php if (!empty($skipped)): ?>
+            <li><?= count($skipped) ?> skipped</li>
+            <?php endif; ?>
+        </ul>
+        <table class="collection-results-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tune</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($results as $i => $r): ?>
+                <tr>
+                    <td><?= $i + 1 ?></td>
+                    <td><?= htmlspecialchars($r['tune']) ?></td>
+                    <td>
+                        <?php if ($r['status'] === 'inserted'): ?>
+                            New tune added
+                        <?php elseif ($r['status'] === 'existing_tune'): ?>
+                            Existing tune — new setting added
+                        <?php elseif ($r['status'] === 'additional_setting'): ?>
+                            Additional setting added
+                        <?php else: ?>
+                            Skipped: <?= htmlspecialchars($r['reason'] ?? '') ?>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<?php elseif (!empty($error)): ?>
+<div id="add-collection-wrapper">
+    <h2>Add Collection from ABC</h2>
+    <p class="error-message"><?= htmlspecialchars($error) ?></p>
+    <button onclick="history.back()">Go Back</button>
+</div>
+
+<?php else: ?>
+<!-- FORM -->
 <div id="form_wrapper">
 
     <h2>Add Collection from ABC</h2>
@@ -34,13 +112,6 @@
 
         <div class="edit-field edit-field-wide">
             <label>
-                <input type="checkbox" name="parse_annotations" value="1" checked />
-                Parse all-caps tune annotations (for annotated collections)
-            </label>
-        </div>
-
-        <div class="edit-field edit-field-wide">
-            <label>
                 <input type="checkbox" name="is_shared" value="1" checked />
                 Make this collection public
             </label>
@@ -66,3 +137,4 @@
     </form>
 
 </div>
+<?php endif; ?>

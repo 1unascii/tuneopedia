@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/test_helper.php';
-require_once __DIR__ . '/../../controllers/CollectionParserHelper.php';
+require_once __DIR__ . '/../../controllers/AbcBodyParser.php';
 
 // ── countBeats tests ──────────────────────────────────────────────────────────
 log_section('countBeats');

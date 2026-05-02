@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parser Test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body { font-family: monospace; background: #1a1a1a; color: #ccc; padding: 20px; max-width: 1000px; }
+        .pass { color: #6c6; }
+        .fail { color: #c66; }
+        .running { color: #cc6; }
+        .info { color: #6af; }
+        .code { color: #aaa; background: #2a2a2a; padding: 2px 6px; border-radius: 3px; white-space: pre; }
+        #results { white-space: pre-wrap; line-height: 1.8; }
+        h1 { color: #ddd; font-size: 1.2em; }
+        button { padding: 8px 20px; font-size: 1em; cursor: pointer; margin-bottom: 20px; margin-right: 10px; }
+        textarea { width: 100%; height: 300px; font-family: monospace; font-size: 0.9em; background: #2a2a2a; color: #ddd; border: 1px solid #555; padding: 10px; margin-bottom: 10px; }
+        .output-section { margin-top: 20px; }
+        .tune-group { background: #2a2a2a; border: 1px solid #444; padding: 10px; margin: 8px 0; border-radius: 4px; }
+        .tune-group h3 { margin: 0 0 6px; color: #59b4d4; font-size: 1em; }
+        .setting { margin-left: 16px; padding: 4px 0; border-bottom: 1px solid #333; }
+        .setting:last-child { border-bottom: none; }
+        .setting-header { color: #59b4d4; font-weight: bold; margin-bottom: 4px; }
+        .label { color: #888; }
+    </style>
+</head>
+<body>
+    <h1>Parser Test — Manual ABC Input</h1>
+    <p class="info">Paste ABC notation below and click Parse to see how ParserController processes it.</p>
+
+    <textarea id="abc-input">X:1
+T:The Kesh
+T:The Kesh Jig
+R:Jig
+M:6/8
+L:1/8
+Q:1/4=127
+K:Gmaj
+GAG GAB|ABA ABd|ede gdB|ABA ABd|
+GAG GAB|ABA ABd|ede gdB|1 AGF G2D:|2 AGF G2A||
+
+X:1
+T:Old Joe Clark
+R:Reel
+M:4/4
+L:1/8
+K:Amix
+A2AA ABAG|A2AA B2AG|A2AA ABAc|BAGB A2AG:|
+e2ee efed|e2ee f2ed|e2ee efeg|aged c2cB:|
+
+X:2
+T:Old Joe Clark
+K:Amaj
+A2AB cBAG|A2AB c2BG|A2AB cBce|aged cABG:|
+e2ef e2dc|e2ef e2dc|e2ef e2eg|aged c2BG:|</textarea>
+
+    <button id="parse-btn">Parse</button>
+    <button id="run-tests-btn">Run Unit Tests</button>
+
+    <div id="results"></div>
+    <div id="output" class="output-section"></div>
+
+    <script>
+    var BASE = '/tuneopedia/tests/model_tests/';
+
+    function log(msg, cls) {
+        $('#results').append('<div class="' + (cls || '') + '">' + msg + '</div>');
+    }
+
+    // ── Parse button — sends ABC text to a PHP endpoint for parsing ──────────
+    $('#parse-btn').on('click', function () {
+        var abc = $('#abc-input').val();
+        $('#output').empty();
+        $('#results').empty();
+
+        if (!abc.trim()) {
+            log('No ABC text to parse.', 'fail');
+            return;
+        }
+
+        $.post('/tuneopedia/tests/parser_test_endpoint.php', { abc: abc }, function (data) {
+            var groups = (typeof data === 'string') ? JSON.parse(data) : data;
+
+            if (groups.error) {
+                log('Error: ' + groups.error, 'fail');
+                return;
+            }
+
+            log('Parsed ' + groups.length + ' tune group(s)', 'pass');
+
+            var html = '';
+            for (var i = 0; i < groups.length; i++) {
+                var g = groups[i];
+                html += '<div class="tune-group">';
+                html += '<h3>' + escHtml(g.name) + ' <span class="label">(' + escHtml(g.type || 'no type') + ')</span></h3>';
+
+                for (var j = 0; j < g.settings.length; j++) {
+                    var s = g.settings[j];
+                    html += '<div class="setting">';
+                    html += '<div class="setting-header">Setting ' + (j + 1) + ' (X:' + s.x + ')</div>';
+                    html += field('Name', s.name);
+                    html += field('Alternate Titles', s.alternate_titles && s.alternate_titles.length ? s.alternate_titles.join(', ') : null);
+                    html += field('Type', s.type);
+                    html += field('Key', s.key_signature);
+                    html += field('Time Signature', s.time_signature);
+                    html += field('Note Length', s.default_note_length);
+                    html += field('Tempo', s.tempo);
+                    html += field('Source', s.source);
+                    html += field('Origin', s.origin);
+                    html += field('History', s.history);
+                    html += field('Book', s.book);
+                    html += field('Discography', s.discography);
+                    html += field('Transcriber', s.transcription_credit);
+                    html += field('Area', s.area);
+                    html += field('Parts', s.parts);
+                    html += field('Notes', s.notes);
+                    html += field('Lyrics', s.lyrics);
+                    html += '<div><span class="label">ABC Body:</span></div>';
+                    html += '<div class="code">' + escHtml(s.abc_transcription) + '</div>';
+                    html += '</div>';
+                }
+                html += '</div>';
+            }
+            $('#output').html(html);
+        }).fail(function (xhr) {
+            log('Request failed: ' + (xhr.responseText || xhr.statusText), 'fail');
+        });
+    });
+
+    function escHtml(str) {
+        return $('<span>').text(str || '').html();
+    }
+
+    function field(label, value) {
+        if (value === null || value === undefined || value === '') return '';
+        return '<div><span class="label">' + escHtml(label) + ':</span> ' + escHtml(value) + '</div>';
+    }
+
+    // ── Unit tests button — runs the PHP test suite ──────────────────────────
+    $('#run-tests-btn').on('click', function () {
+        $('#results').empty();
+        $('#output').empty();
+        log('Running Parser Controller tests...', 'running');
+
+        $.get(BASE + 'parser_test.php').done(function (data) {
+            var r = (typeof data === 'string') ? JSON.parse(data) : data;
+            $('#results').empty();
+            log('══ ' + r.name + ' ══', 'info');
+            log('');
+            r.results.forEach(function (t) {
+                if (t.type === 'section') {
+                    log('');
+                    log('  ── ' + t.label + ' ──', 'info');
+                    log('');
+                } else if (t.type === 'info' || t.type === 'data') {
+                    log('  ' + t.label, t.type === 'data' ? 'code' : 'info');
+                } else {
+                    log('  ' + (t.pass ? '✓' : '✗') + ' ' + t.label, t.pass ? 'pass' : 'fail');
+                }
+            });
+            log('');
+            if (r.failed === 0) {
+                log('  All ' + (r.passed + r.failed) + ' assertions passed.', 'pass');
+            } else {
+                log('  ' + r.passed + '/' + (r.passed + r.failed) + ' passed, ' + r.failed + ' FAILED.', 'fail');
+            }
+        }).fail(function (xhr) {
+            log('ERROR: ' + (xhr.responseText || xhr.statusText), 'fail');
+        });
+    });
+    </script>
+</body>
+</html>

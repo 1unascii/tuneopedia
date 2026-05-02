@@ -182,6 +182,16 @@ class Tune {
         return (int) $pdo->lastInsertId();
     }
 
+    public static function addNote(PDO $pdo, int $tuneId, string $note): void {
+        $pdo->prepare("INSERT INTO tune_note (tune_id, note) VALUES (:tune_id, :note)")
+            ->execute([':tune_id' => $tuneId, ':note' => $note]);
+    }
+
+    public static function addAlternateTitle(PDO $pdo, int $tuneId, string $name): void {
+        $pdo->prepare("INSERT INTO alternate_tune_name (tune_id, name) VALUES (:tune_id, :name)")
+            ->execute([':tune_id' => $tuneId, ':name' => $name]);
+    }
+
     public static function delete(PDO $pdo, int $tuneId, int $userId): bool {
         // Delete related data first (no CASCADE on FKs)
         $pdo->prepare(self::sql('deleteTuneNotes.sql'))->execute([':id' => $tuneId]);
