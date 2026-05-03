@@ -25,7 +25,7 @@
             <h3>Connect</h3>
             <!--a href="#">Discussion Board</a><br>
             <a href="#">Submit a Tune</a><br-->
-            <a href="#">GitHub Repo</a><br>
+            <a href="https://github.com/1unascii/tuneopedia" target="_blank">GitHub Repo</a><br>
             <a href="#">Contact Us</a>
         </div>
     </div>

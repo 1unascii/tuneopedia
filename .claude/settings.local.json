@@ -60,7 +60,8 @@
       "Bash(mv fiddlers_companion_w.abc fiddlers_companion/)",
       "Bash(xxd)",
       "Bash(xargs -0 grep -l \"sql\\\\|query\\\\|\\\\.sql\")",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(awk '{print $NF}')"
     ]
   }
 }
