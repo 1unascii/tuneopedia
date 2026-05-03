@@ -57,7 +57,7 @@
 
         // ── Test 1: Register ──────────────────────────────────────────────
         log('TEST 1: Register a new user', 'running');
-        $.post(BASE + 'api/register', testUser)
+        $.post(BASE + 'api/users', testUser)
         .done(function(data) {
             assert('Server responds', true);
             assert('Response is "Thank you for signing up"', data.trim() === 'Thank you for signing up');
@@ -65,7 +65,7 @@
             // ── Test 2: Verify user exists in DB ──────────────────────────
             log('');
             log('TEST 2: Verify user exists in database', 'running');
-            $.post(BASE + 'api/auth', {
+            $.post(BASE + 'api/auth/login', {
                 user_name: testUser.user_name,
                 password:  'wrong_password_xyz',
                 login:     true
@@ -77,7 +77,7 @@
                 // ── Test 3: Duplicate registration ────────────────────────
                 log('');
                 log('TEST 3: Duplicate registration rejected', 'running');
-                $.post(BASE + 'api/register', testUser)
+                $.post(BASE + 'api/users', testUser)
                 .done(function(data) {
                     assert('Username already taken', data.trim() === 'The username you entered is already in use');
 
@@ -85,14 +85,14 @@
                     log('');
                     log('TEST 4: Duplicate email rejected', 'running');
                     var dupEmail = $.extend({}, testUser, { user_name: 'different_user_' + Date.now() });
-                    $.post(BASE + 'api/register', dupEmail)
+                    $.post(BASE + 'api/users', dupEmail)
                     .done(function(data) {
                         assert('Email already in use', data.trim() === 'The email you entered is already in use');
 
                         // ── Test 5: Login ─────────────────────────────────
                         log('');
                         log('TEST 5: Login with correct credentials', 'running');
-                        $.post(BASE + 'api/auth', {
+                        $.post(BASE + 'api/auth/login', {
                             user_name: testUser.user_name,
                             password:  testUser.password,
                             login:     true
@@ -104,7 +104,7 @@
                             // ── Test 6: Login with wrong password ─────────
                             log('');
                             log('TEST 6: Login with wrong password', 'running');
-                            $.post(BASE + 'api/auth', {
+                            $.post(BASE + 'api/auth/login', {
                                 user_name: testUser.user_name,
                                 password:  'WrongPassword!',
                                 login:     true
@@ -116,7 +116,7 @@
                                 // ── Test 7: Login with nonexistent user ───
                                 log('');
                                 log('TEST 7: Login with nonexistent user', 'running');
-                                $.post(BASE + 'api/auth', {
+                                $.post(BASE + 'api/auth/login', {
                                     user_name: 'nonexistent_user_xyz',
                                     password:  'anything',
                                     login:     true
@@ -138,7 +138,7 @@
                                     // ── Cleanup: delete test user ─────────
                                     log('');
                                     log('Cleaning up test user...', 'running');
-                                    $.post(BASE + 'api/test-cleanup', {
+                                    $.post(BASE + 'api/test/cleanup', {
                                         user_name: testUser.user_name
                                     })
                                     .done(function(data) {

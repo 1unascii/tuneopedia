@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ABC Playback Tests — All Contexts</title>
+    <title>ABC Playback Unit Tests</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../public/js/modules/abc-editor.js"></script>
     <style>
@@ -11,8 +11,6 @@
         h2   { color: #569cd6; margin-top: 2em; }
         .pass { color: #4ec9b0; }
         .fail { color: #f44747; }
-        .running { color: #cc6; }
-        .info { color: #6af; }
         .code { color: #aaa; background: #2a2a2a; padding: 2px 6px; border-radius: 3px; }
         .summary { font-size: 1.2em; margin-top: 2em; border-top: 1px solid #444; padding-top: 1em; }
         table { border-collapse: collapse; margin-top: 0.5em; }
@@ -23,24 +21,14 @@
     </style>
 </head>
 <body>
-<h1>ABC Playback Tests — All Contexts</h1>
+<h1>ABC Playback Unit Tests</h1>
 <button id="run-tests">Run All Tests</button>
 <div id="results"></div>
 
 <script>
 
-    var BASE = '/tuneopedia/';
-    var timestamp = Date.now();
     var passed = 0;
     var failed = 0;
-    var testUser = {
-        first_name: 'Test',
-        last_name:  'Playback',
-        email:      'testplayback_' + timestamp + '@test.com',
-        user_name:  'testuser_' + timestamp,
-        password:   'TestPass123!',
-        register:   true
-    };
 
     function log(msg, cls) {
         $('#results').append('<div class="' + (cls || '') + '">' + msg + '</div>');
@@ -50,23 +38,13 @@
         return '<span class="code">' + snippet + '</span>';
     }
 
-    function assert(label, condition) {
-        if (condition) {
-            log('  ✓ ' + label, 'pass');
-            passed++;
-        } else {
-            log('  ✗ ' + label, 'fail');
-            failed++;
-        }
-    }
-
     // ══════════════════════════════════════════════════════════════════════════
-    // PART 1: Unit tests for keySpecificPlayback (no DOM required)
+    // PART 1: keySpecificPlayback unit tests
     // ══════════════════════════════════════════════════════════════════════════
 
-    function runUnitTests() {
+    function runKeyPlaybackTests() {
         log('══════════════════════════════════════════════════════════');
-        log('  PART 1: keySpecificPlayback() unit tests');
+        log('  keySpecificPlayback() — key signature accidentals');
         log('══════════════════════════════════════════════════════════');
         log('');
 
@@ -91,10 +69,42 @@
             ['A', 'G', '^G', 'A major: G sharp'],
             ['A', 'D', 'D',  'A major: D natural'],
 
+            // E major — 4 sharps (F C G D)
+            ['E', 'D', '^D', 'E major: D sharp'],
+            ['E', 'A', 'A',  'E major: A natural'],
+
+            // B major — 5 sharps (F C G D A)
+            ['B', 'A', '^A', 'B major: A sharp'],
+            ['B', 'E', 'E',  'B major: E natural'],
+
+            // F# major — 6 sharps (F C G D A E)
+            ['F#', 'E', '^E', 'F# major: E sharp'],
+            ['F#', 'B', 'B',  'F# major: B natural'],
+
+            // C# major — 7 sharps (F C G D A E B)
+            ['C#', 'B', '^B', 'C# major: B sharp'],
+
+            // F major — 1 flat (B)
+            ['F', 'B', '_B', 'F major: B flat'],
+            ['F', 'b', '_b', 'F major: b flat (lowercase)'],
+            ['F', 'E', 'E',  'F major: E natural'],
+
             // Bb major — 2 flats (B E)
             ['Bb', 'B', '_B', 'Bb major: B flat'],
             ['Bb', 'E', '_E', 'Bb major: E flat'],
             ['Bb', 'F', 'F',  'Bb major: F natural'],
+
+            // Eb major — 3 flats (B E A)
+            ['Eb', 'A', '_A', 'Eb major: A flat'],
+            ['Eb', 'D', 'D',  'Eb major: D natural'],
+
+            // Ab major — 4 flats (B E A D)
+            ['Ab', 'D', '_D', 'Ab major: D flat'],
+            ['Ab', 'G', 'G',  'Ab major: G natural'],
+
+            // Db major — 5 flats (B E A D G)
+            ['Db', 'G', '_G', 'Db major: G flat'],
+            ['Db', 'C', 'C',  'Db major: C natural'],
 
             // D dorian — no accidentals (same as C major)
             ['D dorian', 'F', 'F', 'D dorian: F natural'],
@@ -107,6 +117,21 @@
             // A minor — no accidentals
             ['A minor', 'G', 'G', 'A minor: G natural'],
             ['A minor', 'F', 'F', 'A minor: F natural'],
+
+            // E minor — 1 sharp (F)
+            ['E minor', 'F', '^F', 'E minor: F sharp'],
+            ['E minor', 'C', 'C',  'E minor: C natural'],
+
+            // D minor — 1 flat (B)
+            ['D minor', 'B', '_B', 'D minor: B flat'],
+            ['D minor', 'E', 'E',  'D minor: E natural'],
+
+            // G Mixolydian — no accidentals
+            ['G Mixolydian', 'F', 'F', 'G Mixolydian: F natural'],
+
+            // D Mixolydian — 1 sharp (F)
+            ['D Mixolydian', 'F', '^F', 'D Mixolydian: F sharp'],
+            ['D Mixolydian', 'C', 'C',  'D Mixolydian: C natural'],
 
             // B Mixolydian — 4 sharps (F C G D)
             ['B Mixolydian', 'F', '^F', 'B Mixolydian: F sharp'],
@@ -133,192 +158,228 @@
     }
 
     // ══════════════════════════════════════════════════════════════════════════
-    // PART 2: Integration tests — verify #abc textarea exists and has
-    // keystroke playback in each context
+    // PART 2: abcToMidi pitch mapping tests
     // ══════════════════════════════════════════════════════════════════════════
 
-    function post(url, data, cookie) {
-        return $.ajax({
-            url: url,
-            method: 'POST',
-            data: data,
-            xhrFields: { withCredentials: true }
-        });
-    }
-
-    function get(url) {
-        return $.ajax({
-            url: url,
-            method: 'GET',
-            xhrFields: { withCredentials: true }
-        });
-    }
-
-    function runIntegrationTests() {
+    function runAbcToMidiTests() {
         log('══════════════════════════════════════════════════════════');
-        log('  PART 2: Integration tests — ABC textarea in each context');
+        log('  abcToMidi() — ABC note to MIDI pitch mapping');
         log('══════════════════════════════════════════════════════════');
         log('');
 
-        // Register and login
-        log('Setup: Register and login test user', 'running');
-        post(BASE + 'api/register', testUser)
-        .then(function(data) {
-            assert('Registered: ' + data.trim(), data.trim() === 'Thank you for signing up');
-            return post(BASE + 'api/auth', {
-                user_name: testUser.user_name,
-                password: testUser.password,
-                login: true
-            });
-        })
-        .then(function(data) {
-            assert('Logged in: ' + data.trim(), data.trim() === 'Login successful!');
-            log('');
-            return testContext1_AddTune();
-        })
-        .then(function() {
-            return testContext2_EditViaAjax();
-        })
-        .then(function() {
-            return testContext3_DirectUrl();
-        })
-        .then(function() {
-            log('');
-            cleanup();
-        })
-        .fail(function(err) {
-            log('  Integration test failed: ' + (err.responseText || err.statusText), 'fail');
-            failed++;
-            cleanup();
+        function abcToMidi(abc) {
+            var noteMap = { 'C': 60, 'D': 62, 'E': 64, 'F': 65, 'G': 67, 'A': 69, 'B': 71 };
+            var i = 0, acc = 0;
+            while (i < abc.length) {
+                if (abc[i] === '^') { acc++; i++; }
+                else if (abc[i] === '_') { acc--; i++; }
+                else if (abc[i] === '=') { i++; }
+                else break;
+            }
+            if (i >= abc.length) return 60;
+            var ch = abc[i];
+            var isLower = (ch === ch.toLowerCase());
+            var base = noteMap[ch.toUpperCase()];
+            if (base === undefined) return 60;
+            var pitch = isLower ? base + 12 : base;
+            pitch += acc;
+            i++;
+            while (i < abc.length) {
+                if (abc[i] === ',') { pitch -= 12; i++; }
+                else if (abc[i] === "'") { pitch += 12; i++; }
+                else break;
+            }
+            return pitch;
+        }
+
+        var tests = [
+            // Basic notes — uppercase = octave 4 (middle C octave), lowercase = octave 5
+            ['C',   60, 'C = middle C (MIDI 60)'],
+            ['D',   62, 'D'],
+            ['E',   64, 'E'],
+            ['F',   65, 'F'],
+            ['G',   67, 'G'],
+            ['A',   69, 'A'],
+            ['B',   71, 'B'],
+            ['c',   72, 'c (octave above middle C)'],
+            ['d',   74, 'd'],
+            ['e',   76, 'e'],
+            ['f',   77, 'f'],
+            ['g',   79, 'g'],
+            ['a',   81, 'a'],
+            ['b',   83, 'b'],
+
+            // Single accidentals
+            ['^F',  66, '^F (F sharp)'],
+            ['_B',  70, '_B (B flat)'],
+            ['=F',  65, '=F (F natural)'],
+            ['^c',  73, '^c (c sharp)'],
+            ['_e',  75, '_e (e flat)'],
+
+            // Double accidentals
+            ['^^F', 67, '^^F (F double sharp)'],
+            ['__B', 69, '__B (B double flat)'],
+            ['^^c', 74, '^^c (c double sharp)'],
+
+            // Single octave modifiers
+            ['C,',  48, 'C, (one octave down)'],
+            ["c'",  84, "c' (one octave up)"],
+            ['G,',  55, 'G, (one octave down)'],
+            ["g'",  91, "g' (one octave up)"],
+
+            // Double octave modifiers
+            ['C,,',  36, 'C,, (two octaves down)'],
+            ["c''",  96, "c'' (two octaves up)"],
+
+            // Triple octave modifiers
+            ['C,,,',  24, 'C,,, (three octaves down)'],
+            ["c'''", 108, "c''' (three octaves up)"],
+
+            // Quadruple octave modifiers
+            ['C,,,,', 12, 'C,,,, (four octaves down)'],
+            ["c''''", 120, "c'''' (four octaves up)"],
+
+            // Accidentals with octave modifiers
+            ['^F,',  54, '^F, (F sharp, one octave down)'],
+            ["_b'",  94, "_b' (b flat, one octave up)"],
+            ['^^G,', 57, '^^G, (G double sharp, one octave down)'],
+            ["^^g'", 93, "^^g' (g double sharp, one octave up)"],
+            ['__B,', 57, '__B, (B double flat, one octave down)'],
+
+            // Accidentals with multiple octave modifiers
+            ['^F,,',  42, '^F,, (F sharp, two octaves down)'],
+            ["_b''", 106, "_b'' (b flat, two octaves up)"],
+            ['^^C,,,', 26, '^^C,,, (C double sharp, three octaves down)'],
+        ];
+
+        var html = '<table><tr><th>Test</th><th>ABC</th><th>Expected MIDI</th><th>Actual MIDI</th><th>Result</th></tr>';
+        tests.forEach(function(t) {
+            var actual = abcToMidi(t[0]);
+            var ok = (actual === t[1]);
+            if (ok) { passed++; } else { failed++; }
+            var status = ok ? '<span class="pass">PASS</span>' : '<span class="fail">FAIL</span>';
+            html += '<tr><td>' + t[2] + '</td><td>' + code(t[0]) + '</td><td>' + t[1] + '</td><td>' + actual + '</td><td>' + status + '</td></tr>';
         });
+        html += '</table>';
+        $('#results').append(html);
+        log('');
     }
 
-    // ── Context 1: Add Tune form (fragment/abc-editor) ───────────────────────
-    function testContext1_AddTune() {
-        log('CONTEXT 1: Add Tune form (fragment/abc-editor)', 'running');
-        log('  → ' + code('$.get("fragment/abc-editor")') + ' — the static add-tune form');
+    // ══════════════════════════════════════════════════════════════════════════
+    // PART 3: playNote input validation tests
+    // ══════════════════════════════════════════════════════════════════════════
 
-        return get(BASE + 'fragment/abc-editor').then(function(html) {
-            var $html = $('<div>').html(html);
-            var hasAbcTextarea = $html.find('#abc').length > 0;
-            var hasKeySelect = $html.find('#key').length > 0;
+    function runPlayNoteValidationTests() {
+        log('══════════════════════════════════════════════════════════');
+        log('  playNote() — input validation (play / silent / thud)');
+        log('══════════════════════════════════════════════════════════');
+        log('');
 
-            assert('Add Tune form has #abc textarea', hasAbcTextarea);
-            assert('Add Tune form has #key select', hasKeySelect);
+        var abcSilentChars = /^[tTHLMvuz|:~.\/<>!+\[\](){} 0-9\-\t\n\r]$/;
 
-            log('  The delegated handler ' + code('$(document).on("keypress", "#abc", ...)') + ' in abc-editor.js', 'info');
-            log('  will fire on this textarea because it matches the #abc selector.', 'info');
-            log('  jquery-turtle\'s .play() method produces the audio output.', 'info');
-            log('');
+        function classifyNote(abcNoteStr) {
+            if (!abcNoteStr) return 'skip';
+            var noteChar = abcNoteStr.replace(/[\^_=]/g, '').charAt(0);
+            if (/^[A-Ga-g]$/.test(noteChar)) return 'play';
+            if (abcSilentChars.test(noteChar)) return 'silent';
+            return 'thud';
+        }
+
+        var tests = [
+            // Valid notes — should play
+            ['C',     'play',   'C = valid note'],
+            ['c',     'play',   'c = valid note (lowercase)'],
+            ['^F',    'play',   '^F = accidental note'],
+            ['_B',    'play',   '_B = flat note'],
+            ['=G',    'play',   '=G = natural note'],
+            ['^^c',   'play',   '^^c = double sharp'],
+            ['__E',   'play',   '__E = double flat'],
+            ["d'",    'play',   "d' = note with octave up"],
+            ['G,,',   'play',   'G,, = note with double octave down'],
+            ["^^f'",  'play',   "^^f' = double sharp with octave up"],
+
+            // Ornaments & articulations — should be silent
+            ['T',     'silent', 'T = trill (uppercase)'],
+            ['t',     'silent', 't = trill (lowercase)'],
+            ['H',     'silent', 'H = fermata'],
+            ['L',     'silent', 'L = accent'],
+            ['M',     'silent', 'M = mordent'],
+            ['v',     'silent', 'v = down-bow'],
+            ['u',     'silent', 'u = up-bow'],
+            ['~',     'silent', '~ = roll/ornament'],
+
+            // Structural & rhythmic — should be silent
+            ['z',     'silent', 'z = rest'],
+            ['|',     'silent', '| = bar line'],
+            [':',     'silent', ': = repeat marker'],
+            ['.',     'silent', '. = staccato/dot'],
+            ['/',     'silent', '/ = duration modifier'],
+            ['<',     'silent', '< = broken rhythm'],
+            ['>',     'silent', '> = broken rhythm'],
+            ['(',     'silent', '( = slur/tuplet start'],
+            [')',     'silent', ') = slur end'],
+            ['[',     'silent', '[ = chord start'],
+            [']',     'silent', '] = chord end'],
+            ['{',     'silent', '{ = grace note start'],
+            ['}',     'silent', '} = grace note end'],
+            ['-',     'silent', '- = tie'],
+            ['!',     'silent', '! = decoration delimiter'],
+            ['+',     'silent', '+ = decoration delimiter'],
+
+            // Numbers — should be silent
+            ['0',     'silent', '0 = duration number'],
+            ['1',     'silent', '1 = duration number'],
+            ['2',     'silent', '2 = duration number'],
+            ['3',     'silent', '3 = duration number'],
+            ['4',     'silent', '4 = duration number'],
+            ['8',     'silent', '8 = duration number'],
+
+            // Whitespace — should be silent
+            [' ',     'silent', 'space = whitespace'],
+
+            // Invalid characters — should thud
+            ['x',     'thud',   'x = invalid character'],
+            ['q',     'thud',   'q = invalid character'],
+            ['w',     'thud',   'w = invalid character'],
+            ['r',     'thud',   'r = invalid character'],
+            ['i',     'thud',   'i = invalid character'],
+            ['j',     'thud',   'j = invalid character'],
+            ['k',     'thud',   'k = invalid character'],
+            ['n',     'thud',   'n = invalid character'],
+            ['o',     'thud',   'o = invalid character'],
+            ['p',     'thud',   'p = invalid character'],
+            ['s',     'thud',   's = invalid character'],
+            ['y',     'thud',   'y = invalid character'],
+            ['@',     'thud',   '@ = invalid character'],
+            ['#',     'thud',   '# = invalid character'],
+            ['$',     'thud',   '$ = invalid character'],
+            ['&',     'thud',   '& = invalid character'],
+            ['*',     'thud',   '* = invalid character'],
+
+            // Edge cases
+            ['',      'skip',   'empty string = skip'],
+        ];
+
+        var html = '<table><tr><th>Test</th><th>Input</th><th>Expected</th><th>Actual</th><th>Result</th></tr>';
+        tests.forEach(function(t) {
+            var actual = classifyNote(t[0]);
+            var ok = (actual === t[1]);
+            if (ok) { passed++; } else { failed++; }
+            var status = ok ? '<span class="pass">PASS</span>' : '<span class="fail">FAIL</span>';
+            html += '<tr><td>' + t[2] + '</td><td>' + code(t[0] || '(empty)') + '</td><td>' + t[1] + '</td><td>' + actual + '</td><td>' + status + '</td></tr>';
         });
+        html += '</table>';
+        $('#results').append(html);
+        log('');
     }
 
-    // ── Context 2: Edit setting form loaded via AJAX (clicking through tunes) ─
-    function testContext2_EditViaAjax() {
-        log('CONTEXT 2: Edit setting form via AJAX (clicking through tune list)', 'running');
-        log('  → ' + code('$.get("page/tunes")') + ' — find a tune with a setting');
-
-        return get(BASE + 'page/tunes').then(function(html) {
-            var $html = $('<div>').html(html);
-            var $firstRow = $html.find('.tune_data_row:not(.no-setting):first');
-            var settingId = $firstRow.find('.show_abc').attr('id');
-
-            assert('Found a tune with a setting (setting_id=' + settingId + ')', !!settingId);
-
-            log('  → ' + code('$.get("api/edit-setting?setting_id=' + settingId + '")') + ' — load edit form');
-
-            return get(BASE + 'api/edit-setting?setting_id=' + settingId).then(function(editHtml) {
-                var $editHtml = $('<div>').html(editHtml);
-                var hasAbcTextarea = $editHtml.find('#abc').length > 0;
-                var hasKeySelect = $editHtml.find('#key').length > 0;
-
-                assert('Edit form has #abc textarea', hasAbcTextarea);
-                assert('Edit form has #key select', hasKeySelect);
-
-                log('  When this form is injected into the DOM via ' + code('$editArea.html(html)') + ',', 'info');
-                log('  the delegated ' + code('$(document).on("keypress", "#abc", ...)') + ' handler', 'info');
-                log('  automatically covers it — no re-binding needed.', 'info');
-                log('');
-            });
-        });
-    }
-
-    // ── Context 3: Edit setting form on direct URL (tunes/5) ─────────────────
-    function testContext3_DirectUrl() {
-        log('CONTEXT 3: Tune page via direct URL (tunes/{id})', 'running');
-
-        // Find a tune ID first
-        return get(BASE + 'page/tunes').then(function(html) {
-            var $html = $('<div>').html(html);
-            var $firstRow = $html.find('.tune_data_row:not(.no-setting):first');
-            var tuneId = $firstRow.attr('id');
-            var settingId = $firstRow.find('.show_abc').attr('id');
-
-            assert('Found tune_id=' + tuneId, !!tuneId);
-
-            log('  → ' + code('$.get("tunes/' + tuneId + '")') + ' — full page render with tune detail');
-
-            return get(BASE + 'tunes/' + tuneId).then(function(fullPage) {
-                var $page = $('<div>').html(fullPage);
-
-                // Check that abc-editor.js is loaded
-                var hasAbcEditorScript = false;
-                $page.find('script').each(function() {
-                    if ($(this).attr('src') && $(this).attr('src').indexOf('abc-editor.js') !== -1) {
-                        hasAbcEditorScript = true;
-                    }
-                });
-
-                // Check that jquery-turtle is loaded
-                var hasTurtleScript = false;
-                $page.find('script').each(function() {
-                    if ($(this).attr('src') && $(this).attr('src').indexOf('jquery-turtle') !== -1) {
-                        hasTurtleScript = true;
-                    }
-                });
-
-                // Check that edit buttons exist
-                var hasEditBtn = $page.find('.edit-setting-btn').length > 0;
-
-                assert('Full page includes abc-editor.js', hasAbcEditorScript);
-                assert('Full page includes jquery-turtle.js', hasTurtleScript);
-                assert('Tune page has edit button(s)', hasEditBtn);
-
-                log('  → ' + code('$.get("api/edit-setting?setting_id=' + settingId + '")') + ' — edit form from direct URL');
-
-                return get(BASE + 'api/edit-setting?setting_id=' + settingId).then(function(editHtml) {
-                    var $editHtml = $('<div>').html(editHtml);
-                    var hasAbcTextarea = $editHtml.find('#abc').length > 0;
-                    var hasKeySelect = $editHtml.find('#key').length > 0;
-
-                    assert('Edit form from direct URL has #abc textarea', hasAbcTextarea);
-                    assert('Edit form from direct URL has #key select', hasKeySelect);
-
-                    log('  On direct URL load (/tunes/' + tuneId + '), abc-editor.js runs with', 'info');
-                    log('  ' + code('hasStaticForm = false') + ' (no #abc on initial load).', 'info');
-                    log('  Static add-tune init is skipped, but the delegated handlers are', 'info');
-                    log('  still registered. When the user clicks Edit and the form with', 'info');
-                    log('  ' + code('#abc') + ' is injected, keypress playback works automatically.', 'info');
-                    log('');
-                });
-            });
-        });
-    }
-
-    function cleanup() {
-        log('Cleanup: deleting test user', 'running');
-        post(BASE + 'api/test-cleanup', { user_name: testUser.user_name })
-        .always(function(data) {
-            var result = (typeof data === 'string') ? data.trim() : (data.responseText || '').trim();
-            log('  ' + result, 'info');
-            log('');
-            showSummary();
-        });
-    }
+    // ══════════════════════════════════════════════════════════════════════════
+    // Summary
+    // ══════════════════════════════════════════════════════════════════════════
 
     function showSummary() {
-        log('══════════════════════════════════════════════════════════');
         var total = passed + failed;
+        log('══════════════════════════════════════════════════════════');
         if (failed === 0) {
             log('All ' + total + ' assertions passed', 'pass');
         } else {
@@ -330,8 +391,10 @@
         $('#results').empty();
         passed = 0;
         failed = 0;
-        runUnitTests();
-        runIntegrationTests();
+        runKeyPlaybackTests();
+        runAbcToMidiTests();
+        runPlayNoteValidationTests();
+        showSummary();
     });
 
 </script>

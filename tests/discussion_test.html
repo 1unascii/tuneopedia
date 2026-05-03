@@ -138,9 +138,9 @@
 
         var user = users[index];
         log('STEP 1.' + (index + 1) + ': Register user "' + user.user_name + '"', 'running');
-        log('  → ' + code('$.post("api/register", { user_name: "' + user.user_name + '", ... })'));
+        log('  → ' + code('$.post("api/users", { user_name: "' + user.user_name + '", ... })'));
 
-        $.post(BASE + 'api/register', user)
+        $.post(BASE + 'api/users', user)
         .done(function(data) {
             assert('Registered ' + user.first_name + ': "' + data.trim() + '"', data.trim() === 'Thank you for signing up');
             log('');
@@ -168,7 +168,7 @@
         log('STEP 2.' + (index + 1) + 'a: Log in as "' + user.user_name + '"', 'running');
         log('  → ' + code('$.post("api/auth", { user_name: "' + user.user_name + '", login: true })'));
 
-        $.post(BASE + 'api/auth', {
+        $.post(BASE + 'api/auth/login', {
             user_name: user.user_name,
             password:  user.password,
             login:     true
@@ -179,10 +179,10 @@
             // Create thread
             log('');
             log('STEP 2.' + (index + 1) + 'b: ' + user.first_name + ' creates thread "' + user.threadTitle + '"', 'running');
-            log('  → ' + code('$.post("api/create-thread", { title: "' + user.threadTitle + '", body: "..." })'));
+            log('  → ' + code('$.post("api/threads", { title: "' + user.threadTitle + '", body: "..." })'));
             log('  → Body: "' + user.threadBody.substring(0, 60) + '..."', 'info');
 
-            $.post(BASE + 'api/create-thread', {
+            $.post(BASE + 'api/threads', {
                 title: user.threadTitle,
                 body:  user.threadBody
             })
@@ -224,7 +224,7 @@
         log('STEP 3.' + (index + 1) + 'a: Log in as "' + fromUser.user_name + '"', 'running');
         log('  → ' + code('$.post("api/auth", { user_name: "' + fromUser.user_name + '", login: true })'));
 
-        $.post(BASE + 'api/auth', {
+        $.post(BASE + 'api/auth/login', {
             user_name: fromUser.user_name,
             password:  fromUser.password,
             login:     true
@@ -235,12 +235,11 @@
             // Post reply
             log('');
             log('STEP 3.' + (index + 1) + 'b: ' + fromUser.first_name + ' replies to ' + toUser.first_name + '\'s thread (ID=' + threadId + ')', 'running');
-            log('  → ' + code('$.post("api/create-post", { thread_id: ' + threadId + ', body: "..." })'));
+            log('  → ' + code('$.post("api/threads/' + threadId + '/posts", { body: "..." })'));
             log('  → Thread: "' + toUser.threadTitle + '"', 'info');
             log('  → Reply: "' + reply.body.substring(0, 60) + '..."', 'info');
 
-            $.post(BASE + 'api/create-post', {
-                thread_id: threadId,
+            $.post(BASE + 'api/threads/' + threadId + '/posts', {
                 body:      reply.body
             })
             .done(function(response) {
@@ -358,9 +357,9 @@
 
         var user = users[index];
         log('  Deleting ' + user.first_name + ' (' + user.user_name + ')...', 'info');
-        log('  → ' + code('$.post("api/test-cleanup", { user_name: "' + user.user_name + '" })'));
+        log('  → ' + code('$.post("api/test/cleanup", { user_name: "' + user.user_name + '" })'));
 
-        $.post(BASE + 'api/test-cleanup', { user_name: user.user_name })
+        $.post(BASE + 'api/test/cleanup', { user_name: user.user_name })
         .done(function(data) {
             log('    Result: ' + data.trim(), 'info');
             cleanupUser(index + 1);

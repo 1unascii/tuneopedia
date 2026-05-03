@@ -1,7 +1,7 @@
 
 // ── Key lookup tables (global so keySpecificPlayback is testable without a DOM) ──
 // Order in which sharps are added as the key gains more accidentals: F C G D A E B
-var sharpsToPushGlobal = [["Ff"],["Cc"],["Gg"],["Dd"],["Aa"],["Ee"],["Bb"]];
+var sharpsToPushGlobal = [["F","f"],["C","c"],["G","g"],["D","d"],["A","a"],["E","e"],["B","b"]];
 // Order in which flats are added: B E A D G C F
 var flatsToPushGlobal  = [["B","b"],["E","e"],["A","a"],["D","d"],["G","g"],["C","c"],["F","f"]];
 
@@ -473,20 +473,18 @@ $(document).ready(function(){
                 }
 
             } else if (lastChar == ',' || lastChar == '\'') {
-                // A second octave modifier was typed (e.g. G,, or G'').
-                // Walk far enough back to pick up any leading accidental prefix.
-                if (sixCharsAgo == fiveCharsAgo) {
-                    if (sixCharsAgo == '^' || sixCharsAgo == '_' || sixCharsAgo == '=') {
-                        playNote(sixCharsAgo + fiveCharsAgo + fourCharsAgo + threeCharsAgo + charBeforeLast + lastChar + keyPress);
-                    }
-                }
-                if (fiveCharsAgo == fourCharsAgo) {
-                    if (fiveCharsAgo == '^' || fiveCharsAgo == '_' || fiveCharsAgo == '=') {
-                        playNote(fiveCharsAgo + fourCharsAgo + threeCharsAgo + charBeforeLast + lastChar + keyPress);
-                    }
-                } else if (fourCharsAgo == threeCharsAgo) {
-                    if (fourCharsAgo == '^' || fourCharsAgo == '_' || fourCharsAgo == '=') {
-                        playNote(fourCharsAgo + threeCharsAgo + charBeforeLast + lastChar + keyPress);
+                // A second (or third) octave modifier was typed (e.g. G,, or G'').
+                var selector = document.getElementById("abc");
+                if (selector) {
+                    var pos = getCaretPosition(selector);
+                    var val = selector.value;
+                    var i = pos - 1;
+                    while (i >= 0 && (val[i] === ',' || val[i] === "'")) i--;
+                    if (i >= 0 && /[A-Ga-g]/.test(val[i])) {
+                        var noteStart = i;
+                        while (noteStart > 0 && (val[noteStart-1] === '^' || val[noteStart-1] === '_' || val[noteStart-1] === '=')) noteStart--;
+                        var fullNote = val.substring(noteStart, pos) + keyPress;
+                        playNote(fullNote);
                     }
                 }
 

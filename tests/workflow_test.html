@@ -119,9 +119,9 @@
     // ═══════════════════════════════════════════════════════════════
     function step1_register() {
         log('STEP 1: Register a new test user', 'running');
-        log('  → ' + code('$.post("api/register", { user_name: "' + testUser.user_name + '", ... })'));
+        log('  → ' + code('$.post("api/users", { user_name: "' + testUser.user_name + '", ... })'));
 
-        $.post(BASE + 'api/register', testUser)
+        $.post(BASE + 'api/users', testUser)
         .done(function(data) {
             assert('Registration successful: "' + data.trim() + '"', data.trim() === 'Thank you for signing up');
             log('');
@@ -140,7 +140,7 @@
         log('STEP 2: Log in as test user', 'running');
         log('  → ' + code('$.post("api/auth", { user_name: "' + testUser.user_name + '", password: "***", login: true })'));
 
-        $.post(BASE + 'api/auth', {
+        $.post(BASE + 'api/auth/login', {
             user_name: testUser.user_name,
             password:  testUser.password,
             login:     true
@@ -168,10 +168,10 @@
 
         var tune = testTunes[index];
         log('STEP 3.' + (index + 1) + ': Add tune "' + tune.tune_title + '" (' + tune.tune_type + ', ' + tune.tune_key + ')', 'running');
-        log('  → ' + code('$.post("api/add-tune", { tune_title: "' + tune.tune_title + '", tune_type: "' + tune.tune_type + '", metre: "' + tune.metre + '", tune_key: "' + tune.tune_key + '", ... })'));
+        log('  → ' + code('$.post("api/tunes", { tune_title: "' + tune.tune_title + '", tune_type: "' + tune.tune_type + '", metre: "' + tune.metre + '", tune_key: "' + tune.tune_key + '", ... })'));
         log('  → ABC body: ' + code(tune.tune_body.substring(0, 40) + '...'));
 
-        $.post(BASE + 'api/add-tune', tune)
+        $.post(BASE + 'api/tunes', tune)
         .done(function(data) {
             assert('Tune "' + tune.tune_title + '" created: "' + data.trim() + '"',
                 data.trim() === 'Thank you. Your tune was submitted');
@@ -230,9 +230,9 @@
         var tuneId = tuneIds[index];
         var tuneName = testTunes[index].tune_title;
         log('STEP 5.' + (index + 1) + ': Add "' + tuneName + '" to favorites', 'running');
-        log('  → ' + code('$.post("api/favorite-tune", { tune_id: ' + tuneId + ', user_id: <session> })'));
+        log('  → ' + code('$.post("api/tunes/' + tuneId + '/favorite")'));
 
-        $.post(BASE + 'api/favorite-tune', { tune_id: tuneId, user_id: 0 })
+        $.post(BASE + 'api/tunes/' + tuneId + '/favorite')
         .done(function(data) {
             assert('Tune ' + tuneId + ' favorited: response is "OK"', data.trim() === 'OK');
             log('');
@@ -287,9 +287,9 @@
         var tuneName = testTunes[0].tune_title;
         log('STEP 7: Remove "' + tuneName + '" from favorites via TUNES view', 'running');
         log('  This simulates clicking the orange X icon on the main tunes list', 'info');
-        log('  → ' + code('$.post("api/remove-favorite", { tune_id: ' + tuneId + ' })'));
+        log('  → ' + code('$.ajax("api/tunes/' + tuneId + '/favorite", { method: "DELETE" })'));
 
-        $.post(BASE + 'api/remove-favorite', { tune_id: tuneId })
+        $.ajax({ url: BASE + 'api/tunes/' + tuneId + '/favorite', method: 'DELETE' })
         .done(function(data) {
             assert('Remove favorite from tunes view: response is "OK"', data.trim() === 'OK');
             log('');
@@ -308,9 +308,9 @@
         var tuneId = tuneIds[0];
         var tuneName = testTunes[0].tune_title;
         log('STEP 8: Re-add "' + tuneName + '" to favorites', 'running');
-        log('  → ' + code('$.post("api/favorite-tune", { tune_id: ' + tuneId + ' })'));
+        log('  → ' + code('$.post("api/tunes/' + tuneId + '/favorite")'));
 
-        $.post(BASE + 'api/favorite-tune', { tune_id: tuneId, user_id: 0 })
+        $.post(BASE + 'api/tunes/' + tuneId + '/favorite')
         .done(function(data) {
             assert('Re-add favorite: response is "OK"', data.trim() === 'OK');
             log('');
@@ -330,9 +330,9 @@
         var tuneName = testTunes[1].tune_title;
         log('STEP 9: Remove "' + tuneName + '" from favorites via FAVORITES view', 'running');
         log('  This simulates clicking the X icon on the My Tunes / Favorites page', 'info');
-        log('  → ' + code('$.post("api/remove-favorite", { tune_id: ' + tuneId + ' })'));
+        log('  → ' + code('$.ajax("api/tunes/' + tuneId + '/favorite", { method: "DELETE" })'));
 
-        $.post(BASE + 'api/remove-favorite', { tune_id: tuneId })
+        $.ajax({ url: BASE + 'api/tunes/' + tuneId + '/favorite', method: 'DELETE' })
         .done(function(data) {
             assert('Remove favorite from favorites view: response is "OK"', data.trim() === 'OK');
             log('');
@@ -351,9 +351,9 @@
         var tuneId = tuneIds[1];
         var tuneName = testTunes[1].tune_title;
         log('STEP 10: Re-add "' + tuneName + '" to favorites (prep for collection test)', 'running');
-        log('  → ' + code('$.post("api/favorite-tune", { tune_id: ' + tuneId + ' })'));
+        log('  → ' + code('$.post("api/tunes/' + tuneId + '/favorite")'));
 
-        $.post(BASE + 'api/favorite-tune', { tune_id: tuneId, user_id: 0 })
+        $.post(BASE + 'api/tunes/' + tuneId + '/favorite')
         .done(function(data) {
             assert('Re-add favorite: response is "OK"', data.trim() === 'OK');
             log('');
@@ -372,13 +372,13 @@
     function step11_moveToCollection() {
         log('STEP 11: Create collection "' + collectionName + '" from 3 favorites', 'running');
         log('  remove_from_favorites = 1 (tunes should be removed after moving)', 'info');
-        log('  → ' + code('$.post("api/create-collection-from-favorites", {'));
+        log('  → ' + code('$.post("api/collections/from-favorites", {'));
         log('        ' + code('collection_name: "' + collectionName + '",'));
         log('        ' + code('tune_ids: ' + JSON.stringify(tuneIds) + ','));
         log('        ' + code('remove_from_favorites: "1"'));
         log('      ' + code('})'));
 
-        $.post(BASE + 'api/create-collection-from-favorites', {
+        $.post(BASE + 'api/collections/from-favorites', {
             collection_name: collectionName,
             author: '',
             description: 'Test collection created by workflow test',
@@ -441,10 +441,10 @@
     // ═══════════════════════════════════════════════════════════════
     function step13_cleanup() {
         log('STEP 13: Cleanup — delete test user and cascade data', 'running');
-        log('  → ' + code('$.post("api/test-cleanup", { user_name: "' + testUser.user_name + '" })'));
+        log('  → ' + code('$.post("api/test/cleanup", { user_name: "' + testUser.user_name + '" })'));
         log('  Note: CASCADE deletes will remove tunes, settings, favorites, and collection links', 'info');
 
-        $.post(BASE + 'api/test-cleanup', { user_name: testUser.user_name })
+        $.post(BASE + 'api/test/cleanup', { user_name: testUser.user_name })
         .done(function(data) {
             log('  Cleanup result: ' + data.trim(), 'info');
             log('');

@@ -4,7 +4,7 @@
 
 // ── Key signature lookup tables ─────────────────────────────────────────────
 
-var sharpsToPush = [["Ff"],["Cc"],["Gg"],["Dd"],["Aa"],["Ee"],["Bb"]];
+var sharpsToPush = [["F","f"],["C","c"],["G","g"],["D","d"],["A","a"],["E","e"],["B","b"]];
 var flatsToPush  = [["B","b"],["E","e"],["A","a"],["D","d"],["G","g"],["C","c"],["F","f"]];
 
 var sharpKeysArray = [
@@ -384,53 +384,102 @@ $(document).ready(function() {
 
     // ── Keystroke playback ──────────────────────────────────────────────────
 
+    function accidentalNotes(accidentals, modifierString, keyPress) {
+        for (var i = 0; i < accidentals.length; i++) {
+            if (accidentals[i].indexOf(keyPress.replace(/[,']/g, '').slice(-1)) > -1) {
+                return modifierString + keyPress;
+            }
+        }
+        return keyPress;
+    }
+
     $(document).on('keypress', '#abc', function(event) {
+        var sharps = [];
+        var flats = [];
         findSurroundingChars();
         var key = $('#key').val();
         var keyPress = String.fromCharCode(event.which);
 
-        if (keyPress === '^' || keyPress === '_' || keyPress === '=') {
-            if (nextChar === keyPress && (threeCharsAhead === ',' || threeCharsAhead === "'")) {
+        if (keyPress == '^' || keyPress == '_' || keyPress == '=') {
+            // Double accidental with octave modifier (e.g. ^^G,)
+            if (nextChar == keyPress && (threeCharsAhead == ',' || threeCharsAhead == '\'')) {
                 playNote(keyPress + nextChar + charAfterNext + threeCharsAhead);
-            } else if (nextChar === keyPress) {
+            // Double accidental without octave modifier (e.g. ^^G)
+            } else if (nextChar == keyPress) {
                 playNote(keyPress + nextChar + charAfterNext);
-            } else if ((lastChar === '^' || lastChar === '_') && nextChar.match(letters) && (charAfterNext === ',' || charAfterNext === "'")) {
+            // Accidental typed between an existing accidental and a note that has an octave modifier
+            } else if ((lastChar == '^' || lastChar == '_') && nextChar.match(letters) && (charAfterNext == ',' || charAfterNext == '\'')) {
                 playNote(lastChar + keyPress + nextChar + charAfterNext);
-            } else if ((lastChar === '^' || lastChar === '_') && nextChar.match(letters)) {
+            // Accidental typed between an existing accidental and a plain note
+            } else if ((lastChar == '^' || lastChar == '_') && nextChar.match(letters)) {
                 playNote(lastChar + keyPress + nextChar);
-            } else if (nextChar.match(letters) && (charAfterNext === ',' || charAfterNext === "'")) {
+            // Accidental typed before a note that already has an octave modifier
+            } else if (nextChar.match(letters) && (charAfterNext == ',' || charAfterNext == '\'')) {
                 playNote(keyPress + nextChar + charAfterNext);
+            // Accidental typed before a plain note
             } else if (nextChar.match(letters)) {
                 playNote(keyPress + nextChar);
             }
-        } else if (lastChar === '^' || lastChar === '_') {
-            if (charBeforeLast === lastChar) {
-                playNote(charBeforeLast + lastChar + keyPress);
+
+        } else if (lastChar == '^' || lastChar == '_') {
+            // Note letter typed immediately after an accidental prefix
+            if (charBeforeLast == lastChar) {
+                playNote(charBeforeLast + lastChar + keyPress); // double accidental
             } else {
-                playNote(lastChar + keyPress);
+                playNote(lastChar + keyPress); // single accidental note
             }
-        } else if (keyPress === ',' || keyPress === "'") {
-            if (charBeforeLast === '^' || charBeforeLast === '_' || charBeforeLast === '=') {
-                if (threeCharsAgo === charBeforeLast) {
-                    playNote(threeCharsAgo + charBeforeLast + lastChar + keyPress);
+
+        } else if (keyPress == ',' || keyPress == '\'') {
+            // Octave modifier typed
+            sharps = [];
+            sharps.push('F', 'f');
+            flats = [];
+            flats.push('B', 'b');
+
+            if (charBeforeLast == '^' || charBeforeLast == '_' || charBeforeLast == '=') {
+                // The note before the octave modifier had an accidental
+                if (threeCharsAgo == charBeforeLast) {
+                    // Double accidental (e.g. ^^G,)
+                    if (nextChar == ',' || nextChar == '\'') {
+                        playNote(threeCharsAgo + charBeforeLast + lastChar + keyPress + nextChar);
+                    } else {
+                        playNote(threeCharsAgo + charBeforeLast + lastChar + keyPress);
+                    }
                 } else {
+                    // Single accidental (e.g. ^G,)
                     playNote(charBeforeLast + lastChar + keyPress);
                 }
-            } else if (lastChar === ',' || lastChar === "'") {
-                // already played
+
+            } else if (lastChar == ',' || lastChar == '\'') {
+                // A second (or third) octave modifier — walk back to build the full note
+                var el = document.getElementById('abc');
+                if (el) {
+                    var pos = getCaretPosition(el);
+                    var val = el.value;
+                    var i = pos - 1;
+                    while (i >= 0 && (val[i] === ',' || val[i] === "'")) i--;
+                    if (i >= 0 && /[A-Ga-g]/.test(val[i])) {
+                        var noteStart = i;
+                        while (noteStart > 0 && (val[noteStart-1] === '^' || val[noteStart-1] === '_' || val[noteStart-1] === '=')) noteStart--;
+                        playNote(val.substring(noteStart, pos) + keyPress);
+                    }
+                }
+
             } else {
-                var sharps = [];
-                var sharpKeyIndex = sharpKeysArray.findIndex(function(row) { return row.indexOf(key) !== -1; });
+                // Plain note followed by its first octave modifier — apply key accidentals
+                var sharpKeyIndex = sharpKeysArray.findIndex(function (row) {
+                    return row.indexOf(key) !== -1;
+                });
                 if (sharpKeyIndex > 0) {
-                    for (var i = 0; i < sharpKeyIndex; i++) sharps.push(sharpsToPush[i]);
+                    for (var sd = 0; sd < sharpKeyIndex; sd++) {
+                        sharps.push(sharpsToPush[sd]);
+                    }
                 }
-                if (sharps.join('').indexOf(lastChar) > -1) {
-                    playNote('^' + lastChar + keyPress);
-                } else {
-                    playNote(lastChar + keyPress);
-                }
+                playNote(accidentalNotes(sharps, '^', lastChar + keyPress));
             }
+
         } else {
+            // Plain note letter
             playNote(keySpecificPlayback(key, keyPress));
         }
     });

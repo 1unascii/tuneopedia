@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Integration Tests — ABC Editor Contexts</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body { font-family: monospace; padding: 2em; background: #1e1e1e; color: #d4d4d4; }
+        h1   { color: #9cdcfe; }
+        .pass { color: #4ec9b0; }
+        .fail { color: #f44747; }
+        .running { color: #cc6; }
+        .info { color: #6af; }
+        .code { color: #aaa; background: #2a2a2a; padding: 2px 6px; border-radius: 3px; }
+        #results { white-space: pre-wrap; line-height: 1.8; }
+        button { padding: 8px 20px; font-size: 1em; cursor: pointer; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+<h1>Integration Tests — ABC Editor Contexts</h1>
+<p>Verifies that the #abc textarea and #key select exist in each context where ABC editing occurs.</p>
+<button id="run-tests">Run Tests</button>
+<div id="results"></div>
+
+<script>
+
+    var BASE = '/tuneopedia/';
+    var timestamp = Date.now();
+    var passed = 0;
+    var failed = 0;
+    var testUser = {
+        first_name: 'Test',
+        last_name:  'Integration',
+        email:      'test_integration_' + timestamp + '@test.com',
+        user_name:  'testuser_integration_' + timestamp,
+        password:   'TestPass123!',
+        register:   true
+    };
+
+    function log(msg, cls) {
+        $('#results').append('<div class="' + (cls || '') + '">' + msg + '</div>');
+    }
+
+    function code(snippet) {
+        return '<span class="code">' + snippet + '</span>';
+    }
+
+    function assert(label, condition) {
+        if (condition) {
+            log('  ✓ ' + label, 'pass');
+            passed++;
+        } else {
+            log('  ✗ ' + label, 'fail');
+            failed++;
+        }
+    }
+
+    function post(url, data) {
+        return $.ajax({ url: url, method: 'POST', data: data, xhrFields: { withCredentials: true } });
+    }
+
+    function get(url) {
+        return $.ajax({ url: url, method: 'GET', xhrFields: { withCredentials: true } });
+    }
+
+    // ── Context 1: Add Tune form ────────────────────────────────────────────
+    function testAddTuneForm() {
+        log('CONTEXT 1: Add Tune form (fragment/abc-editor)', 'running');
+        return get(BASE + 'fragment/abc-editor').then(function(html) {
+            var $html = $('<div>').html(html);
+            assert('Add Tune form has #abc textarea', $html.find('#abc').length > 0);
+            assert('Add Tune form has #key select', $html.find('#key').length > 0);
+            log('');
+        });
+    }
+
+    // ── Context 2: Edit setting form via AJAX ───────────────────────────────
+    function testEditSettingForm() {
+        log('CONTEXT 2: Edit setting form via AJAX', 'running');
+        return get(BASE + 'page/tunes').then(function(html) {
+            var $html = $('<div>').html(html);
+            var settingId = $html.find('.tune_data_row:not(.no-setting):first .show_abc').attr('id');
+            assert('Found a setting to edit (setting_id=' + settingId + ')', !!settingId);
+
+            return get(BASE + 'fragment/settings/' + settingId + '/edit').then(function(editHtml) {
+                var $edit = $('<div>').html(editHtml);
+                assert('Edit form has #abc textarea', $edit.find('#abc').length > 0);
+                assert('Edit form has #key select', $edit.find('#key').length > 0);
+                log('');
+            });
+        });
+    }
+
+    // ── Context 3: Tune page via direct URL ─────────────────────────────────
+    function testDirectTunePage() {
+        log('CONTEXT 3: Tune page via direct URL', 'running');
+        return get(BASE + 'page/tunes').then(function(html) {
+            var $html = $('<div>').html(html);
+            var tuneId = $html.find('.tune_data_row:not(.no-setting):first').attr('id');
+            assert('Found tune_id=' + tuneId, !!tuneId);
+
+            return get(BASE + 'tunes/' + tuneId).then(function(fullPage) {
+                var $page = $('<div>').html(fullPage);
+                var hasAbcEditor = false;
+                $page.find('script').each(function() {
+                    if ($(this).attr('src') && $(this).attr('src').indexOf('abc-editor.js') !== -1) hasAbcEditor = true;
+                });
+                assert('Full page includes abc-editor.js', hasAbcEditor);
+                assert('Tune page has edit button(s)', $page.find('.edit-setting-btn').length > 0);
+                log('');
+            });
+        });
+    }
+
+    function cleanup() {
+        log('Cleanup: deleting test user', 'running');
+        post(BASE + 'api/test/cleanup', { user_name: testUser.user_name })
+        .always(function(data) {
+            var result = (typeof data === 'string') ? data.trim() : (data.responseText || '').trim();
+            log('  ' + result, 'info');
+            log('');
+            var total = passed + failed;
+            log('══════════════════════════════════════════════════════════');
+            if (failed === 0) {
+                log('All ' + total + ' assertions passed', 'pass');
+            } else {
+                log(passed + '/' + total + ' passed, ' + failed + ' failed', 'fail');
+            }
+        });
+    }
+
+    $('#run-tests').on('click', function() {
+        $('#results').empty();
+        passed = 0;
+        failed = 0;
+
+        log('Setup: Register and login test user', 'running');
+        post(BASE + 'api/users', testUser)
+        .then(function(data) {
+            assert('Registered', data.trim() === 'Thank you for signing up');
+            return post(BASE + 'api/auth/login', {
+                user_name: testUser.user_name,
+                password: testUser.password
+            });
+        })
+        .then(function(data) {
+            assert('Logged in', data.trim() === 'Login successful!');
+            log('');
+            return testAddTuneForm();
+        })
+        .then(function() { return testEditSettingForm(); })
+        .then(function() { return testDirectTunePage(); })
+        .then(function() { cleanup(); })
+        .fail(function(err) {
+            log('  Test failed: ' + (err.responseText || err.statusText), 'fail');
+            failed++;
+            cleanup();
+        });
+    });
+
+</script>
+</body>
+</html>
