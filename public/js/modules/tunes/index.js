@@ -301,6 +301,15 @@ $(document).ready(function() {
         });
     });
 
+    // ── Click handler for tune titles ────────────────────────────────────────
+    $(document).on('click', '.tune_title', function() {
+        var tuneId = $(this).attr('id');
+        var $panel = $(this).closest('.ui-tabs-panel');
+        if (typeof window.openTuneInPanel === 'function') {
+            window.openTuneInPanel(tuneId, $panel);
+        }
+    });
+
     // Expose for use by other modules
     window.paginateTable = paginateTable;
 

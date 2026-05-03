@@ -220,45 +220,6 @@ $(function() {
     var $page = $('#tune-page');
     if (!$page.length) return;
 
-    function getTablatureParams() {
-        var val = $('#tablature-instrument').val();
-        if (!val) return {};
-        var tab = window.tablaturePresets[val];
-        if (!tab) return {};
-        var entry = { instrument: tab.instrument };
-        if (tab.tuning) entry.tuning = tab.tuning;
-        if (tab.label) entry.label = tab.label;
-        return { tablature: [entry], visualTranspose: 0 };
-    }
-
-    function renderAllSettings() {
-        var params = getTablatureParams();
-        params.add_classes = true;
-
-        var $primaryBlock = $page.find('.setting-block:first');
-        if ($primaryBlock.length) {
-            var $primaryAbc = $primaryBlock.find('.setting-abc-data');
-            if ($primaryAbc.length) {
-                try {
-                    var vis = ABCJS.renderAbc('tune-notation', JSON.parse($primaryAbc[0].textContent), params);
-                    if (vis && vis[0]) $primaryBlock.data('visualObj', vis[0]);
-                } catch(e) {}
-            }
-        }
-
-        $page.find('.setting-block:not(:first-child)').each(function() {
-            var $block = $(this);
-            var $abcEl = $block.find('.setting-abc-data');
-            var $notDiv = $block.find('.setting-notation');
-            if ($abcEl.length && $notDiv.length) {
-                try {
-                    var vis = ABCJS.renderAbc($notDiv.attr('id'), JSON.parse($abcEl[0].textContent), params);
-                    if (vis && vis[0]) $block.data('visualObj', vis[0]);
-                } catch(e) {}
-            }
-        });
-    }
-
     $page.find('.midi-volume').knob({
         'release': function(v) {
             var $block = $(this.i[0]).closest('.setting-block');
@@ -268,7 +229,9 @@ $(function() {
         }
     });
 
-    renderAllSettings();
+    if (typeof renderAllSettings === 'function') {
+        renderAllSettings($page);
+    }
     if (typeof initAllMidiPlayers === 'function') {
         initAllMidiPlayers();
         $page.find('.setting-block').each(function() {
