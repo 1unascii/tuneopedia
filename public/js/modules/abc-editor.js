@@ -323,7 +323,7 @@ $(document).ready(function(){
     // ABC octave convention: C=48, D=50 ... B=59, c=60, d=62 ... b=71
     // Comma lowers by 12, apostrophe raises by 12.
     function abcToMidi(abc) {
-        var noteMap = { 'C': 48, 'D': 50, 'E': 52, 'F': 53, 'G': 55, 'A': 57, 'B': 59 };
+        var noteMap = { 'C': 60, 'D': 62, 'E': 64, 'F': 65, 'G': 67, 'A': 69, 'B': 71 };
         var i = 0;
         var acc = 0;
         while (i < abc.length) {

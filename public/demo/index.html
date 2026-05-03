@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tuneopedia ABC Editor Demo</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-knob/dist/jquery.knob.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/abcjs-audio.css" rel="stylesheet">
+<link href="demo.css" rel="stylesheet">
+</head>
+<body>
+
+<h1>Tuneopedia ABC Editor Demo</h1>
+<p class="subtitle">Type ABC notation to render sheet music with live playback.</p>
+
+<div id="editor-wrapper">
+<form id="form_for_new_tune" class="edit-setting-form">
+
+    <div class="edit-field">
+        <label>Title</label>
+        <input type="text" id="tune_title" name="tune_title" value="Untitled" />
+    </div>
+
+    <div class="edit-field">
+        <label>Tune Type</label>
+        <select id="tune_type" name="tune_type">
+            <option>Reel</option>
+            <option>Jig</option>
+            <option>Hornpipe</option>
+            <option>Slip Jig</option>
+            <option>Polka</option>
+            <option>Waltz</option>
+            <option>Strathspey</option>
+            <option>March</option>
+            <option>Air</option>
+            <option>Slow Air</option>
+        </select>
+    </div>
+
+    <div class="edit-field">
+        <label>Metre</label>
+        <select id="metre" name="metre">
+            <option>4/4</option>
+            <option>3/4</option>
+            <option>2/4</option>
+            <option>6/8</option>
+            <option>9/8</option>
+            <option>12/8</option>
+        </select>
+    </div>
+
+    <div class="edit-field">
+        <label>Mode</label>
+        <select id="tune_mode_input">
+            <option value="maj">Major/Ionian</option>
+            <option value="min">Minor</option>
+            <option value="dor">Dorian</option>
+            <option value="mix">Mixolydian</option>
+        </select>
+    </div>
+
+    <div class="edit-field">
+        <label>Key</label>
+        <select id="key"></select>
+    </div>
+
+    <div class="edit-field edit-field-wide">
+        <label>ABC Notation</label>
+        <textarea id="abc" rows="10" spellcheck="false"></textarea>
+    </div>
+
+    <!-- Playback controls -->
+    <div class="edit-field edit-field-wide playback-controls">
+        <label>Playback Settings</label>
+        <div class="playback-controls-grid">
+
+            <div class="playback-select">
+                <label for="playback-instrument">Instrument</label>
+                <select id="playback-instrument">
+                    <option value="1" data-midi="110">Fiddle</option>
+                    <option value="2" data-midi="25">Guitar</option>
+                    <option value="3" data-midi="105">Banjo</option>
+                    <option value="4" data-midi="25">Mandolin</option>
+                    <option value="5" data-midi="24">Nylon Guitar</option>
+                    <option value="6" data-midi="73">Flute</option>
+                    <option value="7" data-midi="78">Tin Whistle</option>
+                    <option value="8" data-midi="21">Accordion</option>
+                    <option value="9" data-midi="0">Piano</option>
+                    <option value="10" data-midi="46">Harp</option>
+                    <option value="11" data-midi="109">Uilleann Pipes</option>
+                    <option value="12" data-midi="109">Highland Bagpipes</option>
+                    <option value="13" data-midi="22">Harmonica</option>
+                    <option value="14" data-midi="40">Violin</option>
+                    <option value="15" data-midi="42">Cello</option>
+                </select>
+            </div>
+
+            <div class="playback-knob">
+                <label>Tempo</label>
+                <input type="text" id="playback-tempo" class="playback-dial" value="120"
+                       data-min="40" data-max="300" data-step="5"
+                       data-width="60" data-height="60"
+                       data-fgColor="#59b4d4" data-bgColor="#333"
+                       data-inputColor="#ddd" data-font="monospace"
+                       data-thickness=".3" />
+            </div>
+
+            <div class="playback-knob">
+                <label>Volume</label>
+                <input type="text" id="playback-volume" class="playback-dial" value="50"
+                       data-min="0" data-max="100" data-step="1"
+                       data-width="60" data-height="60"
+                       data-fgColor="#59b4d4" data-bgColor="#333"
+                       data-inputColor="#ddd" data-font="monospace"
+                       data-thickness=".3" />
+            </div>
+
+            <div class="playback-play-selection">
+                <span id="play_selection"></span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Tablature -->
+    <div class="edit-field edit-field-wide">
+        <label>Tablature</label>
+        <select id="tablature-instrument">
+            <option value="">None</option>
+            <optgroup label="Fiddle Family">
+                <option value="fiddle">Fiddle / Violin (GDAE)</option>
+                <option value="mandolin">Mandolin (GDAE)</option>
+            </optgroup>
+            <optgroup label="Guitar">
+                <option value="guitar">Guitar - Standard (EADGBE)</option>
+            </optgroup>
+            <optgroup label="5-String Banjo">
+                <option value="banjo-open-g">Open G / Standard (gDGBD)</option>
+                <option value="banjo-double-c">Double C (gCGCD)</option>
+                <option value="banjo-sawmill">G Modal / Sawmill (gDGCD)</option>
+            </optgroup>
+        </select>
+    </div>
+
+</form>
+</div>
+
+<div id="canvas-wrapper">
+    <div id="canvas"></div>
+</div>
+
+<div id="midi-wrapper">
+    <div id="midi-player"></div>
+</div>
+
+<script src="demo.js"></script>
+</body>
+</html>

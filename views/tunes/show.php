@@ -97,12 +97,14 @@
             $isPrimary = ($i === 0);
 
             $tempo = !empty($s['tempo']) ? (int)$s['tempo'] : 120;
+            $midiProgram = (int)($s['midi_program'] ?? 0);
             $abcStr =
                 "X:" . intval($s['setting_id']) . "\n" .
                 "T:" . $tuneName . "\n" .
                 "M:" . $s['time_signature'] . "\n" .
                 "L:" . ($s['default_note_length'] ?? '1/8') . "\n" .
                 "Q:1/4=" . $tempo . "\n" .
+                "%%MIDI program " . $midiProgram . "\n" .
                 "K:" . $s['key_signature'] . "\n" .
                 $s['abc_transcription'];
 

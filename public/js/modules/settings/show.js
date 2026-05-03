@@ -139,13 +139,15 @@ $(document).ready(function() {
         var synthControl = synthControllers[settingId];
         if (!synthControl) return;
 
-        var midiProgram = parseInt($block.data('midi-program')) || 0;
-        var audioParams = midiProgram ? { program: midiProgram } : {};
-
-        synthControl.setTune(visualObj, false, audioParams).then(function () {
+        synthControl.setTune(visualObj, false).then(function () {
         }).catch(function (err) {
             console.warn('MIDI load error:', err);
         });
+        if (synthControl.midiBuffer) {
+            try { synthControl.midiBuffer.stop(); } catch(e) {}
+            synthControl.midiBuffer = null;
+        }
+        synthControl.isLoaded = false;
     }
 
     function loadMidiPlayer($block) {
@@ -328,9 +330,12 @@ $(document).ready(function() {
             var settingId = $block.data('setting-id');
             var sc = synthControllers[settingId];
             if (sc) {
-                var midiProgram = parseInt($block.data('midi-program')) || 0;
-                var audioParams = midiProgram ? { program: midiProgram } : {};
-                sc.setTune(visualObj[0], false, audioParams).catch(function(e) {});
+                sc.setTune(visualObj[0], false).catch(function(e) {});
+                if (sc.midiBuffer) {
+                    try { sc.midiBuffer.stop(); } catch(e) {}
+                    sc.midiBuffer = null;
+                }
+                sc.isLoaded = false;
             }
         }
     }
@@ -430,12 +435,17 @@ $(document).ready(function() {
         var settingId = $block.data('setting-id');
         var keyVal = $('#key').val() || $form.find('[name="key_signature"]').val() || '';
         var tempo = parseInt($form.closest('.setting-block').find('#playback-tempo').val()) || parseInt($block.data('tempo')) || 120;
+        var midiProgram = parseInt($block.data('midi-program')) || 0;
+        var $inst = $form.find('#playback-instrument');
+        if ($inst.length) midiProgram = parseInt($inst.find(':selected').data('midi')) || 0;
+
         var abcString =
             'X:' + settingId + '\n' +
             'T:' + ($form.find('[name="tune_name"]').val()           || '') + '\n' +
             'M:' + ($form.find('[name="time_signature"]').val()      || '4/4') + '\n' +
             'L:' + ($form.find('[name="default_note_length"]').val() || '1/8') + '\n' +
             'Q:1/4=' + tempo + '\n' +
+            '%%MIDI program ' + midiProgram + '\n' +
             'K:' + keyVal + '\n' +
             ($form.find('[name="abc_transcription"]').val() || '');
 
