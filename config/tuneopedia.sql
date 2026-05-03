@@ -232,7 +232,9 @@ CREATE TABLE `tune` (
   `name` varchar(255) DEFAULT NULL,
   `tune_type_id` int(11) DEFAULT NULL,
   `composer_id` int(11) DEFAULT NULL,
-  `composer` int(5) DEFAULT NULL
+  `composer` int(5) DEFAULT NULL,
+  `origin` varchar(255) DEFAULT NULL,
+  `source` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

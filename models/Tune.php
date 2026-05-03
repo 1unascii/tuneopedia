@@ -117,6 +117,7 @@ class Tune {
     }
 
     public static function getOrCreateType(PDO $pdo, string $name): int {
+        $name = ucwords(strtolower(trim($name)));
         $stmt = $pdo->prepare(self::sql('findTypeByName.sql'));
         $stmt->execute([':name' => $name]);
         $id = $stmt->fetchColumn();
@@ -148,7 +149,7 @@ class Tune {
     public static function create(
         PDO $pdo, string $name, string $tuneType, string $composer,
         string $metre, string $key, string $body, int $userId,
-        ?int $tempo = null
+        ?int $tempo = null, ?string $origin = null, ?string $source = null
     ): int {
         $tuneTypeId = self::getOrCreateType($pdo, $tuneType);
         $composerId = self::getOrCreateComposer($pdo, $composer ?: 'Traditional');
@@ -158,10 +159,14 @@ class Tune {
             ':name'         => $name,
             ':tune_type_id' => $tuneTypeId,
             ':composer_id'  => $composerId,
+            ':origin'       => $origin,
+            ':source'       => $source,
         ]);
         $tuneId = (int) $pdo->lastInsertId();
 
-        self::addSetting($pdo, $tuneId, $userId, $name, $metre, $key, $body, $tempo);
+        if (trim($body) !== '') {
+            self::addSetting($pdo, $tuneId, $userId, $name, $metre, $key, $body, $tempo);
+        }
 
         return $tuneId;
     }

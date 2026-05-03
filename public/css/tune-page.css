@@ -65,10 +65,32 @@
 }
 
 .playback-options-row label {
+    margin-left: 0;
+    cursor: pointer;
+}
+
+.setting-midi-row {
     display: flex;
     align-items: center;
-    gap: 4px;
-    cursor: pointer;
+    gap: 12px;
+}
+
+.setting-midi-row .setting-midi-player {
+    flex: 1;
+}
+
+.midi-volume-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 36px;
+    min-height: 36px;
+}
+
+.midi-volume-control label {
+    margin-left: 0;
+    font-size: 0.8em;
+    color: #aaa;
 }
 
 .tablature-select-row {

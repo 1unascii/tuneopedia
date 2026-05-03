@@ -103,7 +103,10 @@ class CollectionController {
                                 $pdo, $tuneName, $tuneTypeName, 'Traditional',
                                 $firstSetting['time_signature'],
                                 $firstSetting['key_signature'],
-                                $abcBody, $userId
+                                $abcBody, $userId,
+                                null,
+                                $firstSetting['origin'],
+                                $firstSetting['source']
                             );
 
                             // Save alternate titles
@@ -131,13 +134,15 @@ class CollectionController {
                                 if ($normalizeAbc && !empty($settingBody)) {
                                     $settingBody = formatAbcBody($settingBody, $setting['time_signature'], $setting['default_note_length'], $tuneName);
                                 }
-                                Tune::addSetting(
-                                    $pdo, $tuneId, $userId, $tuneName,
-                                    $setting['time_signature'],
-                                    $setting['key_signature'],
-                                    $settingBody
-                                );
-                                $results[] = ['status' => 'additional_setting', 'tune' => $tuneName, 'tune_id' => $tuneId];
+                                if (trim($settingBody) !== '') {
+                                    Tune::addSetting(
+                                        $pdo, $tuneId, $userId, $tuneName,
+                                        $setting['time_signature'],
+                                        $setting['key_signature'],
+                                        $settingBody
+                                    );
+                                    $results[] = ['status' => 'additional_setting', 'tune' => $tuneName, 'tune_id' => $tuneId];
+                                }
                             }
 
                             // Link to collection
@@ -147,25 +152,31 @@ class CollectionController {
                             continue;
                         }
 
-                        // Existing tune — add all settings as new settings
+                        // Existing tune — add settings with notation only
                         foreach ($group['settings'] as $setting) {
                             $settingBody = $setting['abc_transcription'];
                             if ($normalizeAbc && !empty($settingBody)) {
                                 $settingBody = formatAbcBody($settingBody, $setting['time_signature'], $setting['default_note_length'], $tuneName);
                             }
-                            Tune::addSetting(
-                                $pdo, $tuneId, $userId, $tuneName,
-                                $setting['time_signature'],
-                                $setting['key_signature'],
-                                $settingBody
-                            );
+                            if (trim($settingBody) !== '') {
+                                Tune::addSetting(
+                                    $pdo, $tuneId, $userId, $tuneName,
+                                    $setting['time_signature'],
+                                    $setting['key_signature'],
+                                    $settingBody
+                                );
+                            }
                             $results[] = ['status' => 'existing_tune', 'tune' => $tuneName, 'tune_id' => $tuneId];
                         }
 
-                        // Link to collection
-                        $pdo->prepare("INSERT INTO collection_tune (collection_id, tune_id, position) VALUES (:cid, :tid, :pos)")
-                            ->execute([':cid' => $collectionId, ':tid' => $tuneId, ':pos' => $position]);
-                        $position++;
+                        // Link to collection (skip if already linked)
+                        $exists = $pdo->prepare("SELECT 1 FROM collection_tune WHERE collection_id = :cid AND tune_id = :tid LIMIT 1");
+                        $exists->execute([':cid' => $collectionId, ':tid' => $tuneId]);
+                        if (!$exists->fetch()) {
+                            $pdo->prepare("INSERT INTO collection_tune (collection_id, tune_id, position) VALUES (:cid, :tid, :pos)")
+                                ->execute([':cid' => $collectionId, ':tid' => $tuneId, ':pos' => $position]);
+                            $position++;
+                        }
                     }
 
                     $success = true;

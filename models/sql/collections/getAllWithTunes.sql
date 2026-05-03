@@ -20,7 +20,11 @@ SELECT
     s.abc_transcription,
     CASE WHEN tb.favorite_id IS NOT NULL THEN 1 ELSE 0 END AS is_favorited
 FROM collection c
-LEFT JOIN collection_tune ct  ON c.collection_id = ct.collection_id
+LEFT JOIN (
+    SELECT collection_id, tune_id, MIN(position) AS position
+    FROM collection_tune
+    GROUP BY collection_id, tune_id
+) ct ON c.collection_id = ct.collection_id
 LEFT JOIN tune t               ON ct.tune_id = t.tune_id
 LEFT JOIN tune_type tt         ON t.tune_type_id = tt.tune_type_id
 LEFT JOIN setting s            ON s.tune_id = t.tune_id

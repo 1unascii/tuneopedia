@@ -370,7 +370,9 @@ $(document).ready(function() {
             var settingId = $block.data('setting-id');
             var sc = synthControllers[settingId];
             if (sc) {
-                sc.setTune(visualObj[0], false).catch(function(e) {});
+                var midiProgram = parseInt($block.data('midi-program')) || 0;
+                var audioParams = midiProgram ? { program: midiProgram } : {};
+                sc.setTune(visualObj[0], false, audioParams).catch(function(e) {});
             }
         }
     }
@@ -394,6 +396,12 @@ $(document).ready(function() {
         var $block = $(this).closest('.setting-block');
         var settingId = $block.length ? $block.data('setting-id') : null;
         stopAllMidiPlayers(settingId);
+        if ($block.length) {
+            setTimeout(function() {
+                applyGainToSynth($block);
+                updateMidiVolume($block);
+            }, 200);
+        }
     });
 
     function CursorControl(notationId) {
@@ -500,7 +508,10 @@ $(document).ready(function() {
         var synthControl = synthControllers[settingId];
         if (!synthControl) return;
 
-        synthControl.setTune(visualObj, false).then(function () {
+        var midiProgram = parseInt($block.data('midi-program')) || 0;
+        var audioParams = midiProgram ? { program: midiProgram } : {};
+
+        synthControl.setTune(visualObj, false, audioParams).then(function () {
         }).catch(function (err) {
             console.warn('MIDI load error:', err);
         });
@@ -512,6 +523,42 @@ $(document).ready(function() {
             setMidiTune($block, visualObj);
         }
     }
+
+    // ── Per-setting GainNode for real-time volume control ──────────────────
+    var gainNodes = {};
+
+    function getGainNode(settingId) {
+        if (gainNodes[settingId]) return gainNodes[settingId];
+        var ctx = ABCJS.synth.activeAudioContext
+            ? ABCJS.synth.activeAudioContext()
+            : null;
+        if (!ctx) return null;
+        var gain = ctx.createGain();
+        gain.connect(ctx.destination);
+        gainNodes[settingId] = gain;
+        return gain;
+    }
+
+    function applyGainToSynth($block) {
+        var settingId = $block.data('setting-id');
+        var sc = synthControllers[settingId];
+        if (!sc || !sc.midiBuffer || !sc.midiBuffer.directSource) return;
+        var gain = getGainNode(settingId);
+        if (!gain) return;
+        sc.midiBuffer.directSource.forEach(function(source) {
+            try { source.disconnect(); source.connect(gain); } catch(e) {}
+        });
+    }
+
+    function updateMidiVolume($block) {
+        var settingId = $block.data('setting-id');
+        var gain = getGainNode(settingId);
+        if (!gain) return;
+        var val = parseInt($block.find('.midi-volume').val()) || 25;
+        gain.gain.value = val / 100;
+    }
+
+    window.updateMidiVolume = updateMidiVolume;
 
     window.initAllMidiPlayers = function() {
         $('.setting-block').each(function () {
@@ -545,6 +592,7 @@ $(document).ready(function() {
 
             var savedTempo = parseInt(s.tempo) || parseInt($block.data('tempo')) || 120;
             $block.data('tempo', savedTempo);
+            $block.data('midi-program', parseInt(s.midi_program) || 0);
             var newAbc =
                 'X:' + s.setting_id + '\n' +
                 'T:' + s.tune_name  + '\n' +

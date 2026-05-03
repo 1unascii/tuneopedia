@@ -1,5 +1,5 @@
 <?php $showAssetBase = preg_replace('#/public$#', '', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\')) . '/'; ?>
-<link href="<?= $showAssetBase ?>css/tune-page.css?v=8" rel="stylesheet" type="text/css"/>
+<link href="<?= $showAssetBase ?>css/tune-page.css?v=9" rel="stylesheet" type="text/css"/>
 
 <div id="tune-page" data-tune-id="<?= $tune_id ?>" data-user-id="<?= $userId ?>">
 
@@ -20,6 +20,7 @@
     </div>
     <?php endif; ?>
 
+    <?php if (!empty($settings)): ?>
     <div class="playback-options-row">
         <label><input type="checkbox" id="playback-highlight" checked /> Highlight Notes</label>
         <label><input type="checkbox" id="playback-cursor" checked /> Show Cursor</label>
@@ -87,13 +88,10 @@
             <button type="button" id="custom-tuning-apply">Apply</button>
     </div>
 
-    <?php if (!empty($settings) && !empty($settings[0]['abc_transcription'])): ?>
+    <?php if (!empty($settings[0]['abc_transcription'])): ?>
     <div id="tune-notation"></div>
-    <?php else: ?>
-    <p class="tune-page-no-notation">No notation available for this tune yet.</p>
     <?php endif; ?>
 
-    <?php if (!empty($settings)): ?>
     <div id="tune-settings" data-primary-setting-id="<?= $primaryId ?>">
         <?php foreach ($settings as $i => $s):
             $isPrimary = ($i === 0);
@@ -113,7 +111,8 @@
         <div class="setting-block<?= $isPrimary ? ' primary-setting' : '' ?>"
              data-setting-id="<?= (int)$s['setting_id'] ?>"
              data-vote-score="<?= (int)$s['vote_score'] ?>"
-             data-tempo="<?= (int)($s['tempo'] ?? 120) ?>">
+             data-tempo="<?= (int)($s['tempo'] ?? 120) ?>"
+             data-midi-program="<?= (int)($s['midi_program'] ?? 0) ?>">
 
             <script class="setting-abc-data"
                     data-setting-id="<?= (int)$s['setting_id'] ?>"
@@ -149,7 +148,18 @@
                 <?php endif; ?>
             </div>
 
-            <div class="setting-midi-player" id="midi-player-<?= (int)$s['setting_id'] ?>"></div>
+            <div class="setting-midi-row">
+                <span class="midi-volume-control">
+                    <label>Vol</label>
+                    <input type="text" class="midi-volume playback-dial" value="25"
+                           data-min="0" data-max="100" data-step="1"
+                           data-width="35" data-height="35"
+                           data-fgColor="#59b4d4" data-bgColor="#333"
+                           data-inputColor="#ddd" data-font="monospace"
+                           data-thickness=".3" />
+                </span>
+                <div class="setting-midi-player" id="midi-player-<?= (int)$s['setting_id'] ?>"></div>
+            </div>
 
             <div class="setting-edit-area" style="display:none"></div>
 
@@ -162,6 +172,8 @@
         </div>
         <?php endforeach; ?>
     </div>
+    <?php else: ?>
+    <p class="tune-page-no-notation">No notation available for this tune yet.</p>
     <?php endif; ?>
 
     <?php if ($userId): ?>
@@ -246,6 +258,15 @@ $(function() {
             }
         });
     }
+
+    $page.find('.midi-volume').knob({
+        'release': function(v) {
+            var $block = $(this.i[0]).closest('.setting-block');
+            if (typeof updateMidiVolume === 'function') {
+                updateMidiVolume($block);
+            }
+        }
+    });
 
     renderAllSettings();
     if (typeof initAllMidiPlayers === 'function') {

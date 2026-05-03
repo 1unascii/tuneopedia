@@ -1,6 +1,8 @@
 SELECT
     s.setting_id,
     s.user_id,
+    s.instrument_id,
+    i.midi_program,
     s.key_signature,
     s.time_signature,
     s.default_note_length,
@@ -27,6 +29,7 @@ SELECT
     )                                                AS user_vote
 FROM       setting       s
 LEFT JOIN  user          u  ON  u.user_id    = s.user_id
+LEFT JOIN  instrument    i  ON  i.instrument_id = s.instrument_id
 LEFT JOIN  setting_vote  v  ON  v.setting_id = s.setting_id
 WHERE  s.tune_id = :tune_id
 GROUP  BY  s.setting_id, s.user_id, s.key_signature, s.time_signature,
