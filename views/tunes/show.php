@@ -1,5 +1,5 @@
 <?php $showAssetBase = preg_replace('#/public$#', '', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\')) . '/'; ?>
-<link href="<?= $showAssetBase ?>css/tune-page.css?v=9" rel="stylesheet" type="text/css"/>
+<link href="<?= $showAssetBase ?>css/tune-page.css?v=11" rel="stylesheet" type="text/css"/>
 
 <div id="tune-page" data-tune-id="<?= $tune_id ?>" data-user-id="<?= $userId ?>">
 
@@ -22,8 +22,8 @@
 
     <?php if (!empty($settings)): ?>
     <div class="playback-options-row">
-        <label><input type="checkbox" id="playback-highlight" checked /> Highlight Notes</label>
-        <label><input type="checkbox" id="playback-cursor" checked /> Show Cursor</label>
+        <span class="playback-option"><input type="checkbox" id="playback-highlight" checked /> Highlight Notes</span>
+        <span class="playback-option"><input type="checkbox" id="playback-cursor" checked /> Show Cursor</span>
     </div>
 
     <div class="tablature-select-row">
