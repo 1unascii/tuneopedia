@@ -397,10 +397,7 @@ $(document).ready(function() {
         var settingId = $block.length ? $block.data('setting-id') : null;
         stopAllMidiPlayers(settingId);
         if ($block.length) {
-            setTimeout(function() {
-                applyGainToSynth($block);
-                updateMidiVolume($block);
-            }, 200);
+            patchMidiBuffer($block);
         }
     });
 
@@ -527,32 +524,33 @@ $(document).ready(function() {
     // ── Per-setting GainNode for real-time volume control ──────────────────
     var gainNodes = {};
 
-    function getGainNode(settingId) {
-        if (gainNodes[settingId]) return gainNodes[settingId];
-        var ctx = ABCJS.synth.activeAudioContext
-            ? ABCJS.synth.activeAudioContext()
-            : null;
-        if (!ctx) return null;
-        var gain = ctx.createGain();
-        gain.connect(ctx.destination);
-        gainNodes[settingId] = gain;
-        return gain;
-    }
-
-    function applyGainToSynth($block) {
+    function patchMidiBuffer($block) {
         var settingId = $block.data('setting-id');
         var sc = synthControllers[settingId];
-        if (!sc || !sc.midiBuffer || !sc.midiBuffer.directSource) return;
-        var gain = getGainNode(settingId);
-        if (!gain) return;
-        sc.midiBuffer.directSource.forEach(function(source) {
-            try { source.disconnect(); source.connect(gain); } catch(e) {}
-        });
+        if (!sc || !sc.midiBuffer || sc.midiBuffer._volPatched) return;
+
+        var original = sc.midiBuffer._kickOffSound.bind(sc.midiBuffer);
+        sc.midiBuffer._kickOffSound = function(seconds) {
+            original(seconds);
+            var ctx = ABCJS.synth.activeAudioContext();
+            if (!ctx) return;
+            if (!gainNodes[settingId]) {
+                gainNodes[settingId] = ctx.createGain();
+                gainNodes[settingId].connect(ctx.destination);
+            }
+            var gain = gainNodes[settingId];
+            var vol = parseInt($block.find('.midi-volume').val()) || 25;
+            gain.gain.value = vol / 100;
+            sc.midiBuffer.directSource.forEach(function(source) {
+                try { source.disconnect(); source.connect(gain); } catch(e) {}
+            });
+        };
+        sc.midiBuffer._volPatched = true;
     }
 
     function updateMidiVolume($block) {
         var settingId = $block.data('setting-id');
-        var gain = getGainNode(settingId);
+        var gain = gainNodes[settingId];
         if (!gain) return;
         var val = parseInt($block.find('.midi-volume').val()) || 25;
         gain.gain.value = val / 100;
