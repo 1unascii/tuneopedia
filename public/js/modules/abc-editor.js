@@ -178,62 +178,140 @@ $(document).ready(function(){
         return text !== "" ? text : false;
     }
 
-    // ── Static add-tune form initialisation ──────────────────────────────────
-    // Only runs when the add-tune form is present on page load.
-    if (hasStaticForm) {
-    var editor1 = document.getElementById("abc");
-    editor1.spellcheck = false;
+    // ── Add-tune form rendering & MIDI ─────────────────────────────────────
 
-    // ── Mode and key change handlers ──────────────────────────────────────────
+    var addTuneSynthControl = null;
 
-    // When the mode select changes on the static add-tune form, reload the key
-    // options and re-render the notation.
-    $('#tune_mode_input').change(function(){
-        var id = $(this).find("option:selected").attr("id");
-        var staticBase = (typeof APP_BASE !== 'undefined') ? APP_BASE + '/' : '';
-        var modeMap = { 'maj': 'major', 'min': 'minor', 'dor': 'dorian', 'mix': 'mixolydian' };
-        var mode = modeMap[id];
-        if (mode) {
-            $('#key').load(staticBase + 'fragment/mode-options/' + mode + '?id=' + $('#key').find("option:selected").attr("id"), function(){$('#tune_mode_input').focus();});
+    // Note dragging for add-tune form
+    var noteScale = ['C,','D,','E,','F,','G,','A,','B,','C','D','E','F','G','A','B','c','d','e','f','g','a','b',"c'","d'","e'","f'","g'","a'","b'"];
+
+    function abcNoteToIndex(note) {
+        var clean = note.replace(/[\^_=]/g, '');
+        for (var i = 0; i < noteScale.length; i++) {
+            if (noteScale[i] === clean) return i;
         }
-        if($('#play').length){
-            $('#play').remove();
-        }
-        start_new_abc();
-    });
-
-    // ── Sheet music rendering ─────────────────────────────────────────────────
-
-    // Assembles the ABC header from the form fields and re-renders the sheet music.
-    function start_new_abc(){
-        var abc_code = "";
-        var hdr_array = [   ["X:", 1], ["T:", $('#tune_title').val()], ["R:", $('#tune_type').val()],
-                            ["M:", $('#metre').val()],["L:", "1/8"], ["K:", $('#key').val()]];
-        var hdr = build_abc_hdr(hdr_array);
-        abc_code = $('#abc').val();
-        abc_editor = ABCJS.renderAbc("canvas", hdr + abc_code);
+        return -1;
     }
 
-    // Re-render whenever any header field or the ABC body changes.
-    $('#tune_title').on('change', function(){ start_new_abc(); });
-    $('#tune_type').on("change", function(){
-        if($(this).val() != "Add another"){ start_new_abc(); }
-    });
-    $('#metre').change(function(){ start_new_abc(); });
-    $('#tune_mode_input').on('change keyup paste mouseup', function(){ start_new_abc(); });
-    $('#key').on('change mouseup', function(){ start_new_abc(); });
-    $('#key').on('click', function(){
-        if($('#play').length){
-            $('#play').remove();
-            selection = '';
+    function shiftAbcNote(noteToken, steps) {
+        var acc = '';
+        var rest = noteToken;
+        while (rest.length > 0 && (rest[0] === '^' || rest[0] === '_' || rest[0] === '=')) {
+            acc += rest[0];
+            rest = rest.substring(1);
         }
+        var noteMatch = rest.match(/^([A-Ga-g][,']*)(.*)$/);
+        if (!noteMatch) return noteToken;
+        var notePart = noteMatch[1];
+        var suffix = noteMatch[2];
+        var idx = abcNoteToIndex(notePart);
+        if (idx === -1) return noteToken;
+        var newIdx = idx - steps;
+        if (newIdx < 0 || newIdx >= noteScale.length) return noteToken;
+        return acc + noteScale[newIdx] + suffix;
+    }
+
+    function handleAddTuneDrag(abcString, abcelem, steps) {
+        var kPos = abcString.indexOf('\nK:');
+        if (kPos === -1) return null;
+        var bodyStart = abcString.indexOf('\n', kPos + 1);
+        if (bodyStart === -1) return null;
+        bodyStart += 1;
+
+        var start = abcelem.startChar;
+        var end = abcelem.endChar;
+        if (start < bodyStart) return null;
+
+        var oldToken = abcString.substring(start, end);
+        var newToken;
+        if (oldToken.indexOf('[') !== -1) {
+            newToken = oldToken.replace(/(\^{0,2}|_{0,2}|=?)([A-Ga-g][,']*[0-9\/]*)/g, function(match) {
+                return shiftAbcNote(match, steps);
+            });
+        } else {
+            newToken = shiftAbcNote(oldToken, steps);
+        }
+        if (newToken === oldToken) return null;
+
+        var $textarea = $('#abc');
+        var body = $textarea.val();
+        var bodyOffset = start - bodyStart;
+        var bodyEndOffset = end - bodyStart;
+        $textarea.val(body.substring(0, bodyOffset) + newToken + body.substring(bodyEndOffset));
         start_new_abc();
+
+        var noteOnly = newToken.match(/^(\^{0,2}|_{0,2}|=?)([A-Ga-g][,']*)/);
+        return noteOnly ? noteOnly[0] : null;
+    }
+
+    function start_new_abc() {
+        var $form = $('#form_for_new_tune');
+        if (!$form.length) return;
+
+        var midiProgram = parseInt($('#playback-instrument option:selected').data('midi')) || 0;
+        var tempo = parseInt($('#playback-tempo').val()) || 120;
+        var abcString =
+            'X:1\n' +
+            'T:' + ($('#tune_title').val() || '') + '\n' +
+            'R:' + ($('#tune_type').val() || '') + '\n' +
+            'M:' + ($('#metre').val() || '4/4') + '\n' +
+            'L:1/8\n' +
+            'Q:1/4=' + tempo + '\n' +
+            '%%MIDI program ' + midiProgram + '\n' +
+            'K:' + ($('#key').val() || 'C') + '\n' +
+            ($('#abc').val() || '');
+
+        var renderParams = { add_classes: true, dragging: true };
+        renderParams.clickListener = function(abcelem, tuneNumber, classes, analysis, drag, mouseEvent) {
+            if (!drag || drag.step === 0) return;
+            var newNote = handleAddTuneDrag(abcString, abcelem, drag.step);
+            if (newNote) {
+                var key = $('#key').val() || 'C';
+                playNote(keySpecificPlayback(key, newNote));
+            }
+        };
+
+        ABCJS.renderAbc('canvas', abcString, renderParams);
+
+        // Init MIDI player on first render
+        if (!addTuneSynthControl && $('#add-tune-midi-player').length) {
+            addTuneSynthControl = new ABCJS.synth.SynthController();
+            addTuneSynthControl.load('#add-tune-midi-player', null, {
+                displayLoop: true,
+                displayRestart: true,
+                displayPlay: true,
+                displayProgress: true,
+                displayWarp: true
+            });
+        }
+
+        if (addTuneSynthControl) {
+            var vis = ABCJS.renderAbc('*', abcString);
+            if (vis && vis[0]) {
+                addTuneSynthControl.setTune(vis[0], false).catch(function(e) {});
+                if (addTuneSynthControl.midiBuffer) {
+                    try { addTuneSynthControl.midiBuffer.stop(); } catch(e) {}
+                    addTuneSynthControl.midiBuffer = null;
+                }
+                addTuneSynthControl.isLoaded = false;
+            }
+        }
+    }
+
+    window.startNewAbc = start_new_abc;
+
+    // Delegated handlers for add-tune form (works whether loaded statically or via AJAX)
+    $(document).on('change', '#form_for_new_tune #tune_title', start_new_abc);
+    $(document).on('change', '#form_for_new_tune #tune_type', start_new_abc);
+    $(document).on('change', '#form_for_new_tune #metre', start_new_abc);
+    $(document).on('change click', '#form_for_new_tune #key', start_new_abc);
+    $(document).on('change keyup', '#form_for_new_tune #abc', start_new_abc);
+    $(document).on('change', '#form_for_new_tune #playback-instrument', start_new_abc);
+
+    // Disable spellcheck when #abc appears
+    $(document).on('focus', '#abc', function() {
+        this.spellcheck = false;
     });
-    $('#abc').on('change keyup', function(){ start_new_abc(); });
-
-    // ── Save ──────────────────────────────────────────────────────────────────
-
-    } // end if (hasStaticForm)
 
     // ── Save (delegated so it works for dynamically loaded forms) ─────────────
 
@@ -398,7 +476,7 @@ $(document).ready(function(){
     // (which is handled by the direct $('#tune_mode_input').change() above).
     var editorBase = (typeof APP_BASE !== 'undefined') ? APP_BASE + '/' : '';
 
-    $(document).on('change', '#tune_mode_input.edit-mode-select', function () {
+    $(document).on('change', '#tune_mode_input', function () {
         var id = $(this).find('option:selected').attr('id');
         var currentKeyId = $('#key').find('option:selected').attr('id') || '';
         var modeMap = { 'maj': 'major', 'min': 'minor', 'dor': 'dorian', 'mix': 'mixolydian' };
@@ -406,7 +484,6 @@ $(document).ready(function(){
         if (mode) {
             $('#key').load(editorBase + 'fragment/mode-options/' + mode + '?id=' + currentKeyId, function () {
                 $('#tune_mode_input').focus();
-                // Trigger change on #key so the edit form re-renders notation
                 $('#key').trigger('change');
             });
         }

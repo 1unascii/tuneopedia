@@ -100,3 +100,14 @@
         <div id="warnings"></div>
     </div>
 </div>
+
+<div id="add-tune-midi-player"></div>
+
+<script>
+$(function() {
+    if (typeof window.startNewAbc === 'function') {
+        window.startNewAbc();
+    }
+    $('.playback-dial').knob({ 'release': function(v) {} });
+});
+</script>

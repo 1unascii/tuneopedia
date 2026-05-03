@@ -317,7 +317,8 @@ $(document).ready(function() {
                 if (!drag || drag.step === 0) return;
                 var newNote = handleNoteDrag($block, abcString, abcelem, drag.step);
                 if (newNote && typeof window.playNote === 'function') {
-                    window.playNote(newNote);
+                    var key = $('#key').val() || $block.find('.setting-key').text() || 'C';
+                    window.playNote(keySpecificPlayback(key, newNote));
                 }
             };
         }
