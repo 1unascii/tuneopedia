@@ -304,10 +304,22 @@ $(document).ready(function() {
 
     // ── Notation rendering ──────────────────────────────────────────────────
 
-    function renderNotation($block, abcString) {
+    function renderNotation($block, abcString, editable) {
         var targetId = getNotationTargetId($block);
         var params = getTablatureParams();
         params.add_classes = true;
+
+        if (editable) {
+            params.dragging = true;
+            params.clickListener = function(abcelem, tuneNumber, classes, analysis, drag, mouseEvent) {
+                if (!drag || drag.step === 0) return;
+                var newNote = handleNoteDrag($block, abcString, abcelem, drag.step);
+                if (newNote && typeof window.playNote === 'function') {
+                    window.playNote(newNote);
+                }
+            };
+        }
+
         var visualObj = ABCJS.renderAbc(targetId, abcString, params);
         if (visualObj && visualObj[0]) {
             $block.data('visualObj', visualObj[0]);
@@ -321,6 +333,94 @@ $(document).ready(function() {
                 sc.setTune(visualObj[0], false, audioParams).catch(function(e) {});
             }
         }
+    }
+
+    // ── Note dragging ───────────────────────────────────────────────────────
+
+    var noteScale = ['C,','D,','E,','F,','G,','A,','B,','C','D','E','F','G','A','B','c','d','e','f','g','a','b',"c'","d'","e'","f'","g'","a'","b'"];
+
+    function abcNoteToIndex(note) {
+        // Strip accidentals and duration to get the base note
+        var clean = note.replace(/[\^_=]/g, '');
+        // Find the note letter and octave markers
+        for (var i = 0; i < noteScale.length; i++) {
+            if (noteScale[i] === clean) return i;
+        }
+        return -1;
+    }
+
+    function shiftAbcNote(noteToken, steps) {
+        // Extract leading accidentals
+        var acc = '';
+        var rest = noteToken;
+        while (rest.length > 0 && (rest[0] === '^' || rest[0] === '_' || rest[0] === '=')) {
+            acc += rest[0];
+            rest = rest.substring(1);
+        }
+
+        // Extract the note name (letter + octave markers like , or ')
+        var noteMatch = rest.match(/^([A-Ga-g][,']*)(.*)$/);
+        if (!noteMatch) return noteToken; // not a note
+
+        var notePart = noteMatch[1];
+        var suffix = noteMatch[2]; // duration, ties, etc.
+
+        var idx = abcNoteToIndex(notePart);
+        if (idx === -1) return noteToken;
+
+        // steps from drag: negative = up on staff = higher pitch
+        var newIdx = idx - steps;
+        if (newIdx < 0 || newIdx >= noteScale.length) return noteToken;
+
+        return acc + noteScale[newIdx] + suffix;
+    }
+
+    function handleNoteDrag($block, abcString, abcelem, steps) {
+        // Calculate where the body starts in the full ABC string
+        var kPos = abcString.indexOf('\nK:');
+        if (kPos === -1) return null;
+        var bodyStart = abcString.indexOf('\n', kPos + 1);
+        if (bodyStart === -1) return null;
+        bodyStart += 1; // skip past the newline
+
+        var start = abcelem.startChar;
+        var end = abcelem.endChar;
+
+        // Only handle notes that are in the body, not headers
+        if (start < bodyStart) return null;
+
+        var oldToken = abcString.substring(start, end);
+        var newToken;
+
+        // Handle chords [CEG] — shift each note inside brackets
+        if (oldToken.indexOf('[') !== -1) {
+            newToken = oldToken.replace(/(\^{0,2}|_{0,2}|=?)([A-Ga-g][,']*[0-9\/]*)/g, function(match) {
+                return shiftAbcNote(match, steps);
+            });
+        } else {
+            newToken = shiftAbcNote(oldToken, steps);
+        }
+
+        if (newToken === oldToken) return null;
+
+        // Work directly with the body text from the textarea
+        var $form = $block.find('.edit-setting-form');
+        if (!$form.length) return null;
+
+        var $textarea = $form.find('[name="abc_transcription"]');
+        var body = $textarea.val();
+
+        // Convert full-string positions to body-relative positions
+        var bodyOffset = start - bodyStart;
+        var bodyEndOffset = end - bodyStart;
+        var newBody = body.substring(0, bodyOffset) + newToken + body.substring(bodyEndOffset);
+
+        $textarea.val(newBody);
+        renderFromForm($block);
+
+        // Return the new note (without duration suffix) for playback
+        var noteOnly = newToken.match(/^(\^{0,2}|_{0,2}|=?)([A-Ga-g][,']*)/);
+        return noteOnly ? noteOnly[0] : null;
     }
 
     function renderFromForm($block) {
@@ -339,7 +439,8 @@ $(document).ready(function() {
             'K:' + keyVal + '\n' +
             ($form.find('[name="abc_transcription"]').val() || '');
 
-        renderNotation($block, abcString);
+        var isEditing = $block.find('.setting-edit-area').is(':visible');
+        renderNotation($block, abcString, isEditing);
     }
 
     function restoreNotation($block) {

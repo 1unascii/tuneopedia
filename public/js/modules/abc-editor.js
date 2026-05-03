@@ -349,8 +349,23 @@ $(document).ready(function(){
     }
 
     // Plays a single ABC note string using abcjs synth.
+    function playThud() {
+        if (!ABCJS || !ABCJS.synth || !ABCJS.synth.playEvent) return;
+        ABCJS.synth.playEvent(
+            [{ pitch: 36, duration: 0.08, volume: 30, instrument: 115 }],
+            null, 500
+        );
+    }
+
+    // Characters that are valid ABC syntax but not playable notes
+    var abcSilentChars = /^[tTHLMvuz|:~.\/<>!+\[\](){} 0-9\-\t\n\r]$/;
+
     function playNote(abcNoteStr) {
         if (!abcNoteStr || !ABCJS || !ABCJS.synth || !ABCJS.synth.playEvent) return;
+        var noteChar = abcNoteStr.replace(/[\^_=]/g, '').charAt(0);
+        if (/^[A-Ga-g]$/.test(noteChar)) { /* valid note, fall through */ }
+        else if (abcSilentChars.test(noteChar)) { return; }
+        else { playThud(); return; }
         var pitch = abcToMidi(abcNoteStr);
         var volume = 80;
         var $vol = $('#playback-volume');
@@ -368,6 +383,8 @@ $(document).ready(function(){
             millisecondsPerMeasure
         );
     }
+
+    window.playNote = playNote;
 
     // jQuery Knob displays its own value — no manual update handlers needed.
 
