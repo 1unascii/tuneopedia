@@ -181,6 +181,33 @@ $(document).ready(function(){
     // ── Add-tune form rendering & MIDI ─────────────────────────────────────
 
     var addTuneSynthControl = null;
+    var addTuneGainNode = null;
+
+    function applyAddTuneGain() {
+        if (!addTuneSynthControl || !addTuneSynthControl.midiBuffer || !addTuneSynthControl.midiBuffer.directSource) return;
+        var ctx = ABCJS.synth.activeAudioContext();
+        if (!ctx) return;
+        if (!addTuneGainNode) {
+            addTuneGainNode = ctx.createGain();
+            addTuneGainNode.connect(ctx.destination);
+        }
+        var vol = parseInt($('#add-tune-volume').val()) || 25;
+        addTuneGainNode.gain.value = vol / 100;
+        addTuneSynthControl.midiBuffer.directSource.forEach(function(source) {
+            try { source.disconnect(); source.connect(addTuneGainNode); } catch(e) {}
+        });
+    }
+
+    // Re-route audio through GainNode after each play/restart/loop
+    $(document).on('click', '#add-tune-midi-player .abcjs-midi-start, #add-tune-midi-player .abcjs-midi-reset', function() {
+        setTimeout(applyAddTuneGain, 200);
+    });
+
+    window.updateAddTuneVolume = function(val) {
+        if (addTuneGainNode) {
+            addTuneGainNode.gain.value = val / 100;
+        }
+    };
 
     // Note dragging for add-tune form
     var noteScale = ['C,','D,','E,','F,','G,','A,','B,','C','D','E','F','G','A','B','c','d','e','f','g','a','b',"c'","d'","e'","f'","g'","a'","b'"];
@@ -255,7 +282,7 @@ $(document).ready(function(){
             'T:' + ($('#tune_title').val() || '') + '\n' +
             'R:' + ($('#tune_type').val() || '') + '\n' +
             'M:' + ($('#metre').val() || '4/4') + '\n' +
-            'L:1/8\n' +
+            'L:' + ($('#default_note_length').val() || '1/8') + '\n' +
             'Q:1/4=' + tempo + '\n' +
             '%%MIDI program ' + midiProgram + '\n' +
             'K:' + ($('#key').val() || 'C') + '\n' +
@@ -274,7 +301,10 @@ $(document).ready(function(){
         ABCJS.renderAbc('canvas', abcString, renderParams);
 
         // Init MIDI player on first render
-        if (!addTuneSynthControl && $('#add-tune-midi-player').length) {
+        var $midiPlayer = $('#add-tune-midi-player');
+        if ($midiPlayer.length && !$midiPlayer.children().length) {
+            addTuneSynthControl = null;
+            addTuneGainNode = null;
             addTuneSynthControl = new ABCJS.synth.SynthController();
             addTuneSynthControl.load('#add-tune-midi-player', null, {
                 displayLoop: true,
@@ -304,6 +334,7 @@ $(document).ready(function(){
     $(document).on('change', '#form_for_new_tune #tune_title', start_new_abc);
     $(document).on('change', '#form_for_new_tune #tune_type', start_new_abc);
     $(document).on('change', '#form_for_new_tune #metre', start_new_abc);
+    $(document).on('change', '#form_for_new_tune #default_note_length', start_new_abc);
     $(document).on('change click', '#form_for_new_tune #key', start_new_abc);
     $(document).on('change keyup', '#form_for_new_tune #abc', start_new_abc);
     $(document).on('change', '#form_for_new_tune #playback-instrument', start_new_abc);
@@ -312,6 +343,38 @@ $(document).ready(function(){
     $(document).on('focus', '#abc', function() {
         this.spellcheck = false;
     });
+
+    // Bootstrap add-tune form when it appears in the DOM
+    function initAddTuneForm() {
+        if (!$('#form_for_new_tune').length) return;
+        if ($('#add-tune-volume').length && !$('#add-tune-volume').data('knob-initialized')) {
+            $('#add-tune-volume').knob({
+                'release': function(v) {
+                    if (typeof window.updateAddTuneVolume === 'function') {
+                        window.updateAddTuneVolume(v);
+                    }
+                }
+            });
+            $('#add-tune-volume').data('knob-initialized', true);
+        }
+        start_new_abc();
+    }
+
+    // Watch for the form being loaded into #content
+    var contentEl = document.getElementById('content');
+    if (contentEl) {
+        new MutationObserver(function(mutations) {
+            for (var i = 0; i < mutations.length; i++) {
+                if (mutations[i].addedNodes.length) {
+                    initAddTuneForm();
+                    break;
+                }
+            }
+        }).observe(contentEl, { childList: true });
+    }
+
+    // Also init if form already exists at ready time (direct URL load)
+    initAddTuneForm();
 
     // ── Save (delegated so it works for dynamically loaded forms) ─────────────
 
