@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# ── Serve real files directly (CSS, JS, images) ──────────────────────────
+# If the request points to a real file or directory inside public/,
+# Apache serves it as-is without going through the front controller.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# ── Route everything else through the front controller ───────────────────
+# Any request that isn't a static file gets handled by index.php,
+# which parses the URL and dispatches to the correct controller.
+RewriteRule ^ index.php [QSA,L]

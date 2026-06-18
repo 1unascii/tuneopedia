@@ -1,145 +1,186 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-$dotenv->safeLoad();
+declare(strict_types=1);
 
-function connect(){
-    try {
+use Illuminate\Support\Str;
+use Pdo\Mysql;
 
-        $host       = getenv('DB_HOST') ?: $_ENV['DB_HOST'] ?? '';
-        $db_name    = getenv('DB_NAME') ?: $_ENV['DB_NAME'] ?? '';
-        $user       = getenv('DB_USER') ?: $_ENV['DB_USER'] ?? '';
-        $pass       = getenv('DB_PASS') ?: $_ENV['DB_PASS'] ?? '';
+return [
 
-        // The DSN should only contain host and dbname; user and pass are separate arguments
-        $dsn = "mysql:host=$host;dbname=$db_name;charset=utf8mb4";
-        
-        $db = new PDO($dsn, $user, $pass);        
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
-        return $db;
-    }
-    catch (PDOException $err) {
-        // In production, log errors instead of echoing them to avoid leaking server info
-        error_log($err->getMessage());
-        return null;
-    }
-}
+    /*
+    |--------------------------------------------------------------------------
+    | Default Database Connection Name
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify which of the database connections below you wish
+    | to use as your default connection for database operations. This is
+    | the connection which will be utilized unless another connection
+    | is explicitly specified when you execute a query / statement.
+    |
+    */
 
-//creates an array of incremental numbers based on the size of the array passed to it
-function createParamArray($params){
-    $i = 0;
-    foreach ($params as $value){
-        $result[] = "$i";
-        $i++;
-    }
-    return $result;
-}
+    'default' => env('DB_CONNECTION', 'sqlite'),
 
-/*AUTHENTICATE USER, needs a special function for security purposes*/
-function authenticateUser($user_name, $password) {
-    $db = connect();
-    $stmt = $db->prepare("SELECT * FROM user WHERE user_name = ?");
-    $stmt->execute([$user_name]);
-    $user = $stmt->fetch();
+    /*
+    |--------------------------------------------------------------------------
+    | Database Connections
+    |--------------------------------------------------------------------------
+    |
+    | Below are all of the database connections defined for your application.
+    | An example configuration is provided for each database system which
+    | is supported by Laravel. You're free to add / remove connections.
+    |
+    */
 
-    // Use password_verify instead of pre-hashing the input
-    if ($user && sha1($password)) {
-        return $user;
-    }
-    return false;
-}
+    'connections' => [
 
-function simpleQuery($query){
-    try{
-        $db = connect();
-        $query = $db->prepare($query);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        if($query->execute()){
-            while ($row = $query->fetchALL(PDO::FETCH_ASSOC)){
-                return $row;
-            }            
-        }else{
-            return false;
-        }       
-    }    
-    catch ( PDOException $err){
-        echo $err->getCode();
-        echo $err->getMessage(); 
-    }
-}
+        'sqlite' => [
+            'driver' => 'sqlite',
+            'url' => env('DB_URL'),
+            'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            'prefix' => '',
+            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+            'busy_timeout' => null,
+            'journal_mode' => null,
+            'synchronous' => null,
+            'transaction_mode' => 'DEFERRED',
+        ],
 
-function deleteTune($tune_id, $author_id) {
-    try {
-        $db = connect();
-        $sql = "DELETE FROM tunes WHERE tune_id = ? AND user_id = ?";
-        $stmt = $db->prepare($sql);
-        
-        // Pass the variables here in the same order as the "?" in your SQL
-        return $stmt->execute([$tune_id, $user_id]);
+        'mysql' => [
+            'driver' => 'mysql',
+            'url' => env('DB_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'laravel'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => env('DB_CHARSET', 'utf8mb4'),
+            'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                (PHP_VERSION_ID >= 80500 ? Mysql::ATTR_SSL_CA : PDO::MYSQL_ATTR_SSL_CA) => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
 
-    } catch (PDOException $err) {
-        // Keeping your error reporting for debugging
-        echo $err->getCode() . " " . $err->getMessage(); 
-        return false; 
-    }
-}
+        'mariadb' => [
+            'driver' => 'mariadb',
+            'url' => env('DB_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'laravel'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => env('DB_CHARSET', 'utf8mb4'),
+            'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                (PHP_VERSION_ID >= 80500 ? Mysql::ATTR_SSL_CA : PDO::MYSQL_ATTR_SSL_CA) => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
 
-function queryWithParams($query, $params){
-    try{
-        $db = connect();
-        $q = $db->prepare($query);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $i = 0;
-        if (is_array($params)){//allows for an array of parameters to be passed through
-            $param_arr = createParamArray($params);//creates string indexes to append to param
-            $i = 0;
-            foreach ($params as $value){
-                $q->bindValue(":param". $param_arr[$i], $value);//append the next string index to the :param
-                $i++;
-            }        
-        } else {
-            $q->bindValue(":param", $params);//$parameter is not an array so pass it through normally
-        }
-        if($q->execute()){ 
-            while ($row = $q->fetch(PDO::FETCH_ASSOC)){
-                return $row;
-            }     
-        }else{
-            return false;
-        }
-    }
-    catch ( PDOException $err){
-        echo $err->getCode();
-        echo $err->getMessage(); 
-    }
-}
-function insertQuery($query, $params){
-    try{
-        $db = connect();
-        $q = $db->prepare($query);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $i = 0;
-        if (is_array($params)){//allows for an array of parameters to be passed through
-            $param_arr = createParamArray($params);//creates string indexes to append to param
-            $i = 0;
-            foreach ($params as $value){
-                $q->bindValue(":param". $param_arr[$i], $value);//append the next string index to the :param
-                $i++;
-            }        
-        } else {
-            $q->bindValue(":param", $params);//$parameter is not an array so pass it through normally
-        }
-        if($q->execute()){ 
-            return true;
-        }else{
-            return false;
-        }
-    }
-    catch ( PDOException $err){
-        //echo $err->getCode();
-        //echo $err->getMessage(); 
-    }
-}
-?>
+        'pgsql' => [
+            'driver' => 'pgsql',
+            'url' => env('DB_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '5432'),
+            'database' => env('DB_DATABASE', 'laravel'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset' => env('DB_CHARSET', 'utf8'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => env('DB_SSLMODE', 'prefer'),
+        ],
+
+        'sqlsrv' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DB_URL'),
+            'host' => env('DB_HOST', 'localhost'),
+            'port' => env('DB_PORT', '1433'),
+            'database' => env('DB_DATABASE', 'laravel'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset' => env('DB_CHARSET', 'utf8'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            // 'encrypt' => env('DB_ENCRYPT', 'yes'),
+            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
+        ],
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Migration Repository Table
+    |--------------------------------------------------------------------------
+    |
+    | This table keeps track of all the migrations that have already run for
+    | your application. Using this information, we can determine which of
+    | the migrations on disk haven't actually been run on the database.
+    |
+    */
+
+    'migrations' => [
+        'table' => 'migrations',
+        'update_date_on_publish' => true,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Redis Databases
+    |--------------------------------------------------------------------------
+    |
+    | Redis is an open source, fast, and advanced key-value store that also
+    | provides a richer body of commands than a typical key-value system
+    | such as Memcached. You may define your connection settings here.
+    |
+    */
+
+    'redis' => [
+
+        'client' => env('REDIS_CLIENT', 'phpredis'),
+
+        'options' => [
+            'cluster' => env('REDIS_CLUSTER', 'redis'),
+            'prefix' => env('REDIS_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')).'-database-'),
+            'persistent' => env('REDIS_PERSISTENT', false),
+        ],
+
+        'default' => [
+            'url' => env('REDIS_URL'),
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'username' => env('REDIS_USERNAME'),
+            'password' => env('REDIS_PASSWORD'),
+            'port' => env('REDIS_PORT', '6379'),
+            'database' => env('REDIS_DB', '0'),
+            'max_retries' => env('REDIS_MAX_RETRIES', 3),
+            'backoff_algorithm' => env('REDIS_BACKOFF_ALGORITHM', 'decorrelated_jitter'),
+            'backoff_base' => env('REDIS_BACKOFF_BASE', 100),
+            'backoff_cap' => env('REDIS_BACKOFF_CAP', 1000),
+        ],
+
+        'cache' => [
+            'url' => env('REDIS_URL'),
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'username' => env('REDIS_USERNAME'),
+            'password' => env('REDIS_PASSWORD'),
+            'port' => env('REDIS_PORT', '6379'),
+            'database' => env('REDIS_CACHE_DB', '1'),
+            'max_retries' => env('REDIS_MAX_RETRIES', 3),
+            'backoff_algorithm' => env('REDIS_BACKOFF_ALGORITHM', 'decorrelated_jitter'),
+            'backoff_base' => env('REDIS_BACKOFF_BASE', 100),
+            'backoff_cap' => env('REDIS_BACKOFF_CAP', 1000),
+        ],
+
+    ],
+
+];

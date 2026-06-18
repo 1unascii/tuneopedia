@@ -1,0 +1,27 @@
+A Dorian
+A Major
+A Minor
+A Mixolydian
+B Dorian
+B Flat Major
+B Minor
+C Dorian
+C Major
+C Minor
+C Mixolydian
+D Dorian
+D Major
+D Minor
+D Mixolydian
+E Dorian
+E Flat Major
+E Major
+E Minor
+F Major
+F Minor
+F Mixolydian
+F Sharp Minor
+G Dorian
+G Major
+G Minor
+G Mixolydian

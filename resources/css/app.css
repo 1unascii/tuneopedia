@@ -1,0 +1,259 @@
+@import 'tailwindcss';
+@import '../../node_modules/abcjs/abcjs-audio.css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font: 'Fondamento', cursive, system-ui, sans-serif;
+
+    --animate-fade-out: fade-out 4s ease-in-out forwards;
+
+    @keyframes fade-out {
+        0%, 70% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+}
+/* ===== TUNEOPEDIA DARK THEME — overrides DaisyUI “dark” ===== */
+[data-theme=”dark”] {
+    --color-base-100: #222222;
+    --color-base-200: #1a1a1a;
+    --color-base-300: #2a2a2a;
+    --color-base-content: #f0f0f0;
+    --color-primary: #00fff2;
+    --color-primary-content: #1a1a1a;
+    --color-secondary: #ff8c00;
+    --color-secondary-content: #ffffff;
+    --color-accent: #ffc73d;
+    --color-accent-content: #1a1a1a;
+    --color-neutral: #2f3136;
+    --color-neutral-content: #f0f0f0;
+}
+
+/* ===== TUNEOPEDIA LIGHT THEME — overrides DaisyUI “light” ===== */
+[data-theme=”light”] {
+    --color-base-100: #f7f7f8;
+    --color-base-200: #ededee;
+    --color-base-300: #e0e1e3;
+    --color-base-content: #1a1a1c;
+    --color-primary: #0099a0;
+    --color-primary-content: #ffffff;
+    --color-secondary: #ff8c00;
+    --color-secondary-content: #ffffff;
+    --color-accent: #ffc73d;
+    --color-accent-content: #1a1a1a;
+    --color-neutral: #2f3136;
+    --color-neutral-content: #ffffff;
+}
+
+/* Cards */
+:where(.card) {
+    border: var(--border) solid var(--border-color-soft);
+    box-shadow: none !important;
+    border-radius: var(--radius-box);
+}
+
+:where(.card .card-body) {
+    padding: .875rem .875rem 1.125rem;
+}
+
+/* Inputs */
+:where(.input, .textarea) {
+    border-radius: var(--radius-field);
+    border: var(--border) solid var(--border-color-soft);
+}
+
+:where(.input:focus, .textarea:focus) {
+    outline: 2px solid color-mix(in oklab, var(--color-primary) 35%, transparent);
+    outline-offset: 2px;
+}
+
+/* Buttons */
+:where(.btn) {
+    border-radius: 5px;
+    box-shadow: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+/* Toast */
+:where(.toast .alert-success) {
+    border: var(--border) solid rgba(0, 0, 0, 0.08);
+}
+
+/* Full-width inputs inside cards/floating labels */
+.card .input,
+.card .textarea,
+.floating-label>input,
+.floating-label>.input,
+.floating-label>.textarea {
+    width: 100%;
+}
+
+body {
+    font-family: 'Fondamento', cursive, system-ui, sans-serif;
+    color: var(--color-base-content);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400 !important;
+}
+
+/* Turbo page transition fade — only the main content area fades */
+.turbo-progress-bar {
+    display: none;
+}
+
+main {
+    opacity: 1;
+    transition: opacity 0.6s ease-in-out;
+}
+
+.turbo-loading main {
+    opacity: 0;
+}
+
+/* Nav overlay links */
+.nav-link {
+    color: var(--color-base-content);
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* Active nav link — highlights the current page's link in orange */
+.nav-link-active {
+    color: var(--color-secondary);
+}
+
+.nav-link:hover {
+    color: var(--color-primary);
+    text-shadow: 0 0 10px var(--color-primary);
+}
+
+/* Highlighted tune title — applied when a tune is clicked.
+   Turbo's cache preserves this so it's still visible on back navigation. */
+.tune-row-highlight .tune_title a {
+    color: var(--color-secondary);
+}
+
+/* ===== TUNE FORM ===== */
+.tune-form {
+    font-size: 0.85rem;
+}
+
+.tune-form .input,
+.tune-form .select,
+.tune-form .textarea {
+    font-size: 0.8rem;
+    min-height: 2rem;
+    height: 2rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.tune-form .textarea {
+    height: auto;
+    min-height: auto;
+}
+
+.tune-form .btn {
+    font-size: 0.8rem;
+    min-height: 2rem;
+    height: 2rem;
+    padding: 0.25rem 0.75rem;
+}
+
+.tune-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px 12px;
+}
+
+.tune-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.tune-form-field label {
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+.tune-form-field-wide {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.tune-form-field-wide label {
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+.tune-form-playback {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.knob-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.knob-container label {
+    font-size: 0.65rem;
+    opacity: 0.7;
+}
+
+.circular-knob {
+    position: relative;
+    cursor: grab;
+    user-select: none;
+}
+
+.knob-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #59b4d4;
+}
+
+.tune-form-canvas {
+    background: var(--color-base-100);
+    border-radius: var(--radius-box);
+    border: var(--border) solid var(--border-color-soft);
+    padding: 12px;
+    min-height: 100px;
+}
+
+.tune-form-midi {
+    background: var(--color-base-100);
+    border-radius: var(--radius-box);
+    border: var(--border) solid var(--border-color-soft);
+    padding: 8px;
+}
+
+.play-selection-container {
+    display: flex;
+    align-items: center;
+}
+

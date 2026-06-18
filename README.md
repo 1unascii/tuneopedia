@@ -1,114 +1,59 @@
-# Tuneopedia
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-A digital repository for traditional music, preserving tunes that have been passed down through history. Browse, play back, and contribute ABC notation transcriptions of jigs, reels, hornpipes, and more.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-## Features
+## About Laravel
 
-- **Tunebook** -- Browse tunes organized by type (Reel, Jig, Hornpipe, Strathspey, etc.) with search, key filtering, and pagination
-- **ABC Notation Rendering** -- Sheet music rendered in the browser via [abcjs](https://www.abcjs.net/) with tablature support for fiddle, guitar, banjo, mandolin, and custom tunings
-- **MIDI Playback** -- Play back tunes with per-setting volume control, tempo adjustment, looping, cursor tracking, and note highlighting
-- **Settings & Voting** -- Each tune can have multiple settings (transcriptions). Users vote on settings to surface the best version
-- **Draggable Notes** -- Drag notes up/down on the staff in the edit view to change pitch, with live audio feedback
-- **Keystroke Playback** -- Hear notes as you type ABC notation in the editor, with instrument-aware playback
-- **Collections** -- Import ABC files to create collections, or curate sets from your favorites
-- **Discussions** -- Community discussion board with threads and replies
-- **User Accounts** -- Register, log in, manage favorites, and submit tunes and settings
-- **Light/Dark Theme** -- Toggle between light and dark modes
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-## Requirements
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-- PHP 8.0+
-- MySQL 8.0+ or MariaDB 10.4+
-- [Composer](https://getcomposer.org/)
-- [Node.js / npm](https://nodejs.org/) (for abcjs)
-- A web server (Apache with mod_rewrite, or XAMPP)
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Installation
+## Learning Laravel
 
-### 1. Clone the repository
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
 
-```bash
-git clone https://github.com/1unascii/tuneopedia.git
-cd tuneopedia
-```
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-### 2. Install dependencies
+## Laravel Sponsors
 
-```bash
-composer install
-npm install
-```
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### 3. Create the database
+### Premium Partners
 
-Create a MySQL database (e.g. `tuneopedia`), then import the schema:
+- **[Vehikl](https://vehikl.com)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Redberry](https://redberry.international/laravel-development)**
+- **[Active Logic](https://activelogic.com)**
 
-**phpMyAdmin:** Run the SQL file `config/tuneopedia.sql`
+## Contributing
 
-**Command line (Windows/XAMPP):**
-```bash
-mysql -u root -p tuneopedia < config/tuneopedia.sql
-```
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-**Command line (Linux):**
-```bash
-mysql -u root -p tuneopedia < config/tuneopedia.sql
-```
+## Code of Conduct
 
-### 4. Configure environment
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-Create a `.env` file in the project root:
+## Security Vulnerabilities
 
-```
-DB_HOST=127.0.0.1
-DB_NAME=tuneopedia
-DB_USER=your_username
-DB_PASS=your_password
-```
-
-### 5. Configure web server
-
-Point your web server's document root to the project directory. The `.htaccess` files handle routing -- all requests are directed through `public/index.php` as the front controller.
-
-For XAMPP, place the project in `C:\xampp\htdocs\tuneopedia` and access it at `http://localhost/tuneopedia`.
-
-## Project Structure
-
-```
-tuneopedia/
-  abc_files/        ABC notation source files
-  config/           Database config and schema (tuneopedia.sql)
-  controllers/      MVC controllers (Tune, Setting, Collection, Auth, Discussion)
-  helpers/          Utility functions (tune type detection, ABC formatting)
-  models/           Data models with SQL queries (models/sql/)
-  public/           Web root -- front controller, CSS, JS, images
-    css/            Stylesheets
-    js/
-      lib/          Third-party JS (abcjs, jQuery plugins)
-      modules/      Application JS organized by feature
-        tunes/      Tune listing and display
-        settings/   Setting playback, editing, voting, notation
-        collections/
-        discussions/
-        favorites/
-        users/
-  tests/            Model tests, API tests, integration tests
-  views/            PHP templates
-    tunes/          Tune index, show, create views
-    settings/       Setting edit and add forms
-    collections/    Collection index and show views
-    auth/           Login and registration forms
-    partials/       Header, footer, nav, shared components
-```
-
-## Testing
-
-Run all model tests:
-
-```bash
-php tests/model_tests/run_all.php
-```
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
-All rights reserved.
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

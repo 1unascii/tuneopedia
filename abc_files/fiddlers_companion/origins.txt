@@ -1,0 +1,16 @@
+Irish|Ireland
+Scottish|Scotland
+English|England
+American|America
+Canadian|Canada
+Old-Time|Old-Time
+Shetland|Shetland
+Cajun|Cajun
+New England|New England
+French-Canadian|French-Canada
+French|France
+Northumbrian|Northumbria
+Bluegrass|Bluegrass
+West Indian|West Indies
+Texas|Texas
+Welsh|Wales
