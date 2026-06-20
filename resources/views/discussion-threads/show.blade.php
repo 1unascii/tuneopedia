@@ -54,8 +54,9 @@
             @endforelse
         </div>
 
-        <!-- Reply Form -->
+        <!-- Reply Form (verified users only) -->
         @auth
+        @if(auth()->user()->hasVerifiedEmail())
         <div class="mt-6">
             <form method="POST" action="/discussion-threads/{{ $discussionThread->id }}/replies">
                 @csrf
@@ -69,6 +70,7 @@
                 </div>
             </form>
         </div>
+        @endif
         @endauth
     </div>
 </x-layout>

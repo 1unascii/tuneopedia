@@ -35,7 +35,9 @@
             <option value="100">100 per page</option>
         </select>
         @auth
-            <a href="{{ route('tunes.create') }}" class="btn btn-primary btn-sm">Add Tune</a>
+            @if(auth()->user()->hasVerifiedEmail())
+                <a href="{{ route('tunes.create') }}" class="btn btn-primary btn-sm">Add Tune</a>
+            @endif
         @endauth
     </div>
 
@@ -72,7 +74,11 @@
                                     <tr>
                                         <th>Title</th>
                                         <th>Settings</th>
-                                        <th>Favorite</th>
+                                        @auth
+                                            @if(auth()->user()->hasVerifiedEmail())
+                                                <th>Favorite</th>
+                                            @endif
+                                        @endauth
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -96,22 +102,24 @@
                                                 </a>
                                             </td>
                                             <td>{{ $tune->settings_count }}</td>
-                                            <td>
-                                                {{-- Favorite toggle: clicks send a fetch POST in the background
-                                                     and swap the icon instantly without reloading the page.
-                                                     The CSRF token is read from the meta tag. --}}
-                                                @auth
-                                                    <button class="cursor-pointer favorite-toggle"
-                                                        data-tune-id="{{ $tune->id }}"
-                                                        data-url="{{ route('favorites.toggle', $tune) }}">
-                                                        @if(auth()->user()->favoriteTunes->contains($tune->id))
-                                                            <i class="fa-solid fa-heart text-error"></i>
-                                                        @else
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        @endif
-                                                    </button>
-                                                @endauth
-                                            </td>
+                                            @auth
+                                                @if(auth()->user()->hasVerifiedEmail())
+                                                    <td>
+                                                        {{-- Favorite toggle: clicks send a fetch POST in the background
+                                                             and swap the icon instantly without reloading the page.
+                                                             The CSRF token is read from the meta tag. --}}
+                                                        <button class="cursor-pointer favorite-toggle"
+                                                            data-tune-id="{{ $tune->id }}"
+                                                            data-url="{{ route('favorites.toggle', $tune) }}">
+                                                            @if(auth()->user()->favoriteTunes->contains($tune->id))
+                                                                <i class="fa-solid fa-heart text-error"></i>
+                                                            @else
+                                                                <i class="fa-regular fa-heart"></i>
+                                                            @endif
+                                                        </button>
+                                                    </td>
+                                                @endif
+                                            @endauth
                                         </tr>
                                     @endforeach
                                 </tbody>
