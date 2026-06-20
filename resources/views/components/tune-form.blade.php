@@ -170,6 +170,55 @@
             </div>
         </div>
 
+        {{-- ═══ TABLATURE CONTROLS ═══ --}}
+        <div class="flex items-center gap-3 mt-4">
+            <label class="flex items-center gap-1 cursor-pointer text-sm">
+                <input type="checkbox" class="checkbox checkbox-sm"
+                    x-model="showTablature" @change="renderAbc()">
+                Tablature
+            </label>
+            <select class="select select-bordered select-sm"
+                x-model="tabInstrument" @change="frettedDrone = false; renderAbc()"
+                x-show="showTablature">
+                <option value="fiddle">Fiddle</option>
+                <option value="mandolin">Mandolin</option>
+                <option value="guitar">Guitar</option>
+                <option value="fiveString">Five String</option>
+                <option value="banjoOpenG">Banjo — Open G (gDGBD)</option>
+                <option value="banjoDoubleC">Banjo — Double C (gCGCD)</option>
+                <option value="banjoSawmill">Banjo — Sawmill (gDGCD)</option>
+                <option value="banjoOpenD">Banjo — Open D (f#DF#AD)</option>
+                <option value="banjoOpenC">Banjo — Open C (gCGCE)</option>
+                <option value="banjoGMinor">Banjo — G Minor (gDGBbD)</option>
+                <option value="banjoDADE">Banjo — D-A-D-E (aDADE)</option>
+                <option value="custom">Custom</option>
+                <option value="customBanjo">Custom Banjo</option>
+            </select>
+            <label class="flex items-center gap-1 cursor-pointer text-sm"
+                x-show="showTablature && (tabInstrument.startsWith('banjo') || tabInstrument.startsWith('customBanjo'))">
+                <input type="checkbox" class="checkbox checkbox-sm"
+                    x-model="frettedDrone" @change="renderAbc()">
+                Allow fretted drone string
+            </label>
+            <label class="flex items-center gap-1 text-sm"
+                x-show="showTablature && (tabInstrument === 'custom' || tabInstrument.startsWith('customBanjo'))">
+                Strings:
+                <input type="number" min="2" max="12"
+                    class="input input-bordered input-sm w-16"
+                    x-model.number="customStrings"
+                    @change="updateCustomStrings()">
+            </label>
+            <label class="flex items-center gap-1 text-sm"
+                x-show="showTablature && (tabInstrument === 'custom' || tabInstrument.startsWith('customBanjo'))">
+                Tuning:
+                <input type="text" placeholder="e.g. G,DAe"
+                    class="input input-bordered input-sm w-32"
+                    x-model="customTuning"
+                    @input.debounce.500ms="renderAbc()"
+                    :placeholder="tabInstrument.startsWith('customBanjo') ? 'e.g. gDGBd (drone first)' : 'e.g. G,DAe'"
+            </label>
+        </div>
+
         {{-- ═══ SHEET MUSIC CANVAS ═══ --}}
         <div id="canvas" class="tune-form-canvas mt-4"></div>
 

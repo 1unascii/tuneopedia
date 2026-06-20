@@ -270,6 +270,17 @@ window.tuneForm = function(config) {
         instrumentId: config.instrumentId || 1,
         tempo: config.tempo || 120,
 
+        // Tablature state — controls optional tab rendering below sheet music.
+        // frettedDrone appends '_fretted' to the instrument name to use the
+        // variant without maxFrets (unlocks the banjo drone string).
+        // customTuning is parsed into ABC note array; for custom banjo the
+        // drone note is entered first and rotated to the end before passing.
+        showTablature: false,
+        tabInstrument: 'fiddle',
+        frettedDrone: false,
+        customStrings: 4,
+        customTuning: '',
+
         // Playback state
         playbackVolume: 50,
         midiVolume: 25,
@@ -337,8 +348,41 @@ window.tuneForm = function(config) {
             if (!window.ABCJS) return;
             const abcString = this.buildAbcString();
 
+            // Build render options, optionally including tablature
+            var renderOptions = { add_classes: true };
+            if (this.showTablature) {
+                var instrument = this.tabInstrument;
+                var isBanjo = instrument.indexOf('banjo') === 0 || instrument.indexOf('customBanjo') === 0;
+                // Use fretted variant for banjo if drone checkbox is checked
+                if (this.frettedDrone && isBanjo) {
+                    instrument = instrument + '_fretted';
+                }
+                var tabConfig = { instrument: instrument };
+                // Pass custom tuning if provided
+                if ((instrument === 'custom' || instrument.indexOf('customBanjo') === 0) && this.customTuning.trim()) {
+                    var parsed = this.parseTuningString(this.customTuning.trim());
+                    if (parsed.length >= 2) {
+                        // For custom banjo, the user enters the drone string first
+                        // (e.g. "gDGBd"). Move it to the end for ascending pitch order
+                        // since abcjs expects tuning in ascending order and strOrder
+                        // maps the last element to physical string 0 (the drone).
+                        if (instrument.indexOf('customBanjo') === 0) {
+                            parsed.push(parsed.shift());
+                        }
+                        tabConfig.tuning = parsed;
+                        this.customStrings = parsed.length;
+                    }
+                }
+                renderOptions.tablature = [tabConfig];
+            }
+
             // Render sheet music to canvas div
-            window.ABCJS.renderAbc('canvas', abcString, { add_classes: true });
+            try {
+                window.ABCJS.renderAbc('canvas', abcString, renderOptions);
+            } catch (e) {
+                console.error('Tablature render error:', e);
+                window.ABCJS.renderAbc('canvas', abcString, { add_classes: true });
+            }
 
             // Initialize or update MIDI player
             this.updateMidiPlayer(abcString);
@@ -473,6 +517,47 @@ window.tuneForm = function(config) {
 
             this.hasSelection = false;
             this.selectedText = '';
+        },
+
+        // ─── Default tuning by string count ─────────────────────────────
+        defaultTunings: {
+            2: 'DA', 3: 'GDA', 4: 'G,DAe', 5: 'C,G,DAe',
+            6: 'E,A,DGBe', 7: 'B,,E,A,DGBe', 8: 'F#,,B,,E,A,DGBe',
+            9: 'C#,,F#,,B,,E,A,DGBe', 10: 'G#,,,C#,,F#,,B,,E,A,DGBe',
+        },
+        banjoDefaultTunings: {
+            2: 'gd', 3: 'gDd', 4: 'gDAd', 5: 'gDGBd',
+            6: 'gG,DGBd', 7: 'gE,G,DGBd', 8: 'gC,E,G,DGBd',
+            9: 'gA,,C,E,G,DGBd', 10: 'gF,,A,,C,E,G,DGBd',
+        },
+
+        updateCustomStrings() {
+            var defs = this.tabInstrument.startsWith('customBanjo') ? this.banjoDefaultTunings : this.defaultTunings;
+            if (defs[this.customStrings]) {
+                this.customTuning = defs[this.customStrings];
+            }
+            this.renderAbc();
+        },
+
+        // ─── Parse tuning string into ABC note array ────────────────────
+        parseTuningString(str) {
+            var notes = [];
+            var i = 0;
+            while (i < str.length) {
+                var note = '';
+                if (i < str.length && (str[i] === '^' || str[i] === '_' || str[i] === '=')) {
+                    note += str[i]; i++;
+                    if (i < str.length && str[i] === note[0]) { note += str[i]; i++; }
+                }
+                if (i < str.length && /[A-Ga-g]/.test(str[i])) {
+                    note += str[i]; i++;
+                } else { i++; continue; }
+                while (i < str.length && (str[i] === ',' || str[i] === "'")) {
+                    note += str[i]; i++;
+                }
+                notes.push(note);
+            }
+            return notes;
         },
 
         // ─── Form submission ────────────────────────────────────────────
