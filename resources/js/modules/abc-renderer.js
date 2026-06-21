@@ -101,18 +101,6 @@ function renderAbcNotation() {
         droneLabel.appendChild(droneCheckbox);
         droneLabel.appendChild(document.createTextNode(' Allow fretted drone string'));
 
-        var stringsLabel = document.createElement('label');
-        stringsLabel.className = 'flex items-center gap-1 text-sm';
-        stringsLabel.style.display = 'none';
-        stringsLabel.appendChild(document.createTextNode('Strings: '));
-        var stringsInput = document.createElement('input');
-        stringsInput.type = 'number';
-        stringsInput.min = '2';
-        stringsInput.max = '12';
-        stringsInput.value = '4';
-        stringsInput.className = 'input input-bordered input-sm w-16';
-        stringsLabel.appendChild(stringsInput);
-
         var tuningLabel = document.createElement('label');
         tuningLabel.className = 'flex items-center gap-1 text-sm';
         tuningLabel.style.display = 'none';
@@ -126,7 +114,6 @@ function renderAbcNotation() {
         controlsDiv.appendChild(label);
         controlsDiv.appendChild(select);
         controlsDiv.appendChild(droneLabel);
-        controlsDiv.appendChild(stringsLabel);
         controlsDiv.appendChild(tuningLabel);
         el.parentNode.insertBefore(controlsDiv, el);
 
@@ -143,7 +130,6 @@ function renderAbcNotation() {
                 droneLabel.style.display = isBanjo ? '' : 'none';
                 if (!isBanjo) droneCheckbox.checked = false;
 
-                stringsLabel.style.display = isCustom ? '' : 'none';
                 tuningLabel.style.display = isCustom ? '' : 'none';
                 tuningInput.placeholder = isBanjo && isCustom ? 'e.g. gDGBd (drone first)' : 'e.g. G,DAe';
 
@@ -157,6 +143,9 @@ function renderAbcNotation() {
                 // For custom instruments, parse the user's tuning string and pass
                 // it to abcjs. For custom banjo, the user writes the drone first
                 // (e.g. "gDGBd") so we rotate it to the end for ascending order.
+                // We only pass a custom tuning when it has at least 2 valid notes —
+                // partial input (mid-typing/deleting) falls back to the default
+                // tuning to avoid crashing abcjs.
                 if (isCustom && tuningInput.value.trim()) {
                     var parsed = parseTuning(tuningInput.value.trim());
                     if (parsed.length >= 2) {
@@ -164,63 +153,41 @@ function renderAbcNotation() {
                             parsed.push(parsed.shift());
                         }
                         tabConfig.tuning = parsed;
-                        stringsInput.value = parsed.length;
                     }
+                }
+                // If no valid custom tuning was set, don't render tablature at all
+                // to prevent abcjs from crashing on invalid/partial input
+                if (isCustom && !tabConfig.tuning) {
+                    options.tablature = undefined;
+                    abcjs.renderAbc(el, el.dataset.abc, options);
+                    return;
                 }
 
                 options.tablature = [tabConfig];
             } else {
                 select.style.display = 'none';
                 droneLabel.style.display = 'none';
-                stringsLabel.style.display = 'none';
                 tuningLabel.style.display = 'none';
             }
             try {
+                el.innerHTML = '';
                 abcjs.renderAbc(el, el.dataset.abc, options);
             } catch (e) {
                 console.error('Tablature render error:', e);
+                el.innerHTML = '';
                 abcjs.renderAbc(el, el.dataset.abc, { responsive: 'resize' });
             }
         }
 
-        var defaults = {
-            2: 'DA',                     // fiddle duo
-            3: 'GDA',                    // balalaika
-            4: 'G,DAe',                  // fiddle / mandolin
-            5: 'C,G,DAe',               // 5-string fiddle
-            6: 'E,A,DGBe',              // guitar
-            7: "B,,E,A,DGBe",           // 7-string guitar (low B)
-            8: "F#,,B,,E,A,DGBe",       // 8-string guitar
-            9: "C#,,F#,,B,,E,A,DGBe",   // 9-string guitar
-            10: "G#,,,C#,,F#,,B,,E,A,DGBe", // 10-string guitar
-        };
-        var banjoDefaults = {
-            2: 'gd',                     // 2-string drone+melody
-            3: 'gDd',                    // 3-string drone
-            4: 'gDAd',                   // tenor banjo + drone
-            5: 'gDGBd',                 // standard 5-string
-            6: 'gG,DGBd',              // 6-string banjo (low G added)
-            7: 'gE,G,DGBd',            // 7-string (low E + low G added)
-            8: 'gC,E,G,DGBd',          // 8-string
-            9: 'gA,,C,E,G,DGBd',       // 9-string
-            10: 'gF,,A,,C,E,G,DGBd',   // 10-string
-        };
-
-        stringsInput.addEventListener('change', function() {
-            var n = parseInt(stringsInput.value) || 4;
-            var isBanjo = select.value.indexOf('customBanjo') === 0;
-            var defs = isBanjo ? banjoDefaults : defaults;
-            tuningInput.value = defs[n] || '';
-            rerender();
-        });
-
-        var tuningTimeout = null;
         checkbox.addEventListener('change', rerender);
         select.addEventListener('change', rerender);
         droneCheckbox.addEventListener('change', rerender);
-        tuningInput.addEventListener('input', function() {
-            clearTimeout(tuningTimeout);
-            tuningTimeout = setTimeout(rerender, 500);
+        // Only re-render custom tuning on blur (tab/click away) or Enter key,
+        // not on every keystroke — repeated rapid renders with changing tunings
+        // can crash abcjs due to accumulated internal state.
+        tuningInput.addEventListener('change', rerender);
+        tuningInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') { e.preventDefault(); rerender(); }
         });
     });
 }

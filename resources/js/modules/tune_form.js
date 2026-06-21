@@ -278,7 +278,6 @@ window.tuneForm = function(config) {
         showTablature: false,
         tabInstrument: 'fiddle',
         frettedDrone: false,
-        customStrings: 4,
         customTuning: '',
 
         // Playback state
@@ -370,10 +369,16 @@ window.tuneForm = function(config) {
                             parsed.push(parsed.shift());
                         }
                         tabConfig.tuning = parsed;
-                        this.customStrings = parsed.length;
                     }
                 }
-                renderOptions.tablature = [tabConfig];
+                // If no valid custom tuning was set, skip tablature rendering
+                // to prevent abcjs from crashing on invalid/partial input
+                var isCustom = instrument === 'custom' || instrument.indexOf('customBanjo') === 0;
+                if (isCustom && !tabConfig.tuning) {
+                    // Render without tablature while user is typing
+                } else {
+                    renderOptions.tablature = [tabConfig];
+                }
             }
 
             // Render sheet music to canvas div
@@ -520,25 +525,6 @@ window.tuneForm = function(config) {
         },
 
         // ─── Default tuning by string count ─────────────────────────────
-        defaultTunings: {
-            2: 'DA', 3: 'GDA', 4: 'G,DAe', 5: 'C,G,DAe',
-            6: 'E,A,DGBe', 7: 'B,,E,A,DGBe', 8: 'F#,,B,,E,A,DGBe',
-            9: 'C#,,F#,,B,,E,A,DGBe', 10: 'G#,,,C#,,F#,,B,,E,A,DGBe',
-        },
-        banjoDefaultTunings: {
-            2: 'gd', 3: 'gDd', 4: 'gDAd', 5: 'gDGBd',
-            6: 'gG,DGBd', 7: 'gE,G,DGBd', 8: 'gC,E,G,DGBd',
-            9: 'gA,,C,E,G,DGBd', 10: 'gF,,A,,C,E,G,DGBd',
-        },
-
-        updateCustomStrings() {
-            var defs = this.tabInstrument.startsWith('customBanjo') ? this.banjoDefaultTunings : this.defaultTunings;
-            if (defs[this.customStrings]) {
-                this.customTuning = defs[this.customStrings];
-            }
-            this.renderAbc();
-        },
-
         // ─── Parse tuning string into ABC note array ────────────────────
         parseTuningString(str) {
             var notes = [];

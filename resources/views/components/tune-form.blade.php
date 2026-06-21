@@ -202,19 +202,12 @@
             </label>
             <label class="flex items-center gap-1 text-sm"
                 x-show="showTablature && (tabInstrument === 'custom' || tabInstrument.startsWith('customBanjo'))">
-                Strings:
-                <input type="number" min="2" max="12"
-                    class="input input-bordered input-sm w-16"
-                    x-model.number="customStrings"
-                    @change="updateCustomStrings()">
-            </label>
-            <label class="flex items-center gap-1 text-sm"
-                x-show="showTablature && (tabInstrument === 'custom' || tabInstrument.startsWith('customBanjo'))">
                 Tuning:
                 <input type="text" placeholder="e.g. G,DAe"
                     class="input input-bordered input-sm w-32"
                     x-model="customTuning"
-                    @input.debounce.500ms="renderAbc()"
+                    @change="renderAbc()"
+                    @keydown.enter.prevent="renderAbc()"
                     :placeholder="tabInstrument.startsWith('customBanjo') ? 'e.g. gDGBd (drone first)' : 'e.g. G,DAe'"
             </label>
         </div>
