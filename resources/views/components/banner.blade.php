@@ -1,4 +1,4 @@
 <!-- Banner -->
-<div class="w-full">
-    <img src="/images/music_scroll_4.png" alt="Tuneopedia Banner" class="block w-full" />
+<div class="w-full bg-base-300 py-6 text-center">
+    <h1 class="text-5xl font-bold tracking-wide">Tuneopedia</h1>
 </div>

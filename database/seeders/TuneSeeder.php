@@ -15,54 +15,50 @@ class TuneSeeder extends Seeder
         DB::table('tune_types')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-        $dir = base_path('abc_files/fiddlers_companion/fixed');
-        $files = glob($dir.'/*.abc');
-        $blocks = [];
+        $files = [
+            base_path('abc_files/nhcountrydance.abc'),
+            base_path('abc_files/cocks-northumberland-1.abc'),
+            base_path('abc_files/cocks-northumberland-2.abc'),
+        ];
 
+        $blocks = [];
         foreach ($files as $filePath) {
             $content = file_get_contents($filePath);
             $fileBlocks = preg_split('/(?=^X:\s*\d+)/m', $content);
-            $fileBlocks = array_filter($fileBlocks, fn ($b) => preg_match('/^X:\s*\d+/m', $b));
+            $fileBlocks = array_filter(
+                $fileBlocks,
+                fn ($b) => preg_match('/^X:\s*\d+/m', $b)
+            );
             $blocks = array_merge($blocks, $fileBlocks);
         }
 
         $tuneTypeCache = [];
-        $tuneCache = []; // keyed by "name|tuneTypeId" to find existing tunes
+        $tuneCache = [];
         $tunesInserted = 0;
         $settingsInserted = 0;
 
         foreach ($blocks as $block) {
-            // Only process blocks that contain ABC notation (have X: field)
             if (! preg_match('/^X:\s*\d+/m', $block)) {
                 continue;
             }
 
             $tune = $this->parseAbcBlock($block);
-            if (! $tune) {
-                continue;
-            }
-            if (! $tune['title']) {
-                continue;
-            }
-            if (! $tune['rhythm']) {
+            if (! $tune || ! $tune['title']) {
                 continue;
             }
 
-            // Skip tunes without valid ABC notation
-            if (! $tune['abc_body'] || ! str_contains($tune['abc_body'], '|')) {
-                continue;
-            }
+            // Default rhythm to Reel if not specified
+            $rhythm = $tune['rhythm']
+                ? ucfirst(strtolower(trim($tune['rhythm'])))
+                : 'Reel';
 
-            // Get or create tune type
-            $rhythm = ucfirst(strtolower(trim($tune['rhythm'])));
             if (! isset($tuneTypeCache[$rhythm])) {
                 $id = DB::table('tune_types')->insertGetId(['name' => $rhythm]);
                 $tuneTypeCache[$rhythm] = $id;
             }
             $tuneTypeId = $tuneTypeCache[$rhythm];
 
-            // Look up existing tune by name and type, or create a new one
-            $tuneCacheKey = $tune['title'].'|'.$tuneTypeId;
+            $tuneCacheKey = $tune['title'] . '|' . $tuneTypeId;
             if (isset($tuneCache[$tuneCacheKey])) {
                 $tuneId = $tuneCache[$tuneCacheKey];
             } else {
@@ -91,7 +87,10 @@ class TuneSeeder extends Seeder
             $settingsInserted++;
         }
 
-        $this->command->info("Seeded {$tunesInserted} tunes with {$settingsInserted} settings across ".count($tuneTypeCache).' tune types.');
+        $this->command->info(
+            "Seeded {$tunesInserted} tunes with {$settingsInserted} settings "
+            . 'across ' . count($tuneTypeCache) . ' tune types.'
+        );
     }
 
     private function parseAbcBlock(string $block): array
@@ -118,7 +117,6 @@ class TuneSeeder extends Seeder
                 continue;
             }
 
-            // Header fields
             if (preg_match('/^T:\s*(.+)/', $line, $m) && ! $tune['title']) {
                 $tune['title'] = trim($m[1]);
             } elseif (preg_match('/^R:\s*(.+)/', $line, $m)) {
@@ -141,7 +139,7 @@ class TuneSeeder extends Seeder
             } elseif (preg_match('/^X:\s*/', $line)) {
                 // Skip index line
             } elseif ($inBody && ! preg_match('/^[A-Za-z]:\s*/', $line)) {
-                $tune['abc_body'] .= $line."\n";
+                $tune['abc_body'] .= $line . "\n";
             }
         }
 
