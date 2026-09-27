@@ -206,9 +206,9 @@
                 <input type="text" placeholder="e.g. G,DAe"
                     class="input input-bordered input-sm w-32"
                     x-model="customTuning"
-                    @change="renderAbc()"
-                    @keydown.enter.prevent="renderAbc()"
+                    @input="clearTimeout($el._debounce); $el._debounce = setTimeout(() => renderAbc(), 300)"
                     :placeholder="tabInstrument.startsWith('customBanjo') ? 'e.g. gDGBd (drone first)' : 'e.g. G,DAe'"
+                >
             </label>
         </div>
 

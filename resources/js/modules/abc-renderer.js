@@ -203,6 +203,9 @@ function renderAbcNotation() {
                 // We only pass a custom tuning when it has at least 2 valid notes —
                 // partial input (mid-typing/deleting) falls back to the default
                 // tuning to avoid crashing abcjs.
+                // Parse custom tuning if the user has typed something.
+                // Need at least 2 valid notes to override the default tuning.
+                // If fewer than 2, just use the default (don't kill tablature).
                 if (isCustom && tuningInput.value.trim()) {
                     var parsed = parseTuning(tuningInput.value.trim());
                     if (parsed.length >= 2) {
@@ -211,14 +214,6 @@ function renderAbcNotation() {
                         }
                         tabConfig.tuning = parsed;
                     }
-                }
-                // If no valid custom tuning was set, don't render tablature at all
-                // to prevent abcjs from crashing on invalid/partial input
-                if (isCustom && !tabConfig.tuning) {
-                    options.tablature = undefined;
-                    var vis = abcjs.renderAbc(el, getAbcWithMidi(), options);
-                    initMidiPlayer(vis);
-                    return;
                 }
 
                 options.tablature = [tabConfig];
@@ -230,6 +225,13 @@ function renderAbcNotation() {
             var abcString = getAbcWithMidi();
             try {
                 el.innerHTML = '';
+                // Render without tablature first to clear abcjs internal state,
+                // then re-render with tablature. Prevents crashes when the number
+                // of tablature strings changes between renders.
+                if (options.tablature) {
+                    abcjs.renderAbc(el, abcString, { responsive: 'resize' });
+                    el.innerHTML = '';
+                }
                 visualObj = abcjs.renderAbc(el, abcString, options);
             } catch (e) {
                 console.error('Tablature render error:', e);
@@ -244,12 +246,10 @@ function renderAbcNotation() {
         checkbox.addEventListener('change', rerender);
         select.addEventListener('change', rerender);
         droneCheckbox.addEventListener('change', rerender);
-        // Only re-render custom tuning on blur (tab/click away) or Enter key,
-        // not on every keystroke — repeated rapid renders with changing tunings
-        // can crash abcjs due to accumulated internal state.
-        tuningInput.addEventListener('change', rerender);
-        tuningInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') { e.preventDefault(); rerender(); }
+        var tuningDebounceTimer = null;
+        tuningInput.addEventListener('input', function() {
+            clearTimeout(tuningDebounceTimer);
+            tuningDebounceTimer = setTimeout(rerender, 500);
         });
     });
 }

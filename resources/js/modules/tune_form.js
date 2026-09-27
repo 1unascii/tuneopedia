@@ -417,14 +417,7 @@ window.tuneForm = function(config) {
                         tabConfig.tuning = parsed;
                     }
                 }
-                // If no valid custom tuning was set, skip tablature rendering
-                // to prevent abcjs from crashing on invalid/partial input
-                var isCustom = instrument === 'custom' || instrument.indexOf('customBanjo') === 0;
-                if (isCustom && !tabConfig.tuning) {
-                    // Render without tablature while user is typing
-                } else {
-                    renderOptions.tablature = [tabConfig];
-                }
+                renderOptions.tablature = [tabConfig];
             }
 
             // Render sheet music to canvas div
